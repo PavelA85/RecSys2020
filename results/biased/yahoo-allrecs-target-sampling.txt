@@ -1,0 +1,1 @@
+fold	target size	recommender system	Coverage@10	nDCG@10	P@10	Recall@10
