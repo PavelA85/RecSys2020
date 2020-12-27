@@ -61,7 +61,7 @@ public class GenerateFigure {
                         RESULTS_PATH + BIASED_PATH + ML1M + "-" + TARGET_SAMPLING_FILE,
                         RESULTS_PATH + "figure1.txt",
                         N_FOLDS,
-                        "P@10",
+                        "nDCG@10",
                         FULL_TARGET_SIZE_ML1M);
                 break;
             case 2:
