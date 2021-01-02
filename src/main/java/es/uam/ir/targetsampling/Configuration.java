@@ -85,6 +85,9 @@ public class Configuration {
                 case "rnd":
                     this.fillMode = Mode.RND;
                     break;
+                case "gender":
+                    this.fillMode = Mode.Gender;
+                    break;
                 default:
                     this.fillMode = Mode.NONE;
                     break;
