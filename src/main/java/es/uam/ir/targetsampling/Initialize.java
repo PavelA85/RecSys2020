@@ -79,11 +79,11 @@ public class Initialize {
         }
 
         Timer.start("Processing Movielens 1M...");
-        processMl1m();
+        //processMl1m();
         Timer.done("");
         
         Timer.start("Processing Yahoo R3...");
-        processYahoo();
+        //processYahoo();
         Timer.done("");
 
         //Yahoo

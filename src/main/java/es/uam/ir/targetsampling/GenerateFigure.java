@@ -9,6 +9,7 @@
 package es.uam.ir.targetsampling;
 
 import es.uam.ir.filler.Filler;
+
 import static es.uam.ir.targetsampling.Initialize.BIASED_PATH;
 import static es.uam.ir.targetsampling.Initialize.ML1M;
 import static es.uam.ir.targetsampling.Initialize.ML1M_BIASED_PROPERTIES_FILE;
@@ -20,41 +21,42 @@ import static es.uam.ir.targetsampling.TargetSampling.EXPECTED_INTERSECTION_RATI
 import static es.uam.ir.targetsampling.TargetSampling.TARGET_SAMPLING_FILE;
 import static es.uam.ir.targetsampling.TargetSampling.TIES_AT_ZERO_FILE;
 import static es.uam.ir.targetsampling.TargetSampling.TIES_FILE;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
- *
  * @author Rocío Cañamares
  * @author Pablo Castells
  */
 public class GenerateFigure {
-    
+
     public final static int FULL_TARGET_SIZE_ML1M = 2000;
     public final static int FULL_TARGET_SIZE_YAHOO = 1000;
     public final static int N_FOLDS = 5;
-    
+    private static final String[] rec_ordered = new String[]{
+            "iMF (full)"
+            , "iMF (test)"
+            , "kNN (full/test)"
+            , "Normalized kNN (full)"
+            , "Normalized kNN (test)"
+            , "Average Rating"
+            , "Popularity"
+            , "Random"
+    };
+
 
     /**
-     *
      * @param a
      * @throws FileNotFoundException
      * @throws IOException
      */
     public static void main(String a[]) throws FileNotFoundException, IOException {
-        int figure = Integer.valueOf(a[0]);
-        //int figure = 2;
+//        int figure = Integer.valueOf(a[0]);
+        int figure = 3;
         switch (figure) {
             case 1:
                 generateFigure1(
@@ -102,7 +104,7 @@ public class GenerateFigure {
                 System.out.println("Invalid figure number");
         }
     }
-    
+
     public static void generateFigure1(
             String inFile,
             String outFile,
@@ -120,7 +122,7 @@ public class GenerateFigure {
                 continue;
             }
             String recommender = colValues[2];
-            
+
             double[] value = values.get(recommender);
             if (value == null) {
                 value = new double[2];
@@ -129,15 +131,18 @@ public class GenerateFigure {
             int index = (targetSize == fullTargetSize) ? 0 : 1;
             value[index] += Double.valueOf(colValues[colMetric]);
         }
-        
+
         PrintStream out = new PrintStream(outFile);
         out.println("====================");
         out.println("Dataset: ml1m");
         out.println("====================\n");
-        
+
         out.println(metric);
         out.println("Recommender\tFull\tTest");
-        for (String recommender : values.keySet()) {
+
+        String[] recommenders = getRecommenders(values);
+
+        for (String recommender : recommenders) {
             out.print(recommender);
             for (double value : values.get(recommender)) {
                 out.print("\t" + value / nFolds);
@@ -145,7 +150,26 @@ public class GenerateFigure {
             out.println();
         }
     }
-    
+
+    private static String[] getRecommenders(Map<String, double[]> values) {
+
+        String[] recommenders = values.keySet().toArray(new String[0]);
+        Arrays.sort(recommenders, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return Integer.compare(getIndexOf(rec_ordered, o1), getIndexOf(rec_ordered, o2));
+            }
+        });
+        return recommenders;
+    }
+
+    public static int getIndexOf(String[] strings, String item) {
+        for (int i = 0; i < strings.length; i++) {
+            if (item.equals(strings[i])) return i;
+        }
+        return -1;
+    }
+
     public static void generateFigure2(
             String biasedFile,
             String unbiasedFile,
@@ -178,7 +202,7 @@ public class GenerateFigure {
                     continue;
                 }
                 String recommender = colValues[2];
-                
+
                 double[] value = values.get(metric).get(recommender);
                 if (value == null) {
                     value = new double[3];
@@ -203,25 +227,26 @@ public class GenerateFigure {
                 value[1] += Double.valueOf(colValues[i]);
             }
         }
-        
+
         PrintStream out = new PrintStream(outFile);
         out.println("====================");
         out.println("Dataset: yahoo");
         out.println("====================");
-        
+
         for (String metric : metricList) {
             out.println("\n" + metric);
             out.println("Recommender\tFull\tUnbiased\tTest");
-            for (String recommender : values.get(metric).keySet()) {
+            String[] recommenders = getRecommenders(values.get(metric));
+            for (String recommender : recommenders) {
                 out.print(recommender);
                 for (double value : values.get(metric).get(recommender)) {
                     out.print("\t" + value / nFolds);
                 }
                 out.println();
-            }            
+            }
         }
     }
-    
+
     public static void generateFigure3(
             String folder,
             String datasets[],
@@ -239,7 +264,7 @@ public class GenerateFigure {
             // Metric -> target size -> rec system -> value
             Map<String, Map<Integer, Map<String, Double>>> values = new TreeMap<String, Map<Integer, Map<String, Double>>>();
             Set<String> recommenders = new TreeSet<String>();
-            
+
             Scanner in = new Scanner(new File(inFile));
             String colHeads[] = in.nextLine().split("\t");
             for (int i = 3; i < colHeads.length; i++) {
@@ -268,18 +293,18 @@ public class GenerateFigure {
                     values.get(metric).get(targetSize).put(rec, values.get(metric).get(targetSize).get(rec) + value);
                 }
             }
-            
+
             for (String metric : metricList) {
                 out.println(metric);
                 out.print("Target size");
-                for (String rec : recommenders) {
+                for (String rec : rec_ordered) {
                     out.print("\t" + rec);
                 }
                 out.println();
                 for (int targetSize : values.get(metric).keySet()) {
-                    out.print(targetSize + "\t");
-                    for (String rec : values.get(metric).get(targetSize).keySet()) {
-                        out.print(values.get(metric).get(targetSize).get(rec) / nFolds + "\t");
+                    out.print(targetSize);
+                    for (String rec : rec_ordered) {
+                        out.print("\t" +values.get(metric).get(targetSize).get(rec) / nFolds);
                     }
                     out.println();
                 }
@@ -288,7 +313,7 @@ public class GenerateFigure {
         }
         out.close();
     }
-    
+
     public static void generateFigure4(
             String biasedFolder,
             String unbiasedFolder,
@@ -298,7 +323,7 @@ public class GenerateFigure {
         List<String> metricList = Arrays.asList(metrics);
         PrintStream out = new PrintStream(outFile);
         for (String dataset : datasets) {
-            
+
             out.println("====================");
             out.println("Dataset: " + dataset);
             out.println("====================\n");
@@ -348,7 +373,7 @@ public class GenerateFigure {
                     }
                 }
             }
-            
+
             {
                 //Expected intersection ratio in top n
                 String curve = "Expected intersection ratio in top n";
@@ -386,7 +411,7 @@ public class GenerateFigure {
             try {
                 // Metric -> rec system -> value
                 Map<String, Map<String, Double>> unbiasedValues = new TreeMap<String, Map<String, Double>>();
-                
+
                 String unbiasedFiles = unbiasedFolder + dataset + "-" + TARGET_SAMPLING_FILE;
                 Scanner unbiasedIn = new Scanner(new File(unbiasedFiles));
                 String unbiasedColHeads[] = unbiasedIn.nextLine().split("\t");
@@ -414,7 +439,7 @@ public class GenerateFigure {
 
                 // Metric -> target size -> rec system -> value
                 Map<String, Map<Integer, Map<String, Double>>> biasedValues = new TreeMap<String, Map<Integer, Map<String, Double>>>();
-                
+
                 String biasedFiles = biasedFolder + dataset + "-" + TARGET_SAMPLING_FILE;
                 Scanner biasedIn = new Scanner(new File(biasedFiles));
                 String biasedColHeads[] = biasedIn.nextLine().split("\t");
@@ -462,18 +487,18 @@ public class GenerateFigure {
                                 double unbiasedValue2 = unbiasedValues.get(metric).get(rec2);
                                 double diffBiased = biasedValue2 - biasedValue1;
                                 double diffUnBiased = unbiasedValue2 - unbiasedValue1;
-                                kendalCorrelation += Math.signum(diffBiased*diffUnBiased);
+                                kendalCorrelation += Math.signum(diffBiased * diffUnBiased);
                             }
                         }
                         kendalCorrelation *= 2 * 1.0 / (n * (n - 1));
                         values.get(metric).get(targetSize).put(curve, kendalCorrelation);
                     }
                 }
-                
+
             } catch (FileNotFoundException e) {
                 //Do nothing: there is not unbiased data, as is the case for MovieLens 1M
             }
-            
+
             {
                 //Sum of p-values
                 //Yahoo
@@ -516,8 +541,8 @@ public class GenerateFigure {
                     }
                 }
             }
-            
-            for (String metric: metricList) {
+
+            for (String metric : metricList) {
                 out.println(metric);
                 out.print("Target size");
                 for (String curve : curves) {
@@ -536,7 +561,7 @@ public class GenerateFigure {
         }
         out.close();
     }
-    
+
     public static void generateFigure5(
             String folder,
             String datasets[],
@@ -560,12 +585,12 @@ public class GenerateFigure {
             TargetSampling targetSelection = new TargetSampling(conf);
             targetSelection.runCrossValidation();
         }
-        
+
         for (int i = 0; i < datasets.length; i++) {
             datasets[i] += "-nofill";
         }
-        
+
         generateFigure3(folder, datasets, metrics, outFile, nFolds);
     }
-    
+
 }
