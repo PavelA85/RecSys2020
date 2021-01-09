@@ -55,8 +55,30 @@ public class GenerateFigure {
      * @throws IOException
      */
     public static void main(String a[]) throws FileNotFoundException, IOException {
-//        int figure = Integer.valueOf(a[0]);
-        int figure = 4;
+        List<Thread> threads = new ArrayList<>();
+        int[] figures = {1, 2, 3, 4, 5};
+        for (int f : figures) {
+            Thread thread2 = new Thread(() -> {
+                try {
+                    plotFigure(f);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            thread2.start();
+            threads.add(thread2);
+        }
+
+        threads.forEach(t -> {
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private static void plotFigure(int figure) throws IOException {
         switch (figure) {
             case 1:
                 generateFigure1(
@@ -588,7 +610,7 @@ public class GenerateFigure {
                     e.printStackTrace();
                 }
             });
-            
+
             String curve = "Sum of p-values";
             curves.add(curve);
             String inFile = biasedFolder + dataset + "-allrecs-pvalues.txt";
@@ -656,10 +678,8 @@ public class GenerateFigure {
         thread1.start();
         threads.add(thread1);
 
-
         Thread thread2 = new Thread(() -> {
             try {
-
                 //MovieLens
                 {
                     Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
