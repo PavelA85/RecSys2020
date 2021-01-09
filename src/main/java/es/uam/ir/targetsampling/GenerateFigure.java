@@ -56,7 +56,7 @@ public class GenerateFigure {
      */
     public static void main(String a[]) throws FileNotFoundException, IOException {
 //        int figure = Integer.valueOf(a[0]);
-        int figure = 3;
+        int figure = 4;
         switch (figure) {
             case 1:
                 generateFigure1(
@@ -310,6 +310,30 @@ public class GenerateFigure {
                 }
                 out.println();
             }
+
+//            for (String metric : metricList) {
+//                out.println(metric + "_rank");
+//                out.print("Target size");
+//                for (String rec : rec_ordered) {
+//                    out.print("\t" + rec);
+//                }
+//                out.println();
+//
+//                ArrayList<Object[]> dataTable = new ArrayList<Object[]>(9);
+//                for (int targetSize : values.get(metric).keySet()) {
+//                    Object[] row = new Object[13];
+//                    row[0] = targetSize;
+//                    int i = 1;
+//                    for (String rec : rec_ordered) {
+//                        Double val = values.get(metric).get(targetSize).get(rec);
+//                        row[i] = val / nFolds;
+//                        i++;
+//                    }
+//                    dataTable.add(row);
+//                }
+//
+//                //out.println();
+//            }
         }
         out.close();
     }
