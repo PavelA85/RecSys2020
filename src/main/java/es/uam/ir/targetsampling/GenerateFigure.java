@@ -111,7 +111,7 @@ public class GenerateFigure {
             int nFolds,
             String metric,
             int fullTargetSize) throws FileNotFoundException {
-        Map<String, double[]> values = new TreeMap<String, double[]>();
+        Map<String, double[]> values = new TreeMap<>();
         Scanner in = new Scanner(new File(inFile));
         String colHeads[] = in.nextLine().split("\t");
         int colMetric = Arrays.asList(colHeads).indexOf(metric);
@@ -179,7 +179,7 @@ public class GenerateFigure {
             int fullTargetSize) throws FileNotFoundException {
         List<String> metricList = Arrays.asList(metrics);
         // Metric -> -> rec system -> full, unbiased, test
-        Map<String, Map<String, double[]>> values = new TreeMap<String, Map<String, double[]>>();
+        Map<String, Map<String, double[]>> values = new TreeMap<>();
 
         //Biased file
         Scanner in = new Scanner(new File(biasedFile));
@@ -187,7 +187,7 @@ public class GenerateFigure {
         for (int i = 3; i < colHeads.length; i++) {
             String metric = colHeads[i];
             if (metricList.contains(metric)) {
-                values.put(metric, new TreeMap<String, double[]>());
+                values.put(metric, new TreeMap<>());
             }
         }
         while (in.hasNext()) {
@@ -262,15 +262,15 @@ public class GenerateFigure {
             out.println("====================\n");
 
             // Metric -> target size -> rec system -> value
-            Map<String, Map<Integer, Map<String, Double>>> values = new TreeMap<String, Map<Integer, Map<String, Double>>>();
-            Set<String> recommenders = new TreeSet<String>();
+            Map<String, Map<Integer, Map<String, Double>>> values = new TreeMap<>();
+            Set<String> recommenders = new TreeSet<>();
 
             Scanner in = new Scanner(new File(inFile));
             String colHeads[] = in.nextLine().split("\t");
             for (int i = 3; i < colHeads.length; i++) {
                 String metric = colHeads[i];
                 if (metricList.contains(metric)) {
-                    values.put(metric, new TreeMap<Integer, Map<String, Double>>());
+                    values.put(metric, new TreeMap<>());
                 }
             }
             while (in.hasNext()) {
@@ -285,7 +285,7 @@ public class GenerateFigure {
                     }
                     double value = new Double(colValues[i]);
                     if (!values.get(metric).containsKey(targetSize)) {
-                        values.get(metric).put(targetSize, new TreeMap<String, Double>());
+                        values.get(metric).put(targetSize, new TreeMap<>());
                     }
                     if (!values.get(metric).get(targetSize).containsKey(rec)) {
                         values.get(metric).get(targetSize).put(rec, 0.0);
@@ -304,7 +304,7 @@ public class GenerateFigure {
                 for (int targetSize : values.get(metric).keySet()) {
                     out.print(targetSize);
                     for (String rec : rec_ordered) {
-                        out.print("\t" +values.get(metric).get(targetSize).get(rec) / nFolds);
+                        out.print("\t" + values.get(metric).get(targetSize).get(rec) / nFolds);
                     }
                     out.println();
                 }
@@ -344,244 +344,264 @@ public class GenerateFigure {
             String datasets[],
             String metrics[],
             String outFile, int nFolds) throws FileNotFoundException, IOException {
-        List<String> metricList = Arrays.asList(metrics);
-        PrintStream out = new PrintStream(outFile);
+        List<Thread> threads = new ArrayList<>();
         for (String dataset : datasets) {
+            Thread thread = new Thread(() -> {
+                try {
+                    generateFigure4_sub(biasedFolder, unbiasedFolder, metrics, outFile, nFolds, dataset);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            thread.start();
+            threads.add(thread);
+        }
 
-            out.println("====================");
-            out.println("Dataset: " + dataset);
-            out.println("====================\n");
+        threads.forEach(thread -> {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
-            // Metric -> target size -> curve -> value
-            Map<String, Map<Integer, Map<String, Double>>> values = new TreeMap<String, Map<Integer, Map<String, Double>>>();
-            // Metric -> target size -> curve -> count
-            Map<String, Map<Integer, Map<String, Integer>>> counts = new TreeMap<String, Map<Integer, Map<String, Integer>>>();
-            Set<String> curves = new TreeSet<String>();
+    private static void generateFigure4_sub(String biasedFolder, String unbiasedFolder, String[] metrics, String outFile, int nFolds, String dataset) throws IOException {
+        List<String> metricList = Arrays.asList(metrics + "." + dataset + ".txt");
+        PrintStream out = new PrintStream(outFile);
+        out.println("====================");
+        out.println("Dataset: " + dataset);
+        out.println("====================\n");
 
-            //Ratio of ties & Ratio of ties at zero
-            //curve -> input file
-            Map<String, String> curveFiles = new HashMap<>();
-            curveFiles.put("Ratio of ties", biasedFolder + dataset + "-" + TIES_FILE);
-            curveFiles.put("Ratio of ties at zero", biasedFolder + dataset + "-" + TIES_AT_ZERO_FILE);
-            for (String curve : curveFiles.keySet()) {
-                curves.add(curve);
-                String inFile = curveFiles.get(curve);
-                Scanner in = new Scanner(new File(inFile));
-                String colHeads[] = in.nextLine().split("\t");
-                for (int i = 3; i < colHeads.length; i++) {
+        // Metric -> target size -> curve -> value
+        Map<String, Map<Integer, Map<String, Double>>> values = new TreeMap<>();
+        // Metric -> target size -> curve -> count
+        Map<String, Map<Integer, Map<String, Integer>>> counts = new TreeMap<>();
+        Set<String> curves = new TreeSet<>();
+
+        //Ratio of ties & Ratio of ties at zero
+        //curve -> input file
+        Map<String, String> curveFiles = new HashMap<>();
+        curveFiles.put("Ratio of ties", biasedFolder + dataset + "-" + TIES_FILE);
+        curveFiles.put("Ratio of ties at zero", biasedFolder + dataset + "-" + TIES_AT_ZERO_FILE);
+        for (String curve : curveFiles.keySet()) {
+            curves.add(curve);
+            String inFile = curveFiles.get(curve);
+            Scanner in = new Scanner(new File(inFile));
+            String colHeads[] = in.nextLine().split("\t");
+            for (int i = 3; i < colHeads.length; i++) {
+                String metric = colHeads[i];
+                if (metricList.contains(metric) && !values.containsKey(metric)) {
+                    values.put(metric, new TreeMap<>());
+                    counts.put(metric, new TreeMap<>());
+                }
+            }
+            while (in.hasNext()) {
+                String colValues[] = in.nextLine().split("\t");
+                int targetSize = new Integer(colValues[0]);
+                for (int i = 3; i < colValues.length; i++) {
                     String metric = colHeads[i];
-                    if (metricList.contains(metric) && !values.containsKey(metric)) {
-                        values.put(metric, new TreeMap<Integer, Map<String, Double>>());
-                        counts.put(metric, new TreeMap<Integer, Map<String, Integer>>());
+                    if (!metricList.contains(metric)) {
+                        continue;
                     }
+                    double value = new Double(colValues[i]);
+                    if (!values.get(metric).containsKey(targetSize)) {
+                        values.get(metric).put(targetSize, new TreeMap<>());
+                        counts.get(metric).put(targetSize, new TreeMap<>());
+                    }
+                    if (!values.get(metric).get(targetSize).containsKey(curve)) {
+                        values.get(metric).get(targetSize).put(curve, 0.0);
+                        counts.get(metric).get(targetSize).put(curve, 0);
+                    }
+                    values.get(metric).get(targetSize).put(curve, values.get(metric).get(targetSize).get(curve) + value);
+                    counts.get(metric).get(targetSize).put(curve, counts.get(metric).get(targetSize).get(curve) + 1);
                 }
-                while (in.hasNext()) {
-                    String colValues[] = in.nextLine().split("\t");
-                    int targetSize = new Integer(colValues[0]);
-                    for (int i = 3; i < colValues.length; i++) {
-                        String metric = colHeads[i];
-                        if (!metricList.contains(metric)) {
-                            continue;
-                        }
-                        double value = new Double(colValues[i]);
-                        if (!values.get(metric).containsKey(targetSize)) {
-                            values.get(metric).put(targetSize, new TreeMap<String, Double>());
-                            counts.get(metric).put(targetSize, new TreeMap<String, Integer>());
-                        }
-                        if (!values.get(metric).get(targetSize).containsKey(curve)) {
-                            values.get(metric).get(targetSize).put(curve, 0.0);
-                            counts.get(metric).get(targetSize).put(curve, 0);
-                        }
-                        values.get(metric).get(targetSize).put(curve, values.get(metric).get(targetSize).get(curve) + value);
-                        counts.get(metric).get(targetSize).put(curve, counts.get(metric).get(targetSize).get(curve) + 1);
+            }
+        }
+
+        {
+            //Expected intersection ratio in top n
+            String curve = "Expected intersection ratio in top n";
+            curves.add(curve);
+            String inFile = biasedFolder + dataset + "-" + EXPECTED_INTERSECTION_RATIO_FILE;
+            Scanner in = new Scanner(new File(inFile));
+            in.nextLine();
+            while (in.hasNext()) {
+                String colValues[] = in.nextLine().split("\t");
+                int targetSize = new Integer(colValues[1]);
+                double expectation = new Double(colValues[2]);
+                for (String metric : values.keySet()) {
+                    if (!values.get(metric).get(targetSize).containsKey(curve)) {
+                        values.get(metric).get(targetSize).put(curve, 0.0);
+                        counts.get(metric).get(targetSize).put(curve, 0);
                     }
+                    values.get(metric).get(targetSize).put(curve, values.get(metric).get(targetSize).get(curve) + expectation);
+                    counts.get(metric).get(targetSize).put(curve, counts.get(metric).get(targetSize).get(curve) + 1);
+                }
+            }
+        }
+
+        //Average
+        for (String metric : values.keySet()) {
+            for (int targetSize : values.get(metric).keySet()) {
+                for (String curve : values.get(metric).get(targetSize).keySet()) {
+                    double value = values.get(metric).get(targetSize).get(curve);
+                    int count = counts.get(metric).get(targetSize).get(curve);
+                    values.get(metric).get(targetSize).put(curve, value / count);
+                }
+            }
+        }
+
+        //Curve: Correlation with unbiased evaluation
+        try {
+            // Metric -> rec system -> value
+            Map<String, Map<String, Double>> unbiasedValues = new TreeMap<>();
+
+            String unbiasedFiles = unbiasedFolder + dataset + "-" + TARGET_SAMPLING_FILE;
+            Scanner unbiasedIn = new Scanner(new File(unbiasedFiles));
+            String unbiasedColHeads[] = unbiasedIn.nextLine().split("\t");
+            for (int i = 2; i < unbiasedColHeads.length; i++) {
+                String metric = unbiasedColHeads[i];
+                if (metricList.contains(metric)) {
+                    unbiasedValues.put(metric, new TreeMap<>());
+                }
+            }
+            while (unbiasedIn.hasNext()) {
+                String colValues[] = unbiasedIn.nextLine().split("\t");
+                String rec = colValues[2];
+                for (int i = 3; i < colValues.length; i++) {
+                    String metric = unbiasedColHeads[i];
+                    if (!metricList.contains(metric)) {
+                        continue;
+                    }
+                    double value = new Double(colValues[i]);
+                    if (!unbiasedValues.get(metric).containsKey(rec)) {
+                        unbiasedValues.get(metric).put(rec, 0.0);
+                    }
+                    unbiasedValues.get(metric).put(rec, unbiasedValues.get(metric).get(rec) + value);
                 }
             }
 
-            {
-                //Expected intersection ratio in top n
-                String curve = "Expected intersection ratio in top n";
-                curves.add(curve);
-                String inFile = biasedFolder + dataset + "-" + EXPECTED_INTERSECTION_RATIO_FILE;
-                Scanner in = new Scanner(new File(inFile));
-                in.nextLine();
-                while (in.hasNext()) {
-                    String colValues[] = in.nextLine().split("\t");
-                    int targetSize = new Integer(colValues[1]);
-                    double expectation = new Double(colValues[2]);
-                    for (String metric : values.keySet()) {
-                        if (!values.get(metric).get(targetSize).containsKey(curve)) {
-                            values.get(metric).get(targetSize).put(curve, 0.0);
-                            counts.get(metric).get(targetSize).put(curve, 0);
-                        }
-                        values.get(metric).get(targetSize).put(curve, values.get(metric).get(targetSize).get(curve) + expectation);
-                        counts.get(metric).get(targetSize).put(curve, counts.get(metric).get(targetSize).get(curve) + 1);
+            // Metric -> target size -> rec system -> value
+            Map<String, Map<Integer, Map<String, Double>>> biasedValues = new TreeMap<>();
+
+            String biasedFiles = biasedFolder + dataset + "-" + TARGET_SAMPLING_FILE;
+            Scanner biasedIn = new Scanner(new File(biasedFiles));
+            String biasedColHeads[] = biasedIn.nextLine().split("\t");
+            for (int i = 2; i < biasedColHeads.length; i++) {
+                String metric = biasedColHeads[i];
+                if (metricList.contains(metric)) {
+                    biasedValues.put(metric, new TreeMap<>());
+                }
+            }
+            while (biasedIn.hasNext()) {
+                String colValues[] = biasedIn.nextLine().split("\t");
+                int targetSize = new Integer(colValues[1]);
+                String rec = colValues[2];
+                for (int i = 3; i < colValues.length; i++) {
+                    String metric = biasedColHeads[i];
+                    if (!metricList.contains(metric)) {
+                        continue;
                     }
+                    double value = new Double(colValues[i]);
+                    if (!biasedValues.get(metric).containsKey(targetSize)) {
+                        biasedValues.get(metric).put(targetSize, new TreeMap<>());
+                    }
+                    if (!biasedValues.get(metric).get(targetSize).containsKey(rec)) {
+                        biasedValues.get(metric).get(targetSize).put(rec, 0.0);
+                    }
+                    biasedValues.get(metric).get(targetSize).put(rec, biasedValues.get(metric).get(targetSize).get(rec) + value / nFolds);
                 }
             }
 
-            //Average
+            //Compute kendal correlation
+            String curve = "Correlation with unbiased evaluation";
+            curves.add(curve);
             for (String metric : values.keySet()) {
                 for (int targetSize : values.get(metric).keySet()) {
-                    for (String curve : values.get(metric).get(targetSize).keySet()) {
-                        double value = values.get(metric).get(targetSize).get(curve);
-                        int count = counts.get(metric).get(targetSize).get(curve);
-                        values.get(metric).get(targetSize).put(curve, value / count);
+                    double kendalCorrelation = 0.0;
+                    List<String> recommenders = new ArrayList<>(biasedValues.get(metric).get(targetSize).keySet());
+                    int n = recommenders.size();
+                    for (int i = 0; i < n; i++) {
+                        String rec1 = recommenders.get(i);
+                        double biasedValue1 = biasedValues.get(metric).get(targetSize).get(rec1);
+                        double unbiasedValue1 = unbiasedValues.get(metric).get(rec1);
+                        for (int j = i + 1; j < n; j++) {
+                            String rec2 = recommenders.get(j);
+                            double biasedValue2 = biasedValues.get(metric).get(targetSize).get(rec2);
+                            double unbiasedValue2 = unbiasedValues.get(metric).get(rec2);
+                            double diffBiased = biasedValue2 - biasedValue1;
+                            double diffUnBiased = unbiasedValue2 - unbiasedValue1;
+                            kendalCorrelation += Math.signum(diffBiased * diffUnBiased);
+                        }
                     }
+                    kendalCorrelation *= 2 * 1.0 / (n * (n - 1));
+                    values.get(metric).get(targetSize).put(curve, kendalCorrelation);
                 }
             }
 
-            //Curve: Correlation with unbiased evaluation
-            try {
-                // Metric -> rec system -> value
-                Map<String, Map<String, Double>> unbiasedValues = new TreeMap<String, Map<String, Double>>();
+        } catch (FileNotFoundException e) {
+            //Do nothing: there is not unbiased data, as is the case for MovieLens 1M
+        }
 
-                String unbiasedFiles = unbiasedFolder + dataset + "-" + TARGET_SAMPLING_FILE;
-                Scanner unbiasedIn = new Scanner(new File(unbiasedFiles));
-                String unbiasedColHeads[] = unbiasedIn.nextLine().split("\t");
-                for (int i = 2; i < unbiasedColHeads.length; i++) {
-                    String metric = unbiasedColHeads[i];
-                    if (metricList.contains(metric)) {
-                        unbiasedValues.put(metric, new TreeMap<String, Double>());
-                    }
-                }
-                while (unbiasedIn.hasNext()) {
-                    String colValues[] = unbiasedIn.nextLine().split("\t");
-                    String rec = colValues[2];
-                    for (int i = 3; i < colValues.length; i++) {
-                        String metric = unbiasedColHeads[i];
-                        if (!metricList.contains(metric)) {
-                            continue;
-                        }
-                        double value = new Double(colValues[i]);
-                        if (!unbiasedValues.get(metric).containsKey(rec)) {
-                            unbiasedValues.get(metric).put(rec, 0.0);
-                        }
-                        unbiasedValues.get(metric).put(rec, unbiasedValues.get(metric).get(rec) + value);
-                    }
-                }
-
-                // Metric -> target size -> rec system -> value
-                Map<String, Map<Integer, Map<String, Double>>> biasedValues = new TreeMap<String, Map<Integer, Map<String, Double>>>();
-
-                String biasedFiles = biasedFolder + dataset + "-" + TARGET_SAMPLING_FILE;
-                Scanner biasedIn = new Scanner(new File(biasedFiles));
-                String biasedColHeads[] = biasedIn.nextLine().split("\t");
-                for (int i = 2; i < biasedColHeads.length; i++) {
-                    String metric = biasedColHeads[i];
-                    if (metricList.contains(metric)) {
-                        biasedValues.put(metric, new TreeMap<Integer, Map<String, Double>>());
-                    }
-                }
-                while (biasedIn.hasNext()) {
-                    String colValues[] = biasedIn.nextLine().split("\t");
-                    int targetSize = new Integer(colValues[1]);
-                    String rec = colValues[2];
-                    for (int i = 3; i < colValues.length; i++) {
-                        String metric = biasedColHeads[i];
-                        if (!metricList.contains(metric)) {
-                            continue;
-                        }
-                        double value = new Double(colValues[i]);
-                        if (!biasedValues.get(metric).containsKey(targetSize)) {
-                            biasedValues.get(metric).put(targetSize, new TreeMap<String, Double>());
-                        }
-                        if (!biasedValues.get(metric).get(targetSize).containsKey(rec)) {
-                            biasedValues.get(metric).get(targetSize).put(rec, 0.0);
-                        }
-                        biasedValues.get(metric).get(targetSize).put(rec, biasedValues.get(metric).get(targetSize).get(rec) + value / nFolds);
-                    }
-                }
-
-                //Compute kendal correlation
-                String curve = "Correlation with unbiased evaluation";
-                curves.add(curve);
-                for (String metric : values.keySet()) {
-                    for (int targetSize : values.get(metric).keySet()) {
-                        double kendalCorrelation = 0.0;
-                        List<String> recommenders = new ArrayList<>(biasedValues.get(metric).get(targetSize).keySet());
-                        int n = recommenders.size();
-                        for (int i = 0; i < n; i++) {
-                            String rec1 = recommenders.get(i);
-                            double biasedValue1 = biasedValues.get(metric).get(targetSize).get(rec1);
-                            double unbiasedValue1 = unbiasedValues.get(metric).get(rec1);
-                            for (int j = i + 1; j < n; j++) {
-                                String rec2 = recommenders.get(j);
-                                double biasedValue2 = biasedValues.get(metric).get(targetSize).get(rec2);
-                                double unbiasedValue2 = unbiasedValues.get(metric).get(rec2);
-                                double diffBiased = biasedValue2 - biasedValue1;
-                                double diffUnBiased = unbiasedValue2 - unbiasedValue1;
-                                kendalCorrelation += Math.signum(diffBiased * diffUnBiased);
-                            }
-                        }
-                        kendalCorrelation *= 2 * 1.0 / (n * (n - 1));
-                        values.get(metric).get(targetSize).put(curve, kendalCorrelation);
-                    }
-                }
-
-            } catch (FileNotFoundException e) {
-                //Do nothing: there is not unbiased data, as is the case for MovieLens 1M
-            }
-
+        {
+            //Sum of p-values
+            //Yahoo
             {
-                //Sum of p-values
-                //Yahoo
-                {
-                    Configuration conf = new Configuration(YAHOO_BIASED_PROPERTIES_FILE);
-                    conf.setAllRecs(true);
-                    conf.setResultsPath(conf.getResultsPath() + "allrecs-");
-                    TargetSampling targetSelection = new TargetSampling(conf);
-                    targetSelection.runCrossValidation();
-                }
-
-                //MovieLens
-                {
-                    Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
-                    conf.setAllRecs(true);
-                    conf.setResultsPath(conf.getResultsPath() + "allrecs-");
-                    TargetSampling targetSelection = new TargetSampling(conf);
-                    targetSelection.runCrossValidation();
-                }
-
-                String curve = "Sum of p-values";
-                curves.add(curve);
-                String inFile = biasedFolder + dataset + "-allrecs-pvalues.txt";
-                Scanner in = new Scanner(new File(inFile));
-                String colHeads[] = in.nextLine().split("\t");
-                while (in.hasNext()) {
-                    String colValues[] = in.nextLine().split("\t");
-                    int targetSize = new Integer(colValues[0]);
-                    for (int i = 3; i < colValues.length; i++) {
-                        String metric = colHeads[i];
-                        if (!metricList.contains(metric)) {
-                            continue;
-                        }
-                        double value = new Double(colValues[i]);
-                        if (!values.get(metric).get(targetSize).containsKey(curve)) {
-                            values.get(metric).get(targetSize).put(curve, 0.0);
-                            counts.get(metric).get(targetSize).put(curve, 0);
-                        }
-                        values.get(metric).get(targetSize).put(curve, values.get(metric).get(targetSize).get(curve) + value);
-                    }
-                }
+                Configuration conf = new Configuration(YAHOO_BIASED_PROPERTIES_FILE);
+                conf.setAllRecs(true);
+                conf.setResultsPath(conf.getResultsPath() + "allrecs-");
+                TargetSampling targetSelection = new TargetSampling(conf);
+                targetSelection.runCrossValidation();
             }
 
-            for (String metric : metricList) {
-                out.println(metric);
-                out.print("Target size");
-                for (String curve : curves) {
-                    out.print("\t" + curve);
-                }
-                out.println();
-                for (int targetSize : values.get(metric).keySet()) {
-                    out.print(targetSize + "\t");
-                    for (String curve : values.get(metric).get(targetSize).keySet()) {
-                        out.print(values.get(metric).get(targetSize).get(curve) + "\t");
+            //MovieLens
+            {
+                Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
+                conf.setAllRecs(true);
+                conf.setResultsPath(conf.getResultsPath() + "allrecs-");
+                TargetSampling targetSelection = new TargetSampling(conf);
+                targetSelection.runCrossValidation();
+            }
+
+            String curve = "Sum of p-values";
+            curves.add(curve);
+            String inFile = biasedFolder + dataset + "-allrecs-pvalues.txt";
+            Scanner in = new Scanner(new File(inFile));
+            String colHeads[] = in.nextLine().split("\t");
+            while (in.hasNext()) {
+                String colValues[] = in.nextLine().split("\t");
+                int targetSize = new Integer(colValues[0]);
+                for (int i = 3; i < colValues.length; i++) {
+                    String metric = colHeads[i];
+                    if (!metricList.contains(metric)) {
+                        continue;
                     }
-                    out.println();
+                    double value = new Double(colValues[i]);
+                    if (!values.get(metric).get(targetSize).containsKey(curve)) {
+                        values.get(metric).get(targetSize).put(curve, 0.0);
+                        counts.get(metric).get(targetSize).put(curve, 0);
+                    }
+                    values.get(metric).get(targetSize).put(curve, values.get(metric).get(targetSize).get(curve) + value);
+                }
+            }
+        }
+
+        for (String metric : metricList) {
+            out.println(metric);
+            out.print("Target size");
+            for (String curve : curves) {
+                out.print("\t" + curve);
+            }
+            out.println();
+            for (int targetSize : values.get(metric).keySet()) {
+                out.print(targetSize + "\t");
+                for (String curve : values.get(metric).get(targetSize).keySet()) {
+                    out.print(values.get(metric).get(targetSize).get(curve) + "\t");
                 }
                 out.println();
             }
+            out.println();
         }
         out.close();
     }
@@ -592,28 +612,56 @@ public class GenerateFigure {
             String metrics[],
             String outFile,
             int nFolds) throws FileNotFoundException, IOException {
-        //Yahoo
-        {
-            Configuration conf = new Configuration(YAHOO_BIASED_PROPERTIES_FILE);
-            conf.setFillMode(Filler.Mode.NONE);
-            conf.setResultsPath(conf.getResultsPath() + "nofill-");
-            TargetSampling targetSelection = new TargetSampling(conf);
-            targetSelection.runCrossValidation();
-        }
 
-        //MovieLens
-        {
-            Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
-            conf.setFillMode(Filler.Mode.NONE);
-            conf.setResultsPath(conf.getResultsPath() + "nofill-");
-            TargetSampling targetSelection = new TargetSampling(conf);
-            targetSelection.runCrossValidation();
-        }
+        List<Thread> threads = new ArrayList<>();
+        Thread thread1 = new Thread(() -> {
+            try {
+                //Yahoo
+                {
+                    Configuration conf = new Configuration(YAHOO_BIASED_PROPERTIES_FILE);
+                    conf.setFillMode(Filler.Mode.NONE);
+                    conf.setResultsPath(conf.getResultsPath() + "nofill-");
+                    TargetSampling targetSelection = new TargetSampling(conf);
+                    targetSelection.runCrossValidation();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        thread1.start();
+        threads.add(thread1);
+
+
+        Thread thread2 = new Thread(() -> {
+            try {
+
+                //MovieLens
+                {
+                    Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
+                    conf.setFillMode(Filler.Mode.NONE);
+                    conf.setResultsPath(conf.getResultsPath() + "nofill-");
+                    TargetSampling targetSelection = new TargetSampling(conf);
+                    targetSelection.runCrossValidation();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        thread2.start();
+        threads.add(thread2);
+
 
         for (int i = 0; i < datasets.length; i++) {
             datasets[i] += "-nofill";
         }
 
+        threads.forEach(t -> {
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
         generateFigure3(folder, datasets, metrics, outFile, nFolds);
     }
 
