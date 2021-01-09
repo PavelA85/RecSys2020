@@ -389,8 +389,8 @@ public class GenerateFigure {
     }
 
     private static void generateFigure4_sub(String biasedFolder, String unbiasedFolder, String[] metrics, String outFile, int nFolds, String dataset) throws IOException {
-        List<String> metricList = Arrays.asList(metrics + "." + dataset + ".txt");
-        PrintStream out = new PrintStream(outFile);
+        List<String> metricList = Arrays.asList(metrics);
+        PrintStream out = new PrintStream(outFile + "." + dataset + ".txt");
         out.println("====================");
         out.println("Dataset: " + dataset);
         out.println("====================\n");
