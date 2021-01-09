@@ -546,24 +546,49 @@ public class GenerateFigure {
 
         {
             //Sum of p-values
-            //Yahoo
-            {
-                Configuration conf = new Configuration(YAHOO_BIASED_PROPERTIES_FILE);
-                conf.setAllRecs(true);
-                conf.setResultsPath(conf.getResultsPath() + "allrecs-");
-                TargetSampling targetSelection = new TargetSampling(conf);
-                targetSelection.runCrossValidation();
-            }
+            List<Thread> threads = new ArrayList<>();
+            Thread thread1 = new Thread(() -> {
+                try {
+                    //Yahoo
+                    {
+                        Configuration conf = new Configuration(YAHOO_BIASED_PROPERTIES_FILE);
+                        conf.setAllRecs(true);
+                        conf.setResultsPath(conf.getResultsPath() + "allrecs-");
+                        TargetSampling targetSelection = new TargetSampling(conf);
+                        targetSelection.runCrossValidation();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            thread1.start();
+            threads.add(thread1);
 
-            //MovieLens
-            {
-                Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
-                conf.setAllRecs(true);
-                conf.setResultsPath(conf.getResultsPath() + "allrecs-");
-                TargetSampling targetSelection = new TargetSampling(conf);
-                targetSelection.runCrossValidation();
-            }
+            Thread thread2 = new Thread(() -> {
+                try {
+                    //MovieLens
+                    {
+                        Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
+                        conf.setAllRecs(true);
+                        conf.setResultsPath(conf.getResultsPath() + "allrecs-");
+                        TargetSampling targetSelection = new TargetSampling(conf);
+                        targetSelection.runCrossValidation();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            thread2.start();
+            threads.add(thread2);
 
+            threads.forEach(t -> {
+                try {
+                    t.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            });
+            
             String curve = "Sum of p-values";
             curves.add(curve);
             String inFile = biasedFolder + dataset + "-allrecs-pvalues.txt";
