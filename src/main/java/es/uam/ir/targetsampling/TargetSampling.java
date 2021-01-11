@@ -134,8 +134,14 @@ public class TargetSampling {
                 nUsersInCrossValidation = 0;
                 for (int currentFold = 1; currentFold <= conf.getNFolds(); currentFold++) {
                     System.out.println("Running fold " + currentFold);
-                    FastPreferenceData<Long, Long> trainData = SimpleFastPreferenceData.load(SimpleRatingPreferencesReader.get().read(conf.getDataPath() + currentFold + "-data-train.txt", lp, lp), userIndex, itemIndex);
-                    FastPreferenceData<Long, Long> testData = SimpleFastPreferenceData.load(SimpleRatingPreferencesReader.get().read(conf.getDataPath() + currentFold + "-data-test.txt", lp, lp), userIndex, itemIndex);
+                    FastPreferenceData<Long, Long> trainData = SimpleFastPreferenceData
+                            .load(SimpleRatingPreferencesReader
+                                    .get()
+                                    .read(conf.getDataPath() + currentFold + "-data-train.txt", lp, lp), userIndex, itemIndex);
+                    FastPreferenceData<Long, Long> testData = SimpleFastPreferenceData
+                            .load(SimpleRatingPreferencesReader
+                                    .get()
+                                    .read(conf.getDataPath() + currentFold + "-data-test.txt", lp, lp), userIndex, itemIndex);
                     FastPreferenceData<Long, Long> positiveTrainData = TruncateRatings.run(trainData, conf.getThreshold());
 
                     //Sampler:
