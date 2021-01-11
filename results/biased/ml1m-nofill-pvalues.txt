@@ -1,38 +1,38 @@
 target size	recommender system 1	recommender system 2	Coverage@10	nDCG@10	P@10	Recall@10
 500	Popularity	kNN (full/test)	NaN	0.0	0.0	0.0
-500	Popularity	iMF (test)	NaN	1.0155439619124975E-108	1.0506515703138992E-170	3.8456412696682335E-288
+500	Popularity	iMF (test)	NaN	2.5022022748387627E-111	1.851883345122632E-176	4.790547110771254E-303
 500	Popularity	Random	NaN	0.0	0.0	0.0
 500	Popularity	Normalized kNN (full)	0.0	0.0	0.0	0.0
 500	Popularity	Normalized kNN (test)	NaN	0.0	0.0	0.0
 500	Popularity	Average Rating	NaN	0.0	0.0	0.0
 500	Popularity	iMF (full)	NaN	0.0	0.0	0.0
 20	Popularity	Random	NaN	0.0	0.0	0.0
-20	Popularity	Normalized kNN (test)	NaN	2.3009103282817696E-38	8.356962016927056E-4	4.078313203756226E-73
+20	Popularity	Normalized kNN (test)	NaN	1.2223849569557492E-46	9.840082527103618E-5	3.8942738945049754E-75
 20	Popularity	iMF (full)	NaN	0.0	0.0	0.0
 20	Popularity	iMF (test)	NaN	0.0	0.0	0.0
-20	Popularity	kNN (full/test)	4.1120311496025314E-191	0.0	0.0	0.0
+20	Popularity	kNN (full/test)	2.40603020986182E-189	0.0	0.0	0.0
 20	Popularity	Average Rating	NaN	0.0	0.0	0.0
 20	Popularity	Normalized kNN (full)	0.0	0.0	0.0	0.0
 20	Random	Normalized kNN (test)	NaN	0.0	0.0	0.0
 20	Random	iMF (full)	NaN	0.0	0.0	0.0
 20	Random	iMF (test)	NaN	0.0	0.0	0.0
-20	Random	kNN (full/test)	4.1120311496025314E-191	0.0	0.0	0.0
+20	Random	kNN (full/test)	2.40603020986182E-189	0.0	0.0	0.0
 20	Random	Average Rating	NaN	0.0	0.0	0.0
 20	Random	Normalized kNN (full)	0.0	0.0	0.0	0.0
-50	Popularity	Normalized kNN (full)	0.0	3.7799020250401427E-22	1.4623752814870894E-58	0.0
+50	Popularity	Normalized kNN (full)	0.0	2.1027877444060183E-22	2.8693897165233507E-62	0.0
 50	Popularity	iMF (full)	NaN	0.0	0.0	0.0
 50	Popularity	iMF (test)	NaN	0.0	0.0	0.0
-50	Popularity	kNN (full/test)	9.459175526147769E-6	0.0	0.0	0.0
+50	Popularity	kNN (full/test)	2.9054161499316865E-4	0.0	0.0	0.0
 50	Popularity	Normalized kNN (test)	NaN	0.0	0.0	0.0
 50	Popularity	Random	NaN	0.0	0.0	0.0
 50	Popularity	Average Rating	NaN	0.0	0.0	0.0
 5	iMF (full)	Normalized kNN (full)	0.0	0.0	0.0	0.0
 5	iMF (full)	Random	NaN	0.0	0.0	0.0
-5	iMF (full)	Normalized kNN (test)	0.0	4.304214759710858E-146	2.4696980886077117E-56	1.915630752070224E-32
-5	iMF (full)	Average Rating	6.847381908782138E-36	0.0	0.0	5.269501670571394E-235
-5	iMF (full)	kNN (full/test)	0.0	0.0011020243892334856	7.624916284887926E-5	1.4674883510875627E-15
-5	iMF (full)	Popularity	6.847381908782138E-36	0.0	0.0	0.0
-5	iMF (full)	iMF (test)	NaN	3.054372725701068E-218	1.1647470453943895E-297	1.22968567169589E-228
+5	iMF (full)	Normalized kNN (test)	0.0	4.797844262520046E-153	1.0235074755712347E-59	7.499662382643138E-32
+5	iMF (full)	Average Rating	1.2950543850612502E-32	0.0	0.0	1.1742028848545258E-229
+5	iMF (full)	kNN (full/test)	0.0	0.004377228031154885	6.185258245153127E-6	2.6464336333346637E-11
+5	iMF (full)	Popularity	1.2950543850612502E-32	0.0	0.0	0.0
+5	iMF (full)	iMF (test)	NaN	6.917073624933291E-234	1.9487834011529657E-307	5.7158372008037E-245
 2000	Normalized kNN (test)	iMF (test)	NaN	0.0	0.0	0.0
 2000	Normalized kNN (test)	Popularity	NaN	0.0	0.0	0.0
 2000	Normalized kNN (test)	Random	NaN	0.0	0.0	0.0
@@ -49,17 +49,17 @@ target size	recommender system 1	recommender system 2	Coverage@10	nDCG@10	P@10	R
 200	Average Rating	Normalized kNN (test)	NaN	0.0	0.0	0.0
 20	Normalized kNN (test)	iMF (full)	NaN	0.0	0.0	0.0
 20	Normalized kNN (test)	iMF (test)	NaN	0.0	0.0	0.0
-20	Normalized kNN (test)	kNN (full/test)	4.1120311496025314E-191	0.0	0.0	0.0
+20	Normalized kNN (test)	kNN (full/test)	2.40603020986182E-189	0.0	0.0	0.0
 20	Normalized kNN (test)	Average Rating	NaN	0.0	0.0	0.0
-20	Normalized kNN (test)	Normalized kNN (full)	0.0	1.5619418085901731E-258	0.0	0.0
-3706	iMF (full)	kNN (full/test)	NaN	0.0	0.0	3.940250981804655E-279
+20	Normalized kNN (test)	Normalized kNN (full)	0.0	6.215842640671647E-245	0.0	0.0
+3706	iMF (full)	kNN (full/test)	NaN	0.0	0.0	7.60260157921621E-294
 3706	iMF (full)	Average Rating	NaN	0.0	0.0	0.0
 3706	iMF (full)	Random	NaN	0.0	0.0	0.0
 3706	iMF (full)	iMF (test)	NaN	0.0	0.0	0.0
 3706	iMF (full)	Normalized kNN (test)	NaN	0.0	0.0	0.0
 3706	iMF (full)	Popularity	NaN	0.0	0.0	0.0
-3706	iMF (full)	Normalized kNN (full)	1.4615219853850591E-78	0.0	0.0	0.0
-0	Normalized kNN (full)	Random	0.0	9.099724072852805E-107	8.563218785902781E-101	0.0
+3706	iMF (full)	Normalized kNN (full)	1.3460450504509244E-82	0.0	0.0	0.0
+0	Normalized kNN (full)	Random	0.0	4.102698038498951E-96	5.610102879940811E-89	0.0
 0	Normalized kNN (full)	iMF (test)	0.0	0.0	0.0	0.0
 0	Normalized kNN (full)	Popularity	0.0	0.0	0.0	0.0
 0	Normalized kNN (full)	Average Rating	0.0	0.0	0.0	0.0
@@ -69,105 +69,105 @@ target size	recommender system 1	recommender system 2	Coverage@10	nDCG@10	P@10	R
 50	Normalized kNN (full)	iMF (full)	0.0	0.0	0.0	0.0
 50	Normalized kNN (full)	iMF (test)	0.0	0.0	0.0	0.0
 50	Normalized kNN (full)	kNN (full/test)	0.0	0.0	0.0	0.0
-50	Normalized kNN (full)	Normalized kNN (test)	0.0	3.3809120082173547E-251	3.079148728658476E-117	2.7261187618163442E-58
+50	Normalized kNN (full)	Normalized kNN (test)	0.0	5.455498108569676E-267	2.375557562073475E-118	2.9958286056652105E-62
 50	Normalized kNN (full)	Random	0.0	0.0	0.0	0.0
-50	Normalized kNN (full)	Average Rating	0.0	0.0	0.0	1.5786458548810913E-71
+50	Normalized kNN (full)	Average Rating	0.0	0.0	0.0	7.391329426885319E-72
 100	Popularity	Normalized kNN (test)	NaN	0.0	0.0	0.0
 100	Popularity	iMF (full)	NaN	0.0	0.0	0.0
 100	Popularity	iMF (test)	NaN	0.0	0.0	0.0
-100	Popularity	Normalized kNN (full)	0.0	1.4012901426649509E-84	1.561840551352772E-45	8.347779714789352E-82
+100	Popularity	Normalized kNN (full)	0.0	4.775320609886278E-80	7.634717897746122E-40	3.2118064903155994E-92
 100	Popularity	kNN (full/test)	NaN	0.0	0.0	0.0
 100	Popularity	Average Rating	NaN	0.0	0.0	0.0
 100	Popularity	Random	NaN	0.0	0.0	0.0
-50	iMF (full)	iMF (test)	NaN	0.0	9.286512540384712E-169	8.539174315191786E-118
-50	iMF (full)	kNN (full/test)	9.459175526147769E-6	1.2834772245539455E-74	8.081494727776082E-97	3.3297816410945943E-35
+50	iMF (full)	iMF (test)	NaN	8.811513E-318	3.2630149784560737E-159	4.3047641768179915E-112
+50	iMF (full)	kNN (full/test)	2.9054161499316865E-4	1.1840479028141226E-68	1.8381412427733856E-82	1.5943195181127823E-29
 50	iMF (full)	Normalized kNN (test)	NaN	0.0	0.0	0.0
 50	iMF (full)	Random	NaN	0.0	0.0	0.0
 50	iMF (full)	Average Rating	NaN	0.0	0.0	0.0
 100	Normalized kNN (test)	iMF (full)	NaN	0.0	0.0	0.0
 100	Normalized kNN (test)	iMF (test)	NaN	0.0	0.0	0.0
-100	Normalized kNN (test)	Normalized kNN (full)	0.0	0.0	0.0	5.4272108670088785E-230
+100	Normalized kNN (test)	Normalized kNN (full)	0.0	0.0	0.0	2.9148463960547826E-229
 100	Normalized kNN (test)	kNN (full/test)	NaN	0.0	0.0	0.0
 100	Normalized kNN (test)	Average Rating	NaN	0.0	0.0	0.0
 100	Normalized kNN (test)	Random	NaN	0.0	0.0	0.0
-2000	iMF (test)	Popularity	NaN	5.7532964339604554E-52	1.2368857731492047E-50	9.372594469949654E-12
+2000	iMF (test)	Popularity	NaN	7.842992049302359E-61	6.334073473498358E-63	1.717608381630008E-11
 2000	iMF (test)	Random	NaN	0.0	0.0	0.0
 2000	iMF (test)	kNN (full/test)	NaN	0.0	0.0	0.0
 2000	iMF (test)	Average Rating	NaN	0.0	0.0	0.0
 2000	iMF (test)	iMF (full)	NaN	0.0	0.0	0.0
-2000	iMF (test)	Normalized kNN (full)	0.0	5.302943433583131E-227	1.594260116224484E-199	0.0
+2000	iMF (test)	Normalized kNN (full)	0.0	4.066234306069131E-242	1.018163130114009E-208	0.0
 2	iMF (full)	Random	NaN	0.0	0.0	0.0
-2	iMF (full)	Average Rating	1.374664704967242E-25	1.425361483225532E-100	2.729564494916735E-33	1.3339573245424365E-11
-2	iMF (full)	Popularity	1.374664704967242E-25	0.0	0.0	0.0
-2	iMF (full)	kNN (full/test)	0.0	5.452080842901464E-9	1.3533788702878513E-10	5.180405718240054E-56
-2	iMF (full)	iMF (test)	NaN	1.488837E-318	0.0	2.4087949491630676E-298
-2	iMF (full)	Normalized kNN (test)	0.0	0.45207792143751346	4.273697363736137E-5	3.0277377686981483E-9
+2	iMF (full)	Average Rating	2.5674563063818725E-27	2.7400940621740835E-92	7.528216568995592E-29	1.2812472974267917E-9
+2	iMF (full)	Popularity	2.5674563063818725E-27	0.0	0.0	0.0
+2	iMF (full)	kNN (full/test)	0.0	3.695774879452738E-7	6.7428932986709105E-9	2.7274210461926693E-48
+2	iMF (full)	iMF (test)	NaN	0.0	0.0	1.654983045971913E-283
+2	iMF (full)	Normalized kNN (test)	0.0	0.639091542218817	3.324949377664405E-5	3.477615960422203E-11
 2	iMF (full)	Normalized kNN (full)	0.0	0.0	0.0	0.0
-10	Average Rating	iMF (full)	NaN	0.0	0.0	0.0
-10	Average Rating	Normalized kNN (test)	2.3580699686406417E-91	0.0	0.0	0.0
+10	Average Rating	iMF (full)	0.31731852033729224	0.0	0.0	0.0
+10	Average Rating	Normalized kNN (test)	4.1323230468239E-88	0.0	0.0	0.0
 10	Average Rating	kNN (full/test)	0.0	0.0	0.0	0.0
-10	Average Rating	Popularity	NaN	1.0300719804777611E-166	2.4250293908014695E-31	3.1322771803411943E-161
-10	Average Rating	iMF (test)	NaN	0.0	0.0	0.0
+10	Average Rating	Popularity	NaN	5.199967807432496E-161	1.4649032667526157E-28	4.8139102534890466E-157
+10	Average Rating	iMF (test)	0.31731852033729224	0.0	0.0	0.0
 10	Average Rating	Normalized kNN (full)	0.0	0.0	0.0	0.0
-10	Average Rating	Random	NaN	0.0	0.0	0.0
+10	Average Rating	Random	0.31731852033729224	0.0	0.0	0.0
 500	kNN (full/test)	iMF (test)	NaN	0.0	0.0	0.0
 500	kNN (full/test)	Random	NaN	0.0	0.0	0.0
 500	kNN (full/test)	Normalized kNN (full)	0.0	0.0	0.0	0.0
 500	kNN (full/test)	Normalized kNN (test)	NaN	0.0	0.0	0.0
 500	kNN (full/test)	Average Rating	NaN	0.0	0.0	0.0
-500	kNN (full/test)	iMF (full)	NaN	0.0	0.0	1.35380574605E-313
+500	kNN (full/test)	iMF (full)	NaN	0.0	0.0	4.4922346E-317
 200	iMF (full)	Popularity	NaN	0.0	0.0	0.0
 200	iMF (full)	iMF (test)	NaN	0.0	0.0	0.0
 200	iMF (full)	Random	NaN	0.0	0.0	0.0
 200	iMF (full)	Normalized kNN (full)	0.0	0.0	0.0	0.0
-200	iMF (full)	kNN (full/test)	NaN	1.94458830674E-313	0.0	1.4129131701162266E-194
+200	iMF (full)	kNN (full/test)	NaN	3.369389111571462E-291	0.0	9.710391988628429E-172
 200	iMF (full)	Normalized kNN (test)	NaN	0.0	0.0	0.0
-1	iMF (test)	iMF (full)	NaN	0.0	0.0	0.0
-1	iMF (test)	Normalized kNN (test)	0.0	1.3449210558434812E-200	1.865583530740453E-222	2.7718957417961654E-113
+1	iMF (test)	iMF (full)	NaN	0.0	0.0	3.534472923987125E-292
+1	iMF (test)	Normalized kNN (test)	0.0	3.8965526781552033E-205	2.4293084529747023E-217	3.2033105853107033E-106
 1	iMF (test)	Normalized kNN (full)	0.0	0.0	0.0	0.0
 1	iMF (test)	kNN (full/test)	0.0	0.0	0.0	0.0
 1	iMF (test)	Random	NaN	0.0	0.0	0.0
-1	iMF (test)	Popularity	3.7937250777844646E-23	0.0	0.0	0.0
-1	iMF (test)	Average Rating	3.7937250777844646E-23	0.0	0.0	9.844022828712583E-217
-10	iMF (full)	Normalized kNN (test)	2.3580699686406417E-91	0.0	0.0	6.566481587120611E-239
-10	iMF (full)	kNN (full/test)	0.0	0.09453293598217793	0.0027424040225218814	0.009503874718617664
-10	iMF (full)	Popularity	NaN	0.0	0.0	0.0
-10	iMF (full)	iMF (test)	NaN	6.453662532303477E-91	7.416831942946929E-188	6.961156100226073E-155
+1	iMF (test)	Popularity	2.814190867530114E-20	0.0	0.0	0.0
+1	iMF (test)	Average Rating	2.814190867530114E-20	0.0	0.0	7.698270020133447E-206
+10	iMF (full)	Normalized kNN (test)	5.636360621540143E-88	0.0	0.0	1.0018238278388324E-246
+10	iMF (full)	kNN (full/test)	0.0	0.37480880960909135	0.01746366174906525	0.001298521529847922
+10	iMF (full)	Popularity	0.31731852033729224	0.0	0.0	0.0
+10	iMF (full)	iMF (test)	NaN	1.217838379640538E-108	1.651846973452151E-196	1.0232856827209217E-152
 10	iMF (full)	Normalized kNN (full)	0.0	0.0	0.0	0.0
 10	iMF (full)	Random	NaN	0.0	0.0	0.0
 100	iMF (full)	iMF (test)	NaN	0.0	0.0	0.0
 100	iMF (full)	Normalized kNN (full)	0.0	0.0	0.0	0.0
-100	iMF (full)	kNN (full/test)	NaN	5.851183414503157E-160	9.052785642318165E-190	2.440542716613306E-102
+100	iMF (full)	kNN (full/test)	NaN	2.5406407557811466E-163	3.988675101450267E-186	2.0241260075136538E-90
 100	iMF (full)	Average Rating	NaN	0.0	0.0	0.0
 100	iMF (full)	Random	NaN	0.0	0.0	0.0
-20	iMF (full)	iMF (test)	NaN	0.8899751713449733	7.88914210930363E-24	1.742111634558994E-17
-20	iMF (full)	kNN (full/test)	4.1120311496025314E-191	1.734101238320209E-11	4.7723487960093995E-20	0.2439353627633436
+20	iMF (full)	iMF (test)	NaN	0.8618640670151174	1.8094075246856697E-27	3.426213939949235E-19
+20	iMF (full)	kNN (full/test)	2.40603020986182E-189	2.4100983437035914E-9	6.788464100990056E-14	0.4012806449811578
 20	iMF (full)	Average Rating	NaN	0.0	0.0	0.0
 20	iMF (full)	Normalized kNN (full)	0.0	0.0	0.0	0.0
 2000	Popularity	Random	NaN	0.0	0.0	0.0
 2000	Popularity	kNN (full/test)	NaN	0.0	0.0	0.0
 2000	Popularity	Average Rating	NaN	0.0	0.0	0.0
 2000	Popularity	iMF (full)	NaN	0.0	0.0	0.0
-2000	Popularity	Normalized kNN (full)	0.0	7.151570065956803E-61	2.563335524950278E-43	0.0
-2	Random	Average Rating	1.374664704967242E-25	0.0	0.0	0.0
-2	Random	Popularity	1.374664704967242E-25	0.0	0.0	0.0
+2000	Popularity	Normalized kNN (full)	0.0	8.06772627195052E-60	1.19894961788133E-37	0.0
+2	Random	Average Rating	2.5674563063818725E-27	0.0	0.0	0.0
+2	Random	Popularity	2.5674563063818725E-27	0.0	0.0	0.0
 2	Random	kNN (full/test)	0.0	0.0	0.0	0.0
 2	Random	iMF (test)	NaN	0.0	0.0	0.0
 2	Random	Normalized kNN (test)	0.0	0.0	0.0	0.0
-2	Random	Normalized kNN (full)	0.0	4.6280880923368394E-17	0.8031102480429942	0.0
+2	Random	Normalized kNN (full)	0.0	2.424559754094544E-20	0.6969883119036476	0.0
 0	Random	iMF (test)	NaN	0.0	0.0	0.0
-0	Random	Popularity	1.1304141625750938E-7	0.0	0.0	0.0
-0	Random	Average Rating	1.1304141625750938E-7	0.0	0.0	0.0
+0	Random	Popularity	9.591886960103477E-7	0.0	0.0	0.0
+0	Random	Average Rating	9.591886960103477E-7	0.0	0.0	0.0
 0	Random	iMF (full)	NaN	0.0	0.0	0.0
-0	Random	Normalized kNN (test)	4.0835647909299605E-48	0.0	0.0	0.0
+0	Random	Normalized kNN (test)	1.502616812746971E-45	0.0	0.0	0.0
 0	Random	kNN (full/test)	0.0	0.0	0.0	0.0
 10	Normalized kNN (test)	kNN (full/test)	0.0	0.0	0.0	0.0
-10	Normalized kNN (test)	Popularity	2.3580699686406417E-91	5.887429700508402E-63	6.583301709123828E-143	9.239139211586441E-15
-10	Normalized kNN (test)	iMF (test)	2.3580699686406417E-91	0.0	0.0	0.0
+10	Normalized kNN (test)	Popularity	4.1323230468239E-88	1.2916379633192343E-61	4.491522998703224E-149	7.320963039893634E-17
+10	Normalized kNN (test)	iMF (test)	5.636360621540143E-88	0.0	0.0	0.0
 10	Normalized kNN (test)	Normalized kNN (full)	0.0	0.0	0.0	0.0
-10	Normalized kNN (test)	Random	2.3580699686406417E-91	0.0	0.0	0.0
+10	Normalized kNN (test)	Random	5.636360621540143E-88	0.0	0.0	0.0
 500	iMF (test)	Random	NaN	0.0	0.0	0.0
-500	iMF (test)	Normalized kNN (full)	0.0	2.3317306395174547E-148	3.774443586332664E-68	1.6465380689893684E-45
+500	iMF (test)	Normalized kNN (full)	0.0	2.203794076149991E-139	5.834179733877931E-60	5.335678545631088E-41
 500	iMF (test)	Normalized kNN (test)	NaN	0.0	0.0	0.0
 500	iMF (test)	Average Rating	NaN	0.0	0.0	0.0
 500	iMF (test)	iMF (full)	NaN	0.0	0.0	0.0
@@ -176,51 +176,51 @@ target size	recommender system 1	recommender system 2	Coverage@10	nDCG@10	P@10	R
 3706	kNN (full/test)	iMF (test)	NaN	0.0	0.0	0.0
 3706	kNN (full/test)	Normalized kNN (test)	NaN	0.0	0.0	0.0
 3706	kNN (full/test)	Popularity	NaN	0.0	0.0	0.0
-3706	kNN (full/test)	Normalized kNN (full)	1.4615219853850591E-78	0.0	0.0	0.0
+3706	kNN (full/test)	Normalized kNN (full)	1.3460450504509244E-82	0.0	0.0	0.0
 10	kNN (full/test)	Popularity	0.0	0.0	0.0	0.0
-10	kNN (full/test)	iMF (test)	0.0	2.308133943268773E-115	3.2058461359654734E-231	2.879671052723386E-156
+10	kNN (full/test)	iMF (test)	0.0	2.8365273705211476E-129	9.484536529568207E-235	3.151576853862442E-149
 10	kNN (full/test)	Normalized kNN (full)	0.0	0.0	0.0	0.0
 10	kNN (full/test)	Random	0.0	0.0	0.0	0.0
-10	Popularity	iMF (test)	NaN	0.0	0.0	0.0
+10	Popularity	iMF (test)	0.31731852033729224	0.0	0.0	0.0
 10	Popularity	Normalized kNN (full)	0.0	0.0	0.0	0.0
-10	Popularity	Random	NaN	0.0	0.0	0.0
+10	Popularity	Random	0.31731852033729224	0.0	0.0	0.0
 200	Popularity	iMF (test)	NaN	0.0	0.0	0.0
 200	Popularity	Random	NaN	0.0	0.0	0.0
-200	Popularity	Normalized kNN (full)	0.0	0.0	2.0290737367983542E-293	1.1113865152995148E-50
+200	Popularity	Normalized kNN (full)	0.0	0.0	5.154902777460128E-281	1.1572624349412742E-46
 200	Popularity	kNN (full/test)	NaN	0.0	0.0	0.0
 200	Popularity	Normalized kNN (test)	NaN	0.0	0.0	0.0
 100	iMF (test)	Normalized kNN (full)	0.0	0.0	0.0	0.0
-100	iMF (test)	kNN (full/test)	NaN	0.0	0.0	0.0
+100	iMF (test)	kNN (full/test)	NaN	0.0	0.0	3.662468413892906E-304
 100	iMF (test)	Average Rating	NaN	0.0	0.0	0.0
 100	iMF (test)	Random	NaN	0.0	0.0	0.0
 500	Random	Normalized kNN (full)	0.0	0.0	0.0	0.0
 500	Random	Normalized kNN (test)	NaN	0.0	0.0	0.0
 500	Random	Average Rating	NaN	0.0	0.0	0.0
 500	Random	iMF (full)	NaN	0.0	0.0	0.0
-1	iMF (full)	Normalized kNN (test)	0.0	2.5701262825898182E-20	1.0037683506290762E-31	5.732675783782949E-46
+1	iMF (full)	Normalized kNN (test)	0.0	9.249697164598032E-20	7.11243419393592E-28	1.5810056759945977E-40
 1	iMF (full)	Normalized kNN (full)	0.0	0.0	0.0	0.0
-1	iMF (full)	kNN (full/test)	0.0	9.291520842011202E-13	7.298435948040338E-11	6.553658755572268E-65
+1	iMF (full)	kNN (full/test)	0.0	1.4296730959610423E-10	2.0630709604308183E-11	2.7187563653485984E-60
 1	iMF (full)	Random	NaN	0.0	0.0	0.0
-1	iMF (full)	Popularity	3.7937250777844646E-23	0.0	0.0	8.311863156E-315
-1	iMF (full)	Average Rating	3.7937250777844646E-23	9.592955589643383E-13	0.31223693035754585	2.090168027049518E-7
+1	iMF (full)	Popularity	2.814190867530114E-20	0.0	0.0	4.647494406E-315
+1	iMF (full)	Average Rating	2.814190867530114E-20	7.228406153780955E-13	0.15592300040454643	6.560600111053177E-5
 10	iMF (test)	Normalized kNN (full)	0.0	0.0	0.0	0.0
 10	iMF (test)	Random	NaN	0.0	0.0	0.0
-50	iMF (test)	kNN (full/test)	9.459175526147769E-6	1.2820565662183619E-164	6.138852136430608E-25	2.130061014247251E-45
+50	iMF (test)	kNN (full/test)	2.9054161499316865E-4	3.5015257333080696E-153	1.1692068247560566E-27	7.691412179213616E-45
 50	iMF (test)	Normalized kNN (test)	NaN	0.0	0.0	0.0
 50	iMF (test)	Random	NaN	0.0	0.0	0.0
 50	iMF (test)	Average Rating	NaN	0.0	0.0	0.0
 1	Normalized kNN (test)	Normalized kNN (full)	0.0	0.0	0.0	0.0
-1	Normalized kNN (test)	kNN (full/test)	0.0	2.1589680731060387E-71	8.280445113912197E-93	1.0787044049900883E-192
+1	Normalized kNN (test)	kNN (full/test)	0.0	8.431530852160022E-67	1.1152535145435535E-86	1.2448061830259192E-179
 1	Normalized kNN (test)	Random	0.0	0.0	0.0	0.0
 1	Normalized kNN (test)	Popularity	0.0	0.0	0.0	0.0
-1	Normalized kNN (test)	Average Rating	0.0	1.4984990867244034E-256	1.1916845281604265E-130	4.031896370476434E-65
-20	iMF (test)	kNN (full/test)	4.1120311496025314E-191	8.998707993744686E-9	6.616868681940147E-79	5.9789947185356574E-27
+1	Normalized kNN (test)	Average Rating	0.0	3.53209090094637E-251	1.4900444218181177E-124	9.422074480091122E-65
+20	iMF (test)	kNN (full/test)	2.40603020986182E-189	7.281230796141215E-8	6.0549449696666924E-74	5.5689485428326575E-21
 20	iMF (test)	Average Rating	NaN	0.0	0.0	0.0
 20	iMF (test)	Normalized kNN (full)	0.0	0.0	0.0	0.0
 500	Normalized kNN (full)	Normalized kNN (test)	0.0	0.0	0.0	0.0
 500	Normalized kNN (full)	Average Rating	0.0	0.0	0.0	0.0
 500	Normalized kNN (full)	iMF (full)	0.0	0.0	0.0	0.0
-20	kNN (full/test)	Average Rating	4.1120311496025314E-191	0.0	0.0	0.0
+20	kNN (full/test)	Average Rating	2.40603020986182E-189	0.0	0.0	0.0
 20	kNN (full/test)	Normalized kNN (full)	0.0	0.0	0.0	0.0
 1000	kNN (full/test)	Average Rating	NaN	0.0	0.0	0.0
 1000	kNN (full/test)	iMF (test)	NaN	0.0	0.0	0.0
@@ -229,64 +229,64 @@ target size	recommender system 1	recommender system 2	Coverage@10	nDCG@10	P@10	R
 1000	kNN (full/test)	Normalized kNN (test)	NaN	0.0	0.0	0.0
 1000	kNN (full/test)	Popularity	NaN	0.0	0.0	0.0
 1000	kNN (full/test)	Normalized kNN (full)	0.0	0.0	0.0	0.0
-5	Normalized kNN (full)	Random	0.0	0.0	1.2002188488790512E-252	0.0
+5	Normalized kNN (full)	Random	0.0	0.0	1.2343289995866657E-243	0.0
 5	Normalized kNN (full)	Normalized kNN (test)	0.0	0.0	0.0	0.0
 5	Normalized kNN (full)	Average Rating	0.0	0.0	0.0	0.0
 5	Normalized kNN (full)	kNN (full/test)	0.0	0.0	0.0	0.0
 5	Normalized kNN (full)	Popularity	0.0	0.0	0.0	0.0
 5	Normalized kNN (full)	iMF (test)	0.0	0.0	0.0	0.0
-2	Average Rating	Popularity	NaN	6.809016745663237E-281	0.0	1.5894451751783365E-218
-2	Average Rating	kNN (full/test)	0.0	3.712421639319619E-84	1.9212531553937805E-15	3.9474603574661477E-16
-2	Average Rating	iMF (test)	1.374664704967242E-25	0.0	0.0	0.0
-2	Average Rating	Normalized kNN (test)	0.0	0.0	2.9449264546103042E-208	2.9936983754609107E-123
+2	Average Rating	Popularity	NaN	7.275454268460829E-300	0.0	7.259295597313891E-225
+2	Average Rating	kNN (full/test)	0.0	6.942633800235018E-82	5.76070433327306E-14	5.915525517557893E-14
+2	Average Rating	iMF (test)	2.5674563063818725E-27	0.0	0.0	0.0
+2	Average Rating	Normalized kNN (test)	0.0	0.0	5.167800077079422E-193	1.9044693967454343E-114
 2	Average Rating	Normalized kNN (full)	0.0	0.0	0.0	0.0
-2	Popularity	kNN (full/test)	0.0	0.0	0.0	1.383576051526325E-94
-2	Popularity	iMF (test)	1.374664704967242E-25	0.0	0.0	0.0
+2	Popularity	kNN (full/test)	0.0	0.0	0.0	8.504727662708826E-110
+2	Popularity	iMF (test)	2.5674563063818725E-27	0.0	0.0	0.0
 2	Popularity	Normalized kNN (test)	0.0	0.0	0.0	0.0
 2	Popularity	Normalized kNN (full)	0.0	0.0	0.0	0.0
-0	iMF (test)	Popularity	1.1304141625750938E-7	0.0	0.0	0.0
-0	iMF (test)	Average Rating	1.1304141625750938E-7	2.0279392225412685E-202	4.913011455202833E-234	5.2805160364235826E-86
-0	iMF (test)	iMF (full)	NaN	0.0	0.0	0.0
-0	iMF (test)	Normalized kNN (test)	4.0835647909299605E-48	1.955124576720581E-95	6.625114953168394E-140	4.098502083156338E-51
+0	iMF (test)	Popularity	9.591886960103477E-7	0.0	0.0	0.0
+0	iMF (test)	Average Rating	9.591886960103477E-7	1.0676186850429774E-195	2.3702414932954532E-231	5.09470058876241E-90
+0	iMF (test)	iMF (full)	NaN	0.0	0.0	7.7851E-319
+0	iMF (test)	Normalized kNN (test)	1.502616812746971E-45	4.18888510987423E-94	1.1785508927664174E-138	8.842180340872159E-50
 0	iMF (test)	kNN (full/test)	0.0	0.0	0.0	0.0
 0	Popularity	Average Rating	NaN	0.0	0.0	0.0
-0	Popularity	iMF (full)	1.1304141625750938E-7	0.0	0.0	1.1190607173612816E-280
-0	Popularity	Normalized kNN (test)	6.154646920906387E-43	0.0	0.0	0.0
-0	Popularity	kNN (full/test)	0.0	0.0	0.0	2.3067190003437096E-32
+0	Popularity	iMF (full)	9.591886960103477E-7	0.0	0.0	1.3281218719972899E-277
+0	Popularity	Normalized kNN (test)	1.190163818572581E-41	0.0	0.0	0.0
+0	Popularity	kNN (full/test)	0.0	0.0	0.0	2.769645617140434E-43
 1	Normalized kNN (full)	kNN (full/test)	0.0	0.0	0.0	0.0
-1	Normalized kNN (full)	Random	0.0	9.765738565616577E-9	3.7903598176922045E-25	0.0
+1	Normalized kNN (full)	Random	0.0	2.053082068282275E-8	4.6654533600561116E-23	0.0
 1	Normalized kNN (full)	Popularity	0.0	0.0	0.0	0.0
 1	Normalized kNN (full)	Average Rating	0.0	0.0	0.0	0.0
-3706	Average Rating	Random	NaN	2.3078159191482866E-213	0.0	3.3011607512679075E-172
+3706	Average Rating	Random	NaN	1.8219888859039196E-251	0.0	1.1331777523544353E-212
 3706	Average Rating	iMF (test)	NaN	0.0	0.0	0.0
 3706	Average Rating	Normalized kNN (test)	NaN	0.0	0.0	0.0
 3706	Average Rating	Popularity	NaN	0.0	0.0	0.0
-3706	Average Rating	Normalized kNN (full)	1.4615219853850591E-78	0.0	0.0	0.0
+3706	Average Rating	Normalized kNN (full)	1.3460450504509244E-82	0.0	0.0	0.0
 1	kNN (full/test)	Random	0.0	0.0	0.0	0.0
-1	kNN (full/test)	Popularity	0.0	0.0	0.0	4.9402972480605596E-60
-1	kNN (full/test)	Average Rating	0.0	0.03654839608499668	1.5418846559139311E-6	4.991908215573255E-93
+1	kNN (full/test)	Popularity	0.0	0.0	0.0	1.0531323746097514E-73
+1	kNN (full/test)	Average Rating	0.0	0.0057414673308318264	5.912707738804851E-6	3.969835922992492E-78
 500	Normalized kNN (test)	Average Rating	NaN	0.0	0.0	0.0
 500	Normalized kNN (test)	iMF (full)	NaN	0.0	0.0	0.0
-0	Average Rating	iMF (full)	1.1304141625750938E-7	2.1749500689443865E-21	1.4946548425770774E-22	1.2473200218281497E-66
-0	Average Rating	Normalized kNN (test)	6.154646920906387E-43	3.6905807932364256E-124	7.982969498233182E-69	2.3214266653613757E-21
-0	Average Rating	kNN (full/test)	0.0	1.1657142708257067E-71	6.265212059952534E-73	1.4394212263821275E-229
-1	Random	Popularity	3.7937250777844646E-23	0.0	0.0	0.0
-1	Random	Average Rating	3.7937250777844646E-23	0.0	0.0	0.0
+0	Average Rating	iMF (full)	9.591886960103477E-7	2.801008757134838E-21	1.4303023440556974E-22	6.252930055606219E-58
+0	Average Rating	Normalized kNN (test)	1.190163818572581E-41	4.097271421035089E-113	2.834022928669897E-66	5.21702343297582E-25
+0	Average Rating	kNN (full/test)	0.0	2.4664236047925255E-69	1.509579431963815E-70	6.649511926292656E-210
+1	Random	Popularity	2.814190867530114E-20	0.0	0.0	0.0
+1	Random	Average Rating	2.814190867530114E-20	0.0	0.0	0.0
 1	Popularity	Average Rating	NaN	0.0	0.0	0.0
-0	iMF (full)	Normalized kNN (test)	4.0835647909299605E-48	1.6610617023622734E-96	5.194911902245973E-81	4.1251652254591346E-108
-0	iMF (full)	kNN (full/test)	0.0	2.858576701895879E-16	1.342623237255181E-13	5.698219333418275E-77
+0	iMF (full)	Normalized kNN (test)	1.502616812746971E-45	2.623403518360941E-92	9.164451215130475E-80	9.998978594465444E-103
+0	iMF (full)	kNN (full/test)	0.0	1.7005706533933614E-14	2.7229312638330806E-12	2.6097012811261805E-70
 5	Random	Normalized kNN (test)	0.0	0.0	0.0	0.0
-5	Random	Average Rating	6.847381908782138E-36	0.0	0.0	0.0
+5	Random	Average Rating	1.2950543850612502E-32	0.0	0.0	0.0
 5	Random	kNN (full/test)	0.0	0.0	0.0	0.0
-5	Random	Popularity	6.847381908782138E-36	0.0	0.0	0.0
+5	Random	Popularity	1.2950543850612502E-32	0.0	0.0	0.0
 5	Random	iMF (test)	NaN	0.0	0.0	0.0
 5	Normalized kNN (test)	Average Rating	0.0	0.0	0.0	0.0
-5	Normalized kNN (test)	kNN (full/test)	0.0	5.983696733746228E-169	2.1496916166491224E-49	7.317986721117326E-6
-5	Normalized kNN (test)	Popularity	0.0	0.0	0.0	2.1147820565864374E-192
+5	Normalized kNN (test)	kNN (full/test)	0.0	1.3303049361028352E-185	4.846984174630785E-50	1.370438018250045E-9
+5	Normalized kNN (test)	Popularity	0.0	0.0	0.0	1.1135231111073636E-174
 5	Normalized kNN (test)	iMF (test)	0.0	0.0	0.0	0.0
-50	kNN (full/test)	Normalized kNN (test)	9.459175526147769E-6	0.0	0.0	0.0
-50	kNN (full/test)	Random	9.459175526147769E-6	0.0	0.0	0.0
-50	kNN (full/test)	Average Rating	9.459175526147769E-6	0.0	0.0	0.0
+50	kNN (full/test)	Normalized kNN (test)	2.9054161499316865E-4	0.0	0.0	0.0
+50	kNN (full/test)	Random	2.9054161499316865E-4	0.0	0.0	0.0
+50	kNN (full/test)	Average Rating	2.9054161499316865E-4	0.0	0.0	0.0
 50	Normalized kNN (test)	Random	NaN	0.0	0.0	0.0
 50	Normalized kNN (test)	Average Rating	NaN	0.0	0.0	0.0
 100	Normalized kNN (full)	kNN (full/test)	0.0	0.0	0.0	0.0
@@ -295,7 +295,7 @@ target size	recommender system 1	recommender system 2	Coverage@10	nDCG@10	P@10	R
 100	kNN (full/test)	Average Rating	NaN	0.0	0.0	0.0
 100	kNN (full/test)	Random	NaN	0.0	0.0	0.0
 100	Average Rating	Random	NaN	0.0	0.0	0.0
-10	Normalized kNN (full)	Random	0.0	0.0	0.0	0.18334704777450106
+10	Normalized kNN (full)	Random	0.0	0.0	0.0	0.040072068226318765
 2000	Random	kNN (full/test)	NaN	0.0	0.0	0.0
 2000	Random	Average Rating	NaN	0.0	0.0	0.0
 2000	Random	iMF (full)	NaN	0.0	0.0	0.0
@@ -306,7 +306,7 @@ target size	recommender system 1	recommender system 2	Coverage@10	nDCG@10	P@10	R
 2000	Average Rating	iMF (full)	NaN	0.0	0.0	0.0
 2000	Average Rating	Normalized kNN (full)	0.0	0.0	0.0	0.0
 2	kNN (full/test)	iMF (test)	0.0	0.0	0.0	0.0
-2	kNN (full/test)	Normalized kNN (test)	0.0	6.421077384529683E-6	8.536795133405143E-29	5.408689454434442E-95
+2	kNN (full/test)	Normalized kNN (test)	0.0	2.4869321186052325E-5	2.1345162488959317E-26	8.709345960445814E-94
 2	kNN (full/test)	Normalized kNN (full)	0.0	0.0	0.0	0.0
 1000	Average Rating	iMF (test)	NaN	0.0	0.0	0.0
 1000	Average Rating	Random	NaN	0.0	0.0	0.0
@@ -314,30 +314,30 @@ target size	recommender system 1	recommender system 2	Coverage@10	nDCG@10	P@10	R
 1000	Average Rating	Normalized kNN (test)	NaN	0.0	0.0	0.0
 1000	Average Rating	Popularity	NaN	0.0	0.0	0.0
 1000	Average Rating	Normalized kNN (full)	0.0	0.0	0.0	0.0
-5	Average Rating	kNN (full/test)	0.0	0.0	0.0	2.4992255070549564E-144
-5	Average Rating	Popularity	NaN	2.6607145638408198E-8	1.5412293757988681E-86	2.2498108154412594E-4
-5	Average Rating	iMF (test)	6.847381908782138E-36	0.0	0.0	0.0
+5	Average Rating	kNN (full/test)	0.0	0.0	0.0	7.861003988384212E-162
+5	Average Rating	Popularity	NaN	2.982745983573002E-10	8.893564654902288E-83	0.0011123711584227914
+5	Average Rating	iMF (test)	1.2950543850612502E-32	0.0	0.0	0.0
 1000	iMF (test)	Random	NaN	0.0	0.0	0.0
 1000	iMF (test)	iMF (full)	NaN	0.0	0.0	0.0
 1000	iMF (test)	Normalized kNN (test)	NaN	0.0	0.0	0.0
-1000	iMF (test)	Popularity	NaN	0.8346003273292446	0.006893070645724413	4.680451016943324E-78
-1000	iMF (test)	Normalized kNN (full)	0.0	3.2350275691116335E-275	6.0902592906755454E-201	1.667758765E-315
-5	kNN (full/test)	Popularity	0.0	0.0	0.0	2.0092557587075218E-247
-5	kNN (full/test)	iMF (test)	0.0	1.3739028594479467E-271	0.0	5.223529135632914E-294
+1000	iMF (test)	Popularity	NaN	0.5622701548154154	0.17553447710744075	1.2247897768563703E-82
+1000	iMF (test)	Normalized kNN (full)	0.0	2.4517149162546515E-292	5.315076410861251E-220	4.524582308E-314
+5	kNN (full/test)	Popularity	0.0	0.0	0.0	1.2195631250406672E-270
+5	kNN (full/test)	iMF (test)	0.0	7.043567358959821E-284	0.0	6.182875493972546E-301
 3706	Random	iMF (test)	NaN	0.0	0.0	0.0
 3706	Random	Normalized kNN (test)	NaN	0.0	0.0	0.0
 3706	Random	Popularity	NaN	0.0	0.0	0.0
-3706	Random	Normalized kNN (full)	1.4615219853850591E-78	0.0	0.0	0.0
+3706	Random	Normalized kNN (full)	1.3460450504509244E-82	0.0	0.0	0.0
 200	iMF (test)	Random	NaN	0.0	0.0	0.0
-200	iMF (test)	Normalized kNN (full)	0.0	6.0201793110101156E-33	6.334048279178292E-162	0.0
+200	iMF (test)	Normalized kNN (full)	0.0	7.45136312475316E-23	2.3384757695713434E-138	0.0
 200	iMF (test)	kNN (full/test)	NaN	0.0	0.0	0.0
 200	iMF (test)	Normalized kNN (test)	NaN	0.0	0.0	0.0
-2	iMF (test)	Normalized kNN (test)	0.0	0.0	6.411541652306053E-303	1.7788043840700548E-193
+2	iMF (test)	Normalized kNN (test)	0.0	0.0	8.879944439110541E-304	5.766493584755832E-180
 2	iMF (test)	Normalized kNN (full)	0.0	0.0	0.0	0.0
-0	Normalized kNN (test)	kNN (full/test)	0.0	1.4126304550922247E-236	1.1208607424039978E-199	4.8762803E-316
+0	Normalized kNN (test)	kNN (full/test)	0.0	5.327944932814406E-229	2.597996541712903E-191	9.350403304980932E-307
 3706	iMF (test)	Normalized kNN (test)	NaN	0.0	0.0	0.0
-3706	iMF (test)	Popularity	NaN	1.2870567013405196E-131	2.180724809935507E-132	0.4346748086521103
-3706	iMF (test)	Normalized kNN (full)	1.4615219853850591E-78	6.078004866927013E-130	3.472574082048188E-140	0.0
+3706	iMF (test)	Popularity	NaN	9.414590647917084E-124	4.1893115653783986E-122	0.10484539244935542
+3706	iMF (test)	Normalized kNN (full)	1.3460450504509244E-82	1.002439286717517E-124	4.2083742359559275E-129	0.0
 50	Random	Average Rating	NaN	0.0	0.0	0.0
 500	Average Rating	iMF (full)	NaN	0.0	0.0	0.0
 2000	iMF (full)	Normalized kNN (full)	0.0	0.0	0.0	0.0
@@ -346,14 +346,14 @@ target size	recommender system 1	recommender system 2	Coverage@10	nDCG@10	P@10	R
 1000	Random	Popularity	NaN	0.0	0.0	0.0
 1000	Random	Normalized kNN (full)	0.0	0.0	0.0	0.0
 3706	Normalized kNN (test)	Popularity	NaN	0.0	0.0	0.0
-3706	Normalized kNN (test)	Normalized kNN (full)	1.4615219853850591E-78	0.0	0.0	0.0
-5	Popularity	iMF (test)	6.847381908782138E-36	0.0	0.0	0.0
+3706	Normalized kNN (test)	Normalized kNN (full)	1.3460450504509244E-82	0.0	0.0	0.0
+5	Popularity	iMF (test)	1.2950543850612502E-32	0.0	0.0	0.0
 200	Random	Normalized kNN (full)	0.0	0.0	0.0	0.0
 200	Random	kNN (full/test)	NaN	0.0	0.0	0.0
 200	Random	Normalized kNN (test)	NaN	0.0	0.0	0.0
-3706	Popularity	Normalized kNN (full)	1.4615219853850591E-78	0.47518490122081125	0.40309472642318633	0.0
+3706	Popularity	Normalized kNN (full)	1.3460450504509244E-82	0.7129206245350591	0.5457994881323628	0.0
 2	Normalized kNN (test)	Normalized kNN (full)	0.0	0.0	0.0	0.0
-20	Average Rating	Normalized kNN (full)	0.0	1.6280143661198959E-18	2.6333734997082535E-16	0.0
+20	Average Rating	Normalized kNN (full)	0.0	8.954414892022597E-17	4.279416407781486E-18	0.0
 1000	iMF (full)	Normalized kNN (test)	NaN	0.0	0.0	0.0
 1000	iMF (full)	Popularity	NaN	0.0	0.0	0.0
 1000	iMF (full)	Normalized kNN (full)	0.0	0.0	0.0	0.0
@@ -362,4 +362,4 @@ target size	recommender system 1	recommender system 2	Coverage@10	nDCG@10	P@10	R
 200	Normalized kNN (full)	kNN (full/test)	0.0	0.0	0.0	0.0
 200	Normalized kNN (full)	Normalized kNN (test)	0.0	0.0	0.0	0.0
 200	kNN (full/test)	Normalized kNN (test)	NaN	0.0	0.0	0.0
-1000	Popularity	Normalized kNN (full)	0.0	2.879047167000789E-262	4.262112083629706E-220	0.0
+1000	Popularity	Normalized kNN (full)	0.0	1.173067769019021E-267	9.067196519161557E-222	0.0
