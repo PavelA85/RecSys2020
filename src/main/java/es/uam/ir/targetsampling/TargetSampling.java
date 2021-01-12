@@ -99,8 +99,8 @@ public class TargetSampling {
      *
      * @throws IOException
      */
-    public void runCrossValidation() throws IOException {
-        Timer.start("Starting...");
+    public void runCrossValidation(String logSource) throws IOException {
+        Timer.start(logSource + " Starting...");
 
         for (int i = 0; i < METRIC_NAMES.length; i++) {
             METRIC_NAMES[i] += "@" + conf.getCutoff();
@@ -109,12 +109,12 @@ public class TargetSampling {
         LogManager.getLogManager().reset();
 
         // Read files
-        Timer.start("Reading files...");
+        Timer.start(logSource + " Reading files...");
         ByteArrayInputStream[] usersAndItemsInputStreams = GetUsersAndItems.run(conf.getDataPath() + "data.txt");
         FastUserIndex<Long> userIndex = SimpleFastUserIndex.load(UsersReader.read(usersAndItemsInputStreams[0], lp));
         FastItemIndex<Long> itemIndex = SimpleFastItemIndex.load(ItemsReader.read(usersAndItemsInputStreams[1], lp));
 
-        Timer.done("");
+        Timer.done(logSource);
 
         Map<String, Map<String, double[]>> evalsPerUser = new HashMap<>();
         int nUsersInCrossValidation = 0;
@@ -159,7 +159,8 @@ public class TargetSampling {
                             testData,
                             evalsPerUser,
                             userFilter,
-                            out
+                            out,
+                            logSource
                     );
 
                     nUsersInCrossValidation += trainData.getUsersWithPreferences().count();
@@ -171,7 +172,7 @@ public class TargetSampling {
                                 }
                                 long k = Math.min(nu, 10);
                                 return k * 1.0 / nu;
-                            }).filter(v -> !Double.isInfinite(v) && !Double.isNaN(v)).sum() * 1.0 / trainData.numUsers();
+                            }).filter(v -> !Double.isInfinite(v) && !Double.isNaN(v)).sum() / trainData.numUsers();
                     outExpectation.println(currentFold + "\t" + targetSize + "\t" + expectation);
                 }
             }
@@ -184,8 +185,8 @@ public class TargetSampling {
      * @param testPath
      * @throws IOException
      */
-    public void runWithUnbiasedTest(String testPath) throws IOException {
-        Timer.start("Starting...");
+    public void runWithUnbiasedTest(String testPath, String logSource) throws IOException {
+        Timer.start(logSource + " Starting...");
 
         for (int i = 0; i < METRIC_NAMES.length; i++) {
             METRIC_NAMES[i] += "@" + conf.getCutoff();
@@ -194,12 +195,12 @@ public class TargetSampling {
         LogManager.getLogManager().reset();
 
         // Read files
-        Timer.start("Reading files...");
+        Timer.start(logSource + "Reading files...");
         ByteArrayInputStream[] usersAndItemsInputStreams = GetUsersAndItems.run(conf.getDataPath() + "data.txt");
         FastUserIndex<Long> userIndex = SimpleFastUserIndex.load(UsersReader.read(usersAndItemsInputStreams[0], lp));
         FastItemIndex<Long> itemIndex = SimpleFastItemIndex.load(ItemsReader.read(usersAndItemsInputStreams[1], lp));
         FastPreferenceData<Long, Long> testData = SimpleFastPreferenceData.load(SimpleRatingPreferencesReader.get().read(testPath, lp, lp), userIndex, itemIndex);
-        Timer.done("");
+        Timer.done(logSource + "");
 
         Map<String, Map<String, double[]>> evalsPerUser = new HashMap<>();
         int nUsersInCrossValidation = 0;
@@ -227,8 +228,8 @@ public class TargetSampling {
                     Function<Long, IntPredicate> notTrainFilter = FastFilters.notInTrain(trainData);
                     Function<Long, IntPredicate> userFilter = FastFilters.and(sampler, notTrainFilter);
 
-                    runSplit(userIndex, itemIndex, nUsersInCrossValidation, targetSize, currentFold, trainData, positiveTrainData, testData, evalsPerUser, userFilter, out);
-                    Timer.done("...");
+                    runSplit(userIndex, itemIndex, nUsersInCrossValidation, targetSize, currentFold, trainData, positiveTrainData, testData, evalsPerUser, userFilter, out, logSource);
+                    Timer.done(logSource + "...");
 
                     nUsersInCrossValidation += trainData.getUsersWithPreferences().count();
                     double expectation = trainData.getUsersWithPreferences()
@@ -239,7 +240,7 @@ public class TargetSampling {
                                 }
                                 long k = Math.min(nu, 10);
                                 return k * 1.0 / nu;
-                            }).filter(v -> !Double.isInfinite(v) && !Double.isNaN(v)).sum() * 1.0 / trainData.numUsers();
+                            }).filter(v -> !Double.isInfinite(v) && !Double.isNaN(v)).sum() / trainData.numUsers();
                     outExpectation.println(targetSize + "\t" + expectation);
                 }
             }
@@ -258,7 +259,8 @@ public class TargetSampling {
             FastPreferenceData<Long, Long> testData,
             Map<String, Map<String, double[]>> evalsPerUser,
             Function<Long, IntPredicate> userFilter,
-            PrintStream out) throws IOException {
+            PrintStream out,
+            String logSource) throws IOException {
 
         Set<Long> trainUsers = trainData.getUsersWithPreferences().collect(Collectors.toSet());
         Set<Long> targetUsers = trainUsers;
@@ -304,7 +306,8 @@ public class TargetSampling {
                 metrics,
                 evalsPerUser,
                 out,
-                filler);
+                filler,
+                logSource);
     }
 
     private void eval(
@@ -319,7 +322,8 @@ public class TargetSampling {
             Map<String, AbstractRecommendationMetric<Long, Long>> metrics,
             Map<String, Map<String, double[]>> evalsPerUser,
             PrintStream out,
-            Filler<Long, Long> filler) {
+            Filler<Long, Long> filler,
+            String logSource) {
 
         int m = userIndex.numUsers();
         int mTrain = targetUsers.size();
@@ -385,7 +389,7 @@ public class TargetSampling {
             }
             out.println();
 
-            Timer.done("   done");
+            Timer.done(logSource + "   done");
         });
 
     }

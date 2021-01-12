@@ -54,5 +54,4 @@ public class CrossValidation {
             trainData[i].close();
         }
     }
-    
 }

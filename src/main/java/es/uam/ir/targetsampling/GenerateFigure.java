@@ -27,6 +27,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Rocío Cañamares
@@ -82,45 +83,45 @@ public class GenerateFigure {
         switch (figure) {
             case 1:
                 generateFigure1(
-                        RESULTS_PATH + BIASED_PATH + ML1M + "-" + TARGET_SAMPLING_FILE,
-                        RESULTS_PATH + "figure1.txt",
-                        N_FOLDS,
-                        "P@10",
-                        FULL_TARGET_SIZE_ML1M);
+                    RESULTS_PATH + BIASED_PATH + ML1M + "-" + TARGET_SAMPLING_FILE,
+                    RESULTS_PATH + "figure1.txt",
+                    N_FOLDS,
+                    "P@10",
+                    FULL_TARGET_SIZE_ML1M);
                 break;
             case 2:
                 generateFigure2(
-                        RESULTS_PATH + BIASED_PATH + YAHOO + "-" + TARGET_SAMPLING_FILE,
-                        RESULTS_PATH + UNBIASED_PATH + YAHOO + "-" + TARGET_SAMPLING_FILE,
-                        RESULTS_PATH + "figure2.txt",
-                        N_FOLDS,
-                        new String[]{"nDCG@10", "P@10", "Recall@10"},
-                        FULL_TARGET_SIZE_YAHOO);
+                    RESULTS_PATH + BIASED_PATH + YAHOO + "-" + TARGET_SAMPLING_FILE,
+                    RESULTS_PATH + UNBIASED_PATH + YAHOO + "-" + TARGET_SAMPLING_FILE,
+                    RESULTS_PATH + "figure2.txt",
+                    N_FOLDS,
+                    new String[]{"nDCG@10", "P@10", "Recall@10"},
+                    FULL_TARGET_SIZE_YAHOO);
                 break;
             case 3:
                 generateFigure3(
-                        RESULTS_PATH + BIASED_PATH,
-                        new String[]{ML1M, YAHOO},
-                        new String[]{"nDCG@10", "P@10", "Recall@10"},
-                        RESULTS_PATH + "figure3.txt",
-                        N_FOLDS);
+                    RESULTS_PATH + BIASED_PATH,
+                    new String[]{ML1M, YAHOO},
+                    new String[]{"nDCG@10", "P@10", "Recall@10"},
+                    RESULTS_PATH + "figure3.txt",
+                    N_FOLDS);
                 break;
             case 4:
                 generateFigure4(
-                        RESULTS_PATH + BIASED_PATH,
-                        RESULTS_PATH + UNBIASED_PATH,
-                        new String[]{ML1M, YAHOO},
-                        new String[]{"nDCG@10", "P@10", "Recall@10"},
-                        RESULTS_PATH + "figure4.txt",
-                        N_FOLDS);
+                    RESULTS_PATH + BIASED_PATH,
+                    RESULTS_PATH + UNBIASED_PATH,
+                    new String[]{ML1M, YAHOO},
+                    new String[]{"nDCG@10", "P@10", "Recall@10"},
+                    RESULTS_PATH + "figure4.txt",
+                    N_FOLDS);
                 break;
             case 5:
                 generateFigure5(
-                        RESULTS_PATH + BIASED_PATH,
-                        new String[]{ML1M, YAHOO},
-                        new String[]{"Coverage@10"},
-                        RESULTS_PATH + "figure5.txt",
-                        N_FOLDS);
+                    RESULTS_PATH + BIASED_PATH,
+                    new String[]{ML1M, YAHOO},
+                    new String[]{"Coverage@10"},
+                    RESULTS_PATH + "figure5.txt",
+                    N_FOLDS);
                 break;
             default:
                 System.out.println("Invalid figure number");
@@ -389,8 +390,8 @@ public class GenerateFigure {
     }
 
     private static void generateFigure4_sub(String biasedFolder, String unbiasedFolder, String[] metrics, String outFile, int nFolds, String dataset) throws IOException {
-        List<String> metricList = Arrays.asList(metrics + "." + dataset + ".txt");
-        PrintStream out = new PrintStream(outFile);
+        List<String> metricList = Arrays.asList(metrics);
+        PrintStream out = new PrintStream(outFile + "." + dataset + ".txt");
         out.println("====================");
         out.println("Dataset: " + dataset);
         out.println("====================\n");
@@ -577,7 +578,7 @@ public class GenerateFigure {
                         conf.setAllRecs(true);
                         conf.setResultsPath(conf.getResultsPath() + "allrecs-");
                         TargetSampling targetSelection = new TargetSampling(conf);
-                        targetSelection.runCrossValidation();
+                        targetSelection.runCrossValidation("generateFigure4_sub_YAHOO_BIASED_PROPERTIES_FILE");
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -594,7 +595,7 @@ public class GenerateFigure {
                         conf.setAllRecs(true);
                         conf.setResultsPath(conf.getResultsPath() + "allrecs-");
                         TargetSampling targetSelection = new TargetSampling(conf);
-                        targetSelection.runCrossValidation();
+                        targetSelection.runCrossValidation("generateFigure4_sub_ML1M_BIASED_PROPERTIES_FILE");
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -669,7 +670,7 @@ public class GenerateFigure {
                     conf.setFillMode(Filler.Mode.NONE);
                     conf.setResultsPath(conf.getResultsPath() + "nofill-");
                     TargetSampling targetSelection = new TargetSampling(conf);
-                    targetSelection.runCrossValidation();
+                    targetSelection.runCrossValidation("generateFigure5 YAHOO_BIASED_PROPERTIES_FILE");
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -686,7 +687,7 @@ public class GenerateFigure {
                     conf.setFillMode(Filler.Mode.NONE);
                     conf.setResultsPath(conf.getResultsPath() + "nofill-");
                     TargetSampling targetSelection = new TargetSampling(conf);
-                    targetSelection.runCrossValidation();
+                    targetSelection.runCrossValidation("generateFigure5 ML1M_BIASED_PROPERTIES_FILE");
                 }
             } catch (IOException e) {
                 e.printStackTrace();

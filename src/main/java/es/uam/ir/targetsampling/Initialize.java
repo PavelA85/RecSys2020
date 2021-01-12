@@ -62,70 +62,88 @@ public class Initialize {
     public static void main(String[] args) throws IOException {
         LogManager.getLogManager().reset();
 
-        File directory = new File(String.valueOf(RESULTS_PATH));
+        File directory = new File(RESULTS_PATH);
         if (!directory.exists()) {
             directory.mkdir();
         }
 
-        directory = new File(String.valueOf(RESULTS_PATH + BIASED_PATH));
+        directory = new File(RESULTS_PATH + BIASED_PATH);
         if (!directory.exists()) {
             directory.mkdir();
         }
 
-        directory = new File(String.valueOf(RESULTS_PATH + UNBIASED_PATH));
+        directory = new File(RESULTS_PATH + UNBIASED_PATH);
         if (!directory.exists()) {
             directory.mkdir();
         }
 
-        Timer.start("Processing Movielens 1M...");
-        //processMl1m();
-        Timer.done("");
 
-        Timer.start("Processing Yahoo R3...");
-        //processYahoo();
-        Timer.done("");
+        Thread processMl1m = new Thread(() -> {
+            try {
+                Timer.start((Object) "processMl1m", "Processing Movielens 1M...");
+                processMl1m();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        processMl1m.start();
 
-        Thread tYahooBIASED = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Configuration conf = new Configuration(YAHOO_BIASED_PROPERTIES_FILE);
-                    TargetSampling targetSelection = new TargetSampling(conf);
-                    targetSelection.runCrossValidation();
-                } catch (
-                        IOException e) {
-                    e.printStackTrace();
-                }
+        Thread processYahoo = new Thread(() -> {
+            try {
+                Timer.start((Object) "processYahoo", "Processing Yahoo R3...");
+                processYahoo();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        processYahoo.start();
+
+        try {
+            processMl1m.join();
+            Timer.done("processMl1m", "");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        try {
+            processYahoo.join();
+            Timer.done("processYahoo", "");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+        Thread tYahooBIASED = new Thread(() -> {
+            try {
+                Configuration conf = new Configuration(YAHOO_BIASED_PROPERTIES_FILE);
+                TargetSampling targetSelection = new TargetSampling(conf);
+                targetSelection.runCrossValidation("Initialize_YAHOO_BIASED_PROPERTIES_FILE");
+            } catch (
+                    IOException e) {
+                e.printStackTrace();
             }
         });
         tYahooBIASED.start();
 
-        Thread tYahooUNBIASED = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Configuration conf = new Configuration(YAHOO_UNBIASED_PROPERTIES_FILE);
-                    TargetSampling targetSelection = new TargetSampling(conf);
-                    targetSelection.runWithUnbiasedTest(conf.getTestPath());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        Thread tYahooUNBIASED = new Thread(() -> {
+            try {
+                Configuration conf = new Configuration(YAHOO_UNBIASED_PROPERTIES_FILE);
+                TargetSampling targetSelection = new TargetSampling(conf);
+                targetSelection.runWithUnbiasedTest(conf.getTestPath(), "Initialize_YAHOO_UNBIASED_PROPERTIES_FILE");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
 
         tYahooUNBIASED.start();
 
-        Thread tMovieLens = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                //MovieLens
-                try {
-                    Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
-                    TargetSampling targetSelection = new TargetSampling(conf);
-                    targetSelection.runCrossValidation();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        Thread tMovieLens = new Thread(() -> {
+            //MovieLens
+            try {
+                Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
+                TargetSampling targetSelection = new TargetSampling(conf);
+                targetSelection.runCrossValidation("Initialize_ML1M_BIASED_PROPERTIES_FILE");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
         tMovieLens.start();
@@ -145,32 +163,12 @@ public class Initialize {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-//        //Yahoo
-//        {
-//            Configuration conf = new Configuration(YAHOO_BIASED_PROPERTIES_FILE);
-//            TargetSampling targetSelection = new TargetSampling(conf);
-//            targetSelection.runCrossValidation();
-//        }
-//
-//        {
-//            Configuration conf = new Configuration(YAHOO_UNBIASED_PROPERTIES_FILE);
-//            TargetSampling targetSelection = new TargetSampling(conf);
-//            targetSelection.runWithUnbiasedTest(conf.getTestPath());
-//        }
-//
-//        //MovieLens
-//        {
-//            Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
-//            TargetSampling targetSelection = new TargetSampling(conf);
-//            targetSelection.runCrossValidation();
-//        }
-
     }
 
     static void processMl1m() throws IOException {
 
         RandomAccessFile ml1mIn = new RandomAccessFile(ORIGINAL_ML1M_DATASET_PATH, "r");
-        byte bytes[] = new byte[(int) ml1mIn.length()];
+        byte[] bytes = new byte[(int) ml1mIn.length()];
         ml1mIn.read(bytes);
         String ratings = new String(bytes, StandardCharsets.UTF_8);
 
@@ -181,14 +179,14 @@ public class Initialize {
         CrossValidation.crowssValidation(PREPROCESSED_ML1M_DATASET_PATH, ML1M_PATH, GenerateFigure.N_FOLDS);
     }
 
-    static void processYahoo() throws FileNotFoundException, IOException {
-        // No format change neded
+    static void processYahoo() throws IOException {
+        // No format change needed
         Files.copy(
                 Paths.get(ORIGINAL_YAHOO_TEST_DATASET_PATH),
                 Paths.get(PREPROCESSED_YAHOO_TEST_DATASET_PATH),
                 StandardCopyOption.REPLACE_EXISTING);
 
-        Set<Long> testUsers = new HashSet<Long>();
+        Set<Long> testUsers = new HashSet<>();
         Scanner scn = new Scanner(new File(PREPROCESSED_YAHOO_TEST_DATASET_PATH));
         while (scn.hasNext()) {
             testUsers.add(new Long(scn.nextLine().split("\t")[0]));
