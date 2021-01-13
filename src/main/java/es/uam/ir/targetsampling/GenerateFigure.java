@@ -327,7 +327,8 @@ public class GenerateFigure {
                 for (int targetSize : values.get(metric).keySet()) {
                     out.print(targetSize);
                     for (String rec : rec_ordered) {
-                        out.print("\t" + values.get(metric).get(targetSize).get(rec) / nFolds);
+                        double avgMetric = values.get(metric).get(targetSize).get(rec) / nFolds;
+                        out.print("\t" + avgMetric);
                     }
                     out.println();
                 }
