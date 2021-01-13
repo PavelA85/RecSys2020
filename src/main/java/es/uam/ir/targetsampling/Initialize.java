@@ -78,7 +78,16 @@ public class Initialize {
         if (false) {
             preprocessDatasets();
         }
+        Thread tMovieLens = runMovieLens();
+        WaitFor(tMovieLens, "Initialize_ML1M_BIASED_PROPERTIES_FILE");
+//        Thread tYahooBIASED = runYahooBiased();
+//        Thread tYahooUNBIASED = runYahooUnbiased();
+//
+//        WaitFor(tYahooBIASED, "Initialize_YAHOO_BIASED_PROPERTIES_FILE");
+//        WaitFor(tYahooUNBIASED, "Initialize_YAHOO_UNBIASED_PROPERTIES_FILE");
+    }
 
+    private static Thread runYahooBiased() {
         Thread tYahooBIASED = new Thread(() -> {
             try {
                 Configuration conf = new Configuration(YAHOO_BIASED_PROPERTIES_FILE);
@@ -90,7 +99,10 @@ public class Initialize {
             }
         });
         tYahooBIASED.start();
+        return tYahooBIASED;
+    }
 
+    private static Thread runYahooUnbiased() {
         Thread tYahooUNBIASED = new Thread(() -> {
             try {
                 Configuration conf = new Configuration(YAHOO_UNBIASED_PROPERTIES_FILE);
@@ -102,7 +114,10 @@ public class Initialize {
         });
 
         tYahooUNBIASED.start();
+        return tYahooUNBIASED;
+    }
 
+    private static Thread runMovieLens() {
         Thread tMovieLens = new Thread(() -> {
             //MovieLens
             try {
@@ -114,10 +129,7 @@ public class Initialize {
             }
         });
         tMovieLens.start();
-
-        WaitFor(tYahooBIASED, "Initialize_YAHOO_BIASED_PROPERTIES_FILE");
-        WaitFor(tYahooUNBIASED, "Initialize_YAHOO_UNBIASED_PROPERTIES_FILE");
-        WaitFor(tMovieLens, "Initialize_ML1M_BIASED_PROPERTIES_FILE");
+        return tMovieLens;
     }
 
     private static void preprocessDatasets() {
