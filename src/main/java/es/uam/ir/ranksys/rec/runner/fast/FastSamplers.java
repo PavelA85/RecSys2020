@@ -107,13 +107,13 @@ public class FastSamplers {
      * @param <U>
      * @param <I>
      * @param trainData
-     * @param mapSets
-     * @param n
+     * @param inTestForUser
+     * @param targetSize
      * @return
      */
-    public static <U, I> Function<U, IntPredicate> uniform(FastPreferenceData<U, I> trainData, Map<U, IntSet> mapSets, int n) {
+    public static <U, I> Function<U, IntPredicate> uniform(FastPreferenceData<U, I> trainData, Map<U, IntSet> inTestForUser, int targetSize) {
         IntFunction<Double> weight = iidx -> 1.0;
-        return sample(trainData, mapSets, n, weight);
+        return sample(trainData, inTestForUser, targetSize, weight);
     }
 
     /**

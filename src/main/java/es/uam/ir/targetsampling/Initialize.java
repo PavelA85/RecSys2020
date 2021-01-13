@@ -12,13 +12,11 @@ import es.uam.ir.crossvalidation.CrossValidation;
 import es.uam.ir.util.Timer;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.RandomAccessFile;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.HashSet;
@@ -77,40 +75,9 @@ public class Initialize {
             directory.mkdir();
         }
 
-
-        Thread processMl1m = new Thread(() -> {
-            try {
-                Timer.start((Object) "processMl1m", "Processing Movielens 1M...");
-                processMl1m();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        processMl1m.start();
-
-        Thread processYahoo = new Thread(() -> {
-            try {
-                Timer.start((Object) "processYahoo", "Processing Yahoo R3...");
-                processYahoo();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        processYahoo.start();
-
-        try {
-            processMl1m.join();
-            Timer.done("processMl1m", "");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if (false) {
+            preprocessDatasets();
         }
-        try {
-            processYahoo.join();
-            Timer.done("processYahoo", "");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
 
         Thread tYahooBIASED = new Thread(() -> {
             try {
@@ -148,18 +115,40 @@ public class Initialize {
         });
         tMovieLens.start();
 
+        WaitFor(tYahooBIASED, "Initialize_YAHOO_BIASED_PROPERTIES_FILE");
+        WaitFor(tYahooUNBIASED, "Initialize_YAHOO_UNBIASED_PROPERTIES_FILE");
+        WaitFor(tMovieLens, "Initialize_ML1M_BIASED_PROPERTIES_FILE");
+    }
+
+    private static void preprocessDatasets() {
+        Thread processMl1m = new Thread(() -> {
+            try {
+                Timer.start((Object) "processMl1m", "Processing Movielens 1M...");
+                processMl1m();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        processMl1m.start();
+
+        Thread processYahoo = new Thread(() -> {
+            try {
+                Timer.start((Object) "processYahoo", "Processing Yahoo R3...");
+                processYahoo();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        processYahoo.start();
+
+        WaitFor(processMl1m, "processMl1m");
+        WaitFor(processYahoo, "processYahoo");
+    }
+
+    private static void WaitFor(Thread thread, String processMl1m2) {
         try {
-            tYahooBIASED.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        try {
-            tYahooUNBIASED.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        try {
-            tMovieLens.join();
+            thread.join();
+            Timer.done(processMl1m2, "");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -176,7 +165,7 @@ public class Initialize {
         ml1mOut.print(ratings.replace("::", "\t"));
         ml1mOut.close();
 
-        CrossValidation.crowssValidation(PREPROCESSED_ML1M_DATASET_PATH, ML1M_PATH, GenerateFigure.N_FOLDS);
+        CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML1M_DATASET_PATH, ML1M_PATH, GenerateFigure.N_FOLDS);
     }
 
     static void processYahoo() throws IOException {
@@ -202,7 +191,7 @@ public class Initialize {
         }
         trainOut.close();
 
-        CrossValidation.crowssValidation(PREPROCESSED_YAHOO_TRAIN_DATASET_PATH, YAHOO_PATH, GenerateFigure.N_FOLDS);
+        CrossValidation.randomNFoldCrossValidation(PREPROCESSED_YAHOO_TRAIN_DATASET_PATH, YAHOO_PATH, GenerateFigure.N_FOLDS);
     }
 
 }

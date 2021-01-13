@@ -35,6 +35,7 @@ import es.uam.eps.ir.ranksys.rec.fast.basic.PopularityRecommender;
 import es.uam.eps.ir.ranksys.rec.runner.fast.FastFilters;
 import es.uam.ir.datagenerator.TruncateRatings;
 import es.uam.ir.util.Timer;
+
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
@@ -45,29 +46,34 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.function.IntPredicate;
 import java.util.stream.DoubleStream;
+
 import org.apache.commons.math3.stat.inference.TTest;
 import org.ranksys.formats.index.ItemsReader;
 import org.ranksys.formats.index.UsersReader;
+
 import static org.ranksys.formats.parsing.Parsers.lp;
+
 import org.ranksys.formats.preference.SimpleRatingPreferencesReader;
 import es.uam.ir.ranksys.rec.runner.fast.FastSamplers;
 import es.uam.ir.crossvalidation.CrossValidation;
 import es.uam.ir.filler.Filler.Mode;
 import es.uam.ir.util.GetUsersAndItems;
+
 import java.io.ByteArrayInputStream;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.logging.LogManager;
 import java.util.stream.Collectors;
+
 import org.ranksys.core.util.tuples.Tuple2id;
 import org.ranksys.core.util.tuples.Tuple2od;
 import es.uam.ir.ranksys.rec.fast.basic.RandomRecommender;
 import es.uam.ir.ranksys.rec.fast.basic.AverageRatingRecommender;
 import es.uam.ir.ranksys.nn.user.NormUserNeighborhoodRecommenderWithMinimum;
+
 import java.io.FileNotFoundException;
 
 /**
- *
  * @author Rocío Cañamares
  * @author Pablo Castells
  */
@@ -81,13 +87,12 @@ public class TargetSampling {
     public final static String EXPECTED_INTERSECTION_RATIO_FILE = "expected-intersection-ratio.txt";
 
     private final String[] METRIC_NAMES = new String[]{
-        "Coverage",
-        "nDCG",
-        "P",
-        "Recall",};
+            "Coverage",
+            "nDCG",
+            "P",
+            "Recall",};
 
     /**
-     *
      * @param conf
      */
     public TargetSampling(
@@ -96,7 +101,6 @@ public class TargetSampling {
     }
 
     /**
-     *
      * @throws IOException
      */
     public void runCrossValidation(String logSource) throws IOException {
@@ -119,7 +123,7 @@ public class TargetSampling {
         Map<String, Map<String, double[]>> evalsPerUser = new HashMap<>();
         int nUsersInCrossValidation = 0;
         try (PrintStream out = new PrintStream(conf.getResultsPath() + TARGET_SAMPLING_FILE);
-                PrintStream outExpectation = new PrintStream(conf.getResultsPath() + EXPECTED_INTERSECTION_RATIO_FILE)) {
+             PrintStream outExpectation = new PrintStream(conf.getResultsPath() + EXPECTED_INTERSECTION_RATIO_FILE)) {
             //Header
             outExpectation.println("fold\ttarget size\texpected intersection ratio in top n");
             out.print("fold\ttarget size\trecommender system");
@@ -133,7 +137,7 @@ public class TargetSampling {
                 int targetSize = n;
                 nUsersInCrossValidation = 0;
                 for (int currentFold = 1; currentFold <= conf.getNFolds(); currentFold++) {
-                    System.out.println("Running fold " + currentFold);
+                    System.out.println(logSource + " Running fold " + currentFold);
                     FastPreferenceData<Long, Long> trainData = SimpleFastPreferenceData
                             .load(SimpleRatingPreferencesReader
                                     .get()
@@ -181,7 +185,6 @@ public class TargetSampling {
     }
 
     /**
-     *
      * @param testPath
      * @throws IOException
      */
@@ -205,7 +208,7 @@ public class TargetSampling {
         Map<String, Map<String, double[]>> evalsPerUser = new HashMap<>();
         int nUsersInCrossValidation = 0;
         try (PrintStream out = new PrintStream(conf.getResultsPath() + TARGET_SAMPLING_FILE);
-                PrintStream outExpectation = new PrintStream(conf.getResultsPath() + EXPECTED_INTERSECTION_RATIO_FILE)) {
+             PrintStream outExpectation = new PrintStream(conf.getResultsPath() + EXPECTED_INTERSECTION_RATIO_FILE)) {
             //Header
             outExpectation.println("fold\ttarget size\texpected intersection ratio in top n");
             out.print("fold\ttarget size\trec");
@@ -220,7 +223,7 @@ public class TargetSampling {
                 nUsersInCrossValidation = 0;
 
                 for (int currentFold = 1; currentFold <= conf.getNFolds(); currentFold++) {
-                    System.out.println("Running fold " + currentFold);
+                    System.out.printf("%s Running fold %d Target size:%d %n", logSource, currentFold, targetSize);
                     FastPreferenceData<Long, Long> trainData = SimpleFastPreferenceData.load(SimpleRatingPreferencesReader.get().read(conf.getDataPath() + currentFold + "-data-train.txt", lp, lp), userIndex, itemIndex);
                     FastPreferenceData<Long, Long> positiveTrainData = TruncateRatings.run(trainData, conf.getThreshold());
                     //Sampler:
@@ -337,7 +340,7 @@ public class TargetSampling {
                 evalsPerUser.put(recName, values);
             }
 
-            System.out.print("Running " + recName);
+            System.out.print(logSource + " Running " + recNameAux + " TargetSize:" + targetSize);
             FastRecommender<Long, Long> recommendation = (FastRecommender<Long, Long>) recMap.get(recNameAux).get();
             Function<Long, Recommendation<Long, Long>> recProvider = user -> {
                 FastRecommendation rec = recommendation.getRecommendation(userIndex.user2uidx(user), conf.getCutoff(), userFilter.apply(user));
@@ -353,20 +356,20 @@ public class TargetSampling {
                     .map(user -> recProvider.apply(user))
                     .map(rec -> {
                         List<Tuple2id> items = rec.getItems()
-                        .stream()
-                        .map(ip -> new Tuple2id(itemIndex.item2iidx(ip.v1), ip.v2))
-                        .collect(Collectors.toList());
+                                .stream()
+                                .map(ip -> new Tuple2id(itemIndex.item2iidx(ip.v1), ip.v2))
+                                .collect(Collectors.toList());
                         List<Tuple2od<Long>> newItems = filler
-                        .fill(items, conf.getCutoff(), userFilter.apply(rec.getUser()), rec.getUser())
-                        .stream()
-                        .map(ip -> new Tuple2od<>(itemIndex.iidx2item(ip.v1), ip.v2))
-                        .collect(Collectors.toList());
+                                .fill(items, conf.getCutoff(), userFilter.apply(rec.getUser()), rec.getUser())
+                                .stream()
+                                .map(ip -> new Tuple2od<>(itemIndex.iidx2item(ip.v1), ip.v2))
+                                .collect(Collectors.toList());
                         return new Recommendation<>(rec.getUser(), newItems);
                     }).forEachOrdered(rec -> {
-                        metrics.forEach((metricName, metric) -> {
-                            actualValues.get(metricName)[userIndex.user2uidx(rec.getUser())] = metric.evaluate(rec);
-                        });
-                    });
+                metrics.forEach((metricName, metric) -> {
+                    actualValues.get(metricName)[userIndex.user2uidx(rec.getUser())] = metric.evaluate(rec);
+                });
+            });
 
             Map<String, double[]> pastValues = evalsPerUser.get(recName);
 
@@ -381,13 +384,16 @@ public class TargetSampling {
             }
 
             //Values
-            out.print(currentFold);
-            out.print("\t");
-            out.print(recName);
+            StringBuilder mBuilder = new StringBuilder()
+                    .append(currentFold)
+                    .append("\t")
+                    .append(recName);
             for (String metricName : METRIC_NAMES) {
-                out.print("\t" + DoubleStream.of(actualValues.get(metricName)).sum() / mTrain);
+                mBuilder
+                        .append("\t")
+                        .append(DoubleStream.of(actualValues.get(metricName)).sum() / mTrain);
             }
-            out.println();
+            out.println(mBuilder.toString());
 
             Timer.done(logSource + "   done");
         });

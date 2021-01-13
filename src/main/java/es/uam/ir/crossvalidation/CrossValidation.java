@@ -31,7 +31,7 @@ public class CrossValidation {
      * @param nfolds
      * @throws IOException 
      */
-    public static void crowssValidation(String dataPath, String outputPath, int nfolds) throws IOException {
+    public static void randomNFoldCrossValidation(String dataPath, String outputPath, int nfolds) throws IOException {
         PrintStream trainData[] = new PrintStream[nfolds];
         PrintStream testData[] = new PrintStream[nfolds];
 
@@ -52,6 +52,7 @@ public class CrossValidation {
         }
         for (int i = 0; i < nfolds; i++) {
             trainData[i].close();
+            testData[i].close();
         }
     }
 }
