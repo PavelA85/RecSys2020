@@ -46,17 +46,18 @@ public class Timer {
         s -= min * 60;
         min -= h * 60;
         h -= d * 24;
-        System.out.print(msg + " (");
+        StringBuilder done = new StringBuilder().append(msg).append(" (");
         if (d > 0) {
-            System.out.print(d + " days ");
+            done.append(d + " days ");
         }
         if (h > 0) {
-            System.out.print(h + "h ");
+            done.append(h + "h ");
         }
         if (min > 0) {
-            System.out.print(min + "min ");
+            done.append(min + "min ");
         }
-        System.out.println(s + "s)");
+        done.append(s + "s)");
+        System.out.println(done.toString());
         prev.put(obj, now.get(obj));
     }
 

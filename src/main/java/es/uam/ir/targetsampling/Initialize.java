@@ -133,9 +133,10 @@ public class Initialize {
     }
 
     private static void preprocessDatasets() {
+        String processMl1m1 = "processMl1m";
         Thread processMl1m = new Thread(() -> {
             try {
-                Timer.start((Object) "processMl1m", "Processing Movielens 1M...");
+                Timer.start((Object) processMl1m1, "Processing Movielens 1M...");
                 processMl1m();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -143,9 +144,10 @@ public class Initialize {
         });
         processMl1m.start();
 
+        String processYahoo1 = "processYahoo";
         Thread processYahoo = new Thread(() -> {
             try {
-                Timer.start((Object) "processYahoo", "Processing Yahoo R3...");
+                Timer.start((Object) processYahoo1, "Processing Yahoo R3...");
                 processYahoo();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -153,14 +155,14 @@ public class Initialize {
         });
         processYahoo.start();
 
-        WaitFor(processMl1m, "processMl1m");
-        WaitFor(processYahoo, "processYahoo");
+        WaitFor(processMl1m, processMl1m1);
+        WaitFor(processYahoo, processYahoo1);
     }
 
     private static void WaitFor(Thread thread, String processMl1m2) {
         try {
             thread.join();
-            Timer.done(processMl1m2, "");
+            Timer.done(processMl1m2, processMl1m2);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

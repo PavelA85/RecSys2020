@@ -8,7 +8,6 @@
  */
 package es.uam.ir.targetsampling;
 
-import es.uam.ir.filler.Filler;
 import es.uam.eps.ir.ranksys.core.Recommendation;
 import es.uam.eps.ir.ranksys.fast.FastRecommendation;
 import es.uam.eps.ir.ranksys.fast.index.FastItemIndex;
@@ -18,8 +17,6 @@ import es.uam.eps.ir.ranksys.fast.index.SimpleFastUserIndex;
 import es.uam.eps.ir.ranksys.fast.preference.FastPreferenceData;
 import es.uam.eps.ir.ranksys.fast.preference.SimpleFastPreferenceData;
 import es.uam.eps.ir.ranksys.metrics.AbstractRecommendationMetric;
-import es.uam.ir.ranksys.metrics.basic.Coverage;
-import es.uam.ir.ranksys.metrics.basic.NDCG;
 import es.uam.eps.ir.ranksys.metrics.basic.Precision;
 import es.uam.eps.ir.ranksys.metrics.basic.Recall;
 import es.uam.eps.ir.ranksys.metrics.rel.BinaryRelevanceModel;
@@ -34,44 +31,35 @@ import es.uam.eps.ir.ranksys.rec.fast.FastRecommender;
 import es.uam.eps.ir.ranksys.rec.fast.basic.PopularityRecommender;
 import es.uam.eps.ir.ranksys.rec.runner.fast.FastFilters;
 import es.uam.ir.datagenerator.TruncateRatings;
+import es.uam.ir.filler.Filler;
+import es.uam.ir.ranksys.metrics.basic.Coverage;
+import es.uam.ir.ranksys.metrics.basic.NDCG;
+import es.uam.ir.ranksys.nn.user.NormUserNeighborhoodRecommenderWithMinimum;
+import es.uam.ir.ranksys.rec.fast.basic.AverageRatingRecommender;
+import es.uam.ir.ranksys.rec.fast.basic.RandomRecommender;
+import es.uam.ir.ranksys.rec.runner.fast.FastSamplers;
+import es.uam.ir.util.GetUsersAndItems;
 import es.uam.ir.util.Timer;
-
-import java.io.IOException;
-import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.function.IntPredicate;
-import java.util.stream.DoubleStream;
-
 import org.apache.commons.math3.stat.inference.TTest;
+import org.ranksys.core.util.tuples.Tuple2id;
+import org.ranksys.core.util.tuples.Tuple2od;
 import org.ranksys.formats.index.ItemsReader;
 import org.ranksys.formats.index.UsersReader;
-
-import static org.ranksys.formats.parsing.Parsers.lp;
-
 import org.ranksys.formats.preference.SimpleRatingPreferencesReader;
-import es.uam.ir.ranksys.rec.runner.fast.FastSamplers;
-import es.uam.ir.crossvalidation.CrossValidation;
-import es.uam.ir.filler.Filler.Mode;
-import es.uam.ir.util.GetUsersAndItems;
 
 import java.io.ByteArrayInputStream;
-import java.util.Set;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.util.*;
+import java.util.function.Function;
+import java.util.function.IntPredicate;
 import java.util.function.Supplier;
 import java.util.logging.LogManager;
 import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
 
-import org.ranksys.core.util.tuples.Tuple2id;
-import org.ranksys.core.util.tuples.Tuple2od;
-import es.uam.ir.ranksys.rec.fast.basic.RandomRecommender;
-import es.uam.ir.ranksys.rec.fast.basic.AverageRatingRecommender;
-import es.uam.ir.ranksys.nn.user.NormUserNeighborhoodRecommenderWithMinimum;
-
-import java.io.FileNotFoundException;
+import static org.ranksys.formats.parsing.Parsers.lp;
 
 /**
  * @author Rocío Cañamares
@@ -104,7 +92,7 @@ public class TargetSampling {
      * @throws IOException
      */
     public void runCrossValidation(String logSource) throws IOException {
-        Timer.start(logSource + " Starting...");
+        Timer.start((Object) logSource, " Starting..." + logSource);
 
         for (int i = 0; i < METRIC_NAMES.length; i++) {
             METRIC_NAMES[i] += "@" + conf.getCutoff();
@@ -113,12 +101,12 @@ public class TargetSampling {
         LogManager.getLogManager().reset();
 
         // Read files
-        Timer.start(logSource + " Reading files...");
+        Timer.start((Object) logSource, " Reading files..." + conf.getResultsPath());
         ByteArrayInputStream[] usersAndItemsInputStreams = GetUsersAndItems.run(conf.getDataPath() + "data.txt");
         FastUserIndex<Long> userIndex = SimpleFastUserIndex.load(UsersReader.read(usersAndItemsInputStreams[0], lp));
         FastItemIndex<Long> itemIndex = SimpleFastItemIndex.load(ItemsReader.read(usersAndItemsInputStreams[1], lp));
 
-        Timer.done(logSource);
+        Timer.done(logSource, " Reading files " + conf.getResultsPath());
 
         Map<String, Map<String, double[]>> evalsPerUser = new HashMap<>();
         int nUsersInCrossValidation = 0;
@@ -189,7 +177,7 @@ public class TargetSampling {
      * @throws IOException
      */
     public void runWithUnbiasedTest(String testPath, String logSource) throws IOException {
-        Timer.start(logSource + " Starting...");
+        Timer.start(logSource + " Starting..." + logSource);
 
         for (int i = 0; i < METRIC_NAMES.length; i++) {
             METRIC_NAMES[i] += "@" + conf.getCutoff();
@@ -198,12 +186,12 @@ public class TargetSampling {
         LogManager.getLogManager().reset();
 
         // Read files
-        Timer.start(logSource + "Reading files...");
+        Timer.start((Object) logSource, "Reading files..." + logSource);
         ByteArrayInputStream[] usersAndItemsInputStreams = GetUsersAndItems.run(conf.getDataPath() + "data.txt");
         FastUserIndex<Long> userIndex = SimpleFastUserIndex.load(UsersReader.read(usersAndItemsInputStreams[0], lp));
         FastItemIndex<Long> itemIndex = SimpleFastItemIndex.load(ItemsReader.read(usersAndItemsInputStreams[1], lp));
         FastPreferenceData<Long, Long> testData = SimpleFastPreferenceData.load(SimpleRatingPreferencesReader.get().read(testPath, lp, lp), userIndex, itemIndex);
-        Timer.done(logSource + "");
+        Timer.done(logSource, " Reading files " + logSource);
 
         Map<String, Map<String, double[]>> evalsPerUser = new HashMap<>();
         int nUsersInCrossValidation = 0;
@@ -223,6 +211,7 @@ public class TargetSampling {
                 nUsersInCrossValidation = 0;
 
                 for (int currentFold = 1; currentFold <= conf.getNFolds(); currentFold++) {
+                    Timer.start(currentFold, "folding..." + currentFold + " " + logSource);
                     System.out.printf("%s Running fold %d Target size:%d %n", logSource, currentFold, targetSize);
                     FastPreferenceData<Long, Long> trainData = SimpleFastPreferenceData.load(SimpleRatingPreferencesReader.get().read(conf.getDataPath() + currentFold + "-data-train.txt", lp, lp), userIndex, itemIndex);
                     FastPreferenceData<Long, Long> positiveTrainData = TruncateRatings.run(trainData, conf.getThreshold());
@@ -232,7 +221,6 @@ public class TargetSampling {
                     Function<Long, IntPredicate> userFilter = FastFilters.and(sampler, notTrainFilter);
 
                     runSplit(userIndex, itemIndex, nUsersInCrossValidation, targetSize, currentFold, trainData, positiveTrainData, testData, evalsPerUser, userFilter, out, logSource);
-                    Timer.done(logSource + "...");
 
                     nUsersInCrossValidation += trainData.getUsersWithPreferences().count();
                     double expectation = trainData.getUsersWithPreferences()
@@ -245,6 +233,7 @@ public class TargetSampling {
                                 return k * 1.0 / nu;
                             }).filter(v -> !Double.isInfinite(v) && !Double.isNaN(v)).sum() / trainData.numUsers();
                     outExpectation.println(targetSize + "\t" + expectation);
+                    Timer.done(currentFold, "folding finished" + currentFold + " " + logSource);
                 }
             }
         }
@@ -340,7 +329,7 @@ public class TargetSampling {
                 evalsPerUser.put(recName, values);
             }
 
-            System.out.print(logSource + " Running " + recNameAux + " TargetSize:" + targetSize);
+            System.out.println(logSource + " Running " + recNameAux + " TargetSize:" + targetSize);
             FastRecommender<Long, Long> recommendation = (FastRecommender<Long, Long>) recMap.get(recNameAux).get();
             Function<Long, Recommendation<Long, Long>> recProvider = user -> {
                 FastRecommendation rec = recommendation.getRecommendation(userIndex.user2uidx(user), conf.getCutoff(), userFilter.apply(user));
@@ -395,7 +384,7 @@ public class TargetSampling {
             }
             out.println(mBuilder.toString());
 
-            Timer.done(logSource + "   done");
+            Timer.done(logSource, logSource + "   done");
         });
 
     }
