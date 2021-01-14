@@ -10,24 +10,14 @@ package es.uam.ir.targetsampling;
 
 import es.uam.ir.filler.Filler;
 
-import static es.uam.ir.targetsampling.Initialize.BIASED_PATH;
-import static es.uam.ir.targetsampling.Initialize.ML1M;
-import static es.uam.ir.targetsampling.Initialize.ML1M_BIASED_PROPERTIES_FILE;
-import static es.uam.ir.targetsampling.Initialize.RESULTS_PATH;
-import static es.uam.ir.targetsampling.Initialize.UNBIASED_PATH;
-import static es.uam.ir.targetsampling.Initialize.YAHOO;
-import static es.uam.ir.targetsampling.Initialize.YAHOO_BIASED_PROPERTIES_FILE;
-import static es.uam.ir.targetsampling.TargetSampling.EXPECTED_INTERSECTION_RATIO_FILE;
-import static es.uam.ir.targetsampling.TargetSampling.TARGET_SAMPLING_FILE;
-import static es.uam.ir.targetsampling.TargetSampling.TIES_AT_ZERO_FILE;
-import static es.uam.ir.targetsampling.TargetSampling.TIES_FILE;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.*;
-import java.util.stream.Collectors;
+
+import static es.uam.ir.targetsampling.Initialize.*;
+import static es.uam.ir.targetsampling.TargetSampling.*;
 
 /**
  * @author Rocío Cañamares
@@ -140,11 +130,15 @@ public class GenerateFigure {
 
         for (String s : splits) {
             String split = String.format("/%s/", s);
+            File directory = new File(RESULTS_PATH + split);
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
             switch (figure) {
                 case 1:
                     generateFigure1(
                             RESULTS_PATH + BIASED_PATH + split + ML1M + "-" + TARGET_SAMPLING_FILE,
-                            RESULTS_PATH + "figure1.txt",
+                            RESULTS_PATH + split + "figure1.txt",
                             N_FOLDS,
                             "P@10",
                             FULL_TARGET_SIZE_ML1M);
@@ -155,12 +149,12 @@ public class GenerateFigure {
                             RESULTS_PATH + BIASED_PATH + split,
                             new String[]{ML1M},
                             new String[]{"nDCG@10", "P@10", "Recall@10"},
-                            RESULTS_PATH + "figure3.txt",
+                            RESULTS_PATH + split + "figure3.txt",
                             N_FOLDS);
                     break;
 
                 default:
-                    System.out.println("Invalid figure number:" + figure);
+                    System.out.println("Invalid figure number:" + figure + " split: " + split);
             }
         }
     }
