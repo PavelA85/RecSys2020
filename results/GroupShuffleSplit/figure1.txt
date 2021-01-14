@@ -1,0 +1,14 @@
+====================
+Dataset: ml1m
+====================
+
+P@10
+Recommender	Full	Test
+iMF (full)	0.0	0.0
+iMF (test)	0.0	0.0
+kNN (full/test)	0.0	0.0
+Normalized kNN (full)	0.0	0.0
+Normalized kNN (test)	0.0	0.0
+Average Rating	0.0	0.0
+Popularity	0.0	0.0
+Random	0.0	0.0
