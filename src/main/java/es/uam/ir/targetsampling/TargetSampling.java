@@ -114,11 +114,15 @@ public class TargetSampling {
              PrintStream outExpectation = new PrintStream(conf.getResultsPath() + EXPECTED_INTERSECTION_RATIO_FILE)) {
             //Header
             outExpectation.println("fold\ttarget size\texpected intersection ratio in top n");
-            out.print("fold\ttarget size\trecommender system");
+
+            StringBuilder mBuilder = new StringBuilder("fold\ttarget size\trecommender system");
             for (String metric : METRIC_NAMES) {
-                out.print("\t" + metric);
+                mBuilder
+                        .append("\t")
+                        .append(metric);
             }
-            out.println();
+            out.println(mBuilder.toString());
+
 
             //Run
             for (int n : conf.getTargetSizes()) {
@@ -199,11 +203,13 @@ public class TargetSampling {
              PrintStream outExpectation = new PrintStream(conf.getResultsPath() + EXPECTED_INTERSECTION_RATIO_FILE)) {
             //Header
             outExpectation.println("fold\ttarget size\texpected intersection ratio in top n");
-            out.print("fold\ttarget size\trec");
+            StringBuilder mBuilder = new StringBuilder("fold\ttarget size\trec");
             for (String metric : METRIC_NAMES) {
-                out.print("\t" + metric);
+                mBuilder
+                        .append("\t")
+                        .append(metric);
             }
-            out.println();
+            out.println(mBuilder.toString());
 
             //Run
             for (int n : conf.getTargetSizes()) {
@@ -211,33 +217,38 @@ public class TargetSampling {
                 nUsersInCrossValidation = 0;
 
                 for (int currentFold = 1; currentFold <= conf.getNFolds(); currentFold++) {
-                    Timer.start(currentFold, "folding..." + currentFold + " " + logSource);
-                    System.out.printf("%s Running fold %d Target size:%d %n", logSource, currentFold, targetSize);
-                    FastPreferenceData<Long, Long> trainData = SimpleFastPreferenceData.load(SimpleRatingPreferencesReader.get().read(conf.getDataPath() + currentFold + "-data-train.txt", lp, lp), userIndex, itemIndex);
-                    FastPreferenceData<Long, Long> positiveTrainData = TruncateRatings.run(trainData, conf.getThreshold());
-                    //Sampler:
-                    Function<Long, IntPredicate> sampler = FastSamplers.uniform(trainData, FastSamplers.inTestForUser(testData), targetSize);
-                    Function<Long, IntPredicate> notTrainFilter = FastFilters.notInTrain(trainData);
-                    Function<Long, IntPredicate> userFilter = FastFilters.and(sampler, notTrainFilter);
-
-                    runSplit(userIndex, itemIndex, nUsersInCrossValidation, targetSize, currentFold, trainData, positiveTrainData, testData, evalsPerUser, userFilter, out, logSource);
-
-                    nUsersInCrossValidation += trainData.getUsersWithPreferences().count();
-                    double expectation = trainData.getUsersWithPreferences()
-                            .mapToDouble(user -> {
-                                long nu = itemIndex.getAllIidx().filter(item -> userFilter.apply(user).test(item)).count();
-                                if (nu == 0) {
-                                    return 1;
-                                }
-                                long k = Math.min(nu, 10);
-                                return k * 1.0 / nu;
-                            }).filter(v -> !Double.isInfinite(v) && !Double.isNaN(v)).sum() / trainData.numUsers();
-                    outExpectation.println(targetSize + "\t" + expectation);
-                    Timer.done(currentFold, "folding finished" + currentFold + " " + logSource);
+                    nUsersInCrossValidation = runFold(logSource, userIndex, itemIndex, testData, evalsPerUser, nUsersInCrossValidation, out, outExpectation, targetSize, currentFold);
                 }
             }
         }
         processEvals(evalsPerUser, conf.getResultsPath(), nUsersInCrossValidation);
+    }
+
+    private int runFold(String logSource, FastUserIndex<Long> userIndex, FastItemIndex<Long> itemIndex, FastPreferenceData<Long, Long> testData, Map<String, Map<String, double[]>> evalsPerUser, int nUsersInCrossValidation, PrintStream out, PrintStream outExpectation, int targetSize, int currentFold) throws IOException {
+        Timer.start(currentFold, "folding..." + currentFold + " " + logSource);
+        System.out.printf("%s Running fold %d Target size:%d %n", logSource, currentFold, targetSize);
+        FastPreferenceData<Long, Long> trainData = SimpleFastPreferenceData.load(SimpleRatingPreferencesReader.get().read(conf.getDataPath() + currentFold + "-data-train.txt", lp, lp), userIndex, itemIndex);
+        FastPreferenceData<Long, Long> positiveTrainData = TruncateRatings.run(trainData, conf.getThreshold());
+        //Sampler:
+        Function<Long, IntPredicate> sampler = FastSamplers.uniform(trainData, FastSamplers.inTestForUser(testData), targetSize);
+        Function<Long, IntPredicate> notTrainFilter = FastFilters.notInTrain(trainData);
+        Function<Long, IntPredicate> userFilter = FastFilters.and(sampler, notTrainFilter);
+
+        runSplit(userIndex, itemIndex, nUsersInCrossValidation, targetSize, currentFold, trainData, positiveTrainData, testData, evalsPerUser, userFilter, out, logSource);
+
+        nUsersInCrossValidation += trainData.getUsersWithPreferences().count();
+        double expectation = trainData.getUsersWithPreferences()
+                .mapToDouble(user -> {
+                    long nu = itemIndex.getAllIidx().filter(item -> userFilter.apply(user).test(item)).count();
+                    if (nu == 0) {
+                        return 1;
+                    }
+                    long k = Math.min(nu, 10);
+                    return k * 1.0 / nu;
+                }).filter(v -> !Double.isInfinite(v) && !Double.isNaN(v)).sum() / trainData.numUsers();
+        outExpectation.println(targetSize + "\t" + expectation);
+        Timer.done(currentFold, "folding finished" + currentFold + " " + logSource);
+        return nUsersInCrossValidation;
     }
 
     private void runSplit(
@@ -317,76 +328,97 @@ public class TargetSampling {
             Filler<Long, Long> filler,
             String logSource) {
 
-        int m = userIndex.numUsers();
-        int mTrain = targetUsers.size();
-        recMap.keySet().stream().forEachOrdered(recNameAux -> {
-            String recName = targetSize + "\t" + recNameAux;
-            if (!evalsPerUser.containsKey(recName)) {
-                Map<String, double[]> values = new HashMap<>();
-                for (String metric : METRIC_NAMES) {
-                    values.put(metric, new double[m * conf.getNFolds()]);
-                }
-                evalsPerUser.put(recName, values);
-            }
-
-            System.out.println(logSource + " Running " + recNameAux + " TargetSize:" + targetSize);
-            FastRecommender<Long, Long> recommendation = (FastRecommender<Long, Long>) recMap.get(recNameAux).get();
-            Function<Long, Recommendation<Long, Long>> recProvider = user -> {
-                FastRecommendation rec = recommendation.getRecommendation(userIndex.user2uidx(user), conf.getCutoff(), userFilter.apply(user));
-                return new Recommendation<>(userIndex.uidx2user(rec.getUidx()), rec.getIidxs().stream().map(iv -> new Tuple2od<>(itemIndex.iidx2item(iv.v1), iv.v2)).collect(Collectors.toList()));
-            };
-
-            Map<String, double[]> actualValues = new HashMap<>();
-            for (String metric : METRIC_NAMES) {
-                actualValues.put(metric, new double[m]);
-            }
-
-            targetUsers.stream().parallel()
-                    .map(user -> recProvider.apply(user))
-                    .map(rec -> {
-                        List<Tuple2id> items = rec.getItems()
-                                .stream()
-                                .map(ip -> new Tuple2id(itemIndex.item2iidx(ip.v1), ip.v2))
-                                .collect(Collectors.toList());
-                        List<Tuple2od<Long>> newItems = filler
-                                .fill(items, conf.getCutoff(), userFilter.apply(rec.getUser()), rec.getUser())
-                                .stream()
-                                .map(ip -> new Tuple2od<>(itemIndex.iidx2item(ip.v1), ip.v2))
-                                .collect(Collectors.toList());
-                        return new Recommendation<>(rec.getUser(), newItems);
-                    }).forEachOrdered(rec -> {
-                metrics.forEach((metricName, metric) -> {
-                    actualValues.get(metricName)[userIndex.user2uidx(rec.getUser())] = metric.evaluate(rec);
-                });
-            });
-
-            Map<String, double[]> pastValues = evalsPerUser.get(recName);
-
-            int i = 0;
-            for (Long user : targetUsers) {
-                int u = userIndex.user2uidx(user);
-                for (String metricName : METRIC_NAMES) {
-                    double value = actualValues.get(metricName)[u];
-                    pastValues.get(metricName)[nUsersInCrossValidation + i] = value;
-                }
-                i++;
-            }
-
-            //Values
-            StringBuilder mBuilder = new StringBuilder()
-                    .append(currentFold)
-                    .append("\t")
-                    .append(recName);
-            for (String metricName : METRIC_NAMES) {
-                mBuilder
-                        .append("\t")
-                        .append(DoubleStream.of(actualValues.get(metricName)).sum() / mTrain);
-            }
-            out.println(mBuilder.toString());
-
-            Timer.done(logSource, logSource + "   done");
+        int userIndexNumberOfUsers = userIndex.numUsers();
+        int targetUsersSize = targetUsers.size();
+        recMap.keySet().stream().forEachOrdered(recommender -> {
+            evalRecommender(userIndex, itemIndex, nUsersInCrossValidation, targetSize,
+                    currentFold, targetUsers, userFilter, recMap, metrics, evalsPerUser,
+                    out, filler, logSource, userIndexNumberOfUsers, targetUsersSize, recommender);
         });
 
+    }
+
+    private void evalRecommender(FastUserIndex<Long> userIndex,
+                                 FastItemIndex<Long> itemIndex,
+                                 int nUsersInCrossValidation,
+                                 int targetSize,
+                                 int currentFold,
+                                 Set<Long> targetUsers,
+                                 Function<Long, IntPredicate> userFilter,
+                                 Map<String, Supplier<Recommender<Long, Long>>> recMap,
+                                 Map<String, AbstractRecommendationMetric<Long, Long>> metrics,
+                                 Map<String, Map<String, double[]>> evalsPerUser,
+                                 PrintStream out,
+                                 Filler<Long, Long> filler,
+                                 String logSource,
+                                 int userIndexNumberOfUsers,
+                                 int targetUsersSize,
+                                 String recommender) {
+        String recName = targetSize + "\t" + recommender;
+        if (!evalsPerUser.containsKey(recName)) {
+            Map<String, double[]> values = new HashMap<>();
+            for (String metric : METRIC_NAMES) {
+                values.put(metric, new double[userIndexNumberOfUsers * conf.getNFolds()]);
+            }
+            evalsPerUser.put(recName, values);
+        }
+
+        System.out.println(logSource + " Running " + recommender + " TargetSize:" + targetSize);
+        FastRecommender<Long, Long> recommendation = (FastRecommender<Long, Long>) recMap.get(recommender).get();
+        Function<Long, Recommendation<Long, Long>> recProvider = user -> {
+            FastRecommendation rec = recommendation.getRecommendation(userIndex.user2uidx(user), conf.getCutoff(), userFilter.apply(user));
+            return new Recommendation<>(userIndex.uidx2user(rec.getUidx()), rec.getIidxs().stream().map(iv -> new Tuple2od<>(itemIndex.iidx2item(iv.v1), iv.v2)).collect(Collectors.toList()));
+        };
+
+        Map<String, double[]> actualValues = new HashMap<>();
+        for (String metric : METRIC_NAMES) {
+            actualValues.put(metric, new double[userIndexNumberOfUsers]);
+        }
+
+        targetUsers.stream().parallel()
+                .map(user -> recProvider.apply(user))
+                .map(rec -> {
+                    List<Tuple2id> items = rec.getItems()
+                            .stream()
+                            .map(ip -> new Tuple2id(itemIndex.item2iidx(ip.v1), ip.v2))
+                            .collect(Collectors.toList());
+                    List<Tuple2od<Long>> newItems = filler
+                            .fill(items, conf.getCutoff(), userFilter.apply(rec.getUser()), rec.getUser())
+                            .stream()
+                            .map(ip -> new Tuple2od<>(itemIndex.iidx2item(ip.v1), ip.v2))
+                            .collect(Collectors.toList());
+                    return new Recommendation<>(rec.getUser(), newItems);
+                }).forEachOrdered(rec -> {
+            metrics.forEach((metricName, metric) -> {
+                actualValues.get(metricName)[userIndex.user2uidx(rec.getUser())] = metric.evaluate(rec);
+            });
+        });
+
+        Map<String, double[]> pastValues = evalsPerUser.get(recName);
+
+        int i = 0;
+        for (Long user : targetUsers) {
+            int u = userIndex.user2uidx(user);
+            for (String metricName : METRIC_NAMES) {
+                double value = actualValues.get(metricName)[u];
+                pastValues.get(metricName)[nUsersInCrossValidation + i] = value;
+            }
+            i++;
+        }
+
+        //Values
+        StringBuilder mBuilder = new StringBuilder()
+                .append(currentFold)
+                .append("\t")
+                .append(recName);
+        for (String metricName : METRIC_NAMES) {
+            mBuilder
+                    .append("\t")
+                    .append(DoubleStream.of(actualValues.get(metricName)).sum() / targetUsersSize);
+        }
+        out.println(mBuilder.toString());
+
+        Timer.done(logSource, logSource + " Running " + recommender + " TargetSize:" + targetSize + "  done");
     }
 
     private void processEvals(Map<String, Map<String, double[]>> evalsPerUser, String resultsPath, int nUsersInCrossValidation) throws FileNotFoundException {
