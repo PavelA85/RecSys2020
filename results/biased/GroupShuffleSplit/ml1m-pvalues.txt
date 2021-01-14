@@ -1,0 +1,365 @@
+target size	recommender system 1	recommender system 2	Coverage@10	nDCG@10	P@10	Recall@10
+500	Popularity	kNN (full/test)	NaN	NaN	NaN	NaN
+500	Popularity	iMF (test)	NaN	NaN	NaN	NaN
+500	Popularity	Random	NaN	NaN	NaN	NaN
+500	Popularity	Normalized kNN (full)	NaN	NaN	NaN	NaN
+500	Popularity	Normalized kNN (test)	NaN	NaN	NaN	NaN
+500	Popularity	Average Rating	NaN	NaN	NaN	NaN
+500	Popularity	iMF (full)	NaN	NaN	NaN	NaN
+20	Popularity	Random	NaN	NaN	NaN	NaN
+20	Popularity	Normalized kNN (test)	NaN	NaN	NaN	NaN
+20	Popularity	iMF (full)	NaN	NaN	NaN	NaN
+20	Popularity	iMF (test)	NaN	NaN	NaN	NaN
+20	Popularity	kNN (full/test)	NaN	NaN	NaN	NaN
+20	Popularity	Average Rating	NaN	NaN	NaN	NaN
+20	Popularity	Normalized kNN (full)	NaN	NaN	NaN	NaN
+20	Random	Normalized kNN (test)	NaN	NaN	NaN	NaN
+20	Random	iMF (full)	NaN	NaN	NaN	NaN
+20	Random	iMF (test)	NaN	NaN	NaN	NaN
+20	Random	kNN (full/test)	NaN	NaN	NaN	NaN
+20	Random	Average Rating	NaN	NaN	NaN	NaN
+20	Random	Normalized kNN (full)	NaN	NaN	NaN	NaN
+50	Popularity	Normalized kNN (full)	NaN	NaN	NaN	NaN
+50	Popularity	iMF (full)	NaN	NaN	NaN	NaN
+50	Popularity	iMF (test)	NaN	NaN	NaN	NaN
+50	Popularity	kNN (full/test)	NaN	NaN	NaN	NaN
+50	Popularity	Normalized kNN (test)	NaN	NaN	NaN	NaN
+50	Popularity	Random	NaN	NaN	NaN	NaN
+50	Popularity	Average Rating	NaN	NaN	NaN	NaN
+5	iMF (full)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+5	iMF (full)	Random	NaN	NaN	NaN	NaN
+5	iMF (full)	Normalized kNN (test)	NaN	NaN	NaN	NaN
+5	iMF (full)	Average Rating	NaN	NaN	NaN	NaN
+5	iMF (full)	kNN (full/test)	NaN	NaN	NaN	NaN
+5	iMF (full)	Popularity	NaN	NaN	NaN	NaN
+5	iMF (full)	iMF (test)	NaN	NaN	NaN	NaN
+2000	Normalized kNN (test)	iMF (test)	NaN	NaN	NaN	NaN
+2000	Normalized kNN (test)	Popularity	NaN	NaN	NaN	NaN
+2000	Normalized kNN (test)	Random	NaN	NaN	NaN	NaN
+2000	Normalized kNN (test)	kNN (full/test)	NaN	NaN	NaN	NaN
+2000	Normalized kNN (test)	Average Rating	NaN	NaN	NaN	NaN
+2000	Normalized kNN (test)	iMF (full)	NaN	NaN	NaN	NaN
+2000	Normalized kNN (test)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+200	Average Rating	iMF (full)	NaN	NaN	NaN	NaN
+200	Average Rating	Popularity	NaN	NaN	NaN	NaN
+200	Average Rating	iMF (test)	NaN	NaN	NaN	NaN
+200	Average Rating	Random	NaN	NaN	NaN	NaN
+200	Average Rating	Normalized kNN (full)	NaN	NaN	NaN	NaN
+200	Average Rating	kNN (full/test)	NaN	NaN	NaN	NaN
+200	Average Rating	Normalized kNN (test)	NaN	NaN	NaN	NaN
+20	Normalized kNN (test)	iMF (full)	NaN	NaN	NaN	NaN
+20	Normalized kNN (test)	iMF (test)	NaN	NaN	NaN	NaN
+20	Normalized kNN (test)	kNN (full/test)	NaN	NaN	NaN	NaN
+20	Normalized kNN (test)	Average Rating	NaN	NaN	NaN	NaN
+20	Normalized kNN (test)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+3706	iMF (full)	kNN (full/test)	NaN	NaN	NaN	NaN
+3706	iMF (full)	Average Rating	NaN	NaN	NaN	NaN
+3706	iMF (full)	Random	NaN	NaN	NaN	NaN
+3706	iMF (full)	iMF (test)	NaN	NaN	NaN	NaN
+3706	iMF (full)	Normalized kNN (test)	NaN	NaN	NaN	NaN
+3706	iMF (full)	Popularity	NaN	NaN	NaN	NaN
+3706	iMF (full)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+0	Normalized kNN (full)	Random	NaN	NaN	NaN	NaN
+0	Normalized kNN (full)	iMF (test)	NaN	NaN	NaN	NaN
+0	Normalized kNN (full)	Popularity	NaN	NaN	NaN	NaN
+0	Normalized kNN (full)	Average Rating	NaN	NaN	NaN	NaN
+0	Normalized kNN (full)	iMF (full)	NaN	NaN	NaN	NaN
+0	Normalized kNN (full)	Normalized kNN (test)	NaN	NaN	NaN	NaN
+0	Normalized kNN (full)	kNN (full/test)	NaN	NaN	NaN	NaN
+50	Normalized kNN (full)	iMF (full)	NaN	NaN	NaN	NaN
+50	Normalized kNN (full)	iMF (test)	NaN	NaN	NaN	NaN
+50	Normalized kNN (full)	kNN (full/test)	NaN	NaN	NaN	NaN
+50	Normalized kNN (full)	Normalized kNN (test)	NaN	NaN	NaN	NaN
+50	Normalized kNN (full)	Random	NaN	NaN	NaN	NaN
+50	Normalized kNN (full)	Average Rating	NaN	NaN	NaN	NaN
+100	Popularity	Normalized kNN (test)	NaN	NaN	NaN	NaN
+100	Popularity	iMF (full)	NaN	NaN	NaN	NaN
+100	Popularity	iMF (test)	NaN	NaN	NaN	NaN
+100	Popularity	Normalized kNN (full)	NaN	NaN	NaN	NaN
+100	Popularity	kNN (full/test)	NaN	NaN	NaN	NaN
+100	Popularity	Average Rating	NaN	NaN	NaN	NaN
+100	Popularity	Random	NaN	NaN	NaN	NaN
+50	iMF (full)	iMF (test)	NaN	NaN	NaN	NaN
+50	iMF (full)	kNN (full/test)	NaN	NaN	NaN	NaN
+50	iMF (full)	Normalized kNN (test)	NaN	NaN	NaN	NaN
+50	iMF (full)	Random	NaN	NaN	NaN	NaN
+50	iMF (full)	Average Rating	NaN	NaN	NaN	NaN
+100	Normalized kNN (test)	iMF (full)	NaN	NaN	NaN	NaN
+100	Normalized kNN (test)	iMF (test)	NaN	NaN	NaN	NaN
+100	Normalized kNN (test)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+100	Normalized kNN (test)	kNN (full/test)	NaN	NaN	NaN	NaN
+100	Normalized kNN (test)	Average Rating	NaN	NaN	NaN	NaN
+100	Normalized kNN (test)	Random	NaN	NaN	NaN	NaN
+2000	iMF (test)	Popularity	NaN	NaN	NaN	NaN
+2000	iMF (test)	Random	NaN	NaN	NaN	NaN
+2000	iMF (test)	kNN (full/test)	NaN	NaN	NaN	NaN
+2000	iMF (test)	Average Rating	NaN	NaN	NaN	NaN
+2000	iMF (test)	iMF (full)	NaN	NaN	NaN	NaN
+2000	iMF (test)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+2	iMF (full)	Random	NaN	NaN	NaN	NaN
+2	iMF (full)	Average Rating	NaN	NaN	NaN	NaN
+2	iMF (full)	Popularity	NaN	NaN	NaN	NaN
+2	iMF (full)	kNN (full/test)	NaN	NaN	NaN	NaN
+2	iMF (full)	iMF (test)	NaN	NaN	NaN	NaN
+2	iMF (full)	Normalized kNN (test)	NaN	NaN	NaN	NaN
+2	iMF (full)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+10	Average Rating	iMF (full)	NaN	NaN	NaN	NaN
+10	Average Rating	Normalized kNN (test)	NaN	NaN	NaN	NaN
+10	Average Rating	kNN (full/test)	NaN	NaN	NaN	NaN
+10	Average Rating	Popularity	NaN	NaN	NaN	NaN
+10	Average Rating	iMF (test)	NaN	NaN	NaN	NaN
+10	Average Rating	Normalized kNN (full)	NaN	NaN	NaN	NaN
+10	Average Rating	Random	NaN	NaN	NaN	NaN
+500	kNN (full/test)	iMF (test)	NaN	NaN	NaN	NaN
+500	kNN (full/test)	Random	NaN	NaN	NaN	NaN
+500	kNN (full/test)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+500	kNN (full/test)	Normalized kNN (test)	NaN	NaN	NaN	NaN
+500	kNN (full/test)	Average Rating	NaN	NaN	NaN	NaN
+500	kNN (full/test)	iMF (full)	NaN	NaN	NaN	NaN
+200	iMF (full)	Popularity	NaN	NaN	NaN	NaN
+200	iMF (full)	iMF (test)	NaN	NaN	NaN	NaN
+200	iMF (full)	Random	NaN	NaN	NaN	NaN
+200	iMF (full)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+200	iMF (full)	kNN (full/test)	NaN	NaN	NaN	NaN
+200	iMF (full)	Normalized kNN (test)	NaN	NaN	NaN	NaN
+1	iMF (test)	iMF (full)	NaN	NaN	NaN	NaN
+1	iMF (test)	Normalized kNN (test)	NaN	NaN	NaN	NaN
+1	iMF (test)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+1	iMF (test)	kNN (full/test)	NaN	NaN	NaN	NaN
+1	iMF (test)	Random	NaN	NaN	NaN	NaN
+1	iMF (test)	Popularity	NaN	NaN	NaN	NaN
+1	iMF (test)	Average Rating	NaN	NaN	NaN	NaN
+10	iMF (full)	Normalized kNN (test)	NaN	NaN	NaN	NaN
+10	iMF (full)	kNN (full/test)	NaN	NaN	NaN	NaN
+10	iMF (full)	Popularity	NaN	NaN	NaN	NaN
+10	iMF (full)	iMF (test)	NaN	NaN	NaN	NaN
+10	iMF (full)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+10	iMF (full)	Random	NaN	NaN	NaN	NaN
+100	iMF (full)	iMF (test)	NaN	NaN	NaN	NaN
+100	iMF (full)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+100	iMF (full)	kNN (full/test)	NaN	NaN	NaN	NaN
+100	iMF (full)	Average Rating	NaN	NaN	NaN	NaN
+100	iMF (full)	Random	NaN	NaN	NaN	NaN
+20	iMF (full)	iMF (test)	NaN	NaN	NaN	NaN
+20	iMF (full)	kNN (full/test)	NaN	NaN	NaN	NaN
+20	iMF (full)	Average Rating	NaN	NaN	NaN	NaN
+20	iMF (full)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+2000	Popularity	Random	NaN	NaN	NaN	NaN
+2000	Popularity	kNN (full/test)	NaN	NaN	NaN	NaN
+2000	Popularity	Average Rating	NaN	NaN	NaN	NaN
+2000	Popularity	iMF (full)	NaN	NaN	NaN	NaN
+2000	Popularity	Normalized kNN (full)	NaN	NaN	NaN	NaN
+2	Random	Average Rating	NaN	NaN	NaN	NaN
+2	Random	Popularity	NaN	NaN	NaN	NaN
+2	Random	kNN (full/test)	NaN	NaN	NaN	NaN
+2	Random	iMF (test)	NaN	NaN	NaN	NaN
+2	Random	Normalized kNN (test)	NaN	NaN	NaN	NaN
+2	Random	Normalized kNN (full)	NaN	NaN	NaN	NaN
+0	Random	iMF (test)	NaN	NaN	NaN	NaN
+0	Random	Popularity	NaN	NaN	NaN	NaN
+0	Random	Average Rating	NaN	NaN	NaN	NaN
+0	Random	iMF (full)	NaN	NaN	NaN	NaN
+0	Random	Normalized kNN (test)	NaN	NaN	NaN	NaN
+0	Random	kNN (full/test)	NaN	NaN	NaN	NaN
+10	Normalized kNN (test)	kNN (full/test)	NaN	NaN	NaN	NaN
+10	Normalized kNN (test)	Popularity	NaN	NaN	NaN	NaN
+10	Normalized kNN (test)	iMF (test)	NaN	NaN	NaN	NaN
+10	Normalized kNN (test)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+10	Normalized kNN (test)	Random	NaN	NaN	NaN	NaN
+500	iMF (test)	Random	NaN	NaN	NaN	NaN
+500	iMF (test)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+500	iMF (test)	Normalized kNN (test)	NaN	NaN	NaN	NaN
+500	iMF (test)	Average Rating	NaN	NaN	NaN	NaN
+500	iMF (test)	iMF (full)	NaN	NaN	NaN	NaN
+3706	kNN (full/test)	Average Rating	NaN	NaN	NaN	NaN
+3706	kNN (full/test)	Random	NaN	NaN	NaN	NaN
+3706	kNN (full/test)	iMF (test)	NaN	NaN	NaN	NaN
+3706	kNN (full/test)	Normalized kNN (test)	NaN	NaN	NaN	NaN
+3706	kNN (full/test)	Popularity	NaN	NaN	NaN	NaN
+3706	kNN (full/test)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+10	kNN (full/test)	Popularity	NaN	NaN	NaN	NaN
+10	kNN (full/test)	iMF (test)	NaN	NaN	NaN	NaN
+10	kNN (full/test)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+10	kNN (full/test)	Random	NaN	NaN	NaN	NaN
+10	Popularity	iMF (test)	NaN	NaN	NaN	NaN
+10	Popularity	Normalized kNN (full)	NaN	NaN	NaN	NaN
+10	Popularity	Random	NaN	NaN	NaN	NaN
+200	Popularity	iMF (test)	NaN	NaN	NaN	NaN
+200	Popularity	Random	NaN	NaN	NaN	NaN
+200	Popularity	Normalized kNN (full)	NaN	NaN	NaN	NaN
+200	Popularity	kNN (full/test)	NaN	NaN	NaN	NaN
+200	Popularity	Normalized kNN (test)	NaN	NaN	NaN	NaN
+100	iMF (test)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+100	iMF (test)	kNN (full/test)	NaN	NaN	NaN	NaN
+100	iMF (test)	Average Rating	NaN	NaN	NaN	NaN
+100	iMF (test)	Random	NaN	NaN	NaN	NaN
+500	Random	Normalized kNN (full)	NaN	NaN	NaN	NaN
+500	Random	Normalized kNN (test)	NaN	NaN	NaN	NaN
+500	Random	Average Rating	NaN	NaN	NaN	NaN
+500	Random	iMF (full)	NaN	NaN	NaN	NaN
+1	iMF (full)	Normalized kNN (test)	NaN	NaN	NaN	NaN
+1	iMF (full)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+1	iMF (full)	kNN (full/test)	NaN	NaN	NaN	NaN
+1	iMF (full)	Random	NaN	NaN	NaN	NaN
+1	iMF (full)	Popularity	NaN	NaN	NaN	NaN
+1	iMF (full)	Average Rating	NaN	NaN	NaN	NaN
+10	iMF (test)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+10	iMF (test)	Random	NaN	NaN	NaN	NaN
+50	iMF (test)	kNN (full/test)	NaN	NaN	NaN	NaN
+50	iMF (test)	Normalized kNN (test)	NaN	NaN	NaN	NaN
+50	iMF (test)	Random	NaN	NaN	NaN	NaN
+50	iMF (test)	Average Rating	NaN	NaN	NaN	NaN
+1	Normalized kNN (test)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+1	Normalized kNN (test)	kNN (full/test)	NaN	NaN	NaN	NaN
+1	Normalized kNN (test)	Random	NaN	NaN	NaN	NaN
+1	Normalized kNN (test)	Popularity	NaN	NaN	NaN	NaN
+1	Normalized kNN (test)	Average Rating	NaN	NaN	NaN	NaN
+20	iMF (test)	kNN (full/test)	NaN	NaN	NaN	NaN
+20	iMF (test)	Average Rating	NaN	NaN	NaN	NaN
+20	iMF (test)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+500	Normalized kNN (full)	Normalized kNN (test)	NaN	NaN	NaN	NaN
+500	Normalized kNN (full)	Average Rating	NaN	NaN	NaN	NaN
+500	Normalized kNN (full)	iMF (full)	NaN	NaN	NaN	NaN
+20	kNN (full/test)	Average Rating	NaN	NaN	NaN	NaN
+20	kNN (full/test)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+1000	kNN (full/test)	Average Rating	NaN	NaN	NaN	NaN
+1000	kNN (full/test)	iMF (test)	NaN	NaN	NaN	NaN
+1000	kNN (full/test)	Random	NaN	NaN	NaN	NaN
+1000	kNN (full/test)	iMF (full)	NaN	NaN	NaN	NaN
+1000	kNN (full/test)	Normalized kNN (test)	NaN	NaN	NaN	NaN
+1000	kNN (full/test)	Popularity	NaN	NaN	NaN	NaN
+1000	kNN (full/test)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+5	Normalized kNN (full)	Random	NaN	NaN	NaN	NaN
+5	Normalized kNN (full)	Normalized kNN (test)	NaN	NaN	NaN	NaN
+5	Normalized kNN (full)	Average Rating	NaN	NaN	NaN	NaN
+5	Normalized kNN (full)	kNN (full/test)	NaN	NaN	NaN	NaN
+5	Normalized kNN (full)	Popularity	NaN	NaN	NaN	NaN
+5	Normalized kNN (full)	iMF (test)	NaN	NaN	NaN	NaN
+2	Average Rating	Popularity	NaN	NaN	NaN	NaN
+2	Average Rating	kNN (full/test)	NaN	NaN	NaN	NaN
+2	Average Rating	iMF (test)	NaN	NaN	NaN	NaN
+2	Average Rating	Normalized kNN (test)	NaN	NaN	NaN	NaN
+2	Average Rating	Normalized kNN (full)	NaN	NaN	NaN	NaN
+2	Popularity	kNN (full/test)	NaN	NaN	NaN	NaN
+2	Popularity	iMF (test)	NaN	NaN	NaN	NaN
+2	Popularity	Normalized kNN (test)	NaN	NaN	NaN	NaN
+2	Popularity	Normalized kNN (full)	NaN	NaN	NaN	NaN
+0	iMF (test)	Popularity	NaN	NaN	NaN	NaN
+0	iMF (test)	Average Rating	NaN	NaN	NaN	NaN
+0	iMF (test)	iMF (full)	NaN	NaN	NaN	NaN
+0	iMF (test)	Normalized kNN (test)	NaN	NaN	NaN	NaN
+0	iMF (test)	kNN (full/test)	NaN	NaN	NaN	NaN
+0	Popularity	Average Rating	NaN	NaN	NaN	NaN
+0	Popularity	iMF (full)	NaN	NaN	NaN	NaN
+0	Popularity	Normalized kNN (test)	NaN	NaN	NaN	NaN
+0	Popularity	kNN (full/test)	NaN	NaN	NaN	NaN
+1	Normalized kNN (full)	kNN (full/test)	NaN	NaN	NaN	NaN
+1	Normalized kNN (full)	Random	NaN	NaN	NaN	NaN
+1	Normalized kNN (full)	Popularity	NaN	NaN	NaN	NaN
+1	Normalized kNN (full)	Average Rating	NaN	NaN	NaN	NaN
+3706	Average Rating	Random	NaN	NaN	NaN	NaN
+3706	Average Rating	iMF (test)	NaN	NaN	NaN	NaN
+3706	Average Rating	Normalized kNN (test)	NaN	NaN	NaN	NaN
+3706	Average Rating	Popularity	NaN	NaN	NaN	NaN
+3706	Average Rating	Normalized kNN (full)	NaN	NaN	NaN	NaN
+1	kNN (full/test)	Random	NaN	NaN	NaN	NaN
+1	kNN (full/test)	Popularity	NaN	NaN	NaN	NaN
+1	kNN (full/test)	Average Rating	NaN	NaN	NaN	NaN
+500	Normalized kNN (test)	Average Rating	NaN	NaN	NaN	NaN
+500	Normalized kNN (test)	iMF (full)	NaN	NaN	NaN	NaN
+0	Average Rating	iMF (full)	NaN	NaN	NaN	NaN
+0	Average Rating	Normalized kNN (test)	NaN	NaN	NaN	NaN
+0	Average Rating	kNN (full/test)	NaN	NaN	NaN	NaN
+1	Random	Popularity	NaN	NaN	NaN	NaN
+1	Random	Average Rating	NaN	NaN	NaN	NaN
+1	Popularity	Average Rating	NaN	NaN	NaN	NaN
+0	iMF (full)	Normalized kNN (test)	NaN	NaN	NaN	NaN
+0	iMF (full)	kNN (full/test)	NaN	NaN	NaN	NaN
+5	Random	Normalized kNN (test)	NaN	NaN	NaN	NaN
+5	Random	Average Rating	NaN	NaN	NaN	NaN
+5	Random	kNN (full/test)	NaN	NaN	NaN	NaN
+5	Random	Popularity	NaN	NaN	NaN	NaN
+5	Random	iMF (test)	NaN	NaN	NaN	NaN
+5	Normalized kNN (test)	Average Rating	NaN	NaN	NaN	NaN
+5	Normalized kNN (test)	kNN (full/test)	NaN	NaN	NaN	NaN
+5	Normalized kNN (test)	Popularity	NaN	NaN	NaN	NaN
+5	Normalized kNN (test)	iMF (test)	NaN	NaN	NaN	NaN
+50	kNN (full/test)	Normalized kNN (test)	NaN	NaN	NaN	NaN
+50	kNN (full/test)	Random	NaN	NaN	NaN	NaN
+50	kNN (full/test)	Average Rating	NaN	NaN	NaN	NaN
+50	Normalized kNN (test)	Random	NaN	NaN	NaN	NaN
+50	Normalized kNN (test)	Average Rating	NaN	NaN	NaN	NaN
+100	Normalized kNN (full)	kNN (full/test)	NaN	NaN	NaN	NaN
+100	Normalized kNN (full)	Average Rating	NaN	NaN	NaN	NaN
+100	Normalized kNN (full)	Random	NaN	NaN	NaN	NaN
+100	kNN (full/test)	Average Rating	NaN	NaN	NaN	NaN
+100	kNN (full/test)	Random	NaN	NaN	NaN	NaN
+100	Average Rating	Random	NaN	NaN	NaN	NaN
+10	Normalized kNN (full)	Random	NaN	NaN	NaN	NaN
+2000	Random	kNN (full/test)	NaN	NaN	NaN	NaN
+2000	Random	Average Rating	NaN	NaN	NaN	NaN
+2000	Random	iMF (full)	NaN	NaN	NaN	NaN
+2000	Random	Normalized kNN (full)	NaN	NaN	NaN	NaN
+2000	kNN (full/test)	Average Rating	NaN	NaN	NaN	NaN
+2000	kNN (full/test)	iMF (full)	NaN	NaN	NaN	NaN
+2000	kNN (full/test)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+2000	Average Rating	iMF (full)	NaN	NaN	NaN	NaN
+2000	Average Rating	Normalized kNN (full)	NaN	NaN	NaN	NaN
+2	kNN (full/test)	iMF (test)	NaN	NaN	NaN	NaN
+2	kNN (full/test)	Normalized kNN (test)	NaN	NaN	NaN	NaN
+2	kNN (full/test)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+1000	Average Rating	iMF (test)	NaN	NaN	NaN	NaN
+1000	Average Rating	Random	NaN	NaN	NaN	NaN
+1000	Average Rating	iMF (full)	NaN	NaN	NaN	NaN
+1000	Average Rating	Normalized kNN (test)	NaN	NaN	NaN	NaN
+1000	Average Rating	Popularity	NaN	NaN	NaN	NaN
+1000	Average Rating	Normalized kNN (full)	NaN	NaN	NaN	NaN
+5	Average Rating	kNN (full/test)	NaN	NaN	NaN	NaN
+5	Average Rating	Popularity	NaN	NaN	NaN	NaN
+5	Average Rating	iMF (test)	NaN	NaN	NaN	NaN
+1000	iMF (test)	Random	NaN	NaN	NaN	NaN
+1000	iMF (test)	iMF (full)	NaN	NaN	NaN	NaN
+1000	iMF (test)	Normalized kNN (test)	NaN	NaN	NaN	NaN
+1000	iMF (test)	Popularity	NaN	NaN	NaN	NaN
+1000	iMF (test)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+5	kNN (full/test)	Popularity	NaN	NaN	NaN	NaN
+5	kNN (full/test)	iMF (test)	NaN	NaN	NaN	NaN
+3706	Random	iMF (test)	NaN	NaN	NaN	NaN
+3706	Random	Normalized kNN (test)	NaN	NaN	NaN	NaN
+3706	Random	Popularity	NaN	NaN	NaN	NaN
+3706	Random	Normalized kNN (full)	NaN	NaN	NaN	NaN
+200	iMF (test)	Random	NaN	NaN	NaN	NaN
+200	iMF (test)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+200	iMF (test)	kNN (full/test)	NaN	NaN	NaN	NaN
+200	iMF (test)	Normalized kNN (test)	NaN	NaN	NaN	NaN
+2	iMF (test)	Normalized kNN (test)	NaN	NaN	NaN	NaN
+2	iMF (test)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+0	Normalized kNN (test)	kNN (full/test)	NaN	NaN	NaN	NaN
+3706	iMF (test)	Normalized kNN (test)	NaN	NaN	NaN	NaN
+3706	iMF (test)	Popularity	NaN	NaN	NaN	NaN
+3706	iMF (test)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+50	Random	Average Rating	NaN	NaN	NaN	NaN
+500	Average Rating	iMF (full)	NaN	NaN	NaN	NaN
+2000	iMF (full)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+1000	Random	iMF (full)	NaN	NaN	NaN	NaN
+1000	Random	Normalized kNN (test)	NaN	NaN	NaN	NaN
+1000	Random	Popularity	NaN	NaN	NaN	NaN
+1000	Random	Normalized kNN (full)	NaN	NaN	NaN	NaN
+3706	Normalized kNN (test)	Popularity	NaN	NaN	NaN	NaN
+3706	Normalized kNN (test)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+5	Popularity	iMF (test)	NaN	NaN	NaN	NaN
+200	Random	Normalized kNN (full)	NaN	NaN	NaN	NaN
+200	Random	kNN (full/test)	NaN	NaN	NaN	NaN
+200	Random	Normalized kNN (test)	NaN	NaN	NaN	NaN
+3706	Popularity	Normalized kNN (full)	NaN	NaN	NaN	NaN
+2	Normalized kNN (test)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+20	Average Rating	Normalized kNN (full)	NaN	NaN	NaN	NaN
+1000	iMF (full)	Normalized kNN (test)	NaN	NaN	NaN	NaN
+1000	iMF (full)	Popularity	NaN	NaN	NaN	NaN
+1000	iMF (full)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+1000	Normalized kNN (test)	Popularity	NaN	NaN	NaN	NaN
+1000	Normalized kNN (test)	Normalized kNN (full)	NaN	NaN	NaN	NaN
+200	Normalized kNN (full)	kNN (full/test)	NaN	NaN	NaN	NaN
+200	Normalized kNN (full)	Normalized kNN (test)	NaN	NaN	NaN	NaN
+200	kNN (full/test)	Normalized kNN (test)	NaN	NaN	NaN	NaN
+1000	Popularity	Normalized kNN (full)	NaN	NaN	NaN	NaN
