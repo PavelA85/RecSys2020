@@ -23,7 +23,7 @@ import java.util.Properties;
  */
 public class Configuration {
 
-    private final String dataPath;
+    private String dataPath;
     private final String testPath;
     private final int threshold;
 
@@ -134,6 +134,10 @@ public class Configuration {
 
     public String getDataPath() {
         return dataPath;
+    }
+
+    public void setDataPath(String value) {
+        dataPath = value;
     }
 
     public String getTestPath() {

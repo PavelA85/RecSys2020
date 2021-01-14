@@ -57,7 +57,7 @@ public class GenerateFigure {
      */
     public static void main(String a[]) throws FileNotFoundException, IOException {
         List<Thread> threads = new ArrayList<>();
-        int[] figures = {1, 2, 3, 4, 5};
+        int[] figures = {1, 2, 3}; //, 4, 5
         for (int f : figures) {
             Thread thread2 = new Thread(() -> {
                 try {

@@ -19,9 +19,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.LogManager;
 
 /**
@@ -57,9 +55,25 @@ public class Initialize {
      * @param args
      * @throws IOException
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         LogManager.getLogManager().reset();
 
+        mkdir();
+
+        if (false) {
+            preprocessDatasets();
+        }
+        runExtraMovieLens();
+//        Thread tMovieLens = runMovieLens();
+//        WaitFor(tMovieLens, "Initialize_ML1M_BIASED_PROPERTIES_FILE");
+//        Thread tYahooBIASED = runYahooBiased();
+//        Thread tYahooUNBIASED = runYahooUnbiased();
+//
+//        WaitFor(tYahooBIASED, "Initialize_YAHOO_BIASED_PROPERTIES_FILE");
+//        WaitFor(tYahooUNBIASED, "Initialize_YAHOO_UNBIASED_PROPERTIES_FILE");
+    }
+
+    private static void mkdir() {
         File directory = new File(RESULTS_PATH);
         if (!directory.exists()) {
             directory.mkdir();
@@ -74,17 +88,6 @@ public class Initialize {
         if (!directory.exists()) {
             directory.mkdir();
         }
-
-        if (false) {
-            preprocessDatasets();
-        }
-        Thread tMovieLens = runMovieLens();
-        WaitFor(tMovieLens, "Initialize_ML1M_BIASED_PROPERTIES_FILE");
-//        Thread tYahooBIASED = runYahooBiased();
-//        Thread tYahooUNBIASED = runYahooUnbiased();
-//
-//        WaitFor(tYahooBIASED, "Initialize_YAHOO_BIASED_PROPERTIES_FILE");
-//        WaitFor(tYahooUNBIASED, "Initialize_YAHOO_UNBIASED_PROPERTIES_FILE");
     }
 
     private static Thread runYahooBiased() {
@@ -117,11 +120,11 @@ public class Initialize {
         return tYahooUNBIASED;
     }
 
-    private static Thread runMovieLens() {
+    private static Thread runMovieLens() throws IOException {
+        Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
         Thread tMovieLens = new Thread(() -> {
             //MovieLens
             try {
-                Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
                 TargetSampling targetSelection = new TargetSampling(conf);
                 targetSelection.runCrossValidation("Initialize_ML1M_BIASED_PROPERTIES_FILE");
             } catch (IOException e) {
@@ -132,12 +135,62 @@ public class Initialize {
         return tMovieLens;
     }
 
+    private static void runExtraMovieLens() throws IOException, InterruptedException {
+        String[] splits = {
+                "GroupShuffleSplit",
+                "KFold",
+                "ShuffleSplit",
+                "StratifiedKFold",
+                "StratifiedShuffleSplit",
+                "TimeSeriesSplit",
+        };
+
+        List<Thread> threads = new ArrayList<>();
+
+        for (String split : splits) {
+            String file = "conf/movielens-biased.properties";
+            String biased_results = "results/biased/" + split;
+
+            Configuration conf = new Configuration(file);
+            conf.setDataPath("datasets/ml1m/" + split + "/");
+            conf.setResultsPath(biased_results + "/ml1m-");
+            String logSource = "Initialize_ML1M_BIASED_PROPERTIES_FILE_" + split;
+
+            File directory = new File(biased_results);
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+
+            Thread thread = new Thread(() -> {
+                //MovieLens
+                try {
+                    TargetSampling targetSelection = new TargetSampling(conf);
+                    targetSelection.runCrossValidation(logSource);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            Thread.sleep(100);
+            thread.start();
+            threads.add(thread);
+
+        }
+
+        threads.forEach(thread -> {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
     private static void preprocessDatasets() {
         String processMl1m1 = "processMl1m";
         Thread processMl1m = new Thread(() -> {
             try {
                 Timer.start((Object) processMl1m1, "Processing Movielens 1M...");
-                processMl1m();
+                preprocessMl1mDataset();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -148,7 +201,7 @@ public class Initialize {
         Thread processYahoo = new Thread(() -> {
             try {
                 Timer.start((Object) processYahoo1, "Processing Yahoo R3...");
-                processYahoo();
+                preprocessYahooDataset();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -168,7 +221,7 @@ public class Initialize {
         }
     }
 
-    static void processMl1m() throws IOException {
+    static void preprocessMl1mDataset() throws IOException {
 
         RandomAccessFile ml1mIn = new RandomAccessFile(ORIGINAL_ML1M_DATASET_PATH, "r");
         byte[] bytes = new byte[(int) ml1mIn.length()];
@@ -182,7 +235,7 @@ public class Initialize {
         CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML1M_DATASET_PATH, ML1M_PATH, GenerateFigure.N_FOLDS);
     }
 
-    static void processYahoo() throws IOException {
+    static void preprocessYahooDataset() throws IOException {
         // No format change needed
         Files.copy(
                 Paths.get(ORIGINAL_YAHOO_TEST_DATASET_PATH),
