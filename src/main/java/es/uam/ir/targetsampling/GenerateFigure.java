@@ -57,11 +57,12 @@ public class GenerateFigure {
      */
     public static void main(String a[]) throws FileNotFoundException, IOException {
         List<Thread> threads = new ArrayList<>();
-        int[] figures = {1, 2, 3}; //, 4, 5
+        int[] figures = {1, 3}; //, 4, 5, 2
         for (int f : figures) {
             Thread thread2 = new Thread(() -> {
                 try {
-                    plotFigure(f);
+                    plotSplitFigure(f);
+//                    plotFigure(f);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -83,48 +84,84 @@ public class GenerateFigure {
         switch (figure) {
             case 1:
                 generateFigure1(
-                    RESULTS_PATH + BIASED_PATH + ML1M + "-" + TARGET_SAMPLING_FILE,
-                    RESULTS_PATH + "figure1.txt",
-                    N_FOLDS,
-                    "P@10",
-                    FULL_TARGET_SIZE_ML1M);
+                        RESULTS_PATH + BIASED_PATH + ML1M + "-" + TARGET_SAMPLING_FILE,
+                        RESULTS_PATH + "figure1.txt",
+                        N_FOLDS,
+                        "P@10",
+                        FULL_TARGET_SIZE_ML1M);
                 break;
             case 2:
                 generateFigure2(
-                    RESULTS_PATH + BIASED_PATH + YAHOO + "-" + TARGET_SAMPLING_FILE,
-                    RESULTS_PATH + UNBIASED_PATH + YAHOO + "-" + TARGET_SAMPLING_FILE,
-                    RESULTS_PATH + "figure2.txt",
-                    N_FOLDS,
-                    new String[]{"nDCG@10", "P@10", "Recall@10"},
-                    FULL_TARGET_SIZE_YAHOO);
+                        RESULTS_PATH + BIASED_PATH + YAHOO + "-" + TARGET_SAMPLING_FILE,
+                        RESULTS_PATH + UNBIASED_PATH + YAHOO + "-" + TARGET_SAMPLING_FILE,
+                        RESULTS_PATH + "figure2.txt",
+                        N_FOLDS,
+                        new String[]{"nDCG@10", "P@10", "Recall@10"},
+                        FULL_TARGET_SIZE_YAHOO);
                 break;
             case 3:
                 generateFigure3(
-                    RESULTS_PATH + BIASED_PATH,
-                    new String[]{ML1M, YAHOO},
-                    new String[]{"nDCG@10", "P@10", "Recall@10"},
-                    RESULTS_PATH + "figure3.txt",
-                    N_FOLDS);
+                        RESULTS_PATH + BIASED_PATH,
+                        new String[]{ML1M, YAHOO},
+                        new String[]{"nDCG@10", "P@10", "Recall@10"},
+                        RESULTS_PATH + "figure3.txt",
+                        N_FOLDS);
                 break;
             case 4:
                 generateFigure4(
-                    RESULTS_PATH + BIASED_PATH,
-                    RESULTS_PATH + UNBIASED_PATH,
-                    new String[]{ML1M, YAHOO},
-                    new String[]{"nDCG@10", "P@10", "Recall@10"},
-                    RESULTS_PATH + "figure4.txt",
-                    N_FOLDS);
+                        RESULTS_PATH + BIASED_PATH,
+                        RESULTS_PATH + UNBIASED_PATH,
+                        new String[]{ML1M, YAHOO},
+                        new String[]{"nDCG@10", "P@10", "Recall@10"},
+                        RESULTS_PATH + "figure4.txt",
+                        N_FOLDS);
                 break;
             case 5:
                 generateFigure5(
-                    RESULTS_PATH + BIASED_PATH,
-                    new String[]{ML1M, YAHOO},
-                    new String[]{"Coverage@10"},
-                    RESULTS_PATH + "figure5.txt",
-                    N_FOLDS);
+                        RESULTS_PATH + BIASED_PATH,
+                        new String[]{ML1M, YAHOO},
+                        new String[]{"Coverage@10"},
+                        RESULTS_PATH + "figure5.txt",
+                        N_FOLDS);
                 break;
             default:
                 System.out.println("Invalid figure number");
+        }
+    }
+
+    private static void plotSplitFigure(int figure) throws IOException {
+        String[] splits = {
+                "GroupShuffleSplit",
+                "KFold",
+                "ShuffleSplit",
+                "StratifiedKFold",
+                "StratifiedShuffleSplit",
+                "TimeSeriesSplit",};
+
+        for (String s : splits) {
+            String split = String.format("/%s/", s);
+            switch (figure) {
+                case 1:
+                    generateFigure1(
+                            RESULTS_PATH + BIASED_PATH + split + ML1M + "-" + TARGET_SAMPLING_FILE,
+                            RESULTS_PATH + "figure1.txt",
+                            N_FOLDS,
+                            "P@10",
+                            FULL_TARGET_SIZE_ML1M);
+                    break;
+
+                case 3:
+                    generateFigure3(
+                            RESULTS_PATH + BIASED_PATH + split,
+                            new String[]{ML1M},
+                            new String[]{"nDCG@10", "P@10", "Recall@10"},
+                            RESULTS_PATH + "figure3.txt",
+                            N_FOLDS);
+                    break;
+
+                default:
+                    System.out.println("Invalid figure number:" + figure);
+            }
         }
     }
 
