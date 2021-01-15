@@ -47,7 +47,7 @@ public class GenerateFigure {
      */
     public static void main(String a[]) throws FileNotFoundException, IOException {
         List<Thread> threads = new ArrayList<>();
-        int[] figures = {1, 3}; //, 4, 5, 2
+        int[] figures = {1, 3, 4, 5}; //, 4, 5, 2
         for (int f : figures) {
             Thread thread2 = new Thread(() -> {
                 try {
@@ -120,15 +120,7 @@ public class GenerateFigure {
     }
 
     private static void plotSplitFigure(int figure) throws IOException {
-        String[] splits = {
-                "GroupShuffleSplit",
-                "KFold",
-                "ShuffleSplit",
-                "StratifiedKFold",
-                "StratifiedShuffleSplit",
-                "TimeSeriesSplit",};
-
-        for (String s : splits) {
+        for (String s : SPLITS) {
             String split = String.format("/%s/", s);
             File directory = new File(RESULTS_PATH + split);
             if (!directory.exists()) {
@@ -153,6 +145,38 @@ public class GenerateFigure {
                             N_FOLDS);
                     break;
 
+                case 4:
+                    //MovieLens
+                    try {
+                        Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
+                        conf.setAllRecs(true);
+                        String biased_results = "results/biased/" + split;
+                        conf.setDataPath("datasets/ml1m/" + split + "/");
+                        conf.setResultsPath(biased_results + "/ml1m-" + "allrecs-");
+                        TargetSampling targetSelection = new TargetSampling(conf);
+                        targetSelection.runCrossValidation("generateFigure4_sub_ML1M_BIASED_PROPERTIES_FILE_" + split);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    generateFigure4(
+                            RESULTS_PATH + BIASED_PATH + split,
+                            RESULTS_PATH + UNBIASED_PATH,
+                            new String[]{ML1M},
+                            new String[]{"nDCG@10", "P@10", "Recall@10"},
+                            RESULTS_PATH + split + "figure4.txt",
+                            N_FOLDS);
+                    break;
+
+                case 5:
+                    generateFigure5(
+                            RESULTS_PATH + BIASED_PATH + split,
+                            new String[]{ML1M},
+                            new String[]{"Coverage@10"},
+                            RESULTS_PATH + split + "figure5.txt",
+                            N_FOLDS,
+                            split);
+                    break;
                 default:
                     System.out.println("Invalid figure number:" + figure + " split: " + split);
             }
@@ -599,73 +623,7 @@ public class GenerateFigure {
             //Do nothing: there is not unbiased data, as is the case for MovieLens 1M
         }
 
-        {
-            //Sum of p-values
-            List<Thread> threads = new ArrayList<>();
-            Thread thread1 = new Thread(() -> {
-                try {
-                    //Yahoo
-                    {
-                        Configuration conf = new Configuration(YAHOO_BIASED_PROPERTIES_FILE);
-                        conf.setAllRecs(true);
-                        conf.setResultsPath(conf.getResultsPath() + "allrecs-");
-                        TargetSampling targetSelection = new TargetSampling(conf);
-                        targetSelection.runCrossValidation("generateFigure4_sub_YAHOO_BIASED_PROPERTIES_FILE");
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-            thread1.start();
-            threads.add(thread1);
-
-            Thread thread2 = new Thread(() -> {
-                try {
-                    //MovieLens
-                    {
-                        Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
-                        conf.setAllRecs(true);
-                        conf.setResultsPath(conf.getResultsPath() + "allrecs-");
-                        TargetSampling targetSelection = new TargetSampling(conf);
-                        targetSelection.runCrossValidation("generateFigure4_sub_ML1M_BIASED_PROPERTIES_FILE");
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-            thread2.start();
-            threads.add(thread2);
-
-            threads.forEach(t -> {
-                try {
-                    t.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            });
-
-            String curve = "Sum of p-values";
-            curves.add(curve);
-            String inFile = biasedFolder + dataset + "-allrecs-pvalues.txt";
-            Scanner in = new Scanner(new File(inFile));
-            String colHeads[] = in.nextLine().split("\t");
-            while (in.hasNext()) {
-                String colValues[] = in.nextLine().split("\t");
-                int targetSize = new Integer(colValues[0]);
-                for (int i = 3; i < colValues.length; i++) {
-                    String metric = colHeads[i];
-                    if (!metricList.contains(metric)) {
-                        continue;
-                    }
-                    double value = new Double(colValues[i]);
-                    if (!values.get(metric).get(targetSize).containsKey(curve)) {
-                        values.get(metric).get(targetSize).put(curve, 0.0);
-                        counts.get(metric).get(targetSize).put(curve, 0);
-                    }
-                    values.get(metric).get(targetSize).put(curve, values.get(metric).get(targetSize).get(curve) + value);
-                }
-            }
-        }
+        sum_of_p_values(biasedFolder, dataset, metricList, values, counts, curves);
 
         for (String metric : metricList) {
             out.println(metric);
@@ -686,48 +644,156 @@ public class GenerateFigure {
         out.close();
     }
 
-    public static void generateFigure5(
-            String folder,
-            String datasets[],
-            String metrics[],
-            String outFile,
-            int nFolds) throws FileNotFoundException, IOException {
+    private static void sum_of_p_values(String biasedFolder,
+                                        String dataset,
+                                        List<String> metricList,
+                                        Map<String, Map<Integer, Map<String, Double>>> values,
+                                        Map<String, Map<Integer, Map<String, Integer>>> counts,
+                                        Set<String> curves) throws FileNotFoundException {
+        //Sum of p-values
 
         List<Thread> threads = new ArrayList<>();
-        Thread thread1 = new Thread(() -> {
-            try {
-                //Yahoo
-                {
-                    Configuration conf = new Configuration(YAHOO_BIASED_PROPERTIES_FILE);
-                    conf.setFillMode(Filler.Mode.NONE);
-                    conf.setResultsPath(conf.getResultsPath() + "nofill-");
-                    TargetSampling targetSelection = new TargetSampling(conf);
-                    targetSelection.runCrossValidation("generateFigure5 YAHOO_BIASED_PROPERTIES_FILE");
+        if (dataset == YAHOO) {
+            Thread thread1 = new Thread(() -> {
+                try {
+                    //Yahoo
+                    {
+                        Configuration conf = new Configuration(YAHOO_BIASED_PROPERTIES_FILE);
+                        conf.setAllRecs(true);
+                        conf.setResultsPath(conf.getResultsPath() + "allrecs-");
+                        TargetSampling targetSelection = new TargetSampling(conf);
+                        targetSelection.runCrossValidation("generateFigure4_sub_YAHOO_BIASED_PROPERTIES_FILE");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            } catch (IOException e) {
+            });
+            thread1.start();
+            threads.add(thread1);
+        }
+
+//        if (dataset == ML1M) {
+//            Thread thread2 = new Thread(() -> {
+//                try {
+//                    //MovieLens
+//                    {
+//                        Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
+//                        conf.setAllRecs(true);
+//                        conf.setResultsPath(conf.getResultsPath() + "allrecs-");
+//
+//                        TargetSampling targetSelection = new TargetSampling(conf);
+//                        targetSelection.runCrossValidation("generateFigure4_sub_ML1M_BIASED_PROPERTIES_FILE");
+//                    }
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            });
+//            thread2.start();
+//            threads.add(thread2);
+//        }
+        threads.forEach(t -> {
+            try {
+                t.join();
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         });
-        thread1.start();
-        threads.add(thread1);
 
-        Thread thread2 = new Thread(() -> {
+        String curve = "Sum of p-values";
+        curves.add(curve);
+        String inFile = biasedFolder + dataset + "-allrecs-pvalues.txt";
+        Scanner in = new Scanner(new File(inFile));
+        String colHeads[] = in.nextLine().split("\t");
+        while (in.hasNext()) {
+            String colValues[] = in.nextLine().split("\t");
+            int targetSize = new Integer(colValues[0]);
+            for (int i = 3; i < colValues.length; i++) {
+                String metric = colHeads[i];
+                if (!metricList.contains(metric)) {
+                    continue;
+                }
+                double value = new Double(colValues[i]);
+                if (!values.get(metric).get(targetSize).containsKey(curve)) {
+                    values.get(metric).get(targetSize).put(curve, 0.0);
+                    counts.get(metric).get(targetSize).put(curve, 0);
+                }
+                values.get(metric).get(targetSize).put(curve, values.get(metric).get(targetSize).get(curve) + value);
+            }
+        }
+    }
+
+    public static void generateFigure5(
+            String folder,
+            String[] datasets,
+            String[] metrics,
+            String outFile,
+            int nFolds) throws FileNotFoundException, IOException {
+        generateFigure5(folder, datasets, metrics, outFile, nFolds, "");
+    }
+
+    public static void generateFigure5(
+            String folder,
+            String[] datasets,
+            String[] metrics,
+            String outFile,
+            int nFolds,
+            String split) throws FileNotFoundException, IOException {
+
+        List<Thread> threads = new ArrayList<>();
+        if (Arrays.stream(datasets).anyMatch(x -> x == YAHOO)) {
+            Thread thread1 = new Thread(() -> {
+                try {
+                    //Yahoo
+                    {
+                        Configuration conf = new Configuration(YAHOO_BIASED_PROPERTIES_FILE);
+                        conf.setFillMode(Filler.Mode.NONE);
+                        conf.setResultsPath(conf.getResultsPath() + "nofill-");
+                        TargetSampling targetSelection = new TargetSampling(conf);
+                        targetSelection.runCrossValidation("generateFigure5 YAHOO_BIASED_PROPERTIES_FILE");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            thread1.start();
+            threads.add(thread1);
+        }
+
+        if (Arrays.stream(datasets).anyMatch(x -> x == ML1M) && split == "") {
+            Thread thread2 = new Thread(() -> {
+                try {
+                    //MovieLens
+                    {
+                        Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
+                        conf.setFillMode(Filler.Mode.NONE);
+                        conf.setResultsPath(conf.getResultsPath() + "nofill-");
+                        TargetSampling targetSelection = new TargetSampling(conf);
+                        targetSelection.runCrossValidation("generateFigure5 ML1M_BIASED_PROPERTIES_FILE");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            thread2.start();
+            threads.add(thread2);
+        }
+
+        if (Arrays.stream(datasets).anyMatch(x -> x == ML1M) && split != ""){
             try {
                 //MovieLens
                 {
                     Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
                     conf.setFillMode(Filler.Mode.NONE);
-                    conf.setResultsPath(conf.getResultsPath() + "nofill-");
+                    String biased_results = "results/biased/" + split;
+                    conf.setDataPath("datasets/ml1m/" + split + "/");
+                    conf.setResultsPath(biased_results + "/ml1m-" + "nofill-");
                     TargetSampling targetSelection = new TargetSampling(conf);
                     targetSelection.runCrossValidation("generateFigure5 ML1M_BIASED_PROPERTIES_FILE");
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        });
-        thread2.start();
-        threads.add(thread2);
-
+        }
 
         for (int i = 0; i < datasets.length; i++) {
             datasets[i] += "-nofill";

@@ -49,6 +49,14 @@ public class Initialize {
     public final static String RESULTS_PATH = "results/";
     public final static String BIASED_PATH = "biased/";
     public final static String UNBIASED_PATH = "unbiased/";
+    public static final String[] SPLITS = new String[]{
+            //"GroupShuffleSplit",
+            "KFold",
+            "ShuffleSplit",
+            "StratifiedKFold",
+            "StratifiedShuffleSplit",
+            "TimeSeriesSplit",
+    };
 
 
     /**
@@ -136,18 +144,10 @@ public class Initialize {
     }
 
     private static void runExtraMovieLens() throws IOException, InterruptedException {
-        String[] splits = {
-                "GroupShuffleSplit",
-                "KFold",
-                "ShuffleSplit",
-                "StratifiedKFold",
-                "StratifiedShuffleSplit",
-                "TimeSeriesSplit",
-        };
 
         List<Thread> threads = new ArrayList<>();
 
-        for (String split : splits) {
+        for (String split : SPLITS) {
             String file = "conf/movielens-biased.properties";
             String biased_results = "results/biased/" + split;
 
