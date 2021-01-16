@@ -47,7 +47,7 @@ public class GenerateFigure {
      */
     public static void main(String a[]) throws FileNotFoundException, IOException {
         List<Thread> threads = new ArrayList<>();
-        int[] figures = {1, 3, 4, 5}; //, 4, 5, 2
+        int[] figures = {4};
         for (int f : figures) {
             Thread thread2 = new Thread(() -> {
                 try {
@@ -147,17 +147,17 @@ public class GenerateFigure {
 
                 case 4:
                     //MovieLens
-                    try {
-                        Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
-                        conf.setAllRecs(true);
-                        String biased_results = "results/biased/" + split;
-                        conf.setDataPath("datasets/ml1m/" + split + "/");
-                        conf.setResultsPath(biased_results + "/ml1m-" + "allrecs-");
-                        TargetSampling targetSelection = new TargetSampling(conf);
-                        targetSelection.runCrossValidation("generateFigure4_sub_ML1M_BIASED_PROPERTIES_FILE_" + split);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+//                    try {
+//                        Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
+//                        conf.setAllRecs(true);
+//                        String biased_results = "results/biased/" + split;
+//                        conf.setDataPath("datasets/ml1m/" + split + "/");
+//                        conf.setResultsPath(biased_results + "/ml1m-" + "allrecs-");
+//                        TargetSampling targetSelection = new TargetSampling(conf);
+//                        targetSelection.runCrossValidation("generateFigure4_sub_ML1M_BIASED_PROPERTIES_FILE_" + split);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
 
                     generateFigure4(
                             RESULTS_PATH + BIASED_PATH + split,
@@ -633,9 +633,9 @@ public class GenerateFigure {
             }
             out.println();
             for (int targetSize : values.get(metric).keySet()) {
-                out.print(targetSize + "\t");
+                out.print(targetSize);
                 for (String curve : values.get(metric).get(targetSize).keySet()) {
-                    out.print(values.get(metric).get(targetSize).get(curve) + "\t");
+                    out.print("\t" + values.get(metric).get(targetSize).get(curve));
                 }
                 out.println();
             }
@@ -652,52 +652,52 @@ public class GenerateFigure {
                                         Set<String> curves) throws FileNotFoundException {
         //Sum of p-values
 
-        List<Thread> threads = new ArrayList<>();
-        if (dataset == YAHOO) {
-            Thread thread1 = new Thread(() -> {
-                try {
-                    //Yahoo
-                    {
-                        Configuration conf = new Configuration(YAHOO_BIASED_PROPERTIES_FILE);
-                        conf.setAllRecs(true);
-                        conf.setResultsPath(conf.getResultsPath() + "allrecs-");
-                        TargetSampling targetSelection = new TargetSampling(conf);
-                        targetSelection.runCrossValidation("generateFigure4_sub_YAHOO_BIASED_PROPERTIES_FILE");
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-            thread1.start();
-            threads.add(thread1);
-        }
-
-//        if (dataset == ML1M) {
-//            Thread thread2 = new Thread(() -> {
+//        List<Thread> threads = new ArrayList<>();
+//        if (dataset == YAHOO) {
+//            Thread thread1 = new Thread(() -> {
 //                try {
-//                    //MovieLens
+//                    //Yahoo
 //                    {
-//                        Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
+//                        Configuration conf = new Configuration(YAHOO_BIASED_PROPERTIES_FILE);
 //                        conf.setAllRecs(true);
 //                        conf.setResultsPath(conf.getResultsPath() + "allrecs-");
-//
 //                        TargetSampling targetSelection = new TargetSampling(conf);
-//                        targetSelection.runCrossValidation("generateFigure4_sub_ML1M_BIASED_PROPERTIES_FILE");
+//                        targetSelection.runCrossValidation("generateFigure4_sub_YAHOO_BIASED_PROPERTIES_FILE");
 //                    }
 //                } catch (IOException e) {
 //                    e.printStackTrace();
 //                }
 //            });
-//            thread2.start();
-//            threads.add(thread2);
+//            thread1.start();
+//            threads.add(thread1);
 //        }
-        threads.forEach(t -> {
-            try {
-                t.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
+//
+////        if (dataset == ML1M) {
+////            Thread thread2 = new Thread(() -> {
+////                try {
+////                    //MovieLens
+////                    {
+////                        Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
+////                        conf.setAllRecs(true);
+////                        conf.setResultsPath(conf.getResultsPath() + "allrecs-");
+////
+////                        TargetSampling targetSelection = new TargetSampling(conf);
+////                        targetSelection.runCrossValidation("generateFigure4_sub_ML1M_BIASED_PROPERTIES_FILE");
+////                    }
+////                } catch (IOException e) {
+////                    e.printStackTrace();
+////                }
+////            });
+////            thread2.start();
+////            threads.add(thread2);
+////        }
+//        threads.forEach(t -> {
+//            try {
+//                t.join();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        });
 
         String curve = "Sum of p-values";
         curves.add(curve);
