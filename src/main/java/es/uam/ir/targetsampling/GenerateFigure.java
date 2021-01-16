@@ -713,11 +713,16 @@ public class GenerateFigure {
                     continue;
                 }
                 double value = new Double(colValues[i]);
+
                 if (!values.get(metric).get(targetSize).containsKey(curve)) {
                     values.get(metric).get(targetSize).put(curve, 0.0);
                     counts.get(metric).get(targetSize).put(curve, 0);
                 }
-                values.get(metric).get(targetSize).put(curve, values.get(metric).get(targetSize).get(curve) + value);
+                if (!Double.isNaN(value)) {
+                    Double e = values.get(metric).get(targetSize).get(curve);
+                    //System.out.println(curve + " " + e);
+                    values.get(metric).get(targetSize).put(curve, e + value);
+                }
             }
         }
     }
@@ -778,7 +783,7 @@ public class GenerateFigure {
             threads.add(thread2);
         }
 
-        if (Arrays.stream(datasets).anyMatch(x -> x == ML1M) && split != ""){
+        if (Arrays.stream(datasets).anyMatch(x -> x == ML1M) && split != "") {
             try {
                 //MovieLens
                 {
