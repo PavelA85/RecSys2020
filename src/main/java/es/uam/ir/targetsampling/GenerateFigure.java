@@ -26,6 +26,7 @@ import static es.uam.ir.targetsampling.TargetSampling.*;
 public class GenerateFigure {
 
     public final static int FULL_TARGET_SIZE_ML1M = 2000;
+    public final static int FULL_TARGET_SIZE_ML100К = 1682;
     public final static int FULL_TARGET_SIZE_YAHOO = 1000;
     public final static int N_FOLDS = 5;
     private static final String[] rec_ordered = new String[]{
@@ -47,12 +48,12 @@ public class GenerateFigure {
      */
     public static void main(String a[]) throws FileNotFoundException, IOException {
         List<Thread> threads = new ArrayList<>();
-        int[] figures = {4};
+        int[] figures = {11};
         for (int f : figures) {
             Thread thread2 = new Thread(() -> {
                 try {
-                    plotSplitFigure(f);
-//                    plotFigure(f);
+//                    plotSplitFigure(f);
+                    plotFigure(f);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -79,6 +80,14 @@ public class GenerateFigure {
                         N_FOLDS,
                         "P@10",
                         FULL_TARGET_SIZE_ML1M);
+                break;
+            case 11:
+                generateFigure1(
+                        RESULTS_PATH + BIASED_PATH + ML100K + "-" + TARGET_SAMPLING_FILE,
+                        RESULTS_PATH + "figure11.txt",
+                        N_FOLDS,
+                        "P@10",
+                        FULL_TARGET_SIZE_ML100К);
                 break;
             case 2:
                 generateFigure2(

@@ -33,6 +33,7 @@ import es.uam.eps.ir.ranksys.rec.runner.fast.FastFilters;
 import es.uam.ir.datagenerator.TruncateRatings;
 import es.uam.ir.filler.Filler;
 import es.uam.ir.ranksys.metrics.basic.Coverage;
+import es.uam.ir.ranksys.metrics.basic.FScore;
 import es.uam.ir.ranksys.metrics.basic.NDCG;
 import es.uam.ir.ranksys.nn.user.NormUserNeighborhoodRecommenderWithMinimum;
 import es.uam.ir.ranksys.rec.fast.basic.AverageRatingRecommender;
@@ -78,7 +79,9 @@ public class TargetSampling {
             "Coverage",
             "nDCG",
             "P",
-            "Recall",};
+            "Recall",
+            "FScore",
+    };
 
     /**
      * @param conf
@@ -282,6 +285,7 @@ public class TargetSampling {
         metrics.put("nDCG@" + cutoff, new NDCG<>(cutoff, ndcgModel));
         metrics.put("Recall@" + cutoff, new Recall<>(cutoff, binRel));
         metrics.put("Coverage@" + cutoff, new Coverage<>(cutoff));
+        metrics.put("FScore@" + cutoff, new FScore<>(cutoff, binRel));
 
         ////////////////////////////////////////////////
         // GENERATING RECOMMENDATIONS AND EVALUATIONS //
