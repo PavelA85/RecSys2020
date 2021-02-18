@@ -68,24 +68,30 @@ public class Initialize {
 
     /**
      * @param args
-     * @throws IOException
      */
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws InterruptedException {
         LogManager.getLogManager().reset();
 
         mkdir();
 
-        if (true) {
-            preprocessDatasets();
-        }
+        preprocessDatasets();
 //        runMovieLens1mCrossValidation();
 
-        //WaitFor(runMovieLens1M(), "Initialize_ML1M_BIASED_PROPERTIES_FILE");
-        WaitFor(runMovieLens100k(), "Initialize_ML100K_BIASED_PROPERTIES_FILE");
-        WaitFor(runYahooBiased(), "Initialize_YAHOO_BIASED_PROPERTIES_FILE");
-        WaitFor(runYahooUnbiased(), "Initialize_YAHOO_UNBIASED_PROPERTIES_FILE");
-        //WaitFor(runMovieLens25M(), "Initialize_ML25M_BIASED_PROPERTIES_FILE");
+        List<Thread> threads = new ArrayList<>();
 
+        threads.add(runMovieLens1M());
+        threads.add(runMovieLens100k());
+        threads.add(runYahooBiased());
+        threads.add(runYahooUnbiased());
+        threads.add(runMovieLens25M());
+
+        threads.forEach(thread -> {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     private static void mkdir() {
@@ -106,26 +112,18 @@ public class Initialize {
     }
 
     private static Thread runYahooBiased() {
-        Thread tYahooBIASED = new Thread(() -> {
-            try {
-                Configuration conf = new Configuration(YAHOO_BIASED_PROPERTIES_FILE);
-                TargetSampling targetSelection = new TargetSampling(conf);
-                targetSelection.runCrossValidation("Initialize_YAHOO_BIASED_PROPERTIES_FILE");
-            } catch (
-                    IOException e) {
-                e.printStackTrace();
-            }
-        });
-        tYahooBIASED.start();
-        return tYahooBIASED;
+        return getThread("Initialize_YAHOO_BIASED_PROPERTIES_FILE", YAHOO_BIASED_PROPERTIES_FILE);
     }
 
     private static Thread runYahooUnbiased() {
         Thread tYahooUNBIASED = new Thread(() -> {
             try {
+                String title = "Initialize_YAHOO_UNBIASED_PROPERTIES_FILE";
+                Timer.start((Object) title, title);
                 Configuration conf = new Configuration(YAHOO_UNBIASED_PROPERTIES_FILE);
                 TargetSampling targetSelection = new TargetSampling(conf);
-                targetSelection.runWithUnbiasedTest(conf.getTestPath(), "Initialize_YAHOO_UNBIASED_PROPERTIES_FILE");
+                targetSelection.runWithUnbiasedTest(conf.getTestPath(), title);
+                Timer.done(title, title);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -135,52 +133,38 @@ public class Initialize {
         return tYahooUNBIASED;
     }
 
-    private static Thread runMovieLens1M() throws IOException {
-        Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
-        Thread tMovieLens = new Thread(() -> {
-            //MovieLens
-            try {
-                TargetSampling targetSelection = new TargetSampling(conf);
-                targetSelection.runCrossValidation("Initialize_ML1M_BIASED_PROPERTIES_FILE");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        tMovieLens.start();
-        return tMovieLens;
+    private static Thread runMovieLens1M() {
+        return getThread("Initialize_ML1M_BIASED_PROPERTIES_FILE", ML1M_BIASED_PROPERTIES_FILE);
     }
 
-    private static Thread runMovieLens25M() throws IOException {
-        Configuration conf = new Configuration(ML25M_BIASED_PROPERTIES_FILE);
-        Thread tMovieLens = new Thread(() -> {
-            //MovieLens
-            try {
-                TargetSampling targetSelection = new TargetSampling(conf);
-                targetSelection.runCrossValidation("Initialize_ML25M_BIASED_PROPERTIES_FILE");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        tMovieLens.start();
-        return tMovieLens;
+    private static Thread runMovieLens25M() {
+        return getThread("Initialize_ML25M_BIASED_PROPERTIES_FILE", ML25M_BIASED_PROPERTIES_FILE);
     }
 
-    private static Thread runMovieLens100k() throws IOException {
-        Configuration conf = new Configuration(ML100K_BIASED_PROPERTIES_FILE);
-        Thread tMovieLens = new Thread(() -> {
+    private static Thread getThread(String title, String config) {
+        Thread thread = new Thread(() -> {
             //MovieLens
             try {
+                Timer.start((Object) title, title);
+                Configuration conf = new Configuration(config);
                 TargetSampling targetSelection = new TargetSampling(conf);
-                targetSelection.runCrossValidation("Initialize_ML100K_BIASED_PROPERTIES_FILE");
+                targetSelection.runCrossValidation(title);
+                Timer.done(title, title);
             } catch (IOException e) {
                 e.printStackTrace();
+                throw new RuntimeException(e);
             }
         });
-        tMovieLens.start();
-        return tMovieLens;
+        thread.start();
+        return thread;
     }
 
-    private static void runMovieLens1mCrossValidation() throws IOException, InterruptedException {
+    private static Thread runMovieLens100k() {
+        return getThread("Initialize_ML100K_BIASED_PROPERTIES_FILE", ML100K_BIASED_PROPERTIES_FILE);
+    }
+
+/*
+    private static void runMovieLens1mCrossValidation() throws InterruptedException {
 
         List<Thread> threads = new ArrayList<>();
 
@@ -188,9 +172,7 @@ public class Initialize {
             String file = "conf/ml1m-biased.properties";
             String biased_results = "results/biased/" + split;
 
-            Configuration conf = new Configuration(file);
-            conf.setDataPath("datasets/ml1m/" + split + "/");
-            conf.setResultsPath(biased_results + "/ml1m-");
+
             String logSource = "Initialize_ML1M_BIASED_PROPERTIES_FILE_" + split;
 
             File directory = new File(biased_results);
@@ -201,6 +183,9 @@ public class Initialize {
             Thread thread = new Thread(() -> {
                 //MovieLens
                 try {
+                    Configuration conf = new Configuration(file);
+                    conf.setDataPath("datasets/ml1m/" + split + "/");
+                    conf.setResultsPath(biased_results + "/ml1m-");
                     TargetSampling targetSelection = new TargetSampling(conf);
                     targetSelection.runCrossValidation(logSource);
                 } catch (IOException e) {
@@ -221,44 +206,34 @@ public class Initialize {
             }
         });
     }
+*/
 
-    private static void preprocessDatasets() {
-        Thread yahoo = StartThread("Yahoo R3", () -> preprocessYahooDataset());
-        Thread ml1m = StartThread("MovieLens1M", () -> preprocessMl1mDataset());
-        Thread ml25m = StartThread("MovieLens25M", () -> preprocessMl25mDataset());
-        Thread ml100k = StartThread("MovieLens100K", () -> preprocessMl100kDataset());
+    private static void preprocessDatasets() throws InterruptedException {
+        List<Thread> threads = new ArrayList<>();
 
-        WaitFor(yahoo);
-        WaitFor(ml1m);
-        WaitFor(ml25m);
-        WaitFor(ml100k);
+        threads.add(StartThread("Yahoo R3", Initialize::preprocessYahooDataset));
+        threads.add(StartThread("MovieLens1M", Initialize::preprocessMl1mDataset));
+        threads.add(StartThread("MovieLens25M", Initialize::preprocessMl25mDataset));
+        threads.add(StartThread("MovieLens100K", Initialize::preprocessMl100kDataset));
+
+        threads.forEach(thread -> {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
-    private static Thread StartThread(String title, Runnable function) {
+    private static Thread StartThread(String title, Runnable function) throws InterruptedException {
         Thread thread = new Thread(() -> {
             Timer.start((Object) title, "Processing: " + title);
             function.run();
             Timer.done(title, "Processing done: " + title);
         });
+        thread.sleep(100);
         thread.start();
         return thread;
-    }
-
-    private static void WaitFor(Thread thread, String title) {
-        try {
-            thread.join();
-            Timer.done(title, title);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void WaitFor(Thread thread) {
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     static void preprocessMl1mDataset() {
@@ -318,7 +293,7 @@ public class Initialize {
                     StandardCopyOption.REPLACE_EXISTING);
 
             Set<Long> testUsers = new HashSet<>();
-            Scanner scn = null;
+            Scanner scn;
             scn = new Scanner(new File(PREPROCESSED_YAHOO_TEST_DATASET_PATH));
 
             while (scn.hasNext()) {
@@ -336,8 +311,6 @@ public class Initialize {
             trainOut.close();
 
             CrossValidation.randomNFoldCrossValidation(PREPROCESSED_YAHOO_TRAIN_DATASET_PATH, YAHOO_PATH, GenerateFigure.N_FOLDS);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -11,7 +11,6 @@ package es.uam.ir.targetsampling;
 import es.uam.ir.filler.Filler.Mode;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -69,18 +68,14 @@ public class Configuration {
         prop = new Properties();
 
         try (InputStream inputStream = new FileInputStream(propFileName)) {
-            if (inputStream != null) {
-                prop.load(inputStream);
-            } else {
-                throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
-            }
+            prop.load(inputStream);
 
             this.dataPath = prop.getProperty("data.path");
             this.testPath = prop.getProperty("data.test.path");
-            this.threshold = Integer.valueOf(prop.getProperty("data.threshold"));
+            this.threshold = Integer.parseInt(prop.getProperty("data.threshold"));
             this.resultsPath = prop.getProperty("results.path");
-            this.nFolds = Integer.valueOf(prop.getProperty("crossvalidation.nfolds"));
-            this.cutoff = Integer.valueOf(prop.getProperty("evaluation.cutoff"));
+            this.nFolds = Integer.parseInt(prop.getProperty("crossvalidation.nfolds"));
+            this.cutoff = Integer.parseInt(prop.getProperty("evaluation.cutoff"));
             switch (prop.getProperty("fill.mode")) {
                 case "rnd":
                     this.fillMode = Mode.RND;
@@ -96,39 +91,39 @@ public class Configuration {
             String[] targetSizeTokens = prop.getProperty("targetselection.targetsizes").split(",");
             this.targetSizes = new int[targetSizeTokens.length];
             for (int i = 0; i < targetSizeTokens.length; i++) {
-                this.targetSizes[i] = Integer.valueOf(targetSizeTokens[i]);
+                this.targetSizes[i] = Integer.parseInt(targetSizeTokens[i]);
             }
 
-            this.allRecs = Boolean.valueOf(prop.getProperty("algorithms.run.all"));
+            this.allRecs = Boolean.parseBoolean(prop.getProperty("algorithms.run.all"));
             updateOnAllRecs(prop);
         }
     }
 
     private void updateOnAllRecs(Properties prop) {
         if (this.allRecs) {
-            this.knnParamK = Arrays.stream(prop.getProperty("algorithms.knn.k").split(",")).mapToInt(str -> Integer.valueOf(str)).toArray();
+            this.knnParamK = Arrays.stream(prop.getProperty("algorithms.knn.k").split(",")).mapToInt(Integer::parseInt).toArray();
 
-            this.normKnnParamK = Arrays.stream(prop.getProperty("algorithms.normknn.k").split(",")).mapToInt(str -> Integer.valueOf(str)).toArray();
-            this.normKnnParamMin = Arrays.stream(prop.getProperty("algorithms.normknn.min").split(",")).mapToInt(str -> Integer.valueOf(str)).toArray();
+            this.normKnnParamK = Arrays.stream(prop.getProperty("algorithms.normknn.k").split(",")).mapToInt(Integer::parseInt).toArray();
+            this.normKnnParamMin = Arrays.stream(prop.getProperty("algorithms.normknn.min").split(",")).mapToInt(Integer::parseInt).toArray();
 
-            this.imfParamK = Arrays.stream(prop.getProperty("algorithms.imf.k").split(",")).mapToInt(str -> Integer.valueOf(str)).toArray();
-            this.imfParamLambda = Arrays.stream(prop.getProperty("algorithms.imf.lambda").split(",")).mapToDouble(str -> Double.valueOf(str)).toArray();
-            this.imfParamAlpha = Arrays.stream(prop.getProperty("algorithms.imf.alpha").split(",")).mapToDouble(str -> Double.valueOf(str)).toArray();
+            this.imfParamK = Arrays.stream(prop.getProperty("algorithms.imf.k").split(",")).mapToInt(Integer::parseInt).toArray();
+            this.imfParamLambda = Arrays.stream(prop.getProperty("algorithms.imf.lambda").split(",")).mapToDouble(Double::parseDouble).toArray();
+            this.imfParamAlpha = Arrays.stream(prop.getProperty("algorithms.imf.alpha").split(",")).mapToDouble(Double::parseDouble).toArray();
         } else {
-            this.knnFullParamK = Integer.valueOf(prop.getProperty("algorithms.full.knn.k"));
-            this.knnTestParamK = Integer.valueOf(prop.getProperty("algorithms.test.knn.k"));
+            this.knnFullParamK = Integer.parseInt(prop.getProperty("algorithms.full.knn.k"));
+            this.knnTestParamK = Integer.parseInt(prop.getProperty("algorithms.test.knn.k"));
 
-            this.normKnnFullParamK = Integer.valueOf(prop.getProperty("algorithms.full.normknn.k"));
-            this.normKnnTestParamK = Integer.valueOf(prop.getProperty("algorithms.test.normknn.k"));
-            this.normKnnFullParamMin = Integer.valueOf(prop.getProperty("algorithms.full.normknn.min"));
-            this.normKnnTestParamMin = Integer.valueOf(prop.getProperty("algorithms.test.normknn.min"));
+            this.normKnnFullParamK = Integer.parseInt(prop.getProperty("algorithms.full.normknn.k"));
+            this.normKnnTestParamK = Integer.parseInt(prop.getProperty("algorithms.test.normknn.k"));
+            this.normKnnFullParamMin = Integer.parseInt(prop.getProperty("algorithms.full.normknn.min"));
+            this.normKnnTestParamMin = Integer.parseInt(prop.getProperty("algorithms.test.normknn.min"));
 
-            this.imfFullParamK = Integer.valueOf(prop.getProperty("algorithms.full.imf.k"));
-            this.imfTestParamK = Integer.valueOf(prop.getProperty("algorithms.test.imf.k"));
-            this.imfFullParamLambda = Double.valueOf(prop.getProperty("algorithms.full.imf.lambda"));
-            this.imfTestParamLambda = Double.valueOf(prop.getProperty("algorithms.test.imf.lambda"));
-            this.imfFullParamAlpha = Double.valueOf(prop.getProperty("algorithms.full.imf.alpha"));
-            this.imfTestParamAlpha = Double.valueOf(prop.getProperty("algorithms.test.imf.alpha"));
+            this.imfFullParamK = Integer.parseInt(prop.getProperty("algorithms.full.imf.k"));
+            this.imfTestParamK = Integer.parseInt(prop.getProperty("algorithms.test.imf.k"));
+            this.imfFullParamLambda = Double.parseDouble(prop.getProperty("algorithms.full.imf.lambda"));
+            this.imfTestParamLambda = Double.parseDouble(prop.getProperty("algorithms.test.imf.lambda"));
+            this.imfFullParamAlpha = Double.parseDouble(prop.getProperty("algorithms.full.imf.alpha"));
+            this.imfTestParamAlpha = Double.parseDouble(prop.getProperty("algorithms.test.imf.alpha"));
         }
     }
 
