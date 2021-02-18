@@ -26,7 +26,7 @@ import static es.uam.ir.targetsampling.TargetSampling.*;
 public class GenerateFigure {
 
     public final static int FULL_TARGET_SIZE_ML1M = 2000;
-    public final static int FULL_TARGET_SIZE_ML100К = 1682;
+    public final static int FULL_TARGET_SIZE_ML100K = 1682;
     public final static int FULL_TARGET_SIZE_YAHOO = 1000;
     public final static int N_FOLDS = 5;
     private static final String[] rec_ordered = new String[]{
@@ -43,10 +43,8 @@ public class GenerateFigure {
 
     /**
      * @param a
-     * @throws FileNotFoundException
-     * @throws IOException
      */
-    public static void main(String a[]) throws FileNotFoundException, IOException {
+    public static void main(String[] a) {
         List<Thread> threads = new ArrayList<>();
         int[] figures = {11};
         for (int f : figures) {
@@ -87,7 +85,7 @@ public class GenerateFigure {
                         RESULTS_PATH + "figure11.txt",
                         N_FOLDS,
                         "P@10",
-                        FULL_TARGET_SIZE_ML100К);
+                        FULL_TARGET_SIZE_ML100K);
                 break;
             case 2:
                 generateFigure2(
@@ -128,69 +126,69 @@ public class GenerateFigure {
         }
     }
 
-    private static void plotSplitFigure(int figure) throws IOException {
-        for (String s : SPLITS) {
-            String split = String.format("/%s/", s);
-            File directory = new File(RESULTS_PATH + split);
-            if (!directory.exists()) {
-                directory.mkdir();
-            }
-            switch (figure) {
-                case 1:
-                    generateFigure1(
-                            RESULTS_PATH + BIASED_PATH + split + ML1M + "-" + TARGET_SAMPLING_FILE,
-                            RESULTS_PATH + split + "figure1.txt",
-                            N_FOLDS,
-                            "P@10",
-                            FULL_TARGET_SIZE_ML1M);
-                    break;
-
-                case 3:
-                    generateFigure3(
-                            RESULTS_PATH + BIASED_PATH + split,
-                            new String[]{ML1M},
-                            new String[]{"nDCG@10", "P@10", "Recall@10"},
-                            RESULTS_PATH + split + "figure3.txt",
-                            N_FOLDS);
-                    break;
-
-                case 4:
-                    //MovieLens
-//                    try {
-//                        Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
-//                        conf.setAllRecs(true);
-//                        String biased_results = "results/biased/" + split;
-//                        conf.setDataPath("datasets/ml1m/" + split + "/");
-//                        conf.setResultsPath(biased_results + "/ml1m-" + "allrecs-");
-//                        TargetSampling targetSelection = new TargetSampling(conf);
-//                        targetSelection.runCrossValidation("generateFigure4_sub_ML1M_BIASED_PROPERTIES_FILE_" + split);
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-
-                    generateFigure4(
-                            RESULTS_PATH + BIASED_PATH + split,
-                            RESULTS_PATH + UNBIASED_PATH,
-                            new String[]{ML1M},
-                            new String[]{"nDCG@10", "P@10", "Recall@10"},
-                            RESULTS_PATH + split + "figure4.txt",
-                            N_FOLDS);
-                    break;
-
-                case 5:
-                    generateFigure5(
-                            RESULTS_PATH + BIASED_PATH + split,
-                            new String[]{ML1M},
-                            new String[]{"Coverage@10"},
-                            RESULTS_PATH + split + "figure5.txt",
-                            N_FOLDS,
-                            split);
-                    break;
-                default:
-                    System.out.println("Invalid figure number:" + figure + " split: " + split);
-            }
-        }
-    }
+//    private static void plotSplitFigure(int figure) throws IOException {
+//        for (String s : SPLITS) {
+//            String split = String.format("/%s/", s);
+//            File directory = new File(RESULTS_PATH + split);
+//            if (!directory.exists()) {
+//                directory.mkdir();
+//            }
+//            switch (figure) {
+//                case 1:
+//                    generateFigure1(
+//                            RESULTS_PATH + BIASED_PATH + split + ML1M + "-" + TARGET_SAMPLING_FILE,
+//                            RESULTS_PATH + split + "figure1.txt",
+//                            N_FOLDS,
+//                            "P@10",
+//                            FULL_TARGET_SIZE_ML1M);
+//                    break;
+//
+//                case 3:
+//                    generateFigure3(
+//                            RESULTS_PATH + BIASED_PATH + split,
+//                            new String[]{ML1M},
+//                            new String[]{"nDCG@10", "P@10", "Recall@10"},
+//                            RESULTS_PATH + split + "figure3.txt",
+//                            N_FOLDS);
+//                    break;
+//
+//                case 4:
+//                    //MovieLens
+////                    try {
+////                        Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
+////                        conf.setAllRecs(true);
+////                        String biased_results = "results/biased/" + split;
+////                        conf.setDataPath("datasets/ml1m/" + split + "/");
+////                        conf.setResultsPath(biased_results + "/ml1m-" + "allrecs-");
+////                        TargetSampling targetSelection = new TargetSampling(conf);
+////                        targetSelection.runCrossValidation("generateFigure4_sub_ML1M_BIASED_PROPERTIES_FILE_" + split);
+////                    } catch (IOException e) {
+////                        e.printStackTrace();
+////                    }
+//
+//                    generateFigure4(
+//                            RESULTS_PATH + BIASED_PATH + split,
+//                            RESULTS_PATH + UNBIASED_PATH,
+//                            new String[]{ML1M},
+//                            new String[]{"nDCG@10", "P@10", "Recall@10"},
+//                            RESULTS_PATH + split + "figure4.txt",
+//                            N_FOLDS);
+//                    break;
+//
+//                case 5:
+//                    generateFigure5(
+//                            RESULTS_PATH + BIASED_PATH + split,
+//                            new String[]{ML1M},
+//                            new String[]{"Coverage@10"},
+//                            RESULTS_PATH + split + "figure5.txt",
+//                            N_FOLDS,
+//                            split);
+//                    break;
+//                default:
+//                    System.out.println("Invalid figure number:" + figure + " split: " + split);
+//            }
+//        }
+//    }
 
     public static void generateFigure1(
             String inFile,
@@ -200,23 +198,19 @@ public class GenerateFigure {
             int fullTargetSize) throws FileNotFoundException {
         Map<String, double[]> values = new TreeMap<>();
         Scanner in = new Scanner(new File(inFile));
-        String colHeads[] = in.nextLine().split("\t");
+        String[] colHeads = in.nextLine().split("\t");
         int colMetric = Arrays.asList(colHeads).indexOf(metric);
         while (in.hasNext()) {
-            String colValues[] = in.nextLine().split("\t");
-            int targetSize = Integer.valueOf(colValues[1]);
+            String[] colValues = in.nextLine().split("\t");
+            int targetSize = Integer.parseInt(colValues[1]);
             if (targetSize != 0 && targetSize != fullTargetSize) {
                 continue;
             }
             String recommender = colValues[2];
 
-            double[] value = values.get(recommender);
-            if (value == null) {
-                value = new double[2];
-                values.put(recommender, value);
-            }
+            double[] value = values.computeIfAbsent(recommender, k -> new double[2]);
             int index = (targetSize == fullTargetSize) ? 0 : 1;
-            value[index] += Double.valueOf(colValues[colMetric]);
+            value[index] += Double.parseDouble(colValues[colMetric]);
         }
 
         PrintStream out = new PrintStream(outFile);
@@ -241,12 +235,7 @@ public class GenerateFigure {
     private static String[] getRecommenders(Map<String, double[]> values) {
 
         String[] recommenders = values.keySet().toArray(new String[0]);
-        Arrays.sort(recommenders, new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                return Integer.compare(getIndexOf(rec_ordered, o1), getIndexOf(rec_ordered, o2));
-            }
-        });
+        Arrays.sort(recommenders, Comparator.comparingInt(o -> getIndexOf(rec_ordered, o)));
         return recommenders;
     }
 
@@ -270,7 +259,7 @@ public class GenerateFigure {
 
         //Biased file
         Scanner in = new Scanner(new File(biasedFile));
-        String colHeads[] = in.nextLine().split("\t");
+        String[] colHeads = in.nextLine().split("\t");
         for (int i = 3; i < colHeads.length; i++) {
             String metric = colHeads[i];
             if (metricList.contains(metric)) {
@@ -278,25 +267,21 @@ public class GenerateFigure {
             }
         }
         while (in.hasNext()) {
-            String colValues[] = in.nextLine().split("\t");
+            String[] colValues = in.nextLine().split("\t");
             for (int i = 3; i < colValues.length; i++) {
                 String metric = colHeads[i];
                 if (!metricList.contains(metric)) {
                     continue;
                 }
-                int targetSize = Integer.valueOf(colValues[1]);
+                int targetSize = Integer.parseInt(colValues[1]);
                 if (targetSize != 0 && targetSize != fullTargetSize) {
                     continue;
                 }
                 String recommender = colValues[2];
 
-                double[] value = values.get(metric).get(recommender);
-                if (value == null) {
-                    value = new double[3];
-                    values.get(metric).put(recommender, value);
-                }
+                double[] value = values.get(metric).computeIfAbsent(recommender, k -> new double[3]);
                 int index = (targetSize == fullTargetSize) ? 0 : 2;
-                value[index] += Double.valueOf(colValues[i]);
+                value[index] += Double.parseDouble(colValues[i]);
             }
         }
 
@@ -304,14 +289,14 @@ public class GenerateFigure {
         in = new Scanner(new File(unbiasedFile));
         colHeads = in.nextLine().split("\t");
         while (in.hasNext()) {
-            String colValues[] = in.nextLine().split("\t");
+            String[] colValues = in.nextLine().split("\t");
             for (int i = 3; i < colValues.length; i++) {
                 String metric = colHeads[i];
                 if (!metricList.contains(metric)) {
                     continue;
                 }
                 double[] value = values.get(metric).get(colValues[2]);
-                value[1] += Double.valueOf(colValues[i]);
+                value[1] += Double.parseDouble(colValues[i]);
             }
         }
 
@@ -336,8 +321,8 @@ public class GenerateFigure {
 
     public static void generateFigure3(
             String folder,
-            String datasets[],
-            String metrics[],
+            String[] datasets,
+            String[] metrics,
             String outFile,
             int nFolds) throws FileNotFoundException {
         List<String> metricList = Arrays.asList(metrics);
@@ -350,10 +335,9 @@ public class GenerateFigure {
 
             // Metric -> target size -> rec system -> value
             Map<String, Map<Integer, Map<String, Double>>> values = new TreeMap<>();
-            Set<String> recommenders = new TreeSet<>();
 
             Scanner in = new Scanner(new File(inFile));
-            String colHeads[] = in.nextLine().split("\t");
+            String[] colHeads = in.nextLine().split("\t");
             for (int i = 3; i < colHeads.length; i++) {
                 String metric = colHeads[i];
                 if (metricList.contains(metric)) {
@@ -361,10 +345,9 @@ public class GenerateFigure {
                 }
             }
             while (in.hasNext()) {
-                String colValues[] = in.nextLine().split("\t");
+                String[] colValues = in.nextLine().split("\t");
                 int targetSize = new Integer(colValues[1]);
                 String rec = colValues[2];
-                recommenders.add(rec);
                 for (int i = 3; i < colValues.length; i++) {
                     String metric = colHeads[i];
                     if (!metricList.contains(metric)) {
@@ -429,9 +412,9 @@ public class GenerateFigure {
     public static void generateFigure4(
             String biasedFolder,
             String unbiasedFolder,
-            String datasets[],
-            String metrics[],
-            String outFile, int nFolds) throws FileNotFoundException, IOException {
+            String[] datasets,
+            String[] metrics,
+            String outFile, int nFolds) {
         List<Thread> threads = new ArrayList<>();
         for (String dataset : datasets) {
             Thread thread = new Thread(() -> {
@@ -476,7 +459,7 @@ public class GenerateFigure {
             curves.add(curve);
             String inFile = curveFiles.get(curve);
             Scanner in = new Scanner(new File(inFile));
-            String colHeads[] = in.nextLine().split("\t");
+            String[] colHeads = in.nextLine().split("\t");
             for (int i = 3; i < colHeads.length; i++) {
                 String metric = colHeads[i];
                 if (metricList.contains(metric) && !values.containsKey(metric)) {
@@ -485,7 +468,7 @@ public class GenerateFigure {
                 }
             }
             while (in.hasNext()) {
-                String colValues[] = in.nextLine().split("\t");
+                String[] colValues = in.nextLine().split("\t");
                 int targetSize = new Integer(colValues[0]);
                 for (int i = 3; i < colValues.length; i++) {
                     String metric = colHeads[i];
@@ -515,7 +498,7 @@ public class GenerateFigure {
             Scanner in = new Scanner(new File(inFile));
             in.nextLine();
             while (in.hasNext()) {
-                String colValues[] = in.nextLine().split("\t");
+                String[] colValues = in.nextLine().split("\t");
                 int targetSize = new Integer(colValues[1]);
                 double expectation = new Double(colValues[2]);
                 for (String metric : values.keySet()) {
@@ -547,7 +530,7 @@ public class GenerateFigure {
 
             String unbiasedFiles = unbiasedFolder + dataset + "-" + TARGET_SAMPLING_FILE;
             Scanner unbiasedIn = new Scanner(new File(unbiasedFiles));
-            String unbiasedColHeads[] = unbiasedIn.nextLine().split("\t");
+            String[] unbiasedColHeads = unbiasedIn.nextLine().split("\t");
             for (int i = 2; i < unbiasedColHeads.length; i++) {
                 String metric = unbiasedColHeads[i];
                 if (metricList.contains(metric)) {
@@ -555,7 +538,7 @@ public class GenerateFigure {
                 }
             }
             while (unbiasedIn.hasNext()) {
-                String colValues[] = unbiasedIn.nextLine().split("\t");
+                String[] colValues = unbiasedIn.nextLine().split("\t");
                 String rec = colValues[2];
                 for (int i = 3; i < colValues.length; i++) {
                     String metric = unbiasedColHeads[i];
@@ -575,7 +558,7 @@ public class GenerateFigure {
 
             String biasedFiles = biasedFolder + dataset + "-" + TARGET_SAMPLING_FILE;
             Scanner biasedIn = new Scanner(new File(biasedFiles));
-            String biasedColHeads[] = biasedIn.nextLine().split("\t");
+            String[] biasedColHeads = biasedIn.nextLine().split("\t");
             for (int i = 2; i < biasedColHeads.length; i++) {
                 String metric = biasedColHeads[i];
                 if (metricList.contains(metric)) {
@@ -583,7 +566,7 @@ public class GenerateFigure {
                 }
             }
             while (biasedIn.hasNext()) {
-                String colValues[] = biasedIn.nextLine().split("\t");
+                String[] colValues = biasedIn.nextLine().split("\t");
                 int targetSize = new Integer(colValues[1]);
                 String rec = colValues[2];
                 for (int i = 3; i < colValues.length; i++) {
@@ -661,60 +644,60 @@ public class GenerateFigure {
                                         Set<String> curves) throws FileNotFoundException {
         //Sum of p-values
 
-//        List<Thread> threads = new ArrayList<>();
-//        if (dataset == YAHOO) {
-//            Thread thread1 = new Thread(() -> {
-//                try {
-//                    //Yahoo
-//                    {
-//                        Configuration conf = new Configuration(YAHOO_BIASED_PROPERTIES_FILE);
-//                        conf.setAllRecs(true);
-//                        conf.setResultsPath(conf.getResultsPath() + "allrecs-");
-//                        TargetSampling targetSelection = new TargetSampling(conf);
-//                        targetSelection.runCrossValidation("generateFigure4_sub_YAHOO_BIASED_PROPERTIES_FILE");
-//                    }
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            });
-//            thread1.start();
-//            threads.add(thread1);
-//        }
-//
-////        if (dataset == ML1M) {
-////            Thread thread2 = new Thread(() -> {
-////                try {
-////                    //MovieLens
-////                    {
-////                        Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
-////                        conf.setAllRecs(true);
-////                        conf.setResultsPath(conf.getResultsPath() + "allrecs-");
-////
-////                        TargetSampling targetSelection = new TargetSampling(conf);
-////                        targetSelection.runCrossValidation("generateFigure4_sub_ML1M_BIASED_PROPERTIES_FILE");
-////                    }
-////                } catch (IOException e) {
-////                    e.printStackTrace();
-////                }
-////            });
-////            thread2.start();
-////            threads.add(thread2);
-////        }
-//        threads.forEach(t -> {
-//            try {
-//                t.join();
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        });
+        List<Thread> threads = new ArrayList<>();
+        if (dataset == YAHOO) {
+            Thread thread1 = new Thread(() -> {
+                try {
+                    //Yahoo
+                    {
+                        Configuration conf = new Configuration(YAHOO_BIASED_PROPERTIES_FILE);
+                        conf.setAllRecs(true);
+                        conf.setResultsPath(conf.getResultsPath() + "allrecs-");
+                        TargetSampling targetSelection = new TargetSampling(conf);
+                        targetSelection.runCrossValidation("generateFigure4_sub_YAHOO_BIASED_PROPERTIES_FILE");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            thread1.start();
+            threads.add(thread1);
+        }
+
+        if (dataset == ML1M) {
+            Thread thread2 = new Thread(() -> {
+                try {
+                    //MovieLens
+                    {
+                        Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
+                        conf.setAllRecs(true);
+                        conf.setResultsPath(conf.getResultsPath() + "allrecs-");
+
+                        TargetSampling targetSelection = new TargetSampling(conf);
+                        targetSelection.runCrossValidation("generateFigure4_sub_ML1M_BIASED_PROPERTIES_FILE");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            thread2.start();
+            threads.add(thread2);
+        }
+        threads.forEach(t -> {
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
 
         String curve = "Sum of p-values";
         curves.add(curve);
         String inFile = biasedFolder + dataset + "-allrecs-pvalues.txt";
         Scanner in = new Scanner(new File(inFile));
-        String colHeads[] = in.nextLine().split("\t");
+        String[] colHeads = in.nextLine().split("\t");
         while (in.hasNext()) {
-            String colValues[] = in.nextLine().split("\t");
+            String[] colValues = in.nextLine().split("\t");
             int targetSize = new Integer(colValues[0]);
             for (int i = 3; i < colValues.length; i++) {
                 String metric = colHeads[i];
@@ -736,22 +719,14 @@ public class GenerateFigure {
         }
     }
 
-    public static void generateFigure5(
-            String folder,
-            String[] datasets,
-            String[] metrics,
-            String outFile,
-            int nFolds) throws FileNotFoundException, IOException {
-        generateFigure5(folder, datasets, metrics, outFile, nFolds, "");
-    }
+
 
     public static void generateFigure5(
             String folder,
             String[] datasets,
             String[] metrics,
             String outFile,
-            int nFolds,
-            String split) throws FileNotFoundException, IOException {
+            int nFolds) throws IOException {
 
         List<Thread> threads = new ArrayList<>();
         if (Arrays.stream(datasets).anyMatch(x -> x == YAHOO)) {
@@ -773,7 +748,7 @@ public class GenerateFigure {
             threads.add(thread1);
         }
 
-        if (Arrays.stream(datasets).anyMatch(x -> x == ML1M) && split == "") {
+        if (Arrays.stream(datasets).anyMatch(x -> x == ML1M)) {
             Thread thread2 = new Thread(() -> {
                 try {
                     //MovieLens
@@ -792,22 +767,22 @@ public class GenerateFigure {
             threads.add(thread2);
         }
 
-        if (Arrays.stream(datasets).anyMatch(x -> x == ML1M) && split != "") {
-            try {
-                //MovieLens
-                {
-                    Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
-                    conf.setFillMode(Filler.Mode.NONE);
-                    String biased_results = "results/biased/" + split;
-                    conf.setDataPath("datasets/ml1m/" + split + "/");
-                    conf.setResultsPath(biased_results + "/ml1m-" + "nofill-");
-                    TargetSampling targetSelection = new TargetSampling(conf);
-                    targetSelection.runCrossValidation("generateFigure5 ML1M_BIASED_PROPERTIES_FILE");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+//        if (Arrays.stream(datasets).anyMatch(x -> x == ML1M) && split != "") {
+//            try {
+//                //MovieLens
+//                {
+//                    Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
+//                    conf.setFillMode(Filler.Mode.NONE);
+//                    String biased_results = "results/biased/" + split;
+//                    conf.setDataPath("datasets/ml1m/" + split + "/");
+//                    conf.setResultsPath(biased_results + "/ml1m-" + "nofill-");
+//                    TargetSampling targetSelection = new TargetSampling(conf);
+//                    targetSelection.runCrossValidation("generateFigure5 ML1M_BIASED_PROPERTIES_FILE");
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
 
         for (int i = 0; i < datasets.length; i++) {
             datasets[i] += "-nofill";

@@ -11,10 +11,7 @@ package es.uam.ir.targetsampling;
 import es.uam.ir.crossvalidation.CrossValidation;
 import es.uam.ir.util.Timer;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.io.RandomAccessFile;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -83,12 +80,12 @@ public class Initialize {
         }
 //        runMovieLens1mCrossValidation();
 
-//        WaitFor(runMovieLens1M(), "Initialize_ML1M_BIASED_PROPERTIES_FILE");
-        WaitFor(runMovieLens25M(), "Initialize_ML25M_BIASED_PROPERTIES_FILE");
+        //WaitFor(runMovieLens1M(), "Initialize_ML1M_BIASED_PROPERTIES_FILE");
         WaitFor(runMovieLens100k(), "Initialize_ML100K_BIASED_PROPERTIES_FILE");
+        WaitFor(runYahooBiased(), "Initialize_YAHOO_BIASED_PROPERTIES_FILE");
+        WaitFor(runYahooUnbiased(), "Initialize_YAHOO_UNBIASED_PROPERTIES_FILE");
+        //WaitFor(runMovieLens25M(), "Initialize_ML25M_BIASED_PROPERTIES_FILE");
 
-//        WaitFor(runYahooBiased(), "Initialize_YAHOO_BIASED_PROPERTIES_FILE");
-//        WaitFor(runYahooUnbiased(), "Initialize_YAHOO_UNBIASED_PROPERTIES_FILE");
     }
 
     private static void mkdir() {
@@ -226,130 +223,124 @@ public class Initialize {
     }
 
     private static void preprocessDatasets() {
-        String processMl1m1 = "processMl1m";
-        Thread processMl1m = new Thread(() -> {
-            try {
-                Timer.start((Object) processMl1m1, "Processing Movielens 1M...");
-                preprocessMl1mDataset();
-                Timer.done(processMl1m1, "Processing Movielens 1M done");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        processMl1m.start();
+        Thread yahoo = StartThread("Yahoo R3", () -> preprocessYahooDataset());
+        Thread ml1m = StartThread("MovieLens1M", () -> preprocessMl1mDataset());
+        Thread ml25m = StartThread("MovieLens25M", () -> preprocessMl25mDataset());
+        Thread ml100k = StartThread("MovieLens100K", () -> preprocessMl100kDataset());
 
-
-        String processMl25m1 = "processMl25m";
-        Thread processMl25m = new Thread(() -> {
-            try {
-                Timer.start((Object) processMl25m1, "Processing Movielens 25M...");
-                preprocessMl25mDataset();
-                Timer.done(processMl25m1, "Processing Movielens 25M done");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        processMl25m.start();
-
-        String processMl100k1 = "processMl100k";
-        Thread processMl100k = new Thread(() -> {
-            try {
-                Timer.start((Object) processMl100k1, "Processing Movielens 100K...");
-                preprocessMl100kDataset();
-                Timer.done(processMl100k1, "Processing Movielens 100K done");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        processMl100k.start();
-
-        String processYahoo1 = "processYahoo";
-        Thread processYahoo = new Thread(() -> {
-            try {
-                Timer.start((Object) processYahoo1, "Processing Yahoo R3...");
-                preprocessYahooDataset();
-                Timer.done(processYahoo1, "Processing Yahoo R3 done");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        processYahoo.start();
-
-        WaitFor(processMl1m, processMl1m1);
-        WaitFor(processMl100k, processMl1m1);
-        WaitFor(processYahoo, processYahoo1);
+        WaitFor(yahoo);
+        WaitFor(ml1m);
+        WaitFor(ml25m);
+        WaitFor(ml100k);
     }
 
-    private static void WaitFor(Thread thread, String processMl1m2) {
+    private static Thread StartThread(String title, Runnable function) {
+        Thread thread = new Thread(() -> {
+            Timer.start((Object) title, "Processing: " + title);
+            function.run();
+            Timer.done(title, "Processing done: " + title);
+        });
+        thread.start();
+        return thread;
+    }
+
+    private static void WaitFor(Thread thread, String title) {
         try {
             thread.join();
-            Timer.done(processMl1m2, processMl1m2);
+            Timer.done(title, title);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    static void preprocessMl1mDataset() throws IOException {
-
-        RandomAccessFile ml1mIn = new RandomAccessFile(ORIGINAL_ML1M_DATASET_PATH, "r");
-        byte[] bytes = new byte[(int) ml1mIn.length()];
-        ml1mIn.read(bytes);
-        String ratings = new String(bytes, StandardCharsets.UTF_8);
-
-        PrintStream ml1mOut = new PrintStream(PREPROCESSED_ML1M_DATASET_PATH);
-        ml1mOut.print(ratings.replace("::", "\t"));
-        ml1mOut.close();
-
-        CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML1M_DATASET_PATH, ML1M_PATH, GenerateFigure.N_FOLDS);
-    }
-
-    static void preprocessMl25mDataset() throws IOException {
-
-        RandomAccessFile ml25mIn = new RandomAccessFile(ORIGINAL_ML25M_DATASET_PATH, "r");
-        byte[] bytes = new byte[(int) ml25mIn.length()];
-        ml25mIn.read(bytes);
-        String ratings = new String(bytes, StandardCharsets.UTF_8);
-
-        PrintStream ml25mOut = new PrintStream(PREPROCESSED_ML25M_DATASET_PATH);
-        ml25mOut.print(ratings.replace(",", "\t"));
-        ml25mOut.close();
-
-        CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML25M_DATASET_PATH, ML25M_PATH, GenerateFigure.N_FOLDS);
-    }
-
-    static void preprocessMl100kDataset() throws IOException {
-        Files.copy(
-                Paths.get(ORIGINAL_ML100K_DATASET_PATH),
-                Paths.get(PREPROCESSED_ML100K_DATASET_PATH),
-                StandardCopyOption.REPLACE_EXISTING);
-
-        CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML100K_DATASET_PATH, ML100K_PATH, GenerateFigure.N_FOLDS);
-    }
-
-    static void preprocessYahooDataset() throws IOException {
-        // No format change needed
-        Files.copy(
-                Paths.get(ORIGINAL_YAHOO_TEST_DATASET_PATH),
-                Paths.get(PREPROCESSED_YAHOO_TEST_DATASET_PATH),
-                StandardCopyOption.REPLACE_EXISTING);
-
-        Set<Long> testUsers = new HashSet<>();
-        Scanner scn = new Scanner(new File(PREPROCESSED_YAHOO_TEST_DATASET_PATH));
-        while (scn.hasNext()) {
-            testUsers.add(new Long(scn.nextLine().split("\t")[0]));
+    private static void WaitFor(Thread thread) {
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+    }
 
-        PrintStream trainOut = new PrintStream(PREPROCESSED_YAHOO_TRAIN_DATASET_PATH);
-        scn = new Scanner(new File(ORIGINAL_YAHOO_TRAIN_DATASET_PATH));
-        while (scn.hasNext()) {
-            String rating = scn.nextLine();
-            if (testUsers.contains(new Long(rating.split("\t")[0]))) {
-                trainOut.println(rating);
+    static void preprocessMl1mDataset() {
+        try {
+
+            RandomAccessFile ml1mIn = new RandomAccessFile(ORIGINAL_ML1M_DATASET_PATH, "r");
+            byte[] bytes = new byte[(int) ml1mIn.length()];
+            ml1mIn.read(bytes);
+            String ratings = new String(bytes, StandardCharsets.UTF_8);
+
+            PrintStream ml1mOut = new PrintStream(PREPROCESSED_ML1M_DATASET_PATH);
+            ml1mOut.print(ratings.replace("::", "\t"));
+            ml1mOut.close();
+
+            CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML1M_DATASET_PATH, ML1M_PATH, GenerateFigure.N_FOLDS);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    static void preprocessMl25mDataset() {
+        try {
+
+            RandomAccessFile ml25mIn = new RandomAccessFile(ORIGINAL_ML25M_DATASET_PATH, "r");
+            byte[] bytes = new byte[(int) ml25mIn.length()];
+            ml25mIn.read(bytes);
+            String ratings = new String(bytes, StandardCharsets.UTF_8);
+
+            PrintStream ml25mOut = new PrintStream(PREPROCESSED_ML25M_DATASET_PATH);
+            ml25mOut.print(ratings.replace(",", "\t"));
+            ml25mOut.close();
+
+            CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML25M_DATASET_PATH, ML25M_PATH, GenerateFigure.N_FOLDS);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    static void preprocessMl100kDataset() {
+        try {
+            Files.copy(
+                    Paths.get(ORIGINAL_ML100K_DATASET_PATH),
+                    Paths.get(PREPROCESSED_ML100K_DATASET_PATH),
+                    StandardCopyOption.REPLACE_EXISTING);
+            CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML100K_DATASET_PATH, ML100K_PATH, GenerateFigure.N_FOLDS);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    static void preprocessYahooDataset() {
+        try {
+            // No format change needed
+            Files.copy(
+                    Paths.get(ORIGINAL_YAHOO_TEST_DATASET_PATH),
+                    Paths.get(PREPROCESSED_YAHOO_TEST_DATASET_PATH),
+                    StandardCopyOption.REPLACE_EXISTING);
+
+            Set<Long> testUsers = new HashSet<>();
+            Scanner scn = null;
+            scn = new Scanner(new File(PREPROCESSED_YAHOO_TEST_DATASET_PATH));
+
+            while (scn.hasNext()) {
+                testUsers.add(new Long(scn.nextLine().split("\t")[0]));
             }
-        }
-        trainOut.close();
 
-        CrossValidation.randomNFoldCrossValidation(PREPROCESSED_YAHOO_TRAIN_DATASET_PATH, YAHOO_PATH, GenerateFigure.N_FOLDS);
+            PrintStream trainOut = new PrintStream(PREPROCESSED_YAHOO_TRAIN_DATASET_PATH);
+            scn = new Scanner(new File(ORIGINAL_YAHOO_TRAIN_DATASET_PATH));
+            while (scn.hasNext()) {
+                String rating = scn.nextLine();
+                if (testUsers.contains(new Long(rating.split("\t")[0]))) {
+                    trainOut.println(rating);
+                }
+            }
+            trainOut.close();
+
+            CrossValidation.randomNFoldCrossValidation(PREPROCESSED_YAHOO_TRAIN_DATASET_PATH, YAHOO_PATH, GenerateFigure.N_FOLDS);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

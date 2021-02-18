@@ -128,8 +128,7 @@ public class TargetSampling {
 
 
             //Run
-            for (int n : conf.getTargetSizes()) {
-                int targetSize = n;
+            for (int targetSize : conf.getTargetSizes()) {
                 nUsersInCrossValidation = 0;
                 for (int currentFold = 1; currentFold <= conf.getNFolds(); currentFold++) {
                     System.out.println(logSource + " Running fold " + currentFold);
@@ -141,42 +140,28 @@ public class TargetSampling {
                             .load(SimpleRatingPreferencesReader
                                     .get()
                                     .read(conf.getDataPath() + currentFold + "-data-test.txt", lp, lp), userIndex, itemIndex);
-                    FastPreferenceData<Long, Long> positiveTrainData = TruncateRatings.run(trainData, conf.getThreshold());
-
-                    //Sampler:
-                    Function<Long, IntPredicate> sampler = FastSamplers.uniform(trainData, FastSamplers.inTestForUser(testData), targetSize);
-                    Function<Long, IntPredicate> notTrainFilter = FastFilters.notInTrain(trainData);
-                    Function<Long, IntPredicate> userFilter = FastFilters.and(sampler, notTrainFilter);
-
-                    runSplit(userIndex,
-                            itemIndex,
-                            nUsersInCrossValidation,
-                            targetSize,
-                            currentFold,
-                            trainData,
-                            positiveTrainData,
-                            testData,
-                            evalsPerUser,
-                            userFilter,
-                            out,
-                            logSource
-                    );
-
+                    Function<Long, IntPredicate> userFilter = runSampledSplit(logSource, userIndex, itemIndex, testData,
+                            evalsPerUser, nUsersInCrossValidation, out, targetSize, currentFold, trainData);
                     nUsersInCrossValidation += trainData.getUsersWithPreferences().count();
-                    double expectation = trainData.getUsersWithPreferences()
-                            .mapToDouble(user -> {
-                                long nu = itemIndex.getAllIidx().filter(item -> userFilter.apply(user).test(item)).count();
-                                if (nu == 0) {
-                                    return 1;
-                                }
-                                long k = Math.min(nu, 10);
-                                return k * 1.0 / nu;
-                            }).filter(v -> !Double.isInfinite(v) && !Double.isNaN(v)).sum() / trainData.numUsers();
+                    double expectation = getExpectation(itemIndex, trainData, userFilter);
                     outExpectation.println(currentFold + "\t" + targetSize + "\t" + expectation);
                 }
             }
         }
         processEvals(evalsPerUser, conf.getResultsPath(), nUsersInCrossValidation);
+    }
+
+    private double getExpectation(FastItemIndex<Long> itemIndex, FastPreferenceData<Long, Long> trainData, Function<Long,
+            IntPredicate> userFilter) {
+        return trainData.getUsersWithPreferences()
+                .mapToDouble(user -> {
+                    long nu = itemIndex.getAllIidx().filter(item -> userFilter.apply(user).test(item)).count();
+                    if (nu == 0) {
+                        return 1;
+                    }
+                    long k = Math.min(nu, 10);
+                    return k * 1.0 / nu;
+                }).filter(v -> !Double.isInfinite(v) && !Double.isNaN(v)).sum() / trainData.numUsers();
     }
 
     /**
@@ -215,8 +200,7 @@ public class TargetSampling {
             out.println(mBuilder.toString());
 
             //Run
-            for (int n : conf.getTargetSizes()) {
-                int targetSize = n;
+            for (int targetSize : conf.getTargetSizes()) {
                 nUsersInCrossValidation = 0;
 
                 for (int currentFold = 1; currentFold <= conf.getNFolds(); currentFold++) {
@@ -231,27 +215,29 @@ public class TargetSampling {
         Timer.start(currentFold, "folding..." + currentFold + " " + logSource);
         System.out.printf("%s Running fold %d Target size:%d %n", logSource, currentFold, targetSize);
         FastPreferenceData<Long, Long> trainData = SimpleFastPreferenceData.load(SimpleRatingPreferencesReader.get().read(conf.getDataPath() + currentFold + "-data-train.txt", lp, lp), userIndex, itemIndex);
+        Function<Long, IntPredicate> userFilter = runSampledSplit(logSource, userIndex, itemIndex, testData, evalsPerUser, nUsersInCrossValidation, out, targetSize, currentFold, trainData);
+
+        nUsersInCrossValidation += trainData.getUsersWithPreferences().count();
+        double expectation = getExpectation(itemIndex, trainData, userFilter);
+        outExpectation.println(targetSize + "\t" + expectation);
+        Timer.done(currentFold, "folding finished" + currentFold + " " + logSource);
+        return nUsersInCrossValidation;
+    }
+
+    private Function<Long, IntPredicate> runSampledSplit(String logSource, FastUserIndex<Long> userIndex,
+                                                         FastItemIndex<Long> itemIndex, FastPreferenceData<Long, Long> testData,
+                                                         Map<String, Map<String, double[]>> evalsPerUser, int nUsersInCrossValidation,
+                                                         PrintStream out, int targetSize, int currentFold,
+                                                         FastPreferenceData<Long, Long> trainData) throws IOException {
         FastPreferenceData<Long, Long> positiveTrainData = TruncateRatings.run(trainData, conf.getThreshold());
         //Sampler:
         Function<Long, IntPredicate> sampler = FastSamplers.uniform(trainData, FastSamplers.inTestForUser(testData), targetSize);
         Function<Long, IntPredicate> notTrainFilter = FastFilters.notInTrain(trainData);
         Function<Long, IntPredicate> userFilter = FastFilters.and(sampler, notTrainFilter);
 
-        runSplit(userIndex, itemIndex, nUsersInCrossValidation, targetSize, currentFold, trainData, positiveTrainData, testData, evalsPerUser, userFilter, out, logSource);
-
-        nUsersInCrossValidation += trainData.getUsersWithPreferences().count();
-        double expectation = trainData.getUsersWithPreferences()
-                .mapToDouble(user -> {
-                    long nu = itemIndex.getAllIidx().filter(item -> userFilter.apply(user).test(item)).count();
-                    if (nu == 0) {
-                        return 1;
-                    }
-                    long k = Math.min(nu, 10);
-                    return k * 1.0 / nu;
-                }).filter(v -> !Double.isInfinite(v) && !Double.isNaN(v)).sum() / trainData.numUsers();
-        outExpectation.println(targetSize + "\t" + expectation);
-        Timer.done(currentFold, "folding finished" + currentFold + " " + logSource);
-        return nUsersInCrossValidation;
+        runSplit(userIndex, itemIndex, nUsersInCrossValidation, targetSize, currentFold, trainData, positiveTrainData,
+                testData, evalsPerUser, userFilter, out, logSource);
+        return userFilter;
     }
 
     private void runSplit(
@@ -266,7 +252,7 @@ public class TargetSampling {
             Map<String, Map<String, double[]>> evalsPerUser,
             Function<Long, IntPredicate> userFilter,
             PrintStream out,
-            String logSource) throws IOException {
+            String logSource) {
 
         Set<Long> trainUsers = trainData.getUsersWithPreferences().collect(Collectors.toSet());
         Set<Long> targetUsers = trainUsers;
@@ -334,11 +320,9 @@ public class TargetSampling {
 
         int userIndexNumberOfUsers = userIndex.numUsers();
         int targetUsersSize = targetUsers.size();
-        recMap.keySet().stream().forEachOrdered(recommender -> {
-            evalRecommender(userIndex, itemIndex, nUsersInCrossValidation, targetSize,
-                    currentFold, targetUsers, userFilter, recMap, metrics, evalsPerUser,
-                    out, filler, logSource, userIndexNumberOfUsers, targetUsersSize, recommender);
-        });
+        recMap.keySet().stream().forEachOrdered(recommender -> evalRecommender(userIndex, itemIndex, nUsersInCrossValidation, targetSize,
+                currentFold, targetUsers, userFilter, recMap, metrics, evalsPerUser,
+                out, filler, logSource, userIndexNumberOfUsers, targetUsersSize, recommender));
 
     }
 
@@ -380,7 +364,7 @@ public class TargetSampling {
         }
 
         targetUsers.stream().parallel()
-                .map(user -> recProvider.apply(user))
+                .map(recProvider)
                 .map(rec -> {
                     List<Tuple2id> items = rec.getItems()
                             .stream()
@@ -392,11 +376,7 @@ public class TargetSampling {
                             .map(ip -> new Tuple2od<>(itemIndex.iidx2item(ip.v1), ip.v2))
                             .collect(Collectors.toList());
                     return new Recommendation<>(rec.getUser(), newItems);
-                }).forEachOrdered(rec -> {
-            metrics.forEach((metricName, metric) -> {
-                actualValues.get(metricName)[userIndex.user2uidx(rec.getUser())] = metric.evaluate(rec);
-            });
-        });
+                }).forEachOrdered(rec -> metrics.forEach((metricName, metric) -> actualValues.get(metricName)[userIndex.user2uidx(rec.getUser())] = metric.evaluate(rec)));
 
         Map<String, double[]> pastValues = evalsPerUser.get(recName);
 
@@ -466,13 +446,13 @@ public class TargetSampling {
             for (int i = 0; i < recNames.size(); i++) {
                 String rec1 = recNames.get(i);
                 String rec1Name = rec1.split("\t")[1];
-                int n1 = Integer.valueOf(rec1.split("\t")[0]);
+                int n1 = Integer.parseInt(rec1.split("\t")[0]);
                 Map<String, double[]> values1 = evalsPerUser.get(rec1);
 
                 for (int j = i + 1; j < recNames.size(); j++) {
                     String rec2 = recNames.get(j);
                     String rec2Name = rec2.split("\t")[1];
-                    int n2 = Integer.valueOf(rec2.split("\t")[0]);
+                    int n2 = Integer.parseInt(rec2.split("\t")[0]);
                     if (n1 != n2) {
                         continue;
                     }
