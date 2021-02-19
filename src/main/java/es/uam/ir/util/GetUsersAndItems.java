@@ -1,11 +1,11 @@
 /*
-* Copyright (C) 2019 Information Retrieval Group at Universidad Autónoma
-* de Madrid, http://ir.ii.uam.es.
-*
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, You can obtain one at http://mozilla.org/MPL/2.0/.
-*/
+ * Copyright (C) 2019 Information Retrieval Group at Universidad Autónoma
+ * de Madrid, http://ir.ii.uam.es.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package es.uam.ir.util;
 
 import java.io.BufferedReader;
@@ -19,25 +19,26 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- *
  * @author Rocío Cañamares
  * @author Pablo Castells
  */
 public class GetUsersAndItems {
-    
+
     /**
-     * 
      * @param dataPath
      * @return
-     * @throws IOException 
+     * @throws IOException
      */
-    public static ByteArrayInputStream[] run (String dataPath) throws IOException {
+    public static ByteArrayInputStream[] run(String dataPath) throws IOException {
         Set<String> users = new HashSet<>();
         Set<String> items = new HashSet<>();
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(dataPath)))) {
             reader.lines().forEach(l -> {
                 String[] tokens = l.split("\t");
+                if (tokens.length < 2) {
+                    System.out.println(dataPath + "   " + l);
+                }
                 users.add(tokens[0]);
                 items.add(tokens[1]);
             });
@@ -56,7 +57,7 @@ public class GetUsersAndItems {
                 itemData.println(i);
             }
         }
-        
-        return new ByteArrayInputStream[] {new ByteArrayInputStream(userOutputStream.toByteArray()), new ByteArrayInputStream(itemOutputStream.toByteArray())};
+
+        return new ByteArrayInputStream[]{new ByteArrayInputStream(userOutputStream.toByteArray()), new ByteArrayInputStream(itemOutputStream.toByteArray())};
     }
 }

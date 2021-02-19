@@ -152,8 +152,8 @@ public class Initialize {
                 targetSelection.runCrossValidation(title);
                 Timer.done(title, title);
             } catch (IOException e) {
+                System.out.println(title + config + e.toString());
                 e.printStackTrace(System.out);
-                throw new RuntimeException(e);
             }
         });
         thread.sleep(100);
