@@ -421,7 +421,7 @@ public class GenerateFigure {
                 try {
                     generateFigure4_sub(biasedFolder, unbiasedFolder, metrics, outFile, nFolds, dataset);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    e.printStackTrace(System.out);
                 }
             });
             thread.start();
@@ -432,7 +432,7 @@ public class GenerateFigure {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                e.printStackTrace(System.out);
             }
         });
     }
@@ -657,7 +657,7 @@ public class GenerateFigure {
                         targetSelection.runCrossValidation("generateFigure4_sub_YAHOO_BIASED_PROPERTIES_FILE");
                     }
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    e.printStackTrace(System.out);
                 }
             });
             thread1.start();
@@ -677,7 +677,7 @@ public class GenerateFigure {
                         targetSelection.runCrossValidation("generateFigure4_sub_ML1M_BIASED_PROPERTIES_FILE");
                     }
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    e.printStackTrace(System.out);
                 }
             });
             thread2.start();
@@ -687,7 +687,7 @@ public class GenerateFigure {
             try {
                 t.join();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                e.printStackTrace(System.out);
             }
         });
 
@@ -741,7 +741,7 @@ public class GenerateFigure {
                         targetSelection.runCrossValidation("generateFigure5 YAHOO_BIASED_PROPERTIES_FILE");
                     }
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    e.printStackTrace(System.out);
                 }
             });
             thread1.start();
@@ -760,7 +760,7 @@ public class GenerateFigure {
                         targetSelection.runCrossValidation("generateFigure5 ML1M_BIASED_PROPERTIES_FILE");
                     }
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    e.printStackTrace(System.out);
                 }
             });
             thread2.start();
@@ -780,7 +780,7 @@ public class GenerateFigure {
 //                    targetSelection.runCrossValidation("generateFigure5 ML1M_BIASED_PROPERTIES_FILE");
 //                }
 //            } catch (IOException e) {
-//                e.printStackTrace();
+//                e.printStackTrace(System.out);
 //            }
 //        }
 
@@ -792,7 +792,7 @@ public class GenerateFigure {
             try {
                 t.join();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                e.printStackTrace(System.out);
             }
         });
         generateFigure3(folder, datasets, metrics, outFile, nFolds);
