@@ -56,14 +56,14 @@ public class Initialize {
     public final static String RESULTS_PATH = "results/";
     public final static String BIASED_PATH = "biased/";
     public final static String UNBIASED_PATH = "unbiased/";
-    public static final String[] SPLITS = new String[]{
-            //"GroupShuffleSplit",
-            "KFold",
-            "ShuffleSplit",
-            "StratifiedKFold",
-            "StratifiedShuffleSplit",
-            "TimeSeriesSplit",
-    };
+//    public static final String[] SPLITS = new String[]{
+//            //"GroupShuffleSplit",
+//            "KFold",
+//            "ShuffleSplit",
+//            "StratifiedKFold",
+//            "StratifiedShuffleSplit",
+//            "TimeSeriesSplit",
+//    };
 
 
     /**
@@ -111,11 +111,11 @@ public class Initialize {
         }
     }
 
-    private static Thread runYahooBiased() {
+    private static Thread runYahooBiased() throws InterruptedException {
         return getThread("Initialize_YAHOO_BIASED_PROPERTIES_FILE", YAHOO_BIASED_PROPERTIES_FILE);
     }
 
-    private static Thread runYahooUnbiased() {
+    private static Thread runYahooUnbiased() throws InterruptedException {
         Thread tYahooUNBIASED = new Thread(() -> {
             try {
                 String title = "Initialize_YAHOO_UNBIASED_PROPERTIES_FILE";
@@ -129,19 +129,20 @@ public class Initialize {
             }
         });
 
+        tYahooUNBIASED.sleep(100);
         tYahooUNBIASED.start();
         return tYahooUNBIASED;
     }
 
-    private static Thread runMovieLens1M() {
+    private static Thread runMovieLens1M() throws InterruptedException {
         return getThread("Initialize_ML1M_BIASED_PROPERTIES_FILE", ML1M_BIASED_PROPERTIES_FILE);
     }
 
-    private static Thread runMovieLens25M() {
+    private static Thread runMovieLens25M() throws InterruptedException {
         return getThread("Initialize_ML25M_BIASED_PROPERTIES_FILE", ML25M_BIASED_PROPERTIES_FILE);
     }
 
-    private static Thread getThread(String title, String config) {
+    private static Thread getThread(String title, String config) throws InterruptedException {
         Thread thread = new Thread(() -> {
             //MovieLens
             try {
@@ -155,11 +156,12 @@ public class Initialize {
                 throw new RuntimeException(e);
             }
         });
+        thread.sleep(100);
         thread.start();
         return thread;
     }
 
-    private static Thread runMovieLens100k() {
+    private static Thread runMovieLens100k() throws InterruptedException {
         return getThread("Initialize_ML100K_BIASED_PROPERTIES_FILE", ML100K_BIASED_PROPERTIES_FILE);
     }
 
@@ -211,9 +213,9 @@ public class Initialize {
     private static void preprocessDatasets() throws InterruptedException {
         List<Thread> threads = new ArrayList<>();
 
+        threads.add(StartThread("MovieLens25M", Initialize::preprocessMl25mDataset));
         threads.add(StartThread("Yahoo R3", Initialize::preprocessYahooDataset));
         threads.add(StartThread("MovieLens1M", Initialize::preprocessMl1mDataset));
-        threads.add(StartThread("MovieLens25M", Initialize::preprocessMl25mDataset));
         threads.add(StartThread("MovieLens100K", Initialize::preprocessMl100kDataset));
 
         threads.forEach(thread -> {
@@ -263,7 +265,11 @@ public class Initialize {
             String ratings = new String(bytes, StandardCharsets.UTF_8);
 
             PrintStream ml25mOut = new PrintStream(PREPROCESSED_ML25M_DATASET_PATH);
-            ml25mOut.print(ratings.replace(",", "\t"));
+            ml25mOut.print(ratings
+                    .replace(",", "\t")
+                    .replace(".0", "")
+                    .replace(".5", "")
+            );
             ml25mOut.close();
 
             CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML25M_DATASET_PATH, ML25M_PATH, GenerateFigure.N_FOLDS);
