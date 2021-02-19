@@ -267,8 +267,6 @@ public class Initialize {
             PrintStream ml25mOut = new PrintStream(PREPROCESSED_ML25M_DATASET_PATH);
             ml25mOut.print(ratings
                     .replace(",", "\t")
-                    .replace(".0", "")
-                    .replace(".5", "")
             );
             ml25mOut.close();
 
