@@ -11,7 +11,10 @@ package es.uam.ir.targetsampling;
 import es.uam.ir.crossvalidation.CrossValidation;
 import es.uam.ir.util.Timer;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.io.RandomAccessFile;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -74,22 +77,22 @@ public class Initialize {
 
         mkdir();
 
-        preprocessDatasets();
+        //preprocessDatasets();
 //        runMovieLens1mCrossValidation();
 
         List<Thread> threads = new ArrayList<>();
 
-        threads.add(runMovieLens1M());
-        threads.add(runMovieLens100k());
-        threads.add(runYahooBiased());
-        threads.add(runYahooUnbiased());
+        //  threads.add(runMovieLens1M());
+        //  threads.add(runMovieLens100k());
+        //  threads.add(runYahooBiased());
+        //  threads.add(runYahooUnbiased());
         threads.add(runMovieLens25M());
 
         threads.forEach(thread -> {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                e.printStackTrace(System.out);
             }
         });
     }
@@ -125,6 +128,7 @@ public class Initialize {
                 targetSelection.runWithUnbiasedTest(conf.getTestPath(), title);
                 Timer.done(title, title);
             } catch (IOException e) {
+                System.out.println(e);
                 e.printStackTrace(System.out);
             }
         });
@@ -153,6 +157,7 @@ public class Initialize {
                 Timer.done(title, title);
             } catch (IOException e) {
                 System.out.println(title + config + e.toString());
+                System.out.println(e);
                 e.printStackTrace(System.out);
             }
         });
@@ -191,6 +196,7 @@ public class Initialize {
                     TargetSampling targetSelection = new TargetSampling(conf);
                     targetSelection.runCrossValidation(logSource);
                 } catch (IOException e) {
+                                System.out.println(e);
                     e.printStackTrace(System.out);
                 }
             });
@@ -204,6 +210,7 @@ public class Initialize {
             try {
                 thread.join();
             } catch (InterruptedException e) {
+                            System.out.println(e);
                 e.printStackTrace(System.out);
             }
         });
@@ -222,6 +229,7 @@ public class Initialize {
             try {
                 thread.join();
             } catch (InterruptedException e) {
+                System.out.println(e);
                 e.printStackTrace(System.out);
             }
         });
@@ -252,6 +260,7 @@ public class Initialize {
 
             CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML1M_DATASET_PATH, ML1M_PATH, GenerateFigure.N_FOLDS);
         } catch (IOException e) {
+            System.out.println(e);
             e.printStackTrace(System.out);
         }
     }
@@ -272,6 +281,7 @@ public class Initialize {
 
             CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML25M_DATASET_PATH, ML25M_PATH, GenerateFigure.N_FOLDS);
         } catch (IOException e) {
+            System.out.println(e);
             e.printStackTrace(System.out);
         }
     }
@@ -284,6 +294,7 @@ public class Initialize {
                     StandardCopyOption.REPLACE_EXISTING);
             CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML100K_DATASET_PATH, ML100K_PATH, GenerateFigure.N_FOLDS);
         } catch (IOException e) {
+            System.out.println(e);
             e.printStackTrace(System.out);
         }
     }
@@ -316,6 +327,7 @@ public class Initialize {
 
             CrossValidation.randomNFoldCrossValidation(PREPROCESSED_YAHOO_TRAIN_DATASET_PATH, YAHOO_PATH, GenerateFigure.N_FOLDS);
         } catch (IOException e) {
+            System.out.println(e);
             e.printStackTrace(System.out);
         }
     }

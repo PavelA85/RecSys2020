@@ -35,6 +35,7 @@ public class GetUsersAndItems {
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(dataPath)))) {
             reader.lines().forEach(l -> {
+
                 String[] tokens = l.split("\t");
                 if (tokens.length < 2) {
                     System.out.println(dataPath + "   " + l);

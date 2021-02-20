@@ -27,6 +27,7 @@ public class GenerateFigure {
 
     public final static int FULL_TARGET_SIZE_ML1M = 2000;
     public final static int FULL_TARGET_SIZE_ML100K = 1682;
+    public final static int FULL_TARGET_SIZE_ML25M = 1682;
     public final static int FULL_TARGET_SIZE_YAHOO = 1000;
     public final static int N_FOLDS = 5;
     private static final String[] rec_ordered = new String[]{
@@ -46,14 +47,15 @@ public class GenerateFigure {
      */
     public static void main(String[] a) {
         List<Thread> threads = new ArrayList<>();
-        int[] figures = {11};
+        int[] figures = {1, 2, 3, 11, 111, 1111};
         for (int f : figures) {
             Thread thread2 = new Thread(() -> {
                 try {
 //                    plotSplitFigure(f);
                     plotFigure(f);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    System.out.println(e);
+                    e.printStackTrace(System.out);
                 }
             });
             thread2.start();
@@ -64,7 +66,8 @@ public class GenerateFigure {
             try {
                 t.join();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                System.out.println(e);
+                e.printStackTrace(System.out);
             }
         });
     }
@@ -87,6 +90,22 @@ public class GenerateFigure {
                         "P@10",
                         FULL_TARGET_SIZE_ML100K);
                 break;
+            case 111:
+                generateFigure1(
+                        RESULTS_PATH + BIASED_PATH + ML25M + "-" + TARGET_SAMPLING_FILE,
+                        RESULTS_PATH + "figure111.txt",
+                        N_FOLDS,
+                        "P@10",
+                        FULL_TARGET_SIZE_ML25M);
+                break;
+            case 1111:
+                generateFigure1(
+                        RESULTS_PATH + BIASED_PATH + YAHOO + "-" + TARGET_SAMPLING_FILE,
+                        RESULTS_PATH + "figure1111.txt",
+                        N_FOLDS,
+                        "P@10",
+                        FULL_TARGET_SIZE_YAHOO);
+                break;
             case 2:
                 generateFigure2(
                         RESULTS_PATH + BIASED_PATH + YAHOO + "-" + TARGET_SAMPLING_FILE,
@@ -99,8 +118,8 @@ public class GenerateFigure {
             case 3:
                 generateFigure3(
                         RESULTS_PATH + BIASED_PATH,
-                        new String[]{ML1M, YAHOO},
-                        new String[]{"nDCG@10", "P@10", "Recall@10"},
+                        new String[]{ML100K, ML1M, ML25M, YAHOO},
+                        new String[]{"nDCG@10", "P@10", "Recall@10", "FScore@10"},
                         RESULTS_PATH + "figure3.txt",
                         N_FOLDS);
                 break;
@@ -108,15 +127,15 @@ public class GenerateFigure {
                 generateFigure4(
                         RESULTS_PATH + BIASED_PATH,
                         RESULTS_PATH + UNBIASED_PATH,
-                        new String[]{ML1M, YAHOO},
-                        new String[]{"nDCG@10", "P@10", "Recall@10"},
+                        new String[]{ML100K, ML1M, ML25M, YAHOO},
+                        new String[]{"nDCG@10", "P@10", "Recall@10",  "FScore@10"},
                         RESULTS_PATH + "figure4.txt",
                         N_FOLDS);
                 break;
             case 5:
                 generateFigure5(
                         RESULTS_PATH + BIASED_PATH,
-                        new String[]{ML1M, YAHOO},
+                        new String[]{ML100K, ML1M, ML25M, YAHOO},
                         new String[]{"Coverage@10"},
                         RESULTS_PATH + "figure5.txt",
                         N_FOLDS);
@@ -163,6 +182,7 @@ public class GenerateFigure {
 ////                        TargetSampling targetSelection = new TargetSampling(conf);
 ////                        targetSelection.runCrossValidation("generateFigure4_sub_ML1M_BIASED_PROPERTIES_FILE_" + split);
 ////                    } catch (IOException e) {
+////                    System.out.println(e);
 ////                        e.printStackTrace();
 ////                    }
 //
@@ -421,6 +441,7 @@ public class GenerateFigure {
                 try {
                     generateFigure4_sub(biasedFolder, unbiasedFolder, metrics, outFile, nFolds, dataset);
                 } catch (IOException e) {
+                    System.out.println(e);
                     e.printStackTrace(System.out);
                 }
             });
@@ -432,6 +453,7 @@ public class GenerateFigure {
             try {
                 thread.join();
             } catch (InterruptedException e) {
+                System.out.println(e);
                 e.printStackTrace(System.out);
             }
         });
@@ -657,6 +679,7 @@ public class GenerateFigure {
                         targetSelection.runCrossValidation("generateFigure4_sub_YAHOO_BIASED_PROPERTIES_FILE");
                     }
                 } catch (IOException e) {
+                    System.out.println(e);
                     e.printStackTrace(System.out);
                 }
             });
@@ -677,6 +700,7 @@ public class GenerateFigure {
                         targetSelection.runCrossValidation("generateFigure4_sub_ML1M_BIASED_PROPERTIES_FILE");
                     }
                 } catch (IOException e) {
+                    System.out.println(e);
                     e.printStackTrace(System.out);
                 }
             });
@@ -687,6 +711,7 @@ public class GenerateFigure {
             try {
                 t.join();
             } catch (InterruptedException e) {
+                System.out.println(e);
                 e.printStackTrace(System.out);
             }
         });
@@ -720,7 +745,6 @@ public class GenerateFigure {
     }
 
 
-
     public static void generateFigure5(
             String folder,
             String[] datasets,
@@ -741,6 +765,7 @@ public class GenerateFigure {
                         targetSelection.runCrossValidation("generateFigure5 YAHOO_BIASED_PROPERTIES_FILE");
                     }
                 } catch (IOException e) {
+                    System.out.println(e);
                     e.printStackTrace(System.out);
                 }
             });
@@ -760,6 +785,7 @@ public class GenerateFigure {
                         targetSelection.runCrossValidation("generateFigure5 ML1M_BIASED_PROPERTIES_FILE");
                     }
                 } catch (IOException e) {
+                    System.out.println(e);
                     e.printStackTrace(System.out);
                 }
             });
@@ -780,6 +806,7 @@ public class GenerateFigure {
 //                    targetSelection.runCrossValidation("generateFigure5 ML1M_BIASED_PROPERTIES_FILE");
 //                }
 //            } catch (IOException e) {
+//       System.out.println(e);
 //                e.printStackTrace(System.out);
 //            }
 //        }
@@ -792,6 +819,7 @@ public class GenerateFigure {
             try {
                 t.join();
             } catch (InterruptedException e) {
+                System.out.println(e);
                 e.printStackTrace(System.out);
             }
         });

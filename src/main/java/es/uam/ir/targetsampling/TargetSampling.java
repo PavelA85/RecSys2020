@@ -131,24 +131,30 @@ public class TargetSampling {
             for (int targetSize : conf.getTargetSizes()) {
                 nUsersInCrossValidation = 0;
                 for (int currentFold = 1; currentFold <= conf.getNFolds(); currentFold++) {
-                    System.out.println(logSource + " Running fold " + currentFold);
-                    FastPreferenceData<Long, Long> trainData = SimpleFastPreferenceData
-                            .load(SimpleRatingPreferencesReader
-                                    .get()
-                                    .read(conf.getDataPath() + currentFold + "-data-train.txt", lp, lp), userIndex, itemIndex);
-                    FastPreferenceData<Long, Long> testData = SimpleFastPreferenceData
-                            .load(SimpleRatingPreferencesReader
-                                    .get()
-                                    .read(conf.getDataPath() + currentFold + "-data-test.txt", lp, lp), userIndex, itemIndex);
-                    Function<Long, IntPredicate> userFilter = runSampledSplit(logSource, userIndex, itemIndex, testData,
-                            evalsPerUser, nUsersInCrossValidation, out, targetSize, currentFold, trainData);
-                    nUsersInCrossValidation += trainData.getUsersWithPreferences().count();
-                    double expectation = getExpectation(itemIndex, trainData, userFilter);
-                    outExpectation.println(currentFold + "\t" + targetSize + "\t" + expectation);
+                    long newUsers = RunFold(logSource, userIndex, itemIndex, evalsPerUser, nUsersInCrossValidation, out, outExpectation, targetSize, currentFold);
+                    nUsersInCrossValidation += newUsers;
                 }
             }
         }
         processEvals(evalsPerUser, conf.getResultsPath(), nUsersInCrossValidation);
+    }
+
+    private long RunFold(String logSource, FastUserIndex<Long> userIndex, FastItemIndex<Long> itemIndex, Map<String, Map<String, double[]>> evalsPerUser, int nUsersInCrossValidation, PrintStream out, PrintStream outExpectation, int targetSize, int currentFold) throws IOException {
+        System.out.println(logSource + " Running fold " + currentFold);
+        FastPreferenceData<Long, Long> trainData = SimpleFastPreferenceData
+                .load(SimpleRatingPreferencesReader
+                        .get()
+                        .read(conf.getDataPath() + currentFold + "-data-train.txt", lp, lp), userIndex, itemIndex);
+        FastPreferenceData<Long, Long> testData = SimpleFastPreferenceData
+                .load(SimpleRatingPreferencesReader
+                        .get()
+                        .read(conf.getDataPath() + currentFold + "-data-test.txt", lp, lp), userIndex, itemIndex);
+        Function<Long, IntPredicate> userFilter = runSampledSplit(logSource, userIndex, itemIndex, testData,
+                evalsPerUser, nUsersInCrossValidation, out, targetSize, currentFold, trainData);
+        double expectation = getExpectation(itemIndex, trainData, userFilter);
+        outExpectation.println(currentFold + "\t" + targetSize + "\t" + expectation);
+        long newUsers = trainData.getUsersWithPreferences().count();
+        return newUsers;
     }
 
     private double getExpectation(FastItemIndex<Long> itemIndex, FastPreferenceData<Long, Long> trainData, Function<Long,
