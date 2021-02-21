@@ -1,0 +1,2 @@
+fold	target size	expected intersection ratio in top n
+1	0	0.6439969593354725
