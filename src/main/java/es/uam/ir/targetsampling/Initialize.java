@@ -22,96 +22,9 @@ import java.nio.file.StandardCopyOption;
 import java.util.*;
 import java.util.logging.LogManager;
 
-/**
- * @author Rocío Cañamares
- * @author Pablo Castells
- */
+import static es.uam.ir.targetsampling.DataSetInitialize.*;
+
 public class Initialize {
-    public final static String DATASETS_PATH = "datasets/";
-    /*
-     *
-     * ML1M
-     *
-     * */
-    public final static String ML1M = "ml1m";
-
-    public final static String ML1M_PATH = DATASETS_PATH + ML1M + "/";
-    public final static String ORIGINAL_ML1M_DATASET_PATH = ML1M_PATH + "ratings.dat";
-    public final static String PREPROCESSED_ML1M_DATASET_PATH = ML1M_PATH + "data.txt";
-    public final static String ML1M_BIASED_PROPERTIES_FILE = "conf/ml1m-biased.properties";
-
-    /*
-     *
-     * ML25M
-     *
-     * */
-    public final static String ML25M = "ml25m";
-    public final static String ML25M_PATH = DATASETS_PATH + ML25M + "/";
-    public final static String ORIGINAL_ML25M_DATASET_PATH = ML25M_PATH + "ratings.csv";
-    public final static String PREPROCESSED_ML25M_DATASET_PATH = ML25M_PATH + "data.txt";
-    public final static String ML25M_BIASED_PROPERTIES_FILE = "conf/ml25m-biased.properties";
-
-    /*
-     *
-     * ML100K
-     *
-     * */
-    public final static String ML100K = "ml100k";
-
-    public final static String ML100K_PATH = DATASETS_PATH + ML100K + "/";
-    public final static String ORIGINAL_ML100K_DATASET_PATH = ML100K_PATH + "u.data";
-    public final static String PREPROCESSED_ML100K_DATASET_PATH = ML100K_PATH + "data.txt";
-    public final static String ML100K_BIASED_PROPERTIES_FILE = "conf/ml100k-biased.properties";
-    /*
-     *
-     * YAHOO
-     *
-     * */
-    public final static String YAHOO = "yahoo";
-    public final static String YAHOO_PATH = DATASETS_PATH + YAHOO + "/";
-    public final static String ORIGINAL_YAHOO_TRAIN_DATASET_PATH = YAHOO_PATH + "ydata-ymusic-rating-study-v1_0-train.txt";
-    public final static String ORIGINAL_YAHOO_TEST_DATASET_PATH = YAHOO_PATH + "ydata-ymusic-rating-study-v1_0-test.txt";
-    public final static String PREPROCESSED_YAHOO_TRAIN_DATASET_PATH = YAHOO_PATH + "data.txt";
-    public final static String PREPROCESSED_YAHOO_TEST_DATASET_PATH = YAHOO_PATH + "unbiased-test.txt";
-
-    public final static String YAHOO_BIASED_PROPERTIES_FILE = "conf/yahoo-biased.properties";
-    public final static String YAHOO_UNBIASED_PROPERTIES_FILE = "conf/yahoo-unbiased.properties";
-
-    /*
-     *
-     * Ml1M_MALE
-     *
-     * */
-
-    public final static String ML1M_MALE = "ml1m/male";
-    public final static String ML1M_MALE_PATH = DATASETS_PATH + ML1M_MALE + "/";
-    public final static String ORIGINAL_ML1M_MALE_DATASET_PATH = ML1M_MALE_PATH + "ratings.dat";
-    public final static String PREPROCESSED_ML1M_MALE_DATASET_PATH = ML1M_MALE_PATH + "data.txt";
-    public final static String ML1M_MALE_BIASED_PROPERTIES_FILE = "conf/ml1m-male-biased.properties";
-
-    /*
-     *
-     * Ml1M_FEMALE
-     *
-     * */
-    public final static String ML1M_FEMALE = "ml1m/female";
-    public final static String ML1M_FEMALE_PATH = DATASETS_PATH + ML1M_FEMALE + "/";
-    public final static String ORIGINAL_ML1M_FEMALE_DATASET_PATH = ML1M_FEMALE_PATH + "ratings.dat";
-    public final static String PREPROCESSED_ML1M_FEMALE_DATASET_PATH = ML1M_FEMALE_PATH + "data.txt";
-    public final static String ML1M_FEMALE_BIASED_PROPERTIES_FILE = "conf/ml1m-female-biased.properties";
-
-
-    public final static String RESULTS_PATH = "results/";
-    public final static String BIASED_PATH = "biased/";
-    public final static String UNBIASED_PATH = "unbiased/";
-//    public static final String[] SPLITS = new String[]{
-//            //"GroupShuffleSplit",
-//            "KFold",
-//            "ShuffleSplit",
-//            "StratifiedKFold",
-//            "StratifiedShuffleSplit",
-//            "TimeSeriesSplit",
-//    };
 
 
     /**
@@ -122,19 +35,36 @@ public class Initialize {
 
         mkdir();
 
-        preprocessDatasets();
+
 //        runMovieLens1mCrossValidation();
 
         List<Thread> threads = new ArrayList<>();
 
+//        threads.add(StartThread("MovieLens25M", Initialize::preprocessMl25mDataset));
+//        threads.add(StartThread("Yahoo R3", Initialize::preprocessYahooDataset));
+//        threads.add(StartThread("MovieLens1M", Initialize::preprocessMl1mDataset));
+//        threads.add(StartThread("MovieLens100K", Initialize::preprocessMl100kDataset));
 
+        threads.add(StartThread("MovieLens1M_GENDER", Initialize::preprocessMl1m_GENDER_Dataset));
+        threads.add(StartThread("MovieLens100K_GENDER", Initialize::preprocessMl100k_GENDER_Dataset));
+
+        ThreadJoin(threads);
+
+
+        threads.clear();
+
+        threads.addAll(runMovieLens100K_Gender());
         threads.addAll(runMovieLens1M_Gender());
         //  threads.add(runMovieLens1M());
         //  threads.add(runMovieLens100k());
         //  threads.add(runYahooBiased());
         //  threads.add(runYahooUnbiased());
-        //threads.add(runMovieLens25M());
+        //  threads.add(runMovieLens25M());
 
+        ThreadJoin(threads);
+    }
+
+    private static void ThreadJoin(List<Thread> threads) {
         threads.forEach(thread -> {
             try {
                 thread.join();
@@ -193,6 +123,12 @@ public class Initialize {
 
         return Arrays.asList(getThread("Initialize_ML1M_MALE_BIASED_PROPERTIES_FILE", ML1M_MALE_BIASED_PROPERTIES_FILE),
                 getThread("Initialize_ML1M_FEMALE_BIASED_PROPERTIES_FILE", ML1M_FEMALE_BIASED_PROPERTIES_FILE));
+    }
+
+    private static Collection<? extends Thread> runMovieLens100K_Gender() throws InterruptedException {
+
+        return Arrays.asList(getThread("Initialize_ML100K_MALE_BIASED_PROPERTIES_FILE", ML100K_MALE_BIASED_PROPERTIES_FILE),
+                getThread("Initialize_ML100K_FEMALE_BIASED_PROPERTIES_FILE", ML100K_FEMALE_BIASED_PROPERTIES_FILE));
     }
 
     private static Thread runMovieLens25M() throws InterruptedException {
@@ -270,26 +206,6 @@ public class Initialize {
     }
 */
 
-    private static void preprocessDatasets() throws InterruptedException {
-        List<Thread> threads = new ArrayList<>();
-
-//        threads.add(StartThread("MovieLens25M", Initialize::preprocessMl25mDataset));
-//        threads.add(StartThread("Yahoo R3", Initialize::preprocessYahooDataset));
-//        threads.add(StartThread("MovieLens1M", Initialize::preprocessMl1mDataset));
-//        threads.add(StartThread("MovieLens100K", Initialize::preprocessMl100kDataset));
-
-        threads.add(StartThread("MovieLens1M_GENDER", Initialize::preprocessMl1m_GENDER_Dataset));
-
-        threads.forEach(thread -> {
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                System.out.println(e);
-                e.printStackTrace(System.out);
-            }
-        });
-    }
-
     private static Thread StartThread(String title, Runnable function) throws InterruptedException {
         Thread thread = new Thread(() -> {
             Timer.start((Object) title, "Processing: " + title);
@@ -324,6 +240,16 @@ public class Initialize {
         try {
             CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML1M_MALE_DATASET_PATH, ML1M_MALE_PATH, GenerateFigure.N_FOLDS);
             CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML1M_FEMALE_DATASET_PATH, ML1M_FEMALE_PATH, GenerateFigure.N_FOLDS);
+        } catch (IOException e) {
+            System.out.println(e);
+            e.printStackTrace(System.out);
+        }
+    }
+
+    static void preprocessMl100k_GENDER_Dataset() {
+        try {
+            CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML100K_MALE_DATASET_PATH, ML100K_MALE_PATH, GenerateFigure.N_FOLDS);
+            CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML100K_FEMALE_DATASET_PATH, ML100K_FEMALE_PATH, GenerateFigure.N_FOLDS);
         } catch (IOException e) {
             System.out.println(e);
             e.printStackTrace(System.out);

@@ -217,7 +217,16 @@ public class TargetSampling {
         processEvals(evalsPerUser, conf.getResultsPath(), nUsersInCrossValidation);
     }
 
-    private int runFold(String logSource, FastUserIndex<Long> userIndex, FastItemIndex<Long> itemIndex, FastPreferenceData<Long, Long> testData, Map<String, Map<String, double[]>> evalsPerUser, int nUsersInCrossValidation, PrintStream out, PrintStream outExpectation, int targetSize, int currentFold) throws IOException {
+    private int runFold(String logSource,
+                        FastUserIndex<Long> userIndex,
+                        FastItemIndex<Long> itemIndex,
+                        FastPreferenceData<Long, Long> testData,
+                        Map<String, Map<String, double[]>> evalsPerUser,
+                        int nUsersInCrossValidation,
+                        PrintStream out,
+                        PrintStream outExpectation,
+                        int targetSize,
+                        int currentFold) throws IOException {
         Timer.start(currentFold, "folding..." + currentFold + " " + logSource);
         System.out.printf("%s Running fold %d Target size:%d %n", logSource, currentFold, targetSize);
         FastPreferenceData<Long, Long> trainData = SimpleFastPreferenceData.load(SimpleRatingPreferencesReader.get().read(conf.getDataPath() + currentFold + "-data-train.txt", lp, lp), userIndex, itemIndex);

@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.*;
 
-import static es.uam.ir.targetsampling.Initialize.*;
+import static es.uam.ir.targetsampling.DataSetInitialize.*;
 import static es.uam.ir.targetsampling.TargetSampling.*;
 
 /**
