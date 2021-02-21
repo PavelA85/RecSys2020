@@ -1,0 +1,48 @@
+====================
+Dataset: ml100k/male
+====================
+
+P@10
+Recommender	Full	Test
+iMF (full)	0.0	0.5597910447761194
+iMF (test)	0.0	0.584955223880597
+kNN (full/test)	0.0	0.5800000000000001
+Normalized kNN (full)	0.0	0.5727164179104478
+Normalized kNN (test)	0.0	0.5890149253731344
+Average Rating	0.0	0.5862686567164179
+Popularity	0.0	0.5486567164179105
+Random	0.0	0.48734328358208945
+
+Recall@10
+Recommender	Full	Test
+iMF (full)	0.0	0.6792260329273366
+iMF (test)	0.0	0.6972420793711473
+kNN (full/test)	0.0	0.6935722810423293
+Normalized kNN (full)	0.0	0.6843003193358251
+Normalized kNN (test)	0.0	0.7014562637506137
+Average Rating	0.0	0.6995976364597093
+Popularity	0.0	0.6744371137214741
+Random	0.0	0.6326641054902231
+
+nDCG@10
+Recommender	Full	Test
+iMF (full)	0.0	0.781129802798605
+iMF (test)	0.0	0.8102109765719525
+kNN (full/test)	0.0	0.806061514051908
+Normalized kNN (full)	0.0	0.7935372888477794
+Normalized kNN (test)	0.0	0.8196742922994957
+Average Rating	0.0	0.815840325301104
+Popularity	0.0	0.7549559526332528
+Random	0.0	0.6722239217442246
+
+FScore@10
+Recommender	Full	Test
+iMF (full)	0.0	0.5185819279498943
+iMF (test)	0.0	0.5378078790523354
+kNN (full/test)	0.0	0.5337420427361717
+Normalized kNN (full)	0.0	0.5261156703007699
+Normalized kNN (test)	0.0	0.541690489579323
+Average Rating	0.0	0.5396280527911025
+Popularity	0.0	0.511686803171202
+Random	0.0	0.4669127735709801
+

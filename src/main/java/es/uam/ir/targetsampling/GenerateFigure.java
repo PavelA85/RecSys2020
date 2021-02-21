@@ -15,6 +15,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static es.uam.ir.targetsampling.DataSetInitialize.*;
 import static es.uam.ir.targetsampling.TargetSampling.*;
@@ -25,9 +27,23 @@ import static es.uam.ir.targetsampling.TargetSampling.*;
  */
 public class GenerateFigure {
 
+    public static final String[] DATASETS = {ML100K, ML100K_MALE, ML100K_FEMALE, ML1M, ML1M_MALE, ML1M_FEMALE, YAHOO};
+    public static final String[] METRICS = {"P@10", "Recall@10", "nDCG@10", "FScore@10"};
+
+    public static void init() {
+        TARGET_SIZES.put(ML1M, FULL_TARGET_SIZE_ML1M);
+        TARGET_SIZES.put(ML1M_MALE, FULL_TARGET_SIZE_ML1M);
+        TARGET_SIZES.put(ML1M_FEMALE, FULL_TARGET_SIZE_ML1M);
+        TARGET_SIZES.put(ML100K, FULL_TARGET_SIZE_ML100K);
+        TARGET_SIZES.put(ML100K_MALE, FULL_TARGET_SIZE_ML100K);
+        TARGET_SIZES.put(ML100K_FEMALE, FULL_TARGET_SIZE_ML100K);
+        TARGET_SIZES.put(YAHOO, FULL_TARGET_SIZE_YAHOO);
+    }
+
+    public final static Map<String, Integer> TARGET_SIZES = new HashMap<>();
+
     public final static int FULL_TARGET_SIZE_ML1M = 2000;
     public final static int FULL_TARGET_SIZE_ML100K = 1682;
-    public final static int FULL_TARGET_SIZE_ML25M = 1682;
     public final static int FULL_TARGET_SIZE_YAHOO = 1000;
     public final static int N_FOLDS = 5;
     private static final String[] rec_ordered = new String[]{
@@ -46,8 +62,9 @@ public class GenerateFigure {
      * @param a
      */
     public static void main(String[] a) {
+        init();
         List<Thread> threads = new ArrayList<>();
-        int[] figures = {1, 2, 3, 11, 111, 1111};
+        int[] figures = {1, 2, 3, 101};
         for (int f : figures) {
             Thread thread2 = new Thread(() -> {
                 try {
@@ -82,30 +99,14 @@ public class GenerateFigure {
                         "P@10",
                         FULL_TARGET_SIZE_ML1M);
                 break;
-            case 11:
-                generateFigure1(
-                        RESULTS_PATH + BIASED_PATH + ML100K + "-" + TARGET_SAMPLING_FILE,
-                        RESULTS_PATH + "figure11.txt",
+            case 101:
+                generateFigure101(
                         N_FOLDS,
-                        "P@10",
-                        FULL_TARGET_SIZE_ML100K);
+                        METRICS,
+                        DATASETS
+                );
                 break;
-            case 111:
-                generateFigure1(
-                        RESULTS_PATH + BIASED_PATH + ML25M + "-" + TARGET_SAMPLING_FILE,
-                        RESULTS_PATH + "figure111.txt",
-                        N_FOLDS,
-                        "P@10",
-                        FULL_TARGET_SIZE_ML25M);
-                break;
-            case 1111:
-                generateFigure1(
-                        RESULTS_PATH + BIASED_PATH + YAHOO + "-" + TARGET_SAMPLING_FILE,
-                        RESULTS_PATH + "figure1111.txt",
-                        N_FOLDS,
-                        "P@10",
-                        FULL_TARGET_SIZE_YAHOO);
-                break;
+
             case 2:
                 generateFigure2(
                         RESULTS_PATH + BIASED_PATH + YAHOO + "-" + TARGET_SAMPLING_FILE,
@@ -118,8 +119,8 @@ public class GenerateFigure {
             case 3:
                 generateFigure3(
                         RESULTS_PATH + BIASED_PATH,
-                        new String[]{ML100K, ML1M, ML25M, YAHOO},
-                        new String[]{"nDCG@10", "P@10", "Recall@10", "FScore@10"},
+                        DATASETS,
+                        METRICS,
                         RESULTS_PATH + "figure3.txt",
                         N_FOLDS);
                 break;
@@ -127,15 +128,15 @@ public class GenerateFigure {
                 generateFigure4(
                         RESULTS_PATH + BIASED_PATH,
                         RESULTS_PATH + UNBIASED_PATH,
-                        new String[]{ML100K, ML1M, ML25M, YAHOO},
-                        new String[]{"nDCG@10", "P@10", "Recall@10",  "FScore@10"},
+                        new String[]{ML100K, ML1M, YAHOO},
+                        METRICS,
                         RESULTS_PATH + "figure4.txt",
                         N_FOLDS);
                 break;
             case 5:
                 generateFigure5(
                         RESULTS_PATH + BIASED_PATH,
-                        new String[]{ML100K, ML1M, ML25M, YAHOO},
+                        new String[]{ML100K, ML1M, YAHOO},
                         new String[]{"Coverage@10"},
                         RESULTS_PATH + "figure5.txt",
                         N_FOLDS);
@@ -145,7 +146,7 @@ public class GenerateFigure {
         }
     }
 
-//    private static void plotSplitFigure(int figure) throws IOException {
+    //    private static void plotSplitFigure(int figure) throws IOException {
 //        for (String s : SPLITS) {
 //            String split = String.format("/%s/", s);
 //            File directory = new File(RESULTS_PATH + split);
@@ -209,7 +210,6 @@ public class GenerateFigure {
 //            }
 //        }
 //    }
-
     public static void generateFigure1(
             String inFile,
             String outFile,
@@ -249,6 +249,61 @@ public class GenerateFigure {
                 out.print("\t" + value / nFolds);
             }
             out.println();
+        }
+    }
+
+    public static void generateFigure101(
+            int nFolds,
+            String[] metrics,
+            String[] datasets
+    ) throws FileNotFoundException {
+
+        for (String dataset : datasets) {
+            String inFile = RESULTS_PATH + BIASED_PATH + dataset.replace('/', '-') + "-" + TARGET_SAMPLING_FILE;
+            String outFile = RESULTS_PATH + "figure101." + dataset.replace('/', '-') + ".txt";
+            PrintStream out = new PrintStream(outFile);
+
+            int fullTargetSize = TARGET_SIZES.get(dataset);
+
+            out.println("====================");
+            out.println("Dataset: " + dataset);
+            out.println("====================\n");
+
+            for (String metric : metrics) {
+
+                Map<String, double[]> values = new TreeMap<>();
+                Scanner in = new Scanner(new File(inFile));
+                String[] colHeads = in.nextLine().split("\t");
+                int colMetric = Arrays.asList(colHeads).indexOf(metric);
+                while (in.hasNext()) {
+                    String[] colValues = in.nextLine().split("\t");
+                    int targetSize = Integer.parseInt(colValues[1]);
+                    if (targetSize != 0 && targetSize != fullTargetSize) {
+                        continue;
+                    }
+                    String recommender = colValues[2];
+
+                    double[] value = values.computeIfAbsent(recommender, k -> new double[2]);
+                    int index = (targetSize == fullTargetSize) ? 0 : 1;
+                    value[index] += Double.parseDouble(colValues[colMetric]);
+                }
+
+
+                out.println(metric);
+                out.println("Recommender\tFull\tTest");
+
+                String[] recommenders = getRecommenders(values);
+
+                for (String recommender : recommenders) {
+                    out.print(recommender);
+                    for (double value : values.get(recommender)) {
+                        out.print("\t" + value / nFolds);
+                    }
+                    out.println();
+                }
+                out.println();
+            }
+
         }
     }
 
@@ -348,7 +403,7 @@ public class GenerateFigure {
         List<String> metricList = Arrays.asList(metrics);
         PrintStream out = new PrintStream(outFile);
         for (String dataset : datasets) {
-            String inFile = folder + dataset + "-" + TARGET_SAMPLING_FILE;
+            String inFile = folder + dataset.replace('/', '-') + "-" + TARGET_SAMPLING_FILE;
             out.println("====================");
             out.println("Dataset: " + dataset);
             out.println("====================\n");
@@ -461,7 +516,7 @@ public class GenerateFigure {
 
     private static void generateFigure4_sub(String biasedFolder, String unbiasedFolder, String[] metrics, String outFile, int nFolds, String dataset) throws IOException {
         List<String> metricList = Arrays.asList(metrics);
-        PrintStream out = new PrintStream(outFile + "." + dataset + ".txt");
+        PrintStream out = new PrintStream(outFile + "." + dataset.replace('/', '-') + ".txt");
         out.println("====================");
         out.println("Dataset: " + dataset);
         out.println("====================\n");
@@ -475,8 +530,8 @@ public class GenerateFigure {
         //Ratio of ties & Ratio of ties at zero
         //curve -> input file
         Map<String, String> curveFiles = new HashMap<>();
-        curveFiles.put("Ratio of ties", biasedFolder + dataset + "-" + TIES_FILE);
-        curveFiles.put("Ratio of ties at zero", biasedFolder + dataset + "-" + TIES_AT_ZERO_FILE);
+        curveFiles.put("Ratio of ties", biasedFolder + dataset.replace('/', '-') + "-" + TIES_FILE);
+        curveFiles.put("Ratio of ties at zero", biasedFolder + dataset.replace('/', '-') + "-" + TIES_AT_ZERO_FILE);
         for (String curve : curveFiles.keySet()) {
             curves.add(curve);
             String inFile = curveFiles.get(curve);
@@ -516,7 +571,7 @@ public class GenerateFigure {
             //Expected intersection ratio in top n
             String curve = "Expected intersection ratio in top n";
             curves.add(curve);
-            String inFile = biasedFolder + dataset + "-" + EXPECTED_INTERSECTION_RATIO_FILE;
+            String inFile = biasedFolder + dataset.replace('/', '-') + "-" + EXPECTED_INTERSECTION_RATIO_FILE;
             Scanner in = new Scanner(new File(inFile));
             in.nextLine();
             while (in.hasNext()) {
@@ -550,7 +605,7 @@ public class GenerateFigure {
             // Metric -> rec system -> value
             Map<String, Map<String, Double>> unbiasedValues = new TreeMap<>();
 
-            String unbiasedFiles = unbiasedFolder + dataset + "-" + TARGET_SAMPLING_FILE;
+            String unbiasedFiles = unbiasedFolder + dataset.replace('/', '-') + "-" + TARGET_SAMPLING_FILE;
             Scanner unbiasedIn = new Scanner(new File(unbiasedFiles));
             String[] unbiasedColHeads = unbiasedIn.nextLine().split("\t");
             for (int i = 2; i < unbiasedColHeads.length; i++) {
@@ -578,7 +633,7 @@ public class GenerateFigure {
             // Metric -> target size -> rec system -> value
             Map<String, Map<Integer, Map<String, Double>>> biasedValues = new TreeMap<>();
 
-            String biasedFiles = biasedFolder + dataset + "-" + TARGET_SAMPLING_FILE;
+            String biasedFiles = biasedFolder + dataset.replace('/', '-') + "-" + TARGET_SAMPLING_FILE;
             Scanner biasedIn = new Scanner(new File(biasedFiles));
             String[] biasedColHeads = biasedIn.nextLine().split("\t");
             for (int i = 2; i < biasedColHeads.length; i++) {
@@ -667,45 +722,50 @@ public class GenerateFigure {
         //Sum of p-values
 
         List<Thread> threads = new ArrayList<>();
-        if (dataset == YAHOO) {
-            Thread thread1 = new Thread(() -> {
-                try {
-                    //Yahoo
-                    {
-                        Configuration conf = new Configuration(YAHOO_BIASED_PROPERTIES_FILE);
-                        conf.setAllRecs(true);
-                        conf.setResultsPath(conf.getResultsPath() + "allrecs-");
-                        TargetSampling targetSelection = new TargetSampling(conf);
-                        targetSelection.runCrossValidation("generateFigure4_sub_YAHOO_BIASED_PROPERTIES_FILE");
+        switch (dataset) {
+            case YAHOO:
+                Thread thread1 = new Thread(() -> {
+                    try {
+                        //Yahoo
+                        {
+                            Configuration conf = new Configuration(YAHOO_BIASED_PROPERTIES_FILE);
+                            conf.setAllRecs(true);
+                            conf.setResultsPath(conf.getResultsPath() + "allrecs-");
+                            TargetSampling targetSelection = new TargetSampling(conf);
+                            targetSelection.runCrossValidation("generateFigure4_sub_YAHOO_BIASED_PROPERTIES_FILE");
+                        }
+                    } catch (IOException e) {
+                        System.out.println(e);
+                        e.printStackTrace(System.out);
                     }
-                } catch (IOException e) {
-                    System.out.println(e);
-                    e.printStackTrace(System.out);
-                }
-            });
-            thread1.start();
-            threads.add(thread1);
-        }
+                });
+                thread1.start();
+                threads.add(thread1);
+                break;
 
-        if (dataset == ML1M) {
-            Thread thread2 = new Thread(() -> {
-                try {
-                    //MovieLens
-                    {
-                        Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
-                        conf.setAllRecs(true);
-                        conf.setResultsPath(conf.getResultsPath() + "allrecs-");
+            case ML1M:
+                Thread thread2 = new Thread(() -> {
+                    try {
+                        //MovieLens
+                        {
+                            Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
+                            conf.setAllRecs(true);
+                            conf.setResultsPath(conf.getResultsPath() + "allrecs-");
 
-                        TargetSampling targetSelection = new TargetSampling(conf);
-                        targetSelection.runCrossValidation("generateFigure4_sub_ML1M_BIASED_PROPERTIES_FILE");
+                            TargetSampling targetSelection = new TargetSampling(conf);
+                            targetSelection.runCrossValidation("generateFigure4_sub_ML1M_BIASED_PROPERTIES_FILE");
+                        }
+                    } catch (IOException e) {
+                        System.out.println(e);
+                        e.printStackTrace(System.out);
                     }
-                } catch (IOException e) {
-                    System.out.println(e);
-                    e.printStackTrace(System.out);
-                }
-            });
-            thread2.start();
-            threads.add(thread2);
+                });
+                thread2.start();
+                threads.add(thread2);
+                break;
+
+            default:
+                throw new IllegalArgumentException(dataset);
         }
         threads.forEach(t -> {
             try {
@@ -718,7 +778,7 @@ public class GenerateFigure {
 
         String curve = "Sum of p-values";
         curves.add(curve);
-        String inFile = biasedFolder + dataset + "-allrecs-pvalues.txt";
+        String inFile = biasedFolder + dataset.replace('/', '-') + "-allrecs-pvalues.txt";
         Scanner in = new Scanner(new File(inFile));
         String[] colHeads = in.nextLine().split("\t");
         while (in.hasNext()) {
