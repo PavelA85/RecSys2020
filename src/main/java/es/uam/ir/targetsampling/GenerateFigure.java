@@ -64,7 +64,7 @@ public class GenerateFigure {
     public static void main(String[] a) {
         init();
         List<Thread> threads = new ArrayList<>();
-        int[] figures = {1, 2, 3, 101};
+        int[] figures = {1, 2, 3, 101, 303};
         for (int f : figures) {
             Thread thread2 = new Thread(() -> {
                 try {
@@ -122,6 +122,13 @@ public class GenerateFigure {
                         DATASETS,
                         METRICS,
                         RESULTS_PATH + "figure3.txt",
+                        N_FOLDS);
+                break;
+            case 303:
+                generateFigure303(
+                        RESULTS_PATH + BIASED_PATH,
+                        DATASETS,
+                        METRICS,
                         N_FOLDS);
                 break;
             case 4:
@@ -303,7 +310,6 @@ public class GenerateFigure {
                 }
                 out.println();
             }
-
         }
     }
 
@@ -482,6 +488,72 @@ public class GenerateFigure {
 //            }
         }
         out.close();
+    }
+
+    public static void generateFigure303(
+            String folder,
+            String[] datasets,
+            String[] metrics,
+            int nFolds) throws FileNotFoundException {
+        List<String> metricList = Arrays.asList(metrics);
+        for (String dataset : datasets) {
+            String outFile = RESULTS_PATH + "figure303." + dataset.replace('/', '-') + ".txt";
+            PrintStream out = new PrintStream(outFile);
+            String inFile = folder + dataset.replace('/', '-') + "-" + TARGET_SAMPLING_FILE;
+            out.println("====================");
+            out.println("Dataset: " + dataset);
+            out.println("====================\n");
+
+            // Metric -> target size -> rec system -> value
+            Map<String, Map<Integer, Map<String, Double>>> values = new TreeMap<>();
+
+            Scanner in = new Scanner(new File(inFile));
+            String[] colHeads = in.nextLine().split("\t");
+            for (int i = 3; i < colHeads.length; i++) {
+                String metric = colHeads[i];
+                if (metricList.contains(metric)) {
+                    values.put(metric, new TreeMap<>());
+                }
+            }
+            while (in.hasNext()) {
+                String[] colValues = in.nextLine().split("\t");
+                int targetSize = new Integer(colValues[1]);
+                String rec = colValues[2];
+                for (int i = 3; i < colValues.length; i++) {
+                    String metric = colHeads[i];
+                    if (!metricList.contains(metric)) {
+                        continue;
+                    }
+                    double value = new Double(colValues[i]);
+                    if (!values.get(metric).containsKey(targetSize)) {
+                        values.get(metric).put(targetSize, new TreeMap<>());
+                    }
+                    if (!values.get(metric).get(targetSize).containsKey(rec)) {
+                        values.get(metric).get(targetSize).put(rec, 0.0);
+                    }
+                    values.get(metric).get(targetSize).put(rec, values.get(metric).get(targetSize).get(rec) + value);
+                }
+            }
+
+            for (String metric : metricList) {
+                out.println(metric);
+                out.print("Target size");
+                for (String rec : rec_ordered) {
+                    out.print("\t" + rec);
+                }
+                out.println();
+                for (int targetSize : values.get(metric).keySet()) {
+                    out.print(targetSize);
+                    for (String rec : rec_ordered) {
+                        double avgMetric = values.get(metric).get(targetSize).get(rec) / nFolds;
+                        out.print("\t" + avgMetric);
+                    }
+                    out.println();
+                }
+                out.println();
+            }
+            out.close();
+        }
     }
 
     public static void generateFigure4(
