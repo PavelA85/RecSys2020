@@ -252,5 +252,9 @@ public class Configuration {
         this.resultsPath = resultsPath;
     }
 
-
+    public Configuration forAll() {
+        this.setAllRecs(true);
+        this.resultsPath = this.resultsPath  + "allrecs-";
+        return this;
+    }
 }

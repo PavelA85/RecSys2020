@@ -297,8 +297,10 @@ public class TargetSampling {
         recMap.put("Average Rating", () -> new AverageRatingRecommender<>(trainData, threshold));
 
         if (conf.isAllRecs()) {
+
             recMap.putAll(getAllRecs(userIndex, itemIndex, trainData, positiveTrainData));
         } else {
+
             recMap.putAll(getFullAndTestRecs(userIndex, itemIndex, trainData, positiveTrainData));
         }
 
@@ -335,7 +337,7 @@ public class TargetSampling {
 
         int userIndexNumberOfUsers = userIndex.numUsers();
         int targetUsersSize = targetUsers.size();
-        recMap.keySet().stream().forEachOrdered(recommender -> evalRecommender(userIndex, itemIndex, nUsersInCrossValidation, targetSize,
+        recMap.keySet().parallelStream().forEachOrdered(recommender -> evalRecommender(userIndex, itemIndex, nUsersInCrossValidation, targetSize,
                 currentFold, targetUsers, userFilter, recMap, metrics, evalsPerUser,
                 out, filler, logSource, userIndexNumberOfUsers, targetUsersSize, recommender));
 
