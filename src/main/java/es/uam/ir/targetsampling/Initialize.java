@@ -52,7 +52,7 @@ public class Initialize {
 
         threads.clear();
 
-        threads.add(runMovieLens100k());
+        threads.add(runMovieLens100k_ALL());
         threads.addAll(runMovieLens100K_Gender());
         threads.addAll(runMovieLens1M_Gender());
         threads.addAll(runMovieLens1M_Gender_ALL());
@@ -92,7 +92,7 @@ public class Initialize {
         }
     }
 
-    private static Thread runYahooBiased() throws InterruptedException {
+    private static Thread runYahooBiased() throws InterruptedException, IOException {
         return getThread("Initialize_YAHOO_BIASED_PROPERTIES_FILE", new Configuration(YAHOO_BIASED_PROPERTIES_FILE));
     }
 
@@ -144,6 +144,12 @@ public class Initialize {
                 getThread("Initialize_ML100K_FEMALE_BIASED_PROPERTIES_FILE", new Configuration(ML100K_FEMALE_BIASED_PROPERTIES_FILE).forAll()));
     }
 
+    private static Thread runMovieLens100k() throws InterruptedException, IOException {
+        return getThread("Initialize_ML100K_BIASED_PROPERTIES_FILE", new Configuration(ML100K_BIASED_PROPERTIES_FILE));
+    }
+    private static Thread runMovieLens100k_ALL() throws InterruptedException, IOException {
+        return getThread("Initialize_ML100K_BIASED_PROPERTIES_FILE", new Configuration(ML100K_BIASED_PROPERTIES_FILE).forAll());
+    }
     private static Thread runMovieLens25M() throws InterruptedException, IOException {
         return getThread("Initialize_ML25M_BIASED_PROPERTIES_FILE", new Configuration(ML25M_BIASED_PROPERTIES_FILE));
     }
@@ -167,9 +173,6 @@ public class Initialize {
         return thread;
     }
 
-    private static Thread runMovieLens100k() throws InterruptedException {
-        return getThread("Initialize_ML100K_BIASED_PROPERTIES_FILE", new Configuration(ML100K_BIASED_PROPERTIES_FILE));
-    }
 
 /*
     private static void runMovieLens1mCrossValidation() throws InterruptedException {
