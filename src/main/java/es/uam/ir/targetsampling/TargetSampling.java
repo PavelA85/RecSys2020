@@ -493,13 +493,8 @@ public class TargetSampling {
                     }
 
                     outPvalues.println(outPvaluesBuilder.toString());
-                    outPvalues.println();
-
                     outTies.println(outTiesBuilder.toString());
-                    outTies.println();
-
                     outTiesAtZero.println(outTiesAtZeroBuilder.toString());
-                    outTiesAtZero.println();
                 }
             }
         }
