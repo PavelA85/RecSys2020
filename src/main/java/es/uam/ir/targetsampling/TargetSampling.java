@@ -428,25 +428,25 @@ public class TargetSampling {
                 PrintStream outTiesAtZero = new PrintStream(resultsPath + TIES_AT_ZERO_FILE);
                 PrintStream outTies = new PrintStream(resultsPath + TIES_FILE)) {
             //Header
-            outPvalues.print("target size\t");
-            outPvalues.print("recommender system 1\trecommender system 2");
-            for (String metric : METRIC_NAMES) {
-                outPvalues.print("\t" + metric);
-            }
+            final Supplier<String> header = () -> {
+                StringBuilder mBuilder = new StringBuilder("target size\trecommender system 1\trecommender system 2");
+                for (String metric : METRIC_NAMES) {
+                    mBuilder
+                            .append("\t")
+                            .append(metric);
+                }
+                return mBuilder.toString();
+            };
+
+            outPvalues.println(header.get());
             outPvalues.println();
 
-            outTies.print("target size\t");
-            outTies.print("recommender system 1\trecommender system 2");
-            for (String metric : METRIC_NAMES) {
-                outTies.print("\t" + metric);
-            }
+
+            outTies.println(header.get());
             outTies.println();
 
-            outTiesAtZero.print("target size\t");
-            outTiesAtZero.print("recommender system 1\trecommender system 2");
-            for (String metric : METRIC_NAMES) {
-                outTiesAtZero.print("\t" + metric);
-            }
+
+            outTiesAtZero.println(header.get());
             outTiesAtZero.println();
 
             List<String> recNames = new ArrayList<>(evalsPerUser.keySet());
@@ -473,24 +473,32 @@ public class TargetSampling {
                     if (n1 != n2) {
                         continue;
                     }
-                    outPvalues.print(n1 + "\t");
-                    outTies.print(n1 + "\t");
-                    outTiesAtZero.print(n1 + "\t");
+
+                    StringBuilder outPvaluesBuilder = new StringBuilder(n1 + "\t");
+                    StringBuilder outTiesBuilder = new StringBuilder(n1 + "\t");
+                    StringBuilder outTiesAtZeroBuilder = new StringBuilder(n1 + "\t");
 
                     Map<String, double[]> values2 = evalsPerUser.get(rec2);
-                    outPvalues.print(rec1Name + "\t" + rec2Name);
-                    outTies.print(rec1Name + "\t" + rec2Name);
-                    outTiesAtZero.print(rec1Name + "\t" + rec2Name);
+                    outPvaluesBuilder.append(rec1Name + "\t" + rec2Name);
+                    outTiesBuilder.append(rec1Name + "\t" + rec2Name);
+                    outTiesAtZeroBuilder.append(rec1Name + "\t" + rec2Name);
+
                     for (String metric : METRIC_NAMES) {
                         double p_value = ttest.pairedTTest(values1.get(metric), values2.get(metric));
                         double nTies = nTies(values1.get(metric), values2.get(metric));
                         double nTiesAtZero = nTiesAtZero(values1.get(metric), values2.get(metric));
-                        outPvalues.print("\t" + p_value);
-                        outTies.print("\t" + nTies * 1.0 / nUsersInCrossValidation);
-                        outTiesAtZero.print("\t" + nTiesAtZero * 1.0 / nUsersInCrossValidation);
+                        outPvaluesBuilder.append("\t" + p_value);
+                        outTiesBuilder.append("\t" + nTies * 1.0 / nUsersInCrossValidation);
+                        outTiesAtZeroBuilder.append("\t" + nTiesAtZero * 1.0 / nUsersInCrossValidation);
                     }
+
+                    outPvalues.println(outPvaluesBuilder.toString());
                     outPvalues.println();
+
+                    outTies.println(outTiesBuilder.toString());
                     outTies.println();
+
+                    outTiesAtZero.println(outTiesAtZeroBuilder.toString());
                     outTiesAtZero.println();
                 }
             }
