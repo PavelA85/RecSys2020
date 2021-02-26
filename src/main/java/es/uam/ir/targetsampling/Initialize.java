@@ -93,13 +93,13 @@ public class Initialize {
     }
 
     private static Thread runYahooBiased() throws InterruptedException, IOException {
-        return StartCorssValidateTargetSampling("Initialize_YAHOO_BIASED_PROPERTIES_FILE", new Configuration(YAHOO_BIASED_PROPERTIES_FILE));
+        return StartCorssValidateTargetSampling("YAHOO", new Configuration(YAHOO_BIASED_PROPERTIES_FILE));
     }
 
     private static Thread runYahooUnbiased() throws InterruptedException {
         Thread tYahooUNBIASED = new Thread(() -> {
             try {
-                String title = "Initialize_YAHOO_UNBIASED_PROPERTIES_FILE";
+                String title = "YAHOO_UNBIASED";
                 Timer.start((Object) title, title);
                 Configuration conf = new Configuration(YAHOO_UNBIASED_PROPERTIES_FILE);
                 TargetSampling targetSelection = new TargetSampling(conf);
@@ -117,41 +117,41 @@ public class Initialize {
     }
 
     private static Thread runMovieLens1M() throws InterruptedException, IOException {
-        return StartCorssValidateTargetSampling("Initialize_ML1M_BIASED_PROPERTIES_FILE", new Configuration(ML1M_BIASED_PROPERTIES_FILE));
+        return StartCorssValidateTargetSampling("ML1M", new Configuration(ML1M_BIASED_PROPERTIES_FILE));
     }
 
     private static Collection<? extends Thread> runMovieLens1M_Gender() throws InterruptedException, IOException {
 
-        return Arrays.asList(StartCorssValidateTargetSampling("Initialize_ML1M_MALE_BIASED_PROPERTIES_FILE", new Configuration(ML1M_MALE_BIASED_PROPERTIES_FILE)),
-                StartCorssValidateTargetSampling("Initialize_ML1M_FEMALE_BIASED_PROPERTIES_FILE", new Configuration(ML1M_FEMALE_BIASED_PROPERTIES_FILE)));
+        return Arrays.asList(StartCorssValidateTargetSampling("ML1M_MALE", new Configuration(ML1M_MALE_BIASED_PROPERTIES_FILE)),
+                StartCorssValidateTargetSampling("ML1M_FEMALE", new Configuration(ML1M_FEMALE_BIASED_PROPERTIES_FILE)));
     }
 
     private static Collection<? extends Thread> runMovieLens100K_Gender() throws InterruptedException, IOException {
 
-        return Arrays.asList(StartCorssValidateTargetSampling("Initialize_ML100K_MALE_BIASED_PROPERTIES_FILE", new Configuration(ML100K_MALE_BIASED_PROPERTIES_FILE)),
-                StartCorssValidateTargetSampling("Initialize_ML100K_FEMALE_BIASED_PROPERTIES_FILE", new Configuration(ML100K_FEMALE_BIASED_PROPERTIES_FILE)));
+        return Arrays.asList(StartCorssValidateTargetSampling("ML100K_MALE", new Configuration(ML100K_MALE_BIASED_PROPERTIES_FILE)),
+                StartCorssValidateTargetSampling("ML100K_FEMALE", new Configuration(ML100K_FEMALE_BIASED_PROPERTIES_FILE)));
     }
 
     private static Collection<? extends Thread> runMovieLens1M_Gender_ALL() throws InterruptedException, IOException {
 
-        return Arrays.asList(StartCorssValidateTargetSampling("Initialize_ML1M_MALE_BIASED_PROPERTIES_FILE_ALL", new Configuration(ML1M_MALE_BIASED_PROPERTIES_FILE).forAll()),
-                StartCorssValidateTargetSampling("Initialize_ML1M_FEMALE_BIASED_PROPERTIES_FILE_ALL", new Configuration(ML1M_FEMALE_BIASED_PROPERTIES_FILE).forAll()));
+        return Arrays.asList(StartCorssValidateTargetSampling("ML1M_MALE_BIASED_ALL", new Configuration(ML1M_MALE_BIASED_PROPERTIES_FILE).forAll()),
+                StartCorssValidateTargetSampling("ML1M_FEMALE_BIASED_ALL", new Configuration(ML1M_FEMALE_BIASED_PROPERTIES_FILE).forAll()));
     }
 
     private static Collection<? extends Thread> runMovieLens100K_Gender_ALL() throws InterruptedException, IOException {
 
-        return Arrays.asList(StartCorssValidateTargetSampling("Initialize_ML100K_MALE_BIASED_PROPERTIES_FILE_ALL", new Configuration(ML100K_MALE_BIASED_PROPERTIES_FILE).forAll()),
-                StartCorssValidateTargetSampling("Initialize_ML100K_FEMALE_BIASED_PROPERTIES_FILE_ALL", new Configuration(ML100K_FEMALE_BIASED_PROPERTIES_FILE).forAll()));
+        return Arrays.asList(StartCorssValidateTargetSampling("ML100K_MALE_BIASED_ALL", new Configuration(ML100K_MALE_BIASED_PROPERTIES_FILE).forAll()),
+                StartCorssValidateTargetSampling("ML100K_FEMALE_BIASED_ALL", new Configuration(ML100K_FEMALE_BIASED_PROPERTIES_FILE).forAll()));
     }
 
     private static Thread runMovieLens100k() throws InterruptedException, IOException {
-        return StartCorssValidateTargetSampling("Initialize_ML100K_BIASED_PROPERTIES_FILE", new Configuration(ML100K_BIASED_PROPERTIES_FILE));
+        return StartCorssValidateTargetSampling("ML100K", new Configuration(ML100K_BIASED_PROPERTIES_FILE));
     }
     private static Thread runMovieLens100k_ALL() throws InterruptedException, IOException {
-        return StartCorssValidateTargetSampling("Initialize_ML100K_BIASED_PROPERTIES_FILE_ALL", new Configuration(ML100K_BIASED_PROPERTIES_FILE).forAll());
+        return StartCorssValidateTargetSampling("ML100K_BIASED_ALL", new Configuration(ML100K_BIASED_PROPERTIES_FILE).forAll());
     }
     private static Thread runMovieLens25M() throws InterruptedException, IOException {
-        return StartCorssValidateTargetSampling("Initialize_ML25M_BIASED_PROPERTIES_FILE", new Configuration(ML25M_BIASED_PROPERTIES_FILE));
+        return StartCorssValidateTargetSampling("ML25M", new Configuration(ML25M_BIASED_PROPERTIES_FILE));
     }
 
     private static Thread StartCorssValidateTargetSampling(String title, Configuration conf) throws InterruptedException {
