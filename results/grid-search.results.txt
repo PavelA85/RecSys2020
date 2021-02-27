@@ -1,0 +1,54 @@
+C:\Projects\RecSys2020\results\biased\ml100k-allrecs-target-sampling.txt
+	test:
+		[['Normalized kNN (k=100, min=3)' 0.5738494167550371]]
+		[['iMF (k=5, lambda=1.0, alpha=100.0)' 0.5798727465535525]]
+		[['kNN (k=30)' 0.5658324496288442]]
+	full:1682
+		[['Normalized kNN (k=10, min=3)' 0.14413573700954396]]
+		[['iMF (k=10, lambda=10.0, alpha=1.0)' 0.2614422057264051]]
+		[['kNN (k=50)' 0.2340190880169671]]
+C:\Projects\RecSys2020\results\biased\ml100k-female-allrecs-target-sampling.txt
+	test:
+		[['Normalized kNN (k=50, min=3)' 0.5283516483516484]]
+		[['iMF (k=5, lambda=1.0, alpha=10.0)' 0.531062271062271]]
+		[['kNN (k=20)' 0.5255677655677655]]
+	full:1534
+		[['Normalized kNN (k=10, min=3)' 0.10336996336996333]]
+		[['iMF (k=10, lambda=10.0, alpha=1.0)' 0.2013186813186813]]
+		[['kNN (k=50)' 0.18190476190476185]]
+C:\Projects\RecSys2020\results\biased\ml100k-male-allrecs-target-sampling.txt
+	test:
+		[['Normalized kNN (k=90, min=3)' 0.5916417910447761]]
+		[['iMF (k=5, lambda=10.0, alpha=100.0)' 0.5934029850746269]]
+		[['kNN (k=30)' 0.5814328358208956]]
+	full:1605
+		[['Normalized kNN (k=10, min=3)' 0.15188059701492534]]
+		[['iMF (k=10, lambda=0.1, alpha=1.0)' 0.26817910447761195]]
+		[['kNN (k=60)' 0.2457611940298507]]
+C:\Projects\RecSys2020\results\biased\ml1m-female-allrecs-target-sampling.txt
+	test:
+		[['Normalized kNN (k=200, min=3)' 0.6439789350497367]]
+		[['iMF (k=5, lambda=10.0, alpha=100.0)' 0.6497483908718549]]
+		[['kNN (k=60)' 0.6330602691632533]]
+	full:3481
+		[['Normalized kNN (k=10, min=3)' 0.10532475131655934]]
+		[['iMF (k=50, lambda=10.0, alpha=1.0)' 0.2268812170860152]]
+		[['kNN (k=40)' 0.20232884727911055]]
+C:\Projects\RecSys2020\results\biased\ml1m-allrecs-target-sampling.txt
+	test:
+		[['Normalized kNN (k=300, min=3)' 0.6729205298013244]]
+		[['iMF (k=10, lambda=1.0, alpha=100.0)' 0.6845529801324504]]
+		[['kNN (k=90)' 0.6595860927152317]]
+	full:3706
+		[['Normalized kNN (k=10, min=3)' 0.14502980132450327]]
+		[['iMF (k=50, lambda=1.0, alpha=1.0)' 0.29257284768211916]]
+		[['kNN (k=50)' 0.25544039735099333]]
+C:\Projects\RecSys2020\results\biased\ml1m-male-allrecs-target-sampling.txt
+	test:
+		[['Normalized kNN (k=300, min=3)' 0.6840914338489956]]
+		[['iMF (k=10, lambda=10.0, alpha=100.0)' 0.6940152389748325]]
+		[['kNN (k=100)' 0.6697806511198336]]
+	full:3671
+		[['Normalized kNN (k=10, min=3)' 0.15377049180327867]]
+		[['iMF (k=50, lambda=10.0, alpha=1.0)' 0.30363888247517895]]
+		[['kNN (k=40)' 0.26690371738628493]]

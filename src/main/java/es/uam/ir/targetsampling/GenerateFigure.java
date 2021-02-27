@@ -50,6 +50,8 @@ public class GenerateFigure {
             "iMF (full)"
             , "iMF (test)"
             , "kNN (full/test)"
+            , "kNN (full)"
+            , "kNN (test)"
             , "Normalized kNN (full)"
             , "Normalized kNN (test)"
             , "Average Rating"
@@ -448,13 +450,24 @@ public class GenerateFigure {
             for (String metric : metricList) {
                 out.println(metric);
                 out.print("Target size");
-                for (String rec : rec_ordered) {
+
+                String[] mmrecs = values.get(metric).get(0).keySet().toArray(new String[0]);
+                Arrays.sort(mmrecs, new Comparator<String>() {
+                    @Override
+                    public int compare(String o1, String o2) {
+                        final int i = Arrays.asList(rec_ordered).indexOf(o1);
+                        final int i1 = Arrays.asList(rec_ordered).indexOf(o2);
+                        return Integer.compareUnsigned(i, i1);
+                    }
+                });
+
+                for (String rec : mmrecs) {
                     out.print("\t" + rec);
                 }
                 out.println();
                 for (int targetSize : values.get(metric).keySet()) {
                     out.print(targetSize);
-                    for (String rec : rec_ordered) {
+                    for (String rec : mmrecs) {
                         double avgMetric = values.get(metric).get(targetSize).get(rec) / nFolds;
                         out.print("\t" + avgMetric);
                     }
@@ -538,13 +551,25 @@ public class GenerateFigure {
             for (String metric : metricList) {
                 out.println(metric);
                 out.print("Target size");
-                for (String rec : rec_ordered) {
+
+                String[] mmrecs = values.get(metric).get(0).keySet().toArray(new String[0]);
+                Arrays.sort(mmrecs, new Comparator<String>() {
+                    @Override
+                    public int compare(String o1, String o2) {
+                        final int i = Arrays.asList(rec_ordered).indexOf(o1);
+                        final int i1 = Arrays.asList(rec_ordered).indexOf(o2);
+                        return Integer.compareUnsigned(i, i1);
+                    }
+                });
+
+                for (String rec : mmrecs) {
                     out.print("\t" + rec);
                 }
                 out.println();
                 for (int targetSize : values.get(metric).keySet()) {
                     out.print(targetSize);
-                    for (String rec : rec_ordered) {
+
+                    for (String rec : mmrecs) {
                         double avgMetric = values.get(metric).get(targetSize).get(rec) / nFolds;
                         out.print("\t" + avgMetric);
                     }
