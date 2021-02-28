@@ -53,8 +53,8 @@ public class Initialize {
 
         // threads.add(runMovieLens100k_ALL());
         // threads.add(runMovieLens1M_ALL());
-        // threads.addAll(runMovieLens100K_Gender());
-        // threads.addAll(runMovieLens1M_Gender());
+        threads.addAll(runMovieLens100K_Gender());
+        threads.addAll(runMovieLens1M_Gender());
         // threads.addAll(runMovieLens1M_Gender_ALL());
         // threads.addAll(runMovieLens100K_Gender_ALL());
         threads.add(runMovieLens1M());
