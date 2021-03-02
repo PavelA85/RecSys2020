@@ -119,7 +119,7 @@ public class GenerateFigure {
             case 3:
                 generateFigure3(
                         RESULTS_PATH + BIASED_PATH,
-                        DATASETS,
+                        new String[]{ML1M, YAHOO},
                         METRICS,
                         RESULTS_PATH + "figure3.txt",
                         N_FOLDS);
