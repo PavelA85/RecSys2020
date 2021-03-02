@@ -15,8 +15,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static es.uam.ir.targetsampling.DataSetInitialize.*;
 import static es.uam.ir.targetsampling.TargetSampling.*;
@@ -250,7 +248,7 @@ public class GenerateFigure {
         out.println(metric);
         out.println("Recommender\tFull\tTest");
 
-        String[] recommenders = getRecommenders(values);
+        String[] recommenders = getSortedRecommenders(values);
 
         for (String recommender : recommenders) {
             out.print(recommender);
@@ -301,7 +299,7 @@ public class GenerateFigure {
                 out.println(metric);
                 out.println("Recommender\tFull\tTest");
 
-                String[] recommenders = getRecommenders(values);
+                String[] recommenders = getSortedRecommenders(values);
 
                 for (String recommender : recommenders) {
                     out.print(recommender);
@@ -315,8 +313,7 @@ public class GenerateFigure {
         }
     }
 
-    private static String[] getRecommenders(Map<String, double[]> values) {
-
+    private static String[] getSortedRecommenders(Map<String, double[]> values) {
         String[] recommenders = values.keySet().toArray(new String[0]);
         Arrays.sort(recommenders, Comparator.comparingInt(o -> getIndexOf(rec_ordered, o)));
         return recommenders;
@@ -391,7 +388,7 @@ public class GenerateFigure {
         for (String metric : metricList) {
             out.println("\n" + metric);
             out.println("Recommender\tFull\tUnbiased\tTest");
-            String[] recommenders = getRecommenders(values.get(metric));
+            String[] recommenders = getSortedRecommenders(values.get(metric));
             for (String recommender : recommenders) {
                 out.print(recommender);
                 for (double value : values.get(metric).get(recommender)) {
@@ -449,31 +446,9 @@ public class GenerateFigure {
 
             for (String metric : metricList) {
                 out.println(metric);
-                out.print("Target size");
-
-                String[] mmrecs = values.get(metric).get(0).keySet().toArray(new String[0]);
-                Arrays.sort(mmrecs, new Comparator<String>() {
-                    @Override
-                    public int compare(String o1, String o2) {
-                        final int i = Arrays.asList(rec_ordered).indexOf(o1);
-                        final int i1 = Arrays.asList(rec_ordered).indexOf(o2);
-                        return Integer.compareUnsigned(i, i1);
-                    }
-                });
-
-                for (String rec : mmrecs) {
-                    out.print("\t" + rec);
-                }
-                out.println();
-                for (int targetSize : values.get(metric).keySet()) {
-                    out.print(targetSize);
-                    for (String rec : mmrecs) {
-                        double avgMetric = values.get(metric).get(targetSize).get(rec) / nFolds;
-                        out.print("\t" + avgMetric);
-                    }
-                    out.println();
-                }
-                out.println();
+                String[] recommenders = GetSortedRecommenders(values.get(metric).get(0).keySet().toArray(new String[0]));
+                PrintHeader(out, recommenders);
+                PrintValues(nFolds, out, values, metric, recommenders);
             }
 
 //            for (String metric : metricList) {
@@ -501,6 +476,15 @@ public class GenerateFigure {
 //            }
         }
         out.close();
+    }
+
+    private static String[] GetSortedRecommenders(String[] recommenders) {
+        Arrays.sort(recommenders, (o1, o2) -> {
+            final int i = Arrays.asList(rec_ordered).indexOf(o1);
+            final int i1 = Arrays.asList(rec_ordered).indexOf(o2);
+            return Integer.compareUnsigned(i, i1);
+        });
+        return recommenders;
     }
 
     public static void generateFigure303(
@@ -550,35 +534,42 @@ public class GenerateFigure {
 
             for (String metric : metricList) {
                 out.println(metric);
-                out.print("Target size");
-
-                String[] mmrecs = values.get(metric).get(0).keySet().toArray(new String[0]);
-                Arrays.sort(mmrecs, new Comparator<String>() {
-                    @Override
-                    public int compare(String o1, String o2) {
-                        final int i = Arrays.asList(rec_ordered).indexOf(o1);
-                        final int i1 = Arrays.asList(rec_ordered).indexOf(o2);
-                        return Integer.compareUnsigned(i, i1);
-                    }
-                });
-
-                for (String rec : mmrecs) {
-                    out.print("\t" + rec);
-                }
-                out.println();
-                for (int targetSize : values.get(metric).keySet()) {
-                    out.print(targetSize);
-
-                    for (String rec : mmrecs) {
-                        double avgMetric = values.get(metric).get(targetSize).get(rec) / nFolds;
-                        out.print("\t" + avgMetric);
-                    }
-                    out.println();
-                }
-                out.println();
+                String[] recommenders = getSortedMetrics(values.get(metric).get(0).keySet().toArray(new String[0]));
+                PrintHeader(out, recommenders);
+                PrintValues(nFolds, out, values, metric, recommenders);
             }
             out.close();
         }
+    }
+
+    private static void PrintValues(int nFolds, PrintStream out, Map<String, Map<Integer, Map<String, Double>>> values, String metric, String[] recommenders) {
+        for (int targetSize : values.get(metric).keySet()) {
+            out.print(targetSize);
+
+            for (String rec : recommenders) {
+                double avgMetric = values.get(metric).get(targetSize).get(rec) / nFolds;
+                out.print("\t" + avgMetric);
+            }
+            out.println();
+        }
+        out.println();
+    }
+
+    private static void PrintHeader(PrintStream out, String[] recommenders) {
+        out.print("Target size");
+        for (String rec : recommenders) {
+            out.print("\t" + rec);
+        }
+        out.println();
+    }
+
+    private static String[] getSortedMetrics(String[] recommenders) {
+        Arrays.sort(recommenders, (r1, r2) -> {
+            final int x = Arrays.asList(rec_ordered).indexOf(r1);
+            final int y = Arrays.asList(rec_ordered).indexOf(r2);
+            return Integer.compare(x, y);
+        });
+        return recommenders;
     }
 
     public static void generateFigure4(
