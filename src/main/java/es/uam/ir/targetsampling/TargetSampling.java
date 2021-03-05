@@ -439,15 +439,8 @@ public class TargetSampling {
             };
 
             outPvalues.println(header.get());
-            outPvalues.println();
-
-
             outTies.println(header.get());
-            outTies.println();
-
-
             outTiesAtZero.println(header.get());
-            outTiesAtZero.println();
 
             List<String> recNames = new ArrayList<>(evalsPerUser.keySet());
             TTest ttest = new TTest();

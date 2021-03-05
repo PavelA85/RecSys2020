@@ -46,6 +46,7 @@ public class Initialize {
         // threads.add(StartThread("MovieLens1M_GENDER", Initialize::preprocessMl1m_GENDER_Dataset));
         // threads.add(StartThread("MovieLens100K_GENDER", Initialize::preprocessMl100k_GENDER_Dataset));
 
+        // TODO: nofill- run for figure 5!
         ThreadJoin(threads);
 
 

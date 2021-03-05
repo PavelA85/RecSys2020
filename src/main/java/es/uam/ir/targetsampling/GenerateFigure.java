@@ -64,7 +64,7 @@ public class GenerateFigure {
     public static void main(String[] a) {
         init();
         List<Thread> threads = new ArrayList<>();
-        int[] figures = {1, 2, 3, 101, 303};
+        int[] figures = {1, 2, 3, 101, 303, 4};
         for (int f : figures) {
             Thread thread2 = new Thread(() -> {
                 try {
@@ -113,7 +113,7 @@ public class GenerateFigure {
                         RESULTS_PATH + UNBIASED_PATH + YAHOO + "-" + TARGET_SAMPLING_FILE,
                         RESULTS_PATH + "figure2.txt",
                         N_FOLDS,
-                        new String[]{"nDCG@10", "P@10", "Recall@10"},
+                        new String[]{"nDCG@10", "P@10", "Recall@10", "FScore@10"},
                         FULL_TARGET_SIZE_YAHOO);
                 break;
             case 3:
@@ -135,7 +135,7 @@ public class GenerateFigure {
                 generateFigure4(
                         RESULTS_PATH + BIASED_PATH,
                         RESULTS_PATH + UNBIASED_PATH,
-                        new String[]{ML100K, ML1M, YAHOO},
+                        DATASETS,
                         METRICS,
                         RESULTS_PATH + "figure4.txt",
                         N_FOLDS);
@@ -143,7 +143,7 @@ public class GenerateFigure {
             case 5:
                 generateFigure5(
                         RESULTS_PATH + BIASED_PATH,
-                        new String[]{ML100K, ML1M, YAHOO},
+                        DATASETS,
                         new String[]{"Coverage@10"},
                         RESULTS_PATH + "figure5.txt",
                         N_FOLDS);
@@ -807,8 +807,39 @@ public class GenerateFigure {
                                         Map<String, Map<Integer, Map<String, Double>>> values,
                                         Map<String, Map<Integer, Map<String, Integer>>> counts,
                                         Set<String> curves) throws FileNotFoundException {
-        //Sum of p-values
 
+        // GenerateAllRecs(dataset);
+
+        //Sum of p-values
+        String curve = "Sum of p-values";
+        curves.add(curve);
+        String inFile = biasedFolder + dataset.replace('/', '-') + "-allrecs-pvalues.txt";
+        Scanner in = new Scanner(new File(inFile));
+        String[] colHeads = in.nextLine().split("\t");
+        while (in.hasNext()) {
+            String[] colValues = in.nextLine().split("\t");
+            int targetSize = new Integer(colValues[0]);
+            for (int i = 3; i < colValues.length; i++) {
+                String metric = colHeads[i];
+                if (!metricList.contains(metric)) {
+                    continue;
+                }
+                double value = new Double(colValues[i]);
+
+                if (!values.get(metric).get(targetSize).containsKey(curve)) {
+                    values.get(metric).get(targetSize).put(curve, 0.0);
+                    counts.get(metric).get(targetSize).put(curve, 0);
+                }
+                if (!Double.isNaN(value)) {
+                    Double e = values.get(metric).get(targetSize).get(curve);
+                    //System.out.println(curve + " " + e);
+                    values.get(metric).get(targetSize).put(curve, e + value);
+                }
+            }
+        }
+    }
+
+    private static void GenerateAllRecs(String dataset) {
         List<Thread> threads = new ArrayList<>();
         switch (dataset) {
             case YAHOO:
@@ -863,33 +894,6 @@ public class GenerateFigure {
                 e.printStackTrace(System.out);
             }
         });
-
-        String curve = "Sum of p-values";
-        curves.add(curve);
-        String inFile = biasedFolder + dataset.replace('/', '-') + "-allrecs-pvalues.txt";
-        Scanner in = new Scanner(new File(inFile));
-        String[] colHeads = in.nextLine().split("\t");
-        while (in.hasNext()) {
-            String[] colValues = in.nextLine().split("\t");
-            int targetSize = new Integer(colValues[0]);
-            for (int i = 3; i < colValues.length; i++) {
-                String metric = colHeads[i];
-                if (!metricList.contains(metric)) {
-                    continue;
-                }
-                double value = new Double(colValues[i]);
-
-                if (!values.get(metric).get(targetSize).containsKey(curve)) {
-                    values.get(metric).get(targetSize).put(curve, 0.0);
-                    counts.get(metric).get(targetSize).put(curve, 0);
-                }
-                if (!Double.isNaN(value)) {
-                    Double e = values.get(metric).get(targetSize).get(curve);
-                    //System.out.println(curve + " " + e);
-                    values.get(metric).get(targetSize).put(curve, e + value);
-                }
-            }
-        }
     }
 
 
