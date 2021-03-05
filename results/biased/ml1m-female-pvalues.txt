@@ -1,5 +1,4 @@
 target size	recommender system 1	recommender system 2	Coverage@10	nDCG@10	P@10	Recall@10	FScore@10
-
 500	Popularity	kNN (test)	NaN	0.0	0.0	0.0	0.0
 500	Popularity	iMF (test)	NaN	6.739379590540673E-47	6.097345983940324E-31	0.048450782727333164	5.353514150523644E-8
 500	Popularity	Random	NaN	0.0	0.0	0.0	0.0
