@@ -45,6 +45,8 @@ public class Initialize {
         // threads.add(StartThread("MovieLens100K", Initialize::preprocessMl100kDataset));
         // threads.add(StartThread("MovieLens1M_GENDER", Initialize::preprocessMl1m_GENDER_Dataset));
         // threads.add(StartThread("MovieLens100K_GENDER", Initialize::preprocessMl100k_GENDER_Dataset));
+        threads.add(StartThread("MovieLens1M_AGE", Initialize::preprocessMl1m_AGE_Dataset));
+        threads.add(StartThread("MovieLens100K_AGE", Initialize::preprocessMl100k_AGE_Dataset));
 
         // TODO: nofill- run for figure 5!
         ThreadJoin(threads);
@@ -52,9 +54,12 @@ public class Initialize {
 
         threads.clear();
 
+        threads.addAll(runMovieLens1M_AGE_ALL());
+        threads.addAll(runMovieLens100K_AGE_ALL());
+
         // threads.add(runMovieLens100k_ALL());
         // threads.add(runMovieLens1M_ALL());
-        threads.add(runMovieLens100k());
+//        threads.add(runMovieLens100k());
 //        threads.addAll(runMovieLens100K_Gender());
 //        threads.addAll(runMovieLens1M_Gender());
         // threads.addAll(runMovieLens1M_Gender_ALL());
@@ -150,6 +155,18 @@ public class Initialize {
                 StartCorssValidateTargetSampling("ML100K_FEMALE_BIASED_ALL", new Configuration(ML100K_FEMALE_BIASED_PROPERTIES_FILE).forAll()));
     }
 
+    private static Collection<? extends Thread> runMovieLens100K_AGE_ALL() throws InterruptedException, IOException {
+
+        return Arrays.asList(StartCorssValidateTargetSampling("ML100K_YOUNG_BIASED_ALL", new Configuration(ML100K_YOUNG_BIASED_PROPERTIES_FILE).forAll()),
+                StartCorssValidateTargetSampling("ML100K_OLD_BIASED_ALL", new Configuration(ML100K_OLD_BIASED_PROPERTIES_FILE).forAll()));
+    }
+
+    private static Collection<? extends Thread> runMovieLens1M_AGE_ALL() throws InterruptedException, IOException {
+
+        return Arrays.asList(StartCorssValidateTargetSampling("ML1M_YOUNG_BIASED_ALL", new Configuration(ML1M_YOUNG_BIASED_PROPERTIES_FILE).forAll()),
+                StartCorssValidateTargetSampling("ML1M_OLD_BIASED_ALL", new Configuration(ML1M_OLD_BIASED_PROPERTIES_FILE).forAll()));
+    }
+
     private static Thread runMovieLens100k() throws InterruptedException, IOException {
         return StartCorssValidateTargetSampling("ML100K", new Configuration(ML100K_BIASED_PROPERTIES_FILE));
     }
@@ -225,6 +242,26 @@ public class Initialize {
         try {
             CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML100K_MALE_DATASET_PATH, ML100K_MALE_PATH, GenerateFigure.N_FOLDS);
             CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML100K_FEMALE_DATASET_PATH, ML100K_FEMALE_PATH, GenerateFigure.N_FOLDS);
+        } catch (IOException e) {
+            System.out.println(e);
+            e.printStackTrace(System.out);
+        }
+    }
+
+    static void preprocessMl1m_AGE_Dataset() {
+        try {
+            CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML1M_YOUNG_DATASET_PATH, ML1M_YOUNG_PATH, GenerateFigure.N_FOLDS);
+            CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML1M_OLD_DATASET_PATH, ML1M_OLD_PATH, GenerateFigure.N_FOLDS);
+        } catch (IOException e) {
+            System.out.println(e);
+            e.printStackTrace(System.out);
+        }
+    }
+
+    static void preprocessMl100k_AGE_Dataset() {
+        try {
+            CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML100K_YOUNG_DATASET_PATH, ML100K_YOUNG_PATH, GenerateFigure.N_FOLDS);
+            CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML100K_OLD_DATASET_PATH, ML100K_OLD_PATH, GenerateFigure.N_FOLDS);
         } catch (IOException e) {
             System.out.println(e);
             e.printStackTrace(System.out);

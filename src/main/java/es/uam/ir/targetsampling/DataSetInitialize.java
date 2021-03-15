@@ -76,6 +76,27 @@ public class DataSetInitialize {
     public final static String PREPROCESSED_ML1M_FEMALE_DATASET_PATH = ML1M_FEMALE_PATH + "data.txt";
     public final static String ML1M_FEMALE_BIASED_PROPERTIES_FILE = "conf/ml1m-female-biased.properties";
 
+    /*
+     *
+     * Ml1M_YOUNG
+     *
+     * */
+
+    public final static String ML1M_YOUNG = "ml1m/young";
+    public final static String ML1M_YOUNG_PATH = DATASETS_PATH + ML1M_YOUNG + "/";
+    public final static String PREPROCESSED_ML1M_YOUNG_DATASET_PATH = ML1M_YOUNG_PATH + "data.txt";
+    public final static String ML1M_YOUNG_BIASED_PROPERTIES_FILE = "conf/ml1m-young-biased.properties";
+
+    /*
+     *
+     * ML1M_OLD
+     *
+     * */
+    public final static String ML1M_OLD = "ml1m/old";
+    public final static String ML1M_OLD_PATH = DATASETS_PATH + ML1M_OLD + "/";
+    public final static String PREPROCESSED_ML1M_OLD_DATASET_PATH = ML1M_OLD_PATH + "data.txt";
+    public final static String ML1M_OLD_BIASED_PROPERTIES_FILE = "conf/ml1m-old-biased.properties";
+
 
     /*
      *
@@ -98,10 +119,37 @@ public class DataSetInitialize {
     public final static String PREPROCESSED_ML100K_FEMALE_DATASET_PATH = ML100K_FEMALE_PATH + "data.txt";
     public final static String ML100K_FEMALE_BIASED_PROPERTIES_FILE = "conf/ml100k-female-biased.properties";
 
+    /*
+     *
+     * ML100K_YOUNG
+     *
+     * */
 
+    public final static String ML100K_YOUNG = "ml100k/young";
+    public final static String ML100K_YOUNG_PATH = DATASETS_PATH + ML100K_YOUNG + "/";
+    public final static String PREPROCESSED_ML100K_YOUNG_DATASET_PATH = ML100K_YOUNG_PATH + "data.txt";
+    public final static String ML100K_YOUNG_BIASED_PROPERTIES_FILE = "conf/ml100k-young-biased.properties";
+
+    /*
+     *
+     * ML100K_OLD
+     *
+     * */
+    public final static String ML100K_OLD = "ml100k/old";
+    public final static String ML100K_OLD_PATH = DATASETS_PATH + ML100K_OLD + "/";
+    public final static String PREPROCESSED_ML100K_OLD_DATASET_PATH = ML100K_OLD_PATH + "data.txt";
+    public final static String ML100K_OLD_BIASED_PROPERTIES_FILE = "conf/ml100k-old-biased.properties";
+
+
+    /*
+     * Misc
+     *
+     * */
     public final static String RESULTS_PATH = "results/";
     public final static String BIASED_PATH = "biased/";
     public final static String UNBIASED_PATH = "unbiased/";
+
+
 //    public static final String[] SPLITS = new String[]{
 //            //"GroupShuffleSplit",
 //            "KFold",
