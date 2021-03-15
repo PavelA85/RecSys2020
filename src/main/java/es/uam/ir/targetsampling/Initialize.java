@@ -45,8 +45,8 @@ public class Initialize {
         // threads.add(StartThread("MovieLens100K", Initialize::preprocessMl100kDataset));
         // threads.add(StartThread("MovieLens1M_GENDER", Initialize::preprocessMl1m_GENDER_Dataset));
         // threads.add(StartThread("MovieLens100K_GENDER", Initialize::preprocessMl100k_GENDER_Dataset));
-        threads.add(StartThread("MovieLens1M_AGE", Initialize::preprocessMl1m_AGE_Dataset));
-        threads.add(StartThread("MovieLens100K_AGE", Initialize::preprocessMl100k_AGE_Dataset));
+//        threads.add(StartThread("MovieLens1M_AGE", Initialize::preprocessMl1m_AGE_Dataset));
+//        threads.add(StartThread("MovieLens100K_AGE", Initialize::preprocessMl100k_AGE_Dataset));
 
         // TODO: nofill- run for figure 5!
         ThreadJoin(threads);
@@ -54,8 +54,8 @@ public class Initialize {
 
         threads.clear();
 
-        threads.addAll(runMovieLens1M_AGE_ALL());
-        threads.addAll(runMovieLens100K_AGE_ALL());
+        threads.addAll(runMovieLens1M_AGE());
+        threads.addAll(runMovieLens100K_AGE());
 
         // threads.add(runMovieLens100k_ALL());
         // threads.add(runMovieLens1M_ALL());
@@ -141,6 +141,18 @@ public class Initialize {
 
         return Arrays.asList(StartCorssValidateTargetSampling("ML100K_MALE", new Configuration(ML100K_MALE_BIASED_PROPERTIES_FILE)),
                 StartCorssValidateTargetSampling("ML100K_FEMALE", new Configuration(ML100K_FEMALE_BIASED_PROPERTIES_FILE)));
+    }
+
+    private static Collection<? extends Thread> runMovieLens1M_AGE() throws InterruptedException, IOException {
+
+        return Arrays.asList(StartCorssValidateTargetSampling("ML1M_YOUNG", new Configuration(ML1M_YOUNG_BIASED_PROPERTIES_FILE)),
+                StartCorssValidateTargetSampling("ML1M_OLD", new Configuration(ML1M_OLD_BIASED_PROPERTIES_FILE)));
+    }
+
+    private static Collection<? extends Thread> runMovieLens100K_AGE() throws InterruptedException, IOException {
+
+        return Arrays.asList(StartCorssValidateTargetSampling("ML100K_YOUNG", new Configuration(ML100K_YOUNG_BIASED_PROPERTIES_FILE)),
+                StartCorssValidateTargetSampling("ML100K_OLD", new Configuration(ML100K_OLD_BIASED_PROPERTIES_FILE)));
     }
 
     private static Collection<? extends Thread> runMovieLens1M_Gender_ALL() throws InterruptedException, IOException {
