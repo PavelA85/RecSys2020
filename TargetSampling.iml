@@ -9,7 +9,7 @@
       <excludeFolder url="file://$MODULE_DIR$/.history" />
       <excludeFolder url="file://$MODULE_DIR$/node_modules" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Python 3.9 (jupyterlab-debugger)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: org.ranksys:RankSys-core:0.4.3" level="project" />
     <orderEntry type="library" name="Maven: it.unimi.dsi:fastutil:7.0.6" level="project" />
@@ -25,5 +25,8 @@
     <orderEntry type="library" name="Maven: org.ranksys:RankSys-nn:0.4.3" level="project" />
     <orderEntry type="library" name="Maven: org.jooq:jool:0.9.10" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-math3:3.5" level="project" />
+  </component>
+  <component name="PyDocumentationSettings">
+    <option name="renderExternalDocumentation" value="true" />
   </component>
 </module>

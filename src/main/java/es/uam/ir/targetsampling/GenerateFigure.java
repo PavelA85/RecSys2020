@@ -25,16 +25,25 @@ import static es.uam.ir.targetsampling.TargetSampling.*;
  */
 public class GenerateFigure {
 
-    public static final String[] DATASETS = {ML100K, ML100K_MALE, ML100K_FEMALE, ML1M, ML1M_MALE, ML1M_FEMALE, YAHOO};
+    public static final String[] DATASETS = {
+            ML100K, ML100K_MALE, ML100K_FEMALE, ML100K_YOUNG, ML100K_OLD,
+            ML1M, ML1M_MALE, ML1M_FEMALE, ML1M_YOUNG, ML1M_OLD,
+            YAHOO};
     public static final String[] METRICS = {"P@10", "Recall@10", "nDCG@10", "FScore@10"};
 
     public static void init() {
         TARGET_SIZES.put(ML1M, FULL_TARGET_SIZE_ML1M);
         TARGET_SIZES.put(ML1M_MALE, 3671);
         TARGET_SIZES.put(ML1M_FEMALE, 3481);
+        TARGET_SIZES.put(ML1M_YOUNG, 2650);
+        TARGET_SIZES.put(ML1M_OLD, 2913);
+
         TARGET_SIZES.put(ML100K, FULL_TARGET_SIZE_ML100K);
         TARGET_SIZES.put(ML100K_MALE, 1605);
         TARGET_SIZES.put(ML100K_FEMALE, 1534);
+        TARGET_SIZES.put(ML100K_YOUNG, 1012);
+        TARGET_SIZES.put(ML100K_OLD, 1042);
+
         TARGET_SIZES.put(YAHOO, FULL_TARGET_SIZE_YAHOO);
     }
 
