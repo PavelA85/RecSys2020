@@ -8,6 +8,7 @@
  */
 package es.uam.ir.targetsampling;
 
+import es.uam.ir.filler.Filler;
 import es.uam.ir.filler.Filler.Mode;
 
 import java.io.FileInputStream;
@@ -255,6 +256,12 @@ public class Configuration {
     public Configuration forAll() {
         this.setAllRecs(true);
         this.resultsPath = this.resultsPath  + "allrecs-";
+        return this;
+    }
+
+    public Configuration forNofill() {
+        this.fillMode = Mode.NONE;
+        this.resultsPath = this.getResultsPath() + "nofill-";
         return this;
     }
 }
