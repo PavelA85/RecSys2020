@@ -23,6 +23,7 @@ import static es.uam.ir.targetsampling.TargetSampling.*;
  */
 public class GenerateFigure {
 
+
     public static final String[] DATASETS = {
             ML100K, ML100K_MALE, ML100K_FEMALE, ML100K_YOUNG, ML100K_OLD,
             ML1M, ML1M_MALE, ML1M_FEMALE, ML1M_YOUNG, ML1M_OLD,
@@ -71,7 +72,7 @@ public class GenerateFigure {
     public static void main(String[] a) {
         init();
         List<Thread> threads = new ArrayList<>();
-        int[] figures = {1, 2, 3, 101, 303, 4};
+        int[] figures = {1, 2, 3, 101, 303, 4, 5};
         for (int f : figures) {
             Thread thread2 = new Thread(() -> {
                 try {
@@ -723,11 +724,14 @@ public class GenerateFigure {
             String[] metrics,
             String outFile,
             int nFolds) throws IOException {
+
+        String[] dataset_copy = Arrays.stream(datasets).toArray(String[]::new);
+
         for (int i = 0; i < datasets.length; i++) {
-            datasets[i] += "-nofill";
+            dataset_copy[i] += "-nofill";
         }
 
-        generateFigure3(folder, datasets, metrics, outFile, nFolds);
+        generateFigure3(folder, dataset_copy, metrics, outFile, nFolds);
     }
 
 }

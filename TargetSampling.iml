@@ -9,7 +9,7 @@
       <excludeFolder url="file://$MODULE_DIR$/.history" />
       <excludeFolder url="file://$MODULE_DIR$/node_modules" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.9 (jupyterlab-debugger)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: org.ranksys:RankSys-core:0.4.3" level="project" />
     <orderEntry type="library" name="Maven: it.unimi.dsi:fastutil:7.0.6" level="project" />
