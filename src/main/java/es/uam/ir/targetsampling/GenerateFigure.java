@@ -137,7 +137,8 @@ public class GenerateFigure {
                         RESULTS_PATH + BIASED_PATH,
                         DATASETS,
                         METRICS,
-                        N_FOLDS);
+                        N_FOLDS,
+                        "figure303.");
                 break;
             case 4:
                 generateFigure4(
@@ -153,7 +154,7 @@ public class GenerateFigure {
                         RESULTS_PATH + BIASED_PATH,
                         DATASETS,
                         new String[]{"Coverage@10"},
-                        RESULTS_PATH + "figure5.txt",
+                        "figure505.",
                         N_FOLDS);
                 break;
             default:
@@ -365,10 +366,11 @@ public class GenerateFigure {
             String folder,
             String[] datasets,
             String[] metrics,
-            int nFolds) throws FileNotFoundException {
+            int nFolds,
+            String outFileName) throws FileNotFoundException {
         List<String> metricList = Arrays.asList(metrics);
         for (String dataset : datasets) {
-            String outFile = RESULTS_PATH + "figure303." + dataset.replace('/', '-') + ".txt";
+            String outFile = RESULTS_PATH + outFileName + dataset.replace('/', '-') + ".txt";
             PrintStream out = new PrintStream(outFile);
             Map<String, Map<Integer, Map<String, Double>>> values = prepare_for_figure3(folder, metricList, dataset, out);
 
@@ -722,7 +724,7 @@ public class GenerateFigure {
             String folder,
             String[] datasets,
             String[] metrics,
-            String outFile,
+            String outFileName,
             int nFolds) throws IOException {
 
         String[] dataset_copy = Arrays.stream(datasets).toArray(String[]::new);
@@ -731,7 +733,7 @@ public class GenerateFigure {
             dataset_copy[i] += "-nofill";
         }
 
-        generateFigure3(folder, dataset_copy, metrics, outFile, nFolds);
+        generateFigure303(folder, dataset_copy, metrics, nFolds, outFileName);
     }
 
 }
