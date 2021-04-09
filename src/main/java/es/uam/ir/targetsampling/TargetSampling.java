@@ -139,7 +139,9 @@ public class TargetSampling {
         processEvals(evalsPerUser, conf.getResultsPath(), nUsersInCrossValidation);
     }
 
-    private long RunFold(String logSource, FastUserIndex<Long> userIndex, FastItemIndex<Long> itemIndex, Map<String, Map<String, double[]>> evalsPerUser, int nUsersInCrossValidation, PrintStream out, PrintStream outExpectation, int targetSize, int currentFold) throws IOException {
+    private long RunFold(String logSource, FastUserIndex<Long> userIndex, FastItemIndex<Long> itemIndex, Map<String, Map<String,
+            double[]>> evalsPerUser, int nUsersInCrossValidation, PrintStream out, PrintStream outExpectation, int targetSize,
+                         int currentFold) throws IOException {
         System.out.println(logSource + " Running fold " + currentFold);
         FastPreferenceData<Long, Long> trainData = SimpleFastPreferenceData
                 .load(SimpleRatingPreferencesReader
@@ -372,7 +374,12 @@ public class TargetSampling {
         FastRecommender<Long, Long> recommendation = (FastRecommender<Long, Long>) recMap.get(recommender).get();
         Function<Long, Recommendation<Long, Long>> recProvider = user -> {
             FastRecommendation rec = recommendation.getRecommendation(userIndex.user2uidx(user), conf.getCutoff(), userFilter.apply(user));
-            return new Recommendation<>(userIndex.uidx2user(rec.getUidx()), rec.getIidxs().stream().map(iv -> new Tuple2od<>(itemIndex.iidx2item(iv.v1), iv.v2)).collect(Collectors.toList()));
+            return new Recommendation<>(
+                    userIndex.uidx2user(rec.getUidx()),
+                    rec.getIidxs()
+                            .stream()
+                            .map(iv -> new Tuple2od<>(itemIndex.iidx2item(iv.v1), iv.v2))
+                            .collect(Collectors.toList()));
         };
 
         Map<String, double[]> actualValues = new HashMap<>();
@@ -380,7 +387,9 @@ public class TargetSampling {
             actualValues.put(metric, new double[userIndexNumberOfUsers]);
         }
 
-        targetUsers.stream().parallel()
+        targetUsers
+                .stream()
+                .parallel()
                 .map(recProvider)
                 .map(rec -> {
                     List<Tuple2id> items = rec.getItems()
@@ -393,7 +402,9 @@ public class TargetSampling {
                             .map(ip -> new Tuple2od<>(itemIndex.iidx2item(ip.v1), ip.v2))
                             .collect(Collectors.toList());
                     return new Recommendation<>(rec.getUser(), newItems);
-                }).forEachOrdered(rec -> metrics.forEach((metricName, metric) -> actualValues.get(metricName)[userIndex.user2uidx(rec.getUser())] = metric.evaluate(rec)));
+                })
+                .forEachOrdered(rec -> metrics
+                        .forEach((metricName, metric) -> actualValues.get(metricName)[userIndex.user2uidx(rec.getUser())] = metric.evaluate(rec)));
 
         Map<String, double[]> pastValues = evalsPerUser.get(recName);
 
