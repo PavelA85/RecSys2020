@@ -39,6 +39,7 @@ public class Initialize {
 
         List<Thread> threads = new ArrayList<>();
 
+        //threads.add(StartThread("MovieLens10M", Initialize::preprocessMl10mDataset));
         //threads.add(StartThread("MovieLens25M", Initialize::preprocessMl25mDataset));
         //threads.add(StartThread("Yahoo R3", Initialize::preprocessYahooDataset));
         //threads.add(StartThread("MovieLens1M", Initialize::preprocessMl1mDataset));
@@ -53,21 +54,22 @@ public class Initialize {
 
         threads.clear();
 
-        threads.addAll(runMovieLens_NOFILL());
-
+        //threads.addAll(runMovieLens_NOFILL());
         //threads.addAll(runMovieLens1M_AGE());
-        //threads.addAll(runMovieLens100K_AGE());
-        //threads.add(runMovieLens100k_ALL());
+//        threads.addAll(runMovieLens100K_AGE());
+//        threads.add(runMovieLens100k_ALL());
         //threads.add(runMovieLens1M_ALL());
-        //threads.add(runMovieLens100k());
-        //threads.addAll(runMovieLens100K_Gender());
+//        threads.add(runMovieLens100k());
+        threads.addAll(runMovieLens100K_Gender());
         //threads.addAll(runMovieLens1M_Gender());
         //threads.addAll(runMovieLens1M_Gender_ALL());
-        //threads.addAll(runMovieLens100K_Gender_ALL());
+//        threads.addAll(runMovieLens100K_Gender_ALL());
         //threads.add(runMovieLens1M());
         //threads.add(runYahooBiased());
-        //threads.add(runYahooUnbiased());
+        threads.add(runYahooUnbiased());
         //threads.add(runMovieLens25M());
+        //threads.add(runMovieLens10M_ALL());
+//        threads.add(runMovieLens10M());
 
         ThreadJoin(threads);
     }
@@ -109,7 +111,7 @@ public class Initialize {
                 String title = "YAHOO_UNBIASED";
                 Timer.start((Object) title, title);
                 Configuration conf = new Configuration(YAHOO_UNBIASED_PROPERTIES_FILE);
-                TargetSampling targetSelection = new TargetSampling(conf);
+                UnbiasedTargetSampling targetSelection = new UnbiasedTargetSampling(conf);
                 targetSelection.runWithUnbiasedTest(conf.getTestPath(), title);
                 Timer.done(title, title);
             } catch (IOException e) {
@@ -208,6 +210,14 @@ public class Initialize {
 
     private static Thread runMovieLens25M() throws InterruptedException, IOException {
         return StartCrossValidateTargetSampling("ML25M", new Configuration(ML25M_BIASED_PROPERTIES_FILE));
+    }
+
+    private static Thread runMovieLens10M() throws InterruptedException, IOException {
+        return StartCrossValidateTargetSampling("ML10M", new Configuration(ML10M_BIASED_PROPERTIES_FILE));
+    }
+
+    private static Thread runMovieLens10M_ALL() throws InterruptedException, IOException {
+        return StartCrossValidateTargetSampling("ML10M", new Configuration(ML10M_BIASED_PROPERTIES_FILE).forAll());
     }
 
     private static Thread StartCrossValidateTargetSampling(String title, Configuration conf) throws InterruptedException {
@@ -314,6 +324,28 @@ public class Initialize {
             ml25mOut.close();
 
             CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML25M_DATASET_PATH, ML25M_PATH, GenerateFigure.N_FOLDS);
+        } catch (IOException e) {
+            System.out.println(e);
+            e.printStackTrace(System.out);
+        }
+    }
+
+    static void preprocessMl10mDataset() {
+        try {
+
+            RandomAccessFile ml10mIn = new RandomAccessFile(ORIGINAL_ML10M_DATASET_PATH, "r");
+            byte[] bytes = new byte[(int) ml10mIn.length()];
+            ml10mIn.read(bytes);
+            String ratings = new String(bytes, StandardCharsets.UTF_8);
+
+            PrintStream ml10mOut = new PrintStream(PREPROCESSED_ML10M_DATASET_PATH);
+            ml10mOut.print(ratings
+                    .replace("::", "\t")
+                    .replace(".5", "")
+            );
+            ml10mOut.close();
+
+            CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML10M_DATASET_PATH, ML10M_PATH, GenerateFigure.N_FOLDS);
         } catch (IOException e) {
             System.out.println(e);
             e.printStackTrace(System.out);

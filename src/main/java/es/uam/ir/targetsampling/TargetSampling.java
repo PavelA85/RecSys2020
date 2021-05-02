@@ -66,15 +66,14 @@ import static org.ranksys.formats.parsing.Parsers.lp;
  * @author Rocío Cañamares
  * @author Pablo Castells
  */
-public class TargetSampling {
 
-    private final Configuration conf;
+public class TargetSampling {
     public final static String TARGET_SAMPLING_FILE = "target-sampling.txt";
     public final static String P_VALUES_FILE = "pvalues.txt";
     public final static String TIES_FILE = "ties.txt";
     public final static String TIES_AT_ZERO_FILE = "tiesAtZero.txt";
     public final static String EXPECTED_INTERSECTION_RATIO_FILE = "expected-intersection-ratio.txt";
-
+    private final Configuration conf;
     private final String[] METRIC_NAMES = new String[]{
             "Coverage",
             "nDCG",
@@ -83,11 +82,7 @@ public class TargetSampling {
             "FScore",
     };
 
-    /**
-     * @param conf
-     */
-    public TargetSampling(
-            Configuration conf) {
+    public TargetSampling(Configuration conf) {
         this.conf = conf;
     }
 
@@ -124,39 +119,58 @@ public class TargetSampling {
                         .append("\t")
                         .append(metric);
             }
-            out.println(mBuilder.toString());
+            out.println(mBuilder);
 
 
             //Run
             for (int targetSize : conf.getTargetSizes()) {
+//                System.out.println(nUsersInCrossValidation + " nUsersInCrossValidation ");
+
                 nUsersInCrossValidation = 0;
                 for (int currentFold = 1; currentFold <= conf.getNFolds(); currentFold++) {
-                    long newUsers = RunFold(logSource, userIndex, itemIndex, evalsPerUser, nUsersInCrossValidation, out, outExpectation, targetSize, currentFold);
+                    System.out.println(logSource + " Running fold " + currentFold);
+                    FastPreferenceData<Long, Long> trainData = getData(userIndex, itemIndex, currentFold, "-data-train.txt");
+                    FastPreferenceData<Long, Long> testData = getData(userIndex, itemIndex, currentFold, "-data-test.txt");
+
+                    Function<Long, IntPredicate> userFilter = runSampledSplit(
+                            logSource,
+                            userIndex,
+                            itemIndex,
+                            testData,
+                            evalsPerUser,
+                            nUsersInCrossValidation,
+                            out,
+                            targetSize,
+                            currentFold,
+                            trainData);
+                    double expectation = getExpectation(itemIndex, trainData, userFilter);
+                    outExpectation.println(currentFold + "\t" + targetSize + "\t" + expectation);
+                    long newUsers = trainData.getUsersWithPreferences().count();
                     nUsersInCrossValidation += newUsers;
                 }
+
+
             }
         }
+        final int size = evalsPerUser.values().stream().findFirst().get().get("P@10").length;
+        if (nUsersInCrossValidation != size) {
+
+            System.out.println(logSource + " " + nUsersInCrossValidation + " nUsersInCrossValidation " + size);
+        }
+
         processEvals(evalsPerUser, conf.getResultsPath(), nUsersInCrossValidation);
     }
 
-    private long RunFold(String logSource, FastUserIndex<Long> userIndex, FastItemIndex<Long> itemIndex, Map<String, Map<String,
-            double[]>> evalsPerUser, int nUsersInCrossValidation, PrintStream out, PrintStream outExpectation, int targetSize,
-                         int currentFold) throws IOException {
-        System.out.println(logSource + " Running fold " + currentFold);
-        FastPreferenceData<Long, Long> trainData = SimpleFastPreferenceData
+    private FastPreferenceData<Long, Long> getData(
+            FastUserIndex<Long> userIndex, FastItemIndex<Long> itemIndex,
+            int currentFold,
+            String suffix) throws IOException {
+        return SimpleFastPreferenceData
                 .load(SimpleRatingPreferencesReader
-                        .get()
-                        .read(conf.getDataPath() + currentFold + "-data-train.txt", lp, lp), userIndex, itemIndex);
-        FastPreferenceData<Long, Long> testData = SimpleFastPreferenceData
-                .load(SimpleRatingPreferencesReader
-                        .get()
-                        .read(conf.getDataPath() + currentFold + "-data-test.txt", lp, lp), userIndex, itemIndex);
-        Function<Long, IntPredicate> userFilter = runSampledSplit(logSource, userIndex, itemIndex, testData,
-                evalsPerUser, nUsersInCrossValidation, out, targetSize, currentFold, trainData);
-        double expectation = getExpectation(itemIndex, trainData, userFilter);
-        outExpectation.println(currentFold + "\t" + targetSize + "\t" + expectation);
-        long newUsers = trainData.getUsersWithPreferences().count();
-        return newUsers;
+                                .get()
+                                .read(conf.getDataPath() + currentFold + suffix, lp, lp),
+                        userIndex,
+                        itemIndex);
     }
 
     private double getExpectation(FastItemIndex<Long> itemIndex, FastPreferenceData<Long, Long> trainData, Function<Long,
@@ -172,80 +186,11 @@ public class TargetSampling {
                 }).filter(v -> !Double.isInfinite(v) && !Double.isNaN(v)).sum() / trainData.numUsers();
     }
 
-    /**
-     * @param testPath
-     * @throws IOException
-     */
-    public void runWithUnbiasedTest(String testPath, String logSource) throws IOException {
-        Timer.start(logSource + " Starting..." + logSource);
-
-        for (int i = 0; i < METRIC_NAMES.length; i++) {
-            METRIC_NAMES[i] += "@" + conf.getCutoff();
-        }
-
-        LogManager.getLogManager().reset();
-
-        // Read files
-        Timer.start((Object) logSource, "Reading files..." + logSource);
-        ByteArrayInputStream[] usersAndItemsInputStreams = GetUsersAndItems.run(conf.getDataPath() + "data.txt");
-        FastUserIndex<Long> userIndex = SimpleFastUserIndex.load(UsersReader.read(usersAndItemsInputStreams[0], lp));
-        FastItemIndex<Long> itemIndex = SimpleFastItemIndex.load(ItemsReader.read(usersAndItemsInputStreams[1], lp));
-        FastPreferenceData<Long, Long> testData = SimpleFastPreferenceData.load(SimpleRatingPreferencesReader.get().read(testPath, lp, lp), userIndex, itemIndex);
-        Timer.done(logSource, " Reading files " + logSource);
-
-        Map<String, Map<String, double[]>> evalsPerUser = new HashMap<>();
-        int nUsersInCrossValidation = 0;
-        try (PrintStream out = new PrintStream(conf.getResultsPath() + TARGET_SAMPLING_FILE);
-             PrintStream outExpectation = new PrintStream(conf.getResultsPath() + EXPECTED_INTERSECTION_RATIO_FILE)) {
-            //Header
-            outExpectation.println("fold\ttarget size\texpected intersection ratio in top n");
-            StringBuilder mBuilder = new StringBuilder("fold\ttarget size\trec");
-            for (String metric : METRIC_NAMES) {
-                mBuilder
-                        .append("\t")
-                        .append(metric);
-            }
-            out.println(mBuilder.toString());
-
-            //Run
-            for (int targetSize : conf.getTargetSizes()) {
-                nUsersInCrossValidation = 0;
-
-                for (int currentFold = 1; currentFold <= conf.getNFolds(); currentFold++) {
-                    nUsersInCrossValidation = runFold(logSource, userIndex, itemIndex, testData, evalsPerUser, nUsersInCrossValidation, out, outExpectation, targetSize, currentFold);
-                }
-            }
-        }
-        processEvals(evalsPerUser, conf.getResultsPath(), nUsersInCrossValidation);
-    }
-
-    private int runFold(String logSource,
-                        FastUserIndex<Long> userIndex,
-                        FastItemIndex<Long> itemIndex,
-                        FastPreferenceData<Long, Long> testData,
-                        Map<String, Map<String, double[]>> evalsPerUser,
-                        int nUsersInCrossValidation,
-                        PrintStream out,
-                        PrintStream outExpectation,
-                        int targetSize,
-                        int currentFold) throws IOException {
-        Timer.start(currentFold, "folding..." + currentFold + " " + logSource);
-        System.out.printf("%s Running fold %d Target size:%d %n", logSource, currentFold, targetSize);
-        FastPreferenceData<Long, Long> trainData = SimpleFastPreferenceData.load(SimpleRatingPreferencesReader.get().read(conf.getDataPath() + currentFold + "-data-train.txt", lp, lp), userIndex, itemIndex);
-        Function<Long, IntPredicate> userFilter = runSampledSplit(logSource, userIndex, itemIndex, testData, evalsPerUser, nUsersInCrossValidation, out, targetSize, currentFold, trainData);
-
-        nUsersInCrossValidation += trainData.getUsersWithPreferences().count();
-        double expectation = getExpectation(itemIndex, trainData, userFilter);
-        outExpectation.println(targetSize + "\t" + expectation);
-        Timer.done(currentFold, "folding finished" + currentFold + " " + logSource);
-        return nUsersInCrossValidation;
-    }
-
     private Function<Long, IntPredicate> runSampledSplit(String logSource, FastUserIndex<Long> userIndex,
-                                                         FastItemIndex<Long> itemIndex, FastPreferenceData<Long, Long> testData,
-                                                         Map<String, Map<String, double[]>> evalsPerUser, int nUsersInCrossValidation,
-                                                         PrintStream out, int targetSize, int currentFold,
-                                                         FastPreferenceData<Long, Long> trainData) throws IOException {
+                                                           FastItemIndex<Long> itemIndex, FastPreferenceData<Long, Long> testData,
+                                                           Map<String, Map<String, double[]>> evalsPerUser, int nUsersInCrossValidation,
+                                                           PrintStream out, int targetSize, int currentFold,
+                                                           FastPreferenceData<Long, Long> trainData) throws IOException {
         FastPreferenceData<Long, Long> positiveTrainData = TruncateRatings.run(trainData, conf.getThreshold());
         //Sampler:
         Function<Long, IntPredicate> sampler = FastSamplers.uniform(trainData, FastSamplers.inTestForUser(testData), targetSize);
@@ -305,37 +250,6 @@ public class TargetSampling {
 
             recMap.putAll(getFullAndTestRecs(userIndex, itemIndex, trainData, positiveTrainData));
         }
-
-        eval(
-                userIndex,
-                itemIndex,
-                nUsersInCrossValidation,
-                targetSize,
-                currentFold,
-                targetUsers,
-                userFilter,
-                recMap,
-                metrics,
-                evalsPerUser,
-                out,
-                filler,
-                logSource);
-    }
-
-    private void eval(
-            FastUserIndex<Long> userIndex,
-            FastItemIndex<Long> itemIndex,
-            int nUsersInCrossValidation,
-            int targetSize,
-            int currentFold,
-            Set<Long> targetUsers,
-            Function<Long, IntPredicate> userFilter,
-            Map<String, Supplier<Recommender<Long, Long>>> recMap,
-            Map<String, AbstractRecommendationMetric<Long, Long>> metrics,
-            Map<String, Map<String, double[]>> evalsPerUser,
-            PrintStream out,
-            Filler<Long, Long> filler,
-            String logSource) {
 
         int userIndexNumberOfUsers = userIndex.numUsers();
         int targetUsersSize = targetUsers.size();
@@ -406,17 +320,7 @@ public class TargetSampling {
                 .forEachOrdered(rec -> metrics
                         .forEach((metricName, metric) -> actualValues.get(metricName)[userIndex.user2uidx(rec.getUser())] = metric.evaluate(rec)));
 
-        Map<String, double[]> pastValues = evalsPerUser.get(recName);
-
-        int i = 0;
-        for (Long user : targetUsers) {
-            int u = userIndex.user2uidx(user);
-            for (String metricName : METRIC_NAMES) {
-                double value = actualValues.get(metricName)[u];
-                pastValues.get(metricName)[nUsersInCrossValidation + i] = value;
-            }
-            i++;
-        }
+        FillPastValues(userIndex, nUsersInCrossValidation, targetUsers, evalsPerUser, recName, actualValues, logSource);
 
         //Values
         StringBuilder mBuilder = new StringBuilder()
@@ -428,9 +332,36 @@ public class TargetSampling {
                     .append("\t")
                     .append(DoubleStream.of(actualValues.get(metricName)).sum() / targetUsersSize);
         }
-        out.println(mBuilder.toString());
+        out.println(mBuilder);
 
         Timer.done(logSource, logSource + " Running " + recommender + " TargetSize:" + targetSize + "  done");
+    }
+
+    private void FillPastValues(
+            FastUserIndex<Long> userIndex,
+            int nUsersInCrossValidation,
+            Set<Long> targetUsers,
+            Map<String, Map<String, double[]>> evalsPerUser,
+            String recName,
+            Map<String, double[]> actualValues,
+            String logSource) {
+        Map<String, double[]> pastValues = evalsPerUser.get(recName);
+
+        final int size = pastValues.get("P@10").length;
+        if (nUsersInCrossValidation != size) {
+            System.out.println(logSource + " " + nUsersInCrossValidation + " FillPastValues nUsersInCrossValidation " + size);
+        }
+
+        int i = 0;
+        for (Long user : targetUsers) {
+            int u = userIndex.user2uidx(user);
+            for (String metricName : METRIC_NAMES) {
+                double value = actualValues.get(metricName)[u];
+                pastValues.get(metricName)[nUsersInCrossValidation + i] = value;
+            }
+            i++;
+//            System.out.println(logSource + " WWWWWWWWWWW");
+        }
     }
 
     private void processEvals(Map<String, Map<String, double[]>> evalsPerUser, String resultsPath, int nUsersInCrossValidation) throws FileNotFoundException {
@@ -483,22 +414,22 @@ public class TargetSampling {
                     StringBuilder outTiesAtZeroBuilder = new StringBuilder(n1 + "\t");
 
                     Map<String, double[]> values2 = evalsPerUser.get(rec2);
-                    outPvaluesBuilder.append(rec1Name + "\t" + rec2Name);
-                    outTiesBuilder.append(rec1Name + "\t" + rec2Name);
-                    outTiesAtZeroBuilder.append(rec1Name + "\t" + rec2Name);
+                    outPvaluesBuilder.append(rec1Name).append("\t").append(rec2Name);
+                    outTiesBuilder.append(rec1Name).append("\t").append(rec2Name);
+                    outTiesAtZeroBuilder.append(rec1Name).append("\t").append(rec2Name);
 
                     for (String metric : METRIC_NAMES) {
                         double p_value = ttest.pairedTTest(values1.get(metric), values2.get(metric));
-                        double nTies = nTies(values1.get(metric), values2.get(metric));
-                        double nTiesAtZero = nTiesAtZero(values1.get(metric), values2.get(metric));
-                        outPvaluesBuilder.append("\t" + p_value);
-                        outTiesBuilder.append("\t" + nTies * 1.0 / nUsersInCrossValidation);
-                        outTiesAtZeroBuilder.append("\t" + nTiesAtZero * 1.0 / nUsersInCrossValidation);
+                        double nTies = TargetSampling.nTies(values1.get(metric), values2.get(metric));
+                        double nTiesAtZero = TargetSampling.nTiesAtZero(values1.get(metric), values2.get(metric));
+                        outPvaluesBuilder.append("\t").append(p_value);
+                        outTiesBuilder.append("\t").append(nTies / nUsersInCrossValidation);
+                        outTiesAtZeroBuilder.append("\t").append(nTiesAtZero / nUsersInCrossValidation);
                     }
 
-                    outPvalues.println(outPvaluesBuilder.toString());
-                    outTies.println(outTiesBuilder.toString());
-                    outTiesAtZero.println(outTiesAtZeroBuilder.toString());
+                    outPvalues.println(outPvaluesBuilder);
+                    outTies.println(outTiesBuilder);
+                    outTiesAtZero.println(outTiesAtZeroBuilder);
                 }
             }
         }

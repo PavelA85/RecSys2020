@@ -31,6 +31,17 @@ public class DataSetInitialize {
 
     /*
      *
+     * ML10M
+     *
+     * */
+    public final static String ML10M = "ml10m";
+    public final static String ML10M_PATH = DATASETS_PATH + ML10M + "/";
+    public final static String ORIGINAL_ML10M_DATASET_PATH = ML10M_PATH + "ratings.dat";
+    public final static String PREPROCESSED_ML10M_DATASET_PATH = ML10M_PATH + "data.txt";
+    public final static String ML10M_BIASED_PROPERTIES_FILE = "conf/ml10m-biased.properties";
+
+    /*
+     *
      * ML100K
      *
      * */
