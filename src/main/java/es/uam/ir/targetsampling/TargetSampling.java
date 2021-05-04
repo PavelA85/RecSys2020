@@ -91,7 +91,7 @@ public class TargetSampling {
      * @throws IOException
      */
     public void runCrossValidation(String logSource) throws IOException {
-        Timer.start((Object) logSource, " Starting..." + logSource);
+        Timer.start(logSource);
 
         for (int i = 0; i < METRIC_NAMES.length; i++) {
             METRIC_NAMES[i] += "@" + conf.getCutoff();
@@ -101,12 +101,12 @@ public class TargetSampling {
 
         // Read files
         String fileLog = logSource + "file";
-        Timer.start((Object) fileLog, " Reading files..." + conf.getResultsPath());
+        Timer.start(fileLog);
         ByteArrayInputStream[] usersAndItemsInputStreams = GetUsersAndItems.run(conf.getDataPath() + "data.txt");
         FastUserIndex<Long> userIndex = SimpleFastUserIndex.load(UsersReader.read(usersAndItemsInputStreams[0], lp));
         FastItemIndex<Long> itemIndex = SimpleFastItemIndex.load(ItemsReader.read(usersAndItemsInputStreams[1], lp));
 
-        Timer.done(fileLog, " Reading files " + conf.getResultsPath());
+        Timer.done(fileLog, logSource + " Reading files " + conf.getResultsPath());
 
         Map<String, Map<String, double[]>> evalsPerUser = new HashMap<>();
         try (PrintStream out = new PrintStream(conf.getResultsPath() + TARGET_SAMPLING_FILE);
@@ -130,7 +130,7 @@ public class TargetSampling {
                                     .parallel()
                                     .forEach(currentFold -> {
                                         final String foldName = logSource + " Running fold " + currentFold + " targetSize:" + targetSize;
-                                        Timer.start((Object) foldName, foldName);
+                                        Timer.start(foldName);
 
                                         FastPreferenceData<Long, Long> trainData = null;
                                         FastPreferenceData<Long, Long> testData = null;
@@ -170,7 +170,7 @@ public class TargetSampling {
             processEvals(evalsPerUser, conf.getResultsPath(), size);
         }
 
-        Timer.done(logSource, "Done");
+        Timer.done(logSource, logSource + " Done");
     }
 
     private FastPreferenceData<Long, Long> getData(
@@ -288,7 +288,7 @@ public class TargetSampling {
                                                   String recommender) {
 
         final String evalRecommenderLog = logSource + " Running fold " + currentFold + " on " + recommender + " TargetSize:" + targetSize;
-        Timer.start((Object) evalRecommenderLog, evalRecommenderLog);
+        Timer.start(evalRecommenderLog, "");
 
         FastRecommender<Long, Long> recommendation = (FastRecommender<Long, Long>) recMap.get(recommender).get();
         Function<Long, Recommendation<Long, Long>> recProvider = user -> {

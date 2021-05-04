@@ -54,17 +54,17 @@ public class Initialize {
 
         threads.clear();
 
-//        threads.addAll(runMovieLens_NOFILL());
-//        threads.addAll(runMovieLens1M_AGE());
-//        threads.addAll(runMovieLens100K_AGE());
+        threads.addAll(run_NOFILL());
+        threads.addAll(runMovieLens1M_AGE());
+        threads.addAll(runMovieLens100K_AGE());
 //        threads.add(runMovieLens100k_ALL());
 //        threads.add(runMovieLens1M_ALL());
-//        threads.add(runMovieLens100k());
-//        threads.addAll(runMovieLens100K_Gender());
-//        threads.addAll(runMovieLens1M_Gender());
+        threads.add(runMovieLens100k());
+        threads.addAll(runMovieLens100K_Gender());
+        threads.addAll(runMovieLens1M_Gender());
 //        threads.addAll(runMovieLens1M_Gender_ALL());
 //        threads.addAll(runMovieLens100K_Gender_ALL());
-//        threads.add(runMovieLens1M());
+        threads.add(runMovieLens1M());
         threads.add(runYahooBiased());
         threads.add(runYahooUnbiased());
 //        threads.add(runMovieLens25M());
@@ -157,7 +157,7 @@ public class Initialize {
                 StartCrossValidateTargetSampling("ML100K_OLD", new Configuration(ML100K_OLD_BIASED_PROPERTIES_FILE)));
     }
 
-    private static Collection<? extends Thread> runMovieLens_NOFILL() throws InterruptedException, IOException {
+    private static Collection<? extends Thread> run_NOFILL() throws InterruptedException, IOException {
 
         return Arrays.asList(
                 StartCrossValidateTargetSampling("ML100K_NOFILL", new Configuration(ML100K_BIASED_PROPERTIES_FILE).forNofill()),

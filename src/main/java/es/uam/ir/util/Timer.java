@@ -61,17 +61,17 @@ public class Timer {
         prev.put(obj, now.get(obj));
     }
 
-    /**
+/*    *//**
      * @param msg 
-     */
+     *//*
     public static void start(String... msg) {
         start(0, msg);
     }
 
-    /**
+    *//**
      * @param msg 
-     */
+     *//*
     public static void done(String msg) {
         done(0, msg);
-    }
+    }*/
 }
