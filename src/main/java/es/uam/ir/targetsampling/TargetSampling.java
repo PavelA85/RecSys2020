@@ -288,7 +288,7 @@ public class TargetSampling {
                                                   String recommender) {
 
         final String evalRecommenderLog = logSource + " Running fold " + currentFold + " on " + recommender + " TargetSize:" + targetSize;
-        Timer.start(evalRecommenderLog, "");
+        Timer.start(evalRecommenderLog);
 
         FastRecommender<Long, Long> recommendation = (FastRecommender<Long, Long>) recMap.get(recommender).get();
         Function<Long, Recommendation<Long, Long>> recProvider = user -> {
