@@ -59,6 +59,7 @@ import java.util.function.Supplier;
 import java.util.logging.LogManager;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
 
 import static org.ranksys.formats.parsing.Parsers.lp;
 
@@ -66,15 +67,14 @@ import static org.ranksys.formats.parsing.Parsers.lp;
  * @author Rocío Cañamares
  * @author Pablo Castells
  */
-public class UnbiasedTargetSampling {
 
-    private final Configuration conf;
+public class NewTargetSampling {
     public final static String TARGET_SAMPLING_FILE = "target-sampling.txt";
     public final static String P_VALUES_FILE = "pvalues.txt";
     public final static String TIES_FILE = "ties.txt";
     public final static String TIES_AT_ZERO_FILE = "tiesAtZero.txt";
     public final static String EXPECTED_INTERSECTION_RATIO_FILE = "expected-intersection-ratio.txt";
-
+    private final Configuration conf;
     private final String[] METRIC_NAMES = new String[]{
             "Coverage",
             "nDCG",
@@ -83,12 +83,106 @@ public class UnbiasedTargetSampling {
             "FScore",
     };
 
-    /**
-     * @param conf
-     */
-    public UnbiasedTargetSampling(
-            Configuration conf) {
+    public NewTargetSampling(Configuration conf) {
         this.conf = conf;
+    }
+
+    /**
+     * @throws IOException
+     */
+    public void runCrossValidation(String logSource) throws IOException {
+        Timer.start((Object) logSource, " Starting..." + logSource);
+
+        for (int i = 0; i < METRIC_NAMES.length; i++) {
+            METRIC_NAMES[i] += "@" + conf.getCutoff();
+        }
+
+        LogManager.getLogManager().reset();
+
+        // Read files
+        Timer.start((Object) logSource, " Reading files..." + conf.getResultsPath());
+        ByteArrayInputStream[] usersAndItemsInputStreams = GetUsersAndItems.run(conf.getDataPath() + "data.txt");
+        FastUserIndex<Long> userIndex = SimpleFastUserIndex.load(UsersReader.read(usersAndItemsInputStreams[0], lp));
+        FastItemIndex<Long> itemIndex = SimpleFastItemIndex.load(ItemsReader.read(usersAndItemsInputStreams[1], lp));
+
+        Timer.done(logSource, " Reading files " + conf.getResultsPath());
+
+        Map<String, Map<String, double[]>> evalsPerUser = new HashMap<>();
+        int nUsersInCrossValidation = 0;
+        try (PrintStream out = new PrintStream(conf.getResultsPath() + TARGET_SAMPLING_FILE);
+             PrintStream outExpectation = new PrintStream(conf.getResultsPath() + EXPECTED_INTERSECTION_RATIO_FILE)) {
+            //Header
+            outExpectation.println("fold\ttarget size\texpected intersection ratio in top n");
+
+            StringBuilder mBuilder = new StringBuilder("fold\ttarget size\trecommender system");
+            for (String metric : METRIC_NAMES) {
+                mBuilder
+                        .append("\t")
+                        .append(metric);
+            }
+            out.println(mBuilder);
+
+            Arrays.stream(conf.getTargetSizes()).forEach(targetSize -> {
+                IntStream.range(1, conf.getNFolds())
+                        .forEach(folds -> {
+                            System.out.println(targetSize + folds);
+                        });
+            });
+
+//            IntStream.
+//                    .forEach(index -> {
+//                        doubleNumbers[index] = numbers[index] * 2;
+//                        tripleNumbers[index] = numbers[index] * 3;
+//                    });
+            //Run
+            for (int targetSize : conf.getTargetSizes()) {
+//                System.out.println(nUsersInCrossValidation + " nUsersInCrossValidation ");
+
+                nUsersInCrossValidation = 0;
+                for (int currentFold = 1; currentFold <= conf.getNFolds(); currentFold++) {
+                    System.out.println(logSource + " Running fold " + currentFold);
+                    FastPreferenceData<Long, Long> trainData = getData(userIndex, itemIndex, currentFold, "-data-train.txt");
+                    FastPreferenceData<Long, Long> testData = getData(userIndex, itemIndex, currentFold, "-data-test.txt");
+
+                    Function<Long, IntPredicate> userFilter = runSampledSplit(
+                            logSource,
+                            userIndex,
+                            itemIndex,
+                            testData,
+                            evalsPerUser,
+                            nUsersInCrossValidation,
+                            out,
+                            targetSize,
+                            currentFold,
+                            trainData);
+                    double expectation = getExpectation(itemIndex, trainData, userFilter);
+                    outExpectation.println(currentFold + "\t" + targetSize + "\t" + expectation);
+                    long newUsers = trainData.getUsersWithPreferences().count();
+                    nUsersInCrossValidation += newUsers;
+                }
+
+
+            }
+        }
+        final int size = evalsPerUser.values().stream().findFirst().get().get("P@10").length;
+        if (nUsersInCrossValidation != size) {
+
+            System.out.println(logSource + " " + nUsersInCrossValidation + " nUsersInCrossValidation " + size);
+        }
+
+        processEvals(evalsPerUser, conf.getResultsPath(), nUsersInCrossValidation);
+    }
+
+    private FastPreferenceData<Long, Long> getData(
+            FastUserIndex<Long> userIndex, FastItemIndex<Long> itemIndex,
+            int currentFold,
+            String suffix) throws IOException {
+        return SimpleFastPreferenceData
+                .load(SimpleRatingPreferencesReader
+                                .get()
+                                .read(conf.getDataPath() + currentFold + suffix, lp, lp),
+                        userIndex,
+                        itemIndex);
     }
 
     private double getExpectation(FastItemIndex<Long> itemIndex, FastPreferenceData<Long, Long> trainData, Function<Long,
@@ -102,93 +196,6 @@ public class UnbiasedTargetSampling {
                     long k = Math.min(nu, 10);
                     return k * 1.0 / nu;
                 }).filter(v -> !Double.isInfinite(v) && !Double.isNaN(v)).sum() / trainData.numUsers();
-    }
-
-    /**
-     * @param testPath
-     * @throws IOException
-     */
-    public void runWithUnbiasedTest(String testPath, String logSource) throws IOException {
-        Timer.start((Object) logSource, " Starting..." + logSource);
-
-        for (int i = 0; i < METRIC_NAMES.length; i++) {
-            METRIC_NAMES[i] += "@" + conf.getCutoff();
-        }
-
-        LogManager.getLogManager().reset();
-
-        // Read files
-        Timer.start((Object) logSource, "Reading files..." + logSource);
-        ByteArrayInputStream[] usersAndItemsInputStreams = GetUsersAndItems.run(conf.getDataPath() + "data.txt");
-        FastUserIndex<Long> userIndex = SimpleFastUserIndex.load(UsersReader.read(usersAndItemsInputStreams[0], lp));
-        FastItemIndex<Long> itemIndex = SimpleFastItemIndex.load(ItemsReader.read(usersAndItemsInputStreams[1], lp));
-        FastPreferenceData<Long, Long> testData = SimpleFastPreferenceData.load(SimpleRatingPreferencesReader.get().read(testPath, lp, lp), userIndex, itemIndex);
-        Timer.done(logSource, " Reading files " + logSource);
-
-        Map<String, Map<String, double[]>> evalsPerUser = new HashMap<>();
-        int nUsersInCrossValidation = 0;
-        try (PrintStream out = new PrintStream(conf.getResultsPath() + TARGET_SAMPLING_FILE);
-             PrintStream outExpectation = new PrintStream(conf.getResultsPath() + EXPECTED_INTERSECTION_RATIO_FILE)) {
-            //Header
-            outExpectation.println("fold\ttarget size\texpected intersection ratio in top n");
-            StringBuilder mBuilder = new StringBuilder("fold\ttarget size\trec");
-            for (String metric : METRIC_NAMES) {
-                mBuilder
-                        .append("\t")
-                        .append(metric);
-            }
-            out.println(mBuilder);
-
-            //Run
-            for (int targetSize : conf.getTargetSizes()) {
-                nUsersInCrossValidation = 0;
-
-                for (int currentFold = 1; currentFold <= conf.getNFolds(); currentFold++) {
-                    nUsersInCrossValidation = runUnbiasedFold(
-                            logSource,
-                            userIndex,
-                            itemIndex,
-                            testData,
-                            evalsPerUser,
-                            nUsersInCrossValidation,
-                            out,
-                            outExpectation,
-                            targetSize,
-                            currentFold);
-                }
-            }
-        }
-
-
-        final int size = evalsPerUser.values().stream().findFirst().get().get("P@10").length;
-        if (nUsersInCrossValidation != size) {
-
-//            System.out.println(logSource + " " + nUsersInCrossValidation + " nUsersInCrossValidation " + size);
-        }
-
-        processEvals(evalsPerUser, conf.getResultsPath(), nUsersInCrossValidation);
-    }
-
-    private int runUnbiasedFold(String logSource,
-                                FastUserIndex<Long> userIndex,
-                                FastItemIndex<Long> itemIndex,
-                                FastPreferenceData<Long, Long> testData,
-                                Map<String, Map<String, double[]>> evalsPerUser,
-                                int nUsersInCrossValidation,
-                                PrintStream out,
-                                PrintStream outExpectation,
-                                int targetSize,
-                                int currentFold) throws IOException {
-        Timer.start(currentFold, "folding..." + currentFold + " " + logSource);
-        System.out.printf("%s Running fold %d Target size:%d %n", logSource, currentFold, targetSize);
-        FastPreferenceData<Long, Long> trainData = SimpleFastPreferenceData.load(SimpleRatingPreferencesReader.get().read(conf.getDataPath() + currentFold + "-data-train.txt", lp, lp), userIndex, itemIndex);
-        Function<Long, IntPredicate> userFilter = runSampledSplit(logSource, userIndex, itemIndex, testData, evalsPerUser, nUsersInCrossValidation, out, targetSize, currentFold, trainData);
-
-        nUsersInCrossValidation += trainData.getUsersWithPreferences().count();
-        double expectation = getExpectation(itemIndex, trainData, userFilter);
-        outExpectation.println(targetSize + "\t" + expectation);
-        Timer.done(currentFold, "folding finished " + currentFold + " " + logSource);
-        return nUsersInCrossValidation;
     }
 
     private Function<Long, IntPredicate> runSampledSplit(String logSource, FastUserIndex<Long> userIndex,
@@ -345,7 +352,8 @@ public class UnbiasedTargetSampling {
     private void FillPastValues(
             FastUserIndex<Long> userIndex,
             int nUsersInCrossValidation,
-            Set<Long> targetUsers, Map<String, Map<String, double[]>> evalsPerUser,
+            Set<Long> targetUsers,
+            Map<String, Map<String, double[]>> evalsPerUser,
             String recName,
             Map<String, double[]> actualValues,
             String logSource) {
@@ -353,7 +361,7 @@ public class UnbiasedTargetSampling {
 
         final int size = pastValues.get("P@10").length;
         if (nUsersInCrossValidation != size) {
-//            System.out.println(logSource + " " + nUsersInCrossValidation + " FillPastValues nUsersInCrossValidation " + size);
+            System.out.println(logSource + " " + nUsersInCrossValidation + " FillPastValues nUsersInCrossValidation " + size);
         }
 
         int i = 0;
@@ -424,8 +432,8 @@ public class UnbiasedTargetSampling {
 
                     for (String metric : METRIC_NAMES) {
                         double p_value = ttest.pairedTTest(values1.get(metric), values2.get(metric));
-                        double nTies = nTies(values1.get(metric), values2.get(metric));
-                        double nTiesAtZero = nTiesAtZero(values1.get(metric), values2.get(metric));
+                        double nTies = NewTargetSampling.nTies(values1.get(metric), values2.get(metric));
+                        double nTiesAtZero = NewTargetSampling.nTiesAtZero(values1.get(metric), values2.get(metric));
                         outPvaluesBuilder.append("\t").append(p_value);
                         outTiesBuilder.append("\t").append(nTies / nUsersInCrossValidation);
                         outTiesAtZeroBuilder.append("\t").append(nTiesAtZero / nUsersInCrossValidation);

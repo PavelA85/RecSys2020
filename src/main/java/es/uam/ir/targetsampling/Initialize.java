@@ -54,21 +54,21 @@ public class Initialize {
 
         threads.clear();
 
-        //threads.addAll(runMovieLens_NOFILL());
-        //threads.addAll(runMovieLens1M_AGE());
+//        threads.addAll(runMovieLens_NOFILL());
+//        threads.addAll(runMovieLens1M_AGE());
 //        threads.addAll(runMovieLens100K_AGE());
 //        threads.add(runMovieLens100k_ALL());
-        //threads.add(runMovieLens1M_ALL());
+//        threads.add(runMovieLens1M_ALL());
 //        threads.add(runMovieLens100k());
-        threads.addAll(runMovieLens100K_Gender());
-        //threads.addAll(runMovieLens1M_Gender());
-        //threads.addAll(runMovieLens1M_Gender_ALL());
+//        threads.addAll(runMovieLens100K_Gender());
+//        threads.addAll(runMovieLens1M_Gender());
+//        threads.addAll(runMovieLens1M_Gender_ALL());
 //        threads.addAll(runMovieLens100K_Gender_ALL());
-        //threads.add(runMovieLens1M());
-        //threads.add(runYahooBiased());
+//        threads.add(runMovieLens1M());
+        threads.add(runYahooBiased());
         threads.add(runYahooUnbiased());
-        //threads.add(runMovieLens25M());
-        //threads.add(runMovieLens10M_ALL());
+//        threads.add(runMovieLens25M());
+//        threads.add(runMovieLens10M_ALL());
 //        threads.add(runMovieLens10M());
 
         ThreadJoin(threads);
