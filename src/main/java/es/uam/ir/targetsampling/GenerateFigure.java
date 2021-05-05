@@ -79,7 +79,7 @@ public class GenerateFigure {
 //                    plotSplitFigure(f);
                     plotFigure(f);
                 } catch (IOException e) {
-                    System.out.println(e);
+                    System.out.println("main(String[] a) { " + e);
                     e.printStackTrace(System.out);
                 }
             });
@@ -91,7 +91,7 @@ public class GenerateFigure {
             try {
                 t.join();
             } catch (InterruptedException e) {
-                System.out.println(e);
+                System.out.println("main(String[] a) { ... t.join() " + e);
                 e.printStackTrace(System.out);
             }
         });
@@ -465,7 +465,7 @@ public class GenerateFigure {
                 try {
                     generateFigure4_sub(biasedFolder, unbiasedFolder, metrics, outFile, nFolds, dataset);
                 } catch (IOException e) {
-                    System.out.println(e);
+                    System.out.println("generateFigure4" + e);
                     e.printStackTrace(System.out);
                 }
             });
@@ -477,7 +477,7 @@ public class GenerateFigure {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                System.out.println(e);
+                System.out.println("generateFigure4 thread.join " + e);
                 e.printStackTrace(System.out);
             }
         });

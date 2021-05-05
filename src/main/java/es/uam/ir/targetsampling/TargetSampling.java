@@ -140,7 +140,7 @@ public class TargetSampling {
                                             testData = getData(userIndex, itemIndex, currentFold, "-data-test.txt");
                                             positiveTrainData = TruncateRatings.run(trainData, conf.getThreshold());
                                         } catch (IOException e) {
-                                            System.out.println(e);
+                                            System.out.println(logSource + e);
                                             e.printStackTrace();
                                         }
                                         //Sampler:

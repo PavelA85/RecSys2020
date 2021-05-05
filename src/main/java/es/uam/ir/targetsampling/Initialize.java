@@ -115,7 +115,7 @@ public class Initialize {
                 targetSelection.runWithUnbiasedTest(conf.getTestPath(), title);
                 Timer.done(title, title);
             } catch (IOException e) {
-                System.out.println(e);
+                System.out.println("runYahooUnbiased" + e);
                 e.printStackTrace(System.out);
             }
         });
@@ -230,7 +230,7 @@ public class Initialize {
                 Timer.done(title, title);
             } catch (IOException e) {
                 System.out.println(title + conf + e.toString());
-                System.out.println(e);
+                System.out.println("StartCrossValidateTargetSampling " + e);
                 e.printStackTrace(System.out);
             }
         });
@@ -264,7 +264,7 @@ public class Initialize {
 
             CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML1M_DATASET_PATH, ML1M_PATH, GenerateFigure.N_FOLDS);
         } catch (IOException e) {
-            System.out.println(e);
+            System.out.println("preprocessMl1mDataset " + e);
             e.printStackTrace(System.out);
         }
     }
@@ -274,7 +274,7 @@ public class Initialize {
             CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML1M_MALE_DATASET_PATH, ML1M_MALE_PATH, GenerateFigure.N_FOLDS);
             CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML1M_FEMALE_DATASET_PATH, ML1M_FEMALE_PATH, GenerateFigure.N_FOLDS);
         } catch (IOException e) {
-            System.out.println(e);
+            System.out.println("preprocessMl1m_GENDER_Dataset " + e);
             e.printStackTrace(System.out);
         }
     }
@@ -284,7 +284,7 @@ public class Initialize {
             CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML100K_MALE_DATASET_PATH, ML100K_MALE_PATH, GenerateFigure.N_FOLDS);
             CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML100K_FEMALE_DATASET_PATH, ML100K_FEMALE_PATH, GenerateFigure.N_FOLDS);
         } catch (IOException e) {
-            System.out.println(e);
+            System.out.println("preprocessMl100k_GENDER_Dataset " + e);
             e.printStackTrace(System.out);
         }
     }
@@ -294,7 +294,7 @@ public class Initialize {
             CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML1M_YOUNG_DATASET_PATH, ML1M_YOUNG_PATH, GenerateFigure.N_FOLDS);
             CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML1M_OLD_DATASET_PATH, ML1M_OLD_PATH, GenerateFigure.N_FOLDS);
         } catch (IOException e) {
-            System.out.println(e);
+            System.out.println("preprocessMl1m_AGE_Dataset " + e);
             e.printStackTrace(System.out);
         }
     }
@@ -304,7 +304,7 @@ public class Initialize {
             CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML100K_YOUNG_DATASET_PATH, ML100K_YOUNG_PATH, GenerateFigure.N_FOLDS);
             CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML100K_OLD_DATASET_PATH, ML100K_OLD_PATH, GenerateFigure.N_FOLDS);
         } catch (IOException e) {
-            System.out.println(e);
+            System.out.println("preprocessMl100k_AGE_Dataset " + e);
             e.printStackTrace(System.out);
         }
     }
@@ -325,7 +325,7 @@ public class Initialize {
 
             CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML25M_DATASET_PATH, ML25M_PATH, GenerateFigure.N_FOLDS);
         } catch (IOException e) {
-            System.out.println(e);
+            System.out.println("preprocessMl25mDataset " + e);
             e.printStackTrace(System.out);
         }
     }
@@ -347,7 +347,7 @@ public class Initialize {
 
             CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML10M_DATASET_PATH, ML10M_PATH, GenerateFigure.N_FOLDS);
         } catch (IOException e) {
-            System.out.println(e);
+            System.out.println("preprocessMl10mDataset " + e);
             e.printStackTrace(System.out);
         }
     }
@@ -360,7 +360,7 @@ public class Initialize {
                     StandardCopyOption.REPLACE_EXISTING);
             CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML100K_DATASET_PATH, ML100K_PATH, GenerateFigure.N_FOLDS);
         } catch (IOException e) {
-            System.out.println(e);
+            System.out.println("preprocessMl100kDataset " + e);
             e.printStackTrace(System.out);
         }
     }
@@ -393,7 +393,7 @@ public class Initialize {
 
             CrossValidation.randomNFoldCrossValidation(PREPROCESSED_YAHOO_TRAIN_DATASET_PATH, YAHOO_PATH, GenerateFigure.N_FOLDS);
         } catch (IOException e) {
-            System.out.println(e);
+            System.out.println("preprocessYahooDataset " + e);
             e.printStackTrace(System.out);
         }
     }
