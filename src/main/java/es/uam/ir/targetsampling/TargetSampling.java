@@ -125,6 +125,7 @@ public class TargetSampling {
             IntStream.rangeClosed(1, conf.getNFolds())
                     .forEach(currentFold -> {
                         final String foldName = logSource + " Running fold " + currentFold;
+                        Timer.start(foldName, foldName);
 
                         final String fileReadLog = foldName + ". Reading files";
                         Timer.start(fileReadLog, fileReadLog);
@@ -136,6 +137,8 @@ public class TargetSampling {
                         Arrays.stream(conf.getTargetSizes())
                                 .parallel()
                                 .forEach(targetSize -> {
+                                    final String foldTargetLog = foldName + " target:" + targetSize;
+                                    Timer.start(foldTargetLog, foldTargetLog);
                                     //Sampler:
                                     Function<Long, IntPredicate> sampler = FastSamplers.uniform(trainData, FastSamplers.inTestForUser(testData), targetSize);
                                     Function<Long, IntPredicate> notTrainFilter = FastFilters.notInTrain(trainData);
@@ -157,8 +160,9 @@ public class TargetSampling {
                                     outExpectation.println(currentFold + "\t" + targetSize + "\t" + expectation);
                                     long newUsers = trainData.getUsersWithPreferences().count();
                                     evalsPerUserResults.forEach((s, stringMap) -> evalsPerUser.put(s, evalsPerUserResults.get(s)));
-                                    Timer.done(foldName, foldName + " new users:" + newUsers);
+                                    Timer.done(foldTargetLog, String.format("%s new users:%d expectation:%s", foldTargetLog, newUsers, expectation));
                                 });
+                        Timer.done(foldName, foldName);
                     });
 
             //Run
@@ -337,7 +341,7 @@ public class TargetSampling {
                                                   String recommender) {
 
         final String evalRecommenderLog = logSource + " Running fold " + currentFold + " on " + recommender + " TargetSize:" + targetSize;
-        Timer.start(evalRecommenderLog);
+        Timer.start(evalRecommenderLog, evalRecommenderLog);
 
         FastRecommender<Long, Long> recommendation = (FastRecommender<Long, Long>) recMap.get(recommender).get();
         Function<Long, Recommendation<Long, Long>> recProvider = user -> {
