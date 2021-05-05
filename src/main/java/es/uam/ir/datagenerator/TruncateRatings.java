@@ -32,7 +32,7 @@ public class TruncateRatings {
      * @return
      * @throws IOException 
      */
-    public static FastPreferenceData<Long, Long> run(FastPreferenceData<Long, Long> data, double threshold) throws IOException {
+    public static FastPreferenceData<Long, Long> run(FastPreferenceData<Long, Long> data, double threshold) {
 
         ByteArrayOutputStream newDataOutputStream = new ByteArrayOutputStream();
         PrintStream newData = new PrintStream(newDataOutputStream);
@@ -43,7 +43,13 @@ public class TruncateRatings {
 
         ByteArrayInputStream newDataInputStream = new ByteArrayInputStream(newDataOutputStream.toByteArray());
 
-        return SimpleFastPreferenceData.load(SimpleRatingPreferencesReader.get().read(newDataInputStream, lp, lp), data, data);
+        try {
+            return SimpleFastPreferenceData.load(SimpleRatingPreferencesReader.get().read(newDataInputStream, lp, lp), data, data);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
 }

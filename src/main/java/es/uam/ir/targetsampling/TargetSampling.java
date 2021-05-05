@@ -122,7 +122,47 @@ public class TargetSampling {
             }
             out.println(mBuilder);
 
+            IntStream.rangeClosed(1, conf.getNFolds())
+                    .forEach(currentFold -> {
+                        final String foldName = logSource + " Running fold " + currentFold;
+
+                        final String fileReadLog = foldName + ". Reading files";
+                        Timer.start(fileReadLog, fileReadLog);
+                        FastPreferenceData<Long, Long> trainData = getData(userIndex, itemIndex, currentFold, "-data-train.txt");
+                        FastPreferenceData<Long, Long> testData = getData(userIndex, itemIndex, currentFold, "-data-test.txt");
+                        FastPreferenceData<Long, Long> positiveTrainData = TruncateRatings.run(trainData, conf.getThreshold());
+                        Timer.done(fileReadLog, fileReadLog);
+
+                        Arrays.stream(conf.getTargetSizes())
+                                .parallel()
+                                .forEach(targetSize -> {
+                                    //Sampler:
+                                    Function<Long, IntPredicate> sampler = FastSamplers.uniform(trainData, FastSamplers.inTestForUser(testData), targetSize);
+                                    Function<Long, IntPredicate> notTrainFilter = FastFilters.notInTrain(trainData);
+                                    Function<Long, IntPredicate> userFilter = FastFilters.and(sampler, notTrainFilter);
+
+                                    Map<String, Map<String, double[]>> evalsPerUserResults = runSplit(
+                                            userIndex,
+                                            itemIndex,
+                                            targetSize,
+                                            currentFold,
+                                            trainData,
+                                            positiveTrainData,
+                                            testData,
+                                            userFilter,
+                                            out,
+                                            logSource);
+
+                                    double expectation = getExpectation(itemIndex, trainData, userFilter);
+                                    outExpectation.println(currentFold + "\t" + targetSize + "\t" + expectation);
+                                    long newUsers = trainData.getUsersWithPreferences().count();
+                                    evalsPerUserResults.forEach((s, stringMap) -> evalsPerUser.put(s, evalsPerUserResults.get(s)));
+                                    Timer.done(foldName, foldName + " new users:" + newUsers);
+                                });
+                    });
+
             //Run
+/*
             Arrays.stream(conf.getTargetSizes())
                     .parallel()
                     .forEach(targetSize ->
@@ -169,6 +209,7 @@ public class TargetSampling {
                                         evalsPerUserResults.forEach((s, stringMap) -> evalsPerUser.put(s, evalsPerUserResults.get(s)));
                                         Timer.done(foldName, foldName + " new users:" + newUsers);
                                     }));
+*/
             final int size = evalsPerUser.values().stream().findFirst().get().get("P@10").length;
             processEvals(evalsPerUser, conf.getResultsPath(), size);
         }
@@ -180,13 +221,18 @@ public class TargetSampling {
             FastUserIndex<Long> userIndex,
             FastItemIndex<Long> itemIndex,
             int currentFold,
-            String suffix) throws IOException {
-        return SimpleFastPreferenceData
-                .load(SimpleRatingPreferencesReader
-                                .get()
-                                .read(conf.getDataPath() + currentFold + suffix, lp, lp),
-                        userIndex,
-                        itemIndex);
+            String suffix) {
+        try {
+            return SimpleFastPreferenceData
+                    .load(SimpleRatingPreferencesReader
+                                    .get()
+                                    .read(conf.getDataPath() + currentFold + suffix, lp, lp),
+                            userIndex,
+                            itemIndex);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private double getExpectation(FastItemIndex<Long> itemIndex, FastPreferenceData<Long, Long> trainData, Function<Long,
