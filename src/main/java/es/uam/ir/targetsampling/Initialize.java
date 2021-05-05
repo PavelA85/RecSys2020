@@ -34,7 +34,8 @@ public class Initialize {
         LogManager.getLogManager().reset();
 
         mkdir();
-
+        runMovieLens10M_ALL_nothreading();
+/*
         // runMovieLens1mCrossValidation();
 
         List<Thread> threads = new ArrayList<>();
@@ -72,6 +73,7 @@ public class Initialize {
 //        threads.add(runMovieLens10M());
 
         ThreadJoin(threads);
+*/
     }
 
     private static void ThreadJoin(List<Thread> threads) {
@@ -214,6 +216,13 @@ public class Initialize {
 
     private static Thread runMovieLens10M() throws InterruptedException, IOException {
         return StartCrossValidateTargetSampling("ML10M", new Configuration(ML10M_BIASED_PROPERTIES_FILE));
+    }
+
+    private static void runMovieLens10M_ALL_nothreading() throws IOException, InterruptedException {
+        Timer.start((Object) "ML10M", "ML10M");
+        TargetSampling targetSelection = new TargetSampling(new Configuration(ML10M_BIASED_PROPERTIES_FILE).forAll());
+        targetSelection.runCrossValidation("ML10M");
+        Timer.done("ML10M", "ML10M");
     }
 
     private static Thread runMovieLens10M_ALL() throws InterruptedException, IOException {
