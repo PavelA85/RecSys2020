@@ -136,9 +136,12 @@ public class TargetSampling {
                                         FastPreferenceData<Long, Long> testData = null;
                                         FastPreferenceData<Long, Long> positiveTrainData = null;
                                         try {
+                                            final String fileReadLog = foldName + ". Reading files";
+                                            Timer.start(fileReadLog, fileReadLog);
                                             trainData = getData(userIndex, itemIndex, currentFold, "-data-train.txt");
                                             testData = getData(userIndex, itemIndex, currentFold, "-data-test.txt");
                                             positiveTrainData = TruncateRatings.run(trainData, conf.getThreshold());
+                                            Timer.done(fileReadLog, fileReadLog);
                                         } catch (IOException e) {
                                             System.out.println(logSource + e);
                                             e.printStackTrace();
