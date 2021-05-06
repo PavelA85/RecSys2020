@@ -1,18 +1,17 @@
 /*
-* Copyright (C) 2020 Information Retrieval Group at Universidad Autónoma
-* de Madrid, http://ir.ii.uam.es.
-*
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, You can obtain one at http://mozilla.org/MPL/2.0/.
-*/
+ * Copyright (C) 2020 Information Retrieval Group at Universidad Autónoma
+ * de Madrid, http://ir.ii.uam.es.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 package es.uam.ir.util;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
  * @author Rocío Cañamares
  * @author Pablo Castells
  */
@@ -23,18 +22,20 @@ public class Timer {
 
     /**
      * @param obj
-     * @param msg 
+     * @param msg
      */
     public static void start(Object obj, String... msg) {
         if (msg.length > 0) {
             System.out.println(msg[0]);
+//            System.out.println((char) 27 + "[30;46m" + msg[0] + "0m");
+//            System.out.print((char) 27 + "[0m");
         }
         prev.put(obj, System.currentTimeMillis());
     }
 
     /**
      * @param obj
-     * @param msg 
+     * @param msg
      */
     public static void done(Object obj, String msg) {
         now.put(obj, System.currentTimeMillis());
@@ -57,19 +58,21 @@ public class Timer {
             done.append(min + "min ");
         }
         done.append(s + "s)");
-        System.out.println(done.toString());
+//        System.out.println(done.toString());
+        System.out.println((char) 27 + "[30;42m" + done + (char) 27 + "[0m");
+//        System.out.print((char) 27 + "[0m");
         prev.put(obj, now.get(obj));
     }
 
-/*    *//**
-     * @param msg 
+    /*    *//**
+     * @param msg
      *//*
     public static void start(String... msg) {
         start(0, msg);
     }
 
     *//**
-     * @param msg 
+     * @param msg
      *//*
     public static void done(String msg) {
         done(0, msg);
