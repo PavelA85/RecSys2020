@@ -35,8 +35,7 @@ public class Initialize {
 
         mkdir();
         runMovieLens10M_ALL_nothreading();
-/*
-        // runMovieLens1mCrossValidation();
+/*        // runMovieLens1mCrossValidation();
 
         List<Thread> threads = new ArrayList<>();
 
@@ -57,7 +56,7 @@ public class Initialize {
 
 //        threads.addAll(run_NOFILL());
 //        threads.addAll(runMovieLens1M_AGE());
-//        threads.addAll(runMovieLens100K_AGE());
+        threads.addAll(runMovieLens100K_AGE());
 //        threads.add(runMovieLens100k_ALL());
 //        threads.add(runMovieLens1M_ALL());
 //        threads.add(runMovieLens100k());
@@ -66,14 +65,13 @@ public class Initialize {
 //        threads.addAll(runMovieLens1M_Gender_ALL());
 //        threads.addAll(runMovieLens100K_Gender_ALL());
 //        threads.add(runMovieLens1M());
-//        threads.add(runYahooBiased());
-//        threads.add(runYahooUnbiased());
+        threads.add(runYahooBiased());
+        threads.add(runYahooUnbiased());
 //        threads.add(runMovieLens25M());
-        threads.add(runMovieLens10M_ALL());
+//        threads.add(runMovieLens10M_ALL());
 //        threads.add(runMovieLens10M());
 
-        ThreadJoin(threads);
-*/
+        ThreadJoin(threads);*/
     }
 
     private static void ThreadJoin(List<Thread> threads) {

@@ -1,0 +1,2013 @@
+"C:\Program Files\Java\jdk1.8.0_291\bin\java.exe" "-javaagent:C:\Program Files\JetBrains\IntelliJ IDEA 2021.1.1\lib\idea_rt.jar=59438:C:\Program Files\JetBrains\IntelliJ IDEA 2021.1.1\bin" -Dfile.encoding=UTF-8 -classpath "C:\Program Files\Java\jdk1.8.0_291\lib\ant-javafx.jar;C:\Program Files\Java\jdk1.8.0_291\lib\dt.jar;C:\Program Files\Java\jdk1.8.0_291\lib\javafx-mx.jar;C:\Program Files\Java\jdk1.8.0_291\lib\jconsole.jar;C:\Program Files\Java\jdk1.8.0_291\lib\packager.jar;C:\Program Files\Java\jdk1.8.0_291\lib\sa-jdi.jar;C:\Program Files\Java\jdk1.8.0_291\lib\tools.jar;C:\Projects\RecSys2020\target\classes;C:\Users\mdb2020\.m2\repository\org\ranksys\RankSys-core\0.4.3\RankSys-core-0.4.3.jar;C:\Users\mdb2020\.m2\repository\it\unimi\dsi\fastutil\7.0.6\fastutil-7.0.6.jar;C:\Users\mdb2020\.m2\repository\org\ranksys\RankSys-rec\0.4.3\RankSys-rec-0.4.3.jar;C:\Users\mdb2020\.m2\repository\org\ranksys\RankSys-fast\0.4.3\RankSys-fast-0.4.3.jar;C:\Users\mdb2020\.m2\repository\org\ranksys\RankSys-formats\0.4.3\RankSys-formats-0.4.3.jar;C:\Users\mdb2020\.m2\repository\org\ranksys\RankSys-mf\0.4.3\RankSys-mf-0.4.3.jar;C:\Users\mdb2020\.m2\repository\org\ranksys\RankSys-fm\0.4.3\RankSys-fm-0.4.3.jar;C:\Users\mdb2020\.m2\repository\org\ranksys\JavaFM\0.4\JavaFM-0.4.jar;C:\Users\mdb2020\.m2\repository\colt\colt\1.2.0\colt-1.2.0.jar;C:\Users\mdb2020\.m2\repository\concurrent\concurrent\1.3.4\concurrent-1.3.4.jar;C:\Users\mdb2020\.m2\repository\org\ranksys\RankSys-metrics\0.4.3\RankSys-metrics-0.4.3.jar;C:\Users\mdb2020\.m2\repository\org\ranksys\RankSys-nn\0.4.3\RankSys-nn-0.4.3.jar;C:\Users\mdb2020\.m2\repository\org\jooq\jool\0.9.10\jool-0.9.10.jar;C:\Users\mdb2020\.m2\repository\org\apache\commons\commons-math3\3.5\commons-math3-3.5.jar" es.uam.ir.targetsampling.Initialize -Xmx200m -XX:MaxPermSize=1024m -XX:+UnlockCommercialFeatures
+ML10M
+ML10M Reading files results/biased/ml10m-allrecs- (3s)
+ML10M Running fold 1
+ML10M Running fold 1. Reading files
+ML10M Running fold 1. Reading files (16s)
+ML10M Running fold 1 target:200
+ML10M Running fold 1 target:1
+ML10M Running fold 1 target:2
+ML10M Running fold 1 target:10
+ML10M Running fold 1 target:500
+ML10M Running fold 1 target:100
+ML10M Running fold 1 target:5000
+ML10M Running fold 1 target:10681
+ML10M Running fold 1 target:50
+ML10M Running fold 1 target:0
+ML10M Running fold 1 target:5
+ML10M Running fold 1 target:1000
+ML10M Running fold 1 target:2000
+ML10M Running fold 1 target:20
+ML10M Running fold 1 on Normalized kNN (k=1000, min=3) TargetSize:10681
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=100.0) TargetSize:10681
+ML10M Running fold 1 on Random TargetSize:10681
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=10.0) TargetSize:10681
+ML10M Running fold 1 on kNN (k=100) TargetSize:10681
+ML10M Running fold 1 on Normalized kNN (k=100, min=3) TargetSize:10681
+ML10M Running fold 1 on Random TargetSize:10681 (4s)
+ML10M Running fold 1 on kNN (k=10) TargetSize:10681
+ML10M Running fold 1 on Normalized kNN (k=1000, min=3) TargetSize:20
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=100.0) TargetSize:20
+ML10M Running fold 1 on kNN (k=90) TargetSize:10681
+ML10M Running fold 1 on Normalized kNN (k=1000, min=3) TargetSize:2
+ML10M Running fold 1 on Random TargetSize:20
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=10.0) TargetSize:20
+ML10M Running fold 1 on kNN (k=800) TargetSize:20
+ML10M Running fold 1 on Normalized kNN (k=40, min=3) TargetSize:20
+ML10M Running fold 1 on Normalized kNN (k=900, min=3) TargetSize:20
+ML10M Running fold 1 on Normalized kNN (k=60, min=3) TargetSize:10681
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=10.0) TargetSize:10681
+ML10M Running fold 1 on kNN (k=1000) TargetSize:10681
+ML10M Running fold 1 on Normalized kNN (k=40, min=3) TargetSize:10681
+ML10M Running fold 1 on Normalized kNN (k=5000, min=3) TargetSize:10681
+ML10M Running fold 1 on kNN (k=800) TargetSize:10681
+ML10M Running fold 1 on Normalized kNN (k=1000, min=3) TargetSize:0
+ML10M Running fold 1 on Normalized kNN (k=1000, min=3) TargetSize:10
+ML10M Running fold 1 on Normalized kNN (k=1000, min=3) TargetSize:5
+ML10M Running fold 1 on Normalized kNN (k=900, min=3) TargetSize:10681
+ML10M Running fold 1 on Normalized kNN (k=1000, min=3) TargetSize:1
+ML10M Running fold 1 on Random TargetSize:20 (16s)
+ML10M Running fold 1 on kNN (k=10) TargetSize:20
+ML10M Running fold 1 on kNN (k=80) TargetSize:10681
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=100.0) TargetSize:5
+ML10M Running fold 1 on kNN (k=3000) TargetSize:20
+ML10M Running fold 1 on Normalized kNN (k=100, min=3) TargetSize:20
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=1.0) TargetSize:20
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=10.0) TargetSize:20
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=100.0) TargetSize:2
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=100.0) TargetSize:10
+ML10M Running fold 1 on Normalized kNN (k=1000, min=3) TargetSize:50
+ML10M Running fold 1 on Normalized kNN (k=1000, min=3) TargetSize:100
+ML10M Running fold 1 on kNN (k=700) TargetSize:20
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=10.0) TargetSize:5
+ML10M Running fold 1 on Normalized kNN (k=1000, min=3) TargetSize:200
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=100.0) TargetSize:20
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=100.0) TargetSize:10681 (3min 29s)
+ML10M Running fold 1 on Normalized kNN (k=3000, min=3) TargetSize:10681
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=100.0) TargetSize:20 (3min 18s)
+ML10M Running fold 1 on Normalized kNN (k=3000, min=3) TargetSize:20
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=100.0) TargetSize:5 (3min 16s)
+ML10M Running fold 1 on Normalized kNN (k=3000, min=3) TargetSize:5
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=1.0) TargetSize:20 (3min 20s)
+ML10M Running fold 1 on Normalized kNN (k=20, min=3) TargetSize:20
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=100.0) TargetSize:2 (3min 22s)
+ML10M Running fold 1 on Normalized kNN (k=3000, min=3) TargetSize:2
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=100.0) TargetSize:10 (3min 15s)
+ML10M Running fold 1 on Normalized kNN (k=3000, min=3) TargetSize:10
+ML10M Running fold 1 on Random TargetSize:2
+ML10M Running fold 1 on Random TargetSize:2 (29s)
+ML10M Running fold 1 on kNN (k=10) TargetSize:2
+ML10M Running fold 1 on Normalized kNN (k=1000, min=3) TargetSize:500
+ML10M Running fold 1 on Normalized kNN (k=1000, min=3) TargetSize:1000
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=100.0) TargetSize:20 (7min 3s)
+ML10M Running fold 1 on kNN (k=200) TargetSize:20
+ML10M Running fold 1 on Normalized kNN (k=1000, min=3) TargetSize:2000
+ML10M Running fold 1 on Normalized kNN (k=40, min=3) TargetSize:5
+ML10M Running fold 1 on kNN (k=3000) TargetSize:10681
+ML10M Running fold 1 on kNN (k=700) TargetSize:20 (15min 48s)
+ML10M Running fold 1 on Normalized kNN (k=500, min=3) TargetSize:20
+ML10M Running fold 1 on kNN (k=1000) TargetSize:10681 (17min 14s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=1.0) TargetSize:10681
+ML10M Running fold 1 on kNN (k=10) TargetSize:10681 (23min 11s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=100.0) TargetSize:10681
+ML10M Running fold 1 on kNN (k=10) TargetSize:20 (23min 2s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=100.0) TargetSize:20
+ML10M Running fold 1 on kNN (k=100) TargetSize:10681 (23min 56s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=10.0) TargetSize:10681
+ML10M Running fold 1 on kNN (k=80) TargetSize:10681 (23min 39s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=100.0) TargetSize:10681
+ML10M Running fold 1 on kNN (k=90) TargetSize:10681 (24min 2s)
+ML10M Running fold 1 on Normalized kNN (k=700, min=3) TargetSize:10681
+ML10M Running fold 1 on kNN (k=10) TargetSize:2 (24min 50s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=100.0) TargetSize:2
+ML10M Running fold 1 on kNN (k=800) TargetSize:20 (33min 3s)
+ML10M Running fold 1 on kNN (k=300) TargetSize:20
+ML10M Running fold 1 on kNN (k=800) TargetSize:10681 (33min 10s)
+ML10M Running fold 1 on kNN (k=20) TargetSize:10681
+ML10M Running fold 1 on Normalized kNN (k=1000, min=3) TargetSize:5000
+ML10M Running fold 1 on kNN (k=200) TargetSize:20 (30min 59s)
+ML10M Running fold 1 on kNN (k=600) TargetSize:20
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=10.0) TargetSize:10
+ML10M Running fold 1 on kNN (k=30) TargetSize:20
+ML10M Running fold 1 on kNN (k=5000) TargetSize:5
+ML10M Running fold 1 on kNN (k=5000) TargetSize:20
+ML10M Running fold 1 on kNN (k=30) TargetSize:2
+ML10M Running fold 1 on kNN (k=700) TargetSize:10681
+ML10M Running fold 1 on kNN (k=300) TargetSize:10681
+ML10M Running fold 1 on kNN (k=100) TargetSize:20
+ML10M Running fold 1 on Normalized kNN (k=200, min=3) TargetSize:10681
+ML10M Running fold 1 on kNN (k=3000) TargetSize:20 (1h 34s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=100.0) TargetSize:20
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=10.0) TargetSize:10681 (1h 1min 41s)
+ML10M Running fold 1 on Normalized kNN (k=300, min=3) TargetSize:10681
+ML10M Running fold 1 on kNN (k=300) TargetSize:20 (33min 34s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=1.0) TargetSize:20
+ML10M Running fold 1 on kNN (k=30) TargetSize:20 (23min 5s)
+ML10M Running fold 1 on Normalized kNN (k=60, min=3) TargetSize:20
+ML10M Running fold 1 on kNN (k=1000) TargetSize:20
+ML10M Running fold 1 on kNN (k=30) TargetSize:2 (23min 25s)
+ML10M Running fold 1 on Normalized kNN (k=60, min=3) TargetSize:2
+ML10M Running fold 1 on kNN (k=100) TargetSize:20 (23min 26s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=10.0) TargetSize:20
+ML10M Running fold 1 on kNN (k=300) TargetSize:10681 (25min 14s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=1.0) TargetSize:10681
+ML10M Running fold 1 on Normalized kNN (k=800, min=3) TargetSize:20
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=1.0) TargetSize:20 (6min 59s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=10.0) TargetSize:10681
+ML10M Running fold 1 on kNN (k=700) TargetSize:10681 (28min 32s)
+ML10M Running fold 1 on Normalized kNN (k=500, min=3) TargetSize:10681
+ML10M Running fold 1 on Popularity TargetSize:10681
+ML10M Running fold 1 on Popularity TargetSize:10681 (3s)
+ML10M Running fold 1 on Normalized kNN (k=600, min=3) TargetSize:10681
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=1.0) TargetSize:10681 (7min 34s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=10.0) TargetSize:20
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=10.0) TargetSize:10681 (7min 12s)
+ML10M Running fold 1 on Normalized kNN (k=70, min=3) TargetSize:10681
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=1.0) TargetSize:20
+ML10M Running fold 1 on kNN (k=400) TargetSize:20
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=100.0) TargetSize:2000
+ML10M Running fold 1 on Popularity TargetSize:20
+ML10M Running fold 1 on Popularity TargetSize:20 (7s)
+ML10M Running fold 1 on Normalized kNN (k=600, min=3) TargetSize:20
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=1.0) TargetSize:10681
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=100.0) TargetSize:10681 (1h 47s)
+ML10M Running fold 1 on kNN (k=30) TargetSize:10681
+ML10M Running fold 1 on Normalized kNN (k=20, min=3) TargetSize:20 (1h 20min 53s)
+ML10M Running fold 1 on kNN (k=4000) TargetSize:20
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=100.0) TargetSize:2000 (3min 38s)
+ML10M Running fold 1 on Normalized kNN (k=3000, min=3) TargetSize:2000
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=10.0) TargetSize:20 (7min 8s)
+ML10M Running fold 1 on Normalized kNN (k=70, min=3) TargetSize:20
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=10.0) TargetSize:10 (48min 9s)
+ML10M Running fold 1 on Normalized kNN (k=300, min=3) TargetSize:10
+ML10M Running fold 1 on Normalized kNN (k=40, min=3) TargetSize:5 (1h 22min 16s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=10.0) TargetSize:5
+ML10M Running fold 1 on Normalized kNN (k=5000, min=3) TargetSize:20
+ML10M Running fold 1 on kNN (k=1000) TargetSize:20 (31min 50s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=1.0) TargetSize:20
+ML10M Running fold 1 on kNN (k=20) TargetSize:1
+ML10M Running fold 1 on Normalized kNN (k=900, min=3) TargetSize:10681 (1h 43min 48s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=10.0) TargetSize:10681
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=10.0) TargetSize:5 (6min 52s)
+ML10M Running fold 1 on Normalized kNN (k=70, min=3) TargetSize:5
+ML10M Running fold 1 on kNN (k=20) TargetSize:2
+ML10M Running fold 1 on kNN (k=20) TargetSize:5
+ML10M Running fold 1 on kNN (k=400) TargetSize:20 (24min 28s)
+ML10M Running fold 1 on kNN (k=800) TargetSize:10
+ML10M Running fold 1 on kNN (k=20) TargetSize:10
+ML10M Running fold 1 on Normalized kNN (k=1000, min=3) TargetSize:10681 (1h 46min 25s)
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=10.0) TargetSize:10681
+ML10M Running fold 1 on Normalized kNN (k=1000, min=3) TargetSize:20 (1h 46min 30s)
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=10.0) TargetSize:20
+ML10M Running fold 1 on kNN (k=30) TargetSize:10681 (23min 36s)
+ML10M Running fold 1 on Random TargetSize:2000
+ML10M Running fold 1 on Random TargetSize:2000 (4s)
+ML10M Running fold 1 on kNN (k=10) TargetSize:2000
+ML10M Running fold 1 on kNN (k=20) TargetSize:0
+ML10M Running fold 1 on Random TargetSize:10
+ML10M Running fold 1 on Random TargetSize:10 (15s)
+ML10M Running fold 1 on kNN (k=10) TargetSize:10
+ML10M Running fold 1 on kNN (k=20) TargetSize:100
+ML10M Running fold 1 on Normalized kNN (k=1000, min=3) TargetSize:50 (1h 47min 30s)
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=10.0) TargetSize:50
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=100.0) TargetSize:20 (47min 46s)
+ML10M Running fold 1 on Normalized kNN (k=80, min=3) TargetSize:20
+ML10M Running fold 1 on Normalized kNN (k=1000, min=3) TargetSize:200 (1h 46min 43s)
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=10.0) TargetSize:200
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=10.0) TargetSize:20 (3min 21s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=100.0) TargetSize:20
+ML10M Running fold 1 on kNN (k=5000) TargetSize:20 (1h 3min 53s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=1.0) TargetSize:20
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=10.0) TargetSize:10681 (3min 50s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=100.0) TargetSize:10681
+ML10M Running fold 1 on kNN (k=5000) TargetSize:5 (1h 4min 58s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=1.0) TargetSize:5
+ML10M Running fold 1 on Normalized kNN (k=500, min=3) TargetSize:20 (1h 33min 48s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=10.0) TargetSize:2
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=10.0) TargetSize:10681 (7min 13s)
+ML10M Running fold 1 on kNN (k=20) TargetSize:500
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=10.0) TargetSize:50 (3min 17s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=100.0) TargetSize:50
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=10.0) TargetSize:200 (3min 23s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=100.0) TargetSize:200
+ML10M Running fold 1 on Normalized kNN (k=1000, min=3) TargetSize:1000 (1h 46min 39s)
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=10.0) TargetSize:1000
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=1.0) TargetSize:20 (6min 44s)
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=100.0) TargetSize:1000
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=100.0) TargetSize:20 (7min 6s)
+ML10M Running fold 1 on kNN (k=20) TargetSize:20
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=10.0) TargetSize:1000 (3min 32s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=100.0) TargetSize:1000
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=10.0) TargetSize:20 (47min 4s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=100.0) TargetSize:10681 (7min 15s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=1.0) TargetSize:5 (6min 58s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=1.0) TargetSize:5
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=100.0) TargetSize:50 (7min 5s)
+ML10M Running fold 1 on kNN (k=20) TargetSize:50
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=100.0) TargetSize:200 (6min 46s)
+ML10M Running fold 1 on kNN (k=20) TargetSize:200
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=100.0) TargetSize:1000 (3min 23s)
+ML10M Running fold 1 on Normalized kNN (k=3000, min=3) TargetSize:1000
+ML10M Running fold 1 on Normalized kNN (k=200, min=3) TargetSize:10681 (1h 14min 6s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=1.0) TargetSize:10681
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=1.0) TargetSize:5 (3min 28s)
+ML10M Running fold 1 on Normalized kNN (k=20, min=3) TargetSize:5
+ML10M Running fold 1 on kNN (k=20) TargetSize:2000
+ML10M Running fold 1 on Normalized kNN (k=90, min=3) TargetSize:10681
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=100.0) TargetSize:1000 (6min 58s)
+ML10M Running fold 1 on kNN (k=20) TargetSize:1000
+ML10M Running fold 1 on Normalized kNN (k=4000, min=3) TargetSize:20
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=100.0) TargetSize:100
+ML10M Running fold 1 on kNN (k=20) TargetSize:1 (23min 41s)
+ML10M Running fold 1 on kNN (k=80) TargetSize:1
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=1.0) TargetSize:10681 (7min 14s)
+ML10M Running fold 1 on Normalized kNN (k=10, min=3) TargetSize:10681
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=1.0) TargetSize:20 (47min 33s)
+ML10M Running fold 1 on Normalized kNN (k=50, min=3) TargetSize:20
+ML10M Running fold 1 on kNN (k=20) TargetSize:2 (23min 36s)
+ML10M Running fold 1 on kNN (k=80) TargetSize:2
+ML10M Running fold 1 on kNN (k=20) TargetSize:10 (23min 27s)
+ML10M Running fold 1 on kNN (k=80) TargetSize:10
+ML10M Running fold 1 on kNN (k=20) TargetSize:5 (23min 36s)
+ML10M Running fold 1 on kNN (k=80) TargetSize:5
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=100.0) TargetSize:100 (3min 23s)
+ML10M Running fold 1 on Normalized kNN (k=3000, min=3) TargetSize:100
+ML10M Running fold 1 on kNN (k=10) TargetSize:2000 (23min 22s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=100.0) TargetSize:2000
+ML10M Running fold 1 on kNN (k=10) TargetSize:10 (23min 14s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=100.0) TargetSize:10
+ML10M Running fold 1 on kNN (k=20) TargetSize:0 (23min 51s)
+ML10M Running fold 1 on kNN (k=80) TargetSize:0
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=1.0) TargetSize:10681 (47min 59s)
+ML10M Running fold 1 on Normalized kNN (k=50, min=3) TargetSize:10681
+ML10M Running fold 1 on kNN (k=20) TargetSize:100 (23min 26s)
+ML10M Running fold 1 on kNN (k=80) TargetSize:100
+ML10M Running fold 1 on kNN (k=20) TargetSize:500 (23min 27s)
+ML10M Running fold 1 on kNN (k=80) TargetSize:500
+ML10M Running fold 1 on kNN (k=800) TargetSize:10 (30min 4s)
+ML10M Running fold 1 on kNN (k=3000) TargetSize:10
+ML10M Running fold 1 on Normalized kNN (k=300, min=3) TargetSize:10681 (1h 17min 53s)
+ML10M Running fold 1 on kNN (k=5000) TargetSize:10681
+ML10M Running fold 1 on Normalized kNN (k=60, min=3) TargetSize:20 (1h 10min 50s)
+ML10M Running fold 1 on kNN (k=2000) TargetSize:20
+ML10M Running fold 1 on kNN (k=20) TargetSize:20 (23min 12s)
+ML10M Running fold 1 on kNN (k=80) TargetSize:20
+ML10M Running fold 1 on Normalized kNN (k=1000, min=3) TargetSize:5000 (1h 41min 18s)
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=10.0) TargetSize:5000
+ML10M Running fold 1 on kNN (k=4000) TargetSize:20 (56min 19s)
+ML10M Running fold 1 on Normalized kNN (k=100, min=3) TargetSize:10
+ML10M Running fold 1 on Normalized kNN (k=60, min=3) TargetSize:2 (1h 11min 59s)
+ML10M Running fold 1 on kNN (k=2000) TargetSize:2
+ML10M Running fold 1 on Normalized kNN (k=800, min=3) TargetSize:20 (1h 8min 54s)
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=1.0) TargetSize:20
+ML10M Running fold 1 on kNN (k=20) TargetSize:200 (23min 19s)
+ML10M Running fold 1 on kNN (k=80) TargetSize:200
+ML10M Running fold 1 on kNN (k=20) TargetSize:50 (23min 27s)
+ML10M Running fold 1 on kNN (k=80) TargetSize:50
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=10.0) TargetSize:5000 (3min 35s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=100.0) TargetSize:5000
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=1.0) TargetSize:20 (3min 23s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=1.0) TargetSize:10681
+ML10M Running fold 1 on kNN (k=20) TargetSize:2000 (23min 21s)
+ML10M Running fold 1 on kNN (k=80) TargetSize:2000
+ML10M Running fold 1 on kNN (k=20) TargetSize:1000 (23min 10s)
+ML10M Running fold 1 on kNN (k=80) TargetSize:1000
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=1.0) TargetSize:20 (47min 17s)
+ML10M Running fold 1 on kNN (k=500) TargetSize:20
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=1.0) TargetSize:10681 (3min 41s)
+ML10M Running fold 1 on Normalized kNN (k=20, min=3) TargetSize:10681
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=100.0) TargetSize:5000 (7min 7s)
+ML10M Running fold 1 on kNN (k=20) TargetSize:5000
+ML10M Running fold 1 on kNN (k=80) TargetSize:1 (24min 0s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=100.0) TargetSize:1
+ML10M Running fold 1 on Normalized kNN (k=70, min=3) TargetSize:10681 (1h 11min 21s)
+ML10M Running fold 1 on Normalized kNN (k=100, min=3) TargetSize:2000
+ML10M Running fold 1 on kNN (k=80) TargetSize:2 (24min 7s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=100.0) TargetSize:2
+ML10M Running fold 1 on kNN (k=80) TargetSize:10 (23min 54s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=100.0) TargetSize:10
+ML10M Running fold 1 on kNN (k=80) TargetSize:5 (24min 0s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=100.0) TargetSize:5
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=100.0) TargetSize:10681
+ML10M Running fold 1 on kNN (k=80) TargetSize:100 (24min 18s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=100.0) TargetSize:100
+ML10M Running fold 1 on kNN (k=80) TargetSize:0 (24min 39s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=100.0) TargetSize:0
+ML10M Running fold 1 on Normalized kNN (k=500, min=3) TargetSize:10681 (1h 24min 13s)
+ML10M Running fold 1 on kNN (k=400) TargetSize:10681
+ML10M Running fold 1 on Normalized kNN (k=70, min=3) TargetSize:20 (1h 13min 2s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=10.0) TargetSize:2 (49min 17s)
+ML10M Running fold 1 on Normalized kNN (k=300, min=3) TargetSize:2
+ML10M Running fold 1 on kNN (k=80) TargetSize:500 (26min 39s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=100.0) TargetSize:500
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=100.0) TargetSize:2
+ML10M Running fold 1 on Normalized kNN (k=200, min=3) TargetSize:100
+ML10M Running fold 1 on kNN (k=30) TargetSize:2000
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=10.0) TargetSize:1000
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=100.0) TargetSize:5
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=100.0) TargetSize:10
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=100.0) TargetSize:2000
+ML10M Running fold 1 on Normalized kNN (k=600, min=3) TargetSize:10681 (1h 31min 22s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=100.0) TargetSize:10681 (12min 49s)
+ML10M Running fold 1 on kNN (k=200) TargetSize:10681
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=1.0) TargetSize:10
+ML10M Running fold 1 on kNN (k=80) TargetSize:20 (30min 37s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=100.0) TargetSize:20
+ML10M Running fold 1 on Normalized kNN (k=40, min=3) TargetSize:2
+ML10M Running fold 1 on kNN (k=80) TargetSize:200 (32min 13s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=100.0) TargetSize:200
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=100.0) TargetSize:2 (12min 38s)
+ML10M Running fold 1 on kNN (k=200) TargetSize:2
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=10.0) TargetSize:2000
+ML10M Running fold 1 on kNN (k=100) TargetSize:2000
+ML10M Running fold 1 on Normalized kNN (k=200, min=3) TargetSize:20
+ML10M Running fold 1 on kNN (k=80) TargetSize:50 (37min 41s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=100.0) TargetSize:50
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=1.0) TargetSize:10 (10min 28s)
+ML10M Running fold 1 on Normalized kNN (k=20, min=3) TargetSize:10
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=100.0) TargetSize:10 (15min 38s)
+ML10M Running fold 1 on kNN (k=200) TargetSize:10
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=100.0) TargetSize:5 (15min 41s)
+ML10M Running fold 1 on kNN (k=200) TargetSize:5
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=100.0) TargetSize:2000 (15min 49s)
+ML10M Running fold 1 on kNN (k=200) TargetSize:2000
+ML10M Running fold 1 on kNN (k=800) TargetSize:5
+ML10M Running fold 1 on kNN (k=500) TargetSize:20 (36min 22s)
+ML10M Running fold 1 on kNN (k=600) TargetSize:2000
+ML10M Running fold 1 on Normalized kNN (k=50, min=3) TargetSize:20 (56min 45s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=10.0) TargetSize:20
+ML10M Running fold 1 on Normalized kNN (k=200, min=3) TargetSize:1000
+ML10M Running fold 1 on Normalized kNN (k=200, min=3) TargetSize:2000
+ML10M Running fold 1 on Normalized kNN (k=300, min=3) TargetSize:10 (1h 35min 8s)
+ML10M Running fold 1 on kNN (k=5000) TargetSize:10
+ML10M Running fold 1 on kNN (k=80) TargetSize:5000
+ML10M Running fold 1 on kNN (k=700) TargetSize:5
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=10.0) TargetSize:20 (11min 48s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=10.0) TargetSize:2000
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=100.0) TargetSize:5000
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=100.0) TargetSize:10 (1h 9min 35s)
+ML10M Running fold 1 on kNN (k=30) TargetSize:10
+ML10M Running fold 1 on kNN (k=2000) TargetSize:20 (1h 1min 57s)
+ML10M Running fold 1 on Normalized kNN (k=30, min=3) TargetSize:20
+ML10M Running fold 1 on kNN (k=90) TargetSize:2000
+ML10M Running fold 1 on kNN (k=2000) TargetSize:2 (1h 4min 28s)
+ML10M Running fold 1 on Normalized kNN (k=30, min=3) TargetSize:2
+ML10M Running fold 1 on Normalized kNN (k=60, min=3) TargetSize:2000
+ML10M Running fold 1 on Normalized kNN (k=200, min=3) TargetSize:500
+ML10M Running fold 1 on Normalized kNN (k=3000, min=3) TargetSize:5000
+ML10M Running fold 1 on kNN (k=3000) TargetSize:10 (1h 16min 4s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=100.0) TargetSize:10
+ML10M Running fold 1 on kNN (k=600) TargetSize:10681
+ML10M Running fold 1 on kNN (k=600) TargetSize:2
+ML10M Running fold 1 on Normalized kNN (k=5000, min=3) TargetSize:2000
+ML10M Running fold 1 on kNN (k=600) TargetSize:5
+ML10M Running fold 1 on Normalized kNN (k=20, min=3) TargetSize:5 (1h 40min 44s)
+ML10M Running fold 1 on kNN (k=4000) TargetSize:5
+ML10M Running fold 1 on kNN (k=200) TargetSize:10 (41min 41s)
+ML10M Running fold 1 on kNN (k=600) TargetSize:10
+ML10M Running fold 1 on kNN (k=200) TargetSize:2000 (41min 28s)
+ML10M Running fold 1 on kNN (k=800) TargetSize:2000
+ML10M Running fold 1 on Normalized kNN (k=90, min=3) TargetSize:10681 (1h 42min 59s)
+ML10M Running fold 1 on kNN (k=70) TargetSize:10681
+ML10M Running fold 1 on Normalized kNN (k=10, min=3) TargetSize:10681 (1h 40min 21s)
+ML10M Running fold 1 on kNN (k=60) TargetSize:10681
+ML10M Running fold 1 on kNN (k=600) TargetSize:2000 (44min 37s)
+ML10M Running fold 1 on Normalized kNN (k=800, min=3) TargetSize:2000
+ML10M Running fold 1 on kNN (k=80) TargetSize:5000 (37min 14s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=100.0) TargetSize:5000
+ML10M Running fold 1 on kNN (k=800) TargetSize:5 (47min 1s)
+ML10M Running fold 1 on kNN (k=3000) TargetSize:5
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=100.0) TargetSize:1 (1h 21min 43s)
+ML10M Running fold 1 on Normalized kNN (k=200, min=3) TargetSize:1
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=100.0) TargetSize:5 (1h 21min 47s)
+ML10M Running fold 1 on Normalized kNN (k=200, min=3) TargetSize:5
+ML10M Running fold 1 on Normalized kNN (k=50, min=3) TargetSize:10681 (1h 43min 49s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=10.0) TargetSize:10681
+ML10M Running fold 1 on kNN (k=30) TargetSize:10 (34min 33s)
+ML10M Running fold 1 on Normalized kNN (k=60, min=3) TargetSize:10
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=100.0) TargetSize:10 (1h 22min 37s)
+ML10M Running fold 1 on Normalized kNN (k=200, min=3) TargetSize:10
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=100.0) TargetSize:2 (1h 22min 48s)
+ML10M Running fold 1 on Normalized kNN (k=200, min=3) TargetSize:2
+ML10M Running fold 1 on Normalized kNN (k=90, min=3) TargetSize:2000
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=100.0) TargetSize:0 (1h 21min 16s)
+ML10M Running fold 1 on Normalized kNN (k=200, min=3) TargetSize:0
+ML10M Running fold 1 on Normalized kNN (k=10, min=3) TargetSize:20
+ML10M Running fold 1 on kNN (k=700) TargetSize:5 (42min 20s)
+ML10M Running fold 1 on Normalized kNN (k=500, min=3) TargetSize:5
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=10.0) TargetSize:1000 (1h 16min 55s)
+ML10M Running fold 1 on Normalized kNN (k=300, min=3) TargetSize:1000
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=10.0) TargetSize:10681 (7min 35s)
+ML10M Running fold 1 on Normalized kNN (k=4000, min=3) TargetSize:10681
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=1.0) TargetSize:10
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=100.0) TargetSize:200 (1h 13min 27s)
+ML10M Running fold 1 on Normalized kNN (k=200, min=3) TargetSize:200
+ML10M Running fold 1 on kNN (k=600) TargetSize:10681 (33min 43s)
+ML10M Running fold 1 on Normalized kNN (k=800, min=3) TargetSize:10681
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=100.0) TargetSize:50 (1h 8min 50s)
+ML10M Running fold 1 on Normalized kNN (k=200, min=3) TargetSize:50
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=10.0) TargetSize:100
+ML10M Running fold 1 on Normalized kNN (k=20, min=3) TargetSize:10681 (1h 42min 39s)
+ML10M Running fold 1 on kNN (k=4000) TargetSize:10681
+ML10M Running fold 1 on kNN (k=600) TargetSize:2 (32min 26s)
+ML10M Running fold 1 on Normalized kNN (k=800, min=3) TargetSize:2
+ML10M Running fold 1 on Normalized kNN (k=3000, min=3) TargetSize:2000 (2h 46min 34s)
+ML10M Running fold 1 on Random TargetSize:5
+ML10M Running fold 1 on kNN (k=70) TargetSize:10681 (26min 0s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=100.0) TargetSize:10681
+ML10M Running fold 1 on kNN (k=600) TargetSize:5 (31min 39s)
+ML10M Running fold 1 on Normalized kNN (k=800, min=3) TargetSize:5
+ML10M Running fold 1 on Random TargetSize:5 (21s)
+ML10M Running fold 1 on kNN (k=10) TargetSize:5
+ML10M Running fold 1 on kNN (k=60) TargetSize:10681 (25min 36s)
+ML10M Running fold 1 on Average Rating TargetSize:10681
+ML10M Running fold 1 on Average Rating TargetSize:10681 (4s)
+ML10M Running fold 1 on kNN (k=40) TargetSize:10681
+ML10M Running fold 1 on kNN (k=600) TargetSize:10 (31min 7s)
+ML10M Running fold 1 on Normalized kNN (k=800, min=3) TargetSize:10
+ML10M Running fold 1 on kNN (k=800) TargetSize:2000 (32min 41s)
+ML10M Running fold 1 on kNN (k=3000) TargetSize:2000
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=100.0) TargetSize:10681 (3min 45s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=10.0) TargetSize:10681
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=1.0) TargetSize:2000
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=10.0) TargetSize:2000 (1h 1min 57s)
+ML10M Running fold 1 on Normalized kNN (k=300, min=3) TargetSize:2000
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=10.0) TargetSize:10681 (3min 45s)
+ML10M Running fold 1 on kNN (k=50) TargetSize:10681
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=10.0) TargetSize:2
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=100.0) TargetSize:10 (54min 7s)
+ML10M Running fold 1 on Normalized kNN (k=80, min=3) TargetSize:10
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=10.0) TargetSize:10
+ML10M Running fold 1 on Normalized kNN (k=200, min=3) TargetSize:100 (1h 43min 59s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=1.0) TargetSize:100
+ML10M Running fold 1 on Normalized kNN (k=300, min=3) TargetSize:2 (1h 49min 8s)
+ML10M Running fold 1 on kNN (k=5000) TargetSize:2
+ML10M Running fold 1 on Normalized kNN (k=20, min=3) TargetSize:10 (1h 29min 25s)
+ML10M Running fold 1 on kNN (k=4000) TargetSize:10
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=10.0) TargetSize:5
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=10.0) TargetSize:2 (7min 2s)
+ML10M Running fold 1 on Normalized kNN (k=70, min=3) TargetSize:2
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=1.0) TargetSize:100 (7min 10s)
+ML10M Running fold 1 on Normalized kNN (k=10, min=3) TargetSize:100
+ML10M Running fold 1 on kNN (k=10) TargetSize:5 (23min 25s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=100.0) TargetSize:5
+ML10M Running fold 1 on kNN (k=40) TargetSize:10681 (23min 26s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=10.0) TargetSize:10681
+ML10M Running fold 1 on Normalized kNN (k=200, min=3) TargetSize:1000 (1h 32min 24s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=1.0) TargetSize:1000
+ML10M Running fold 1 on Normalized kNN (k=10, min=3) TargetSize:2000
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=100.0) TargetSize:5000 (50min 15s)
+ML10M Running fold 1 on Normalized kNN (k=200, min=3) TargetSize:5000
+ML10M Running fold 1 on kNN (k=3000) TargetSize:5 (49min 51s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=100.0) TargetSize:5
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=10.0) TargetSize:10681 (3min 50s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=1.0) TargetSize:10681
+ML10M Running fold 1 on kNN (k=4000) TargetSize:5 (1h 6s)
+ML10M Running fold 1 on Normalized kNN (k=40, min=3) TargetSize:2000
+ML10M Running fold 1 on Normalized kNN (k=30, min=3) TargetSize:20 (1h 22min 13s)
+ML10M Running fold 1 on Normalized kNN (k=400, min=3) TargetSize:20
+ML10M Running fold 1 on kNN (k=50) TargetSize:10681 (23min 58s)
+ML10M Running fold 1 on Normalized kNN (k=2000, min=3) TargetSize:10681
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=1.0) TargetSize:1000 (7min 31s)
+ML10M Running fold 1 on Normalized kNN (k=10, min=3) TargetSize:1000
+ML10M Running fold 1 on kNN (k=90) TargetSize:2
+ML10M Running fold 1 on Normalized kNN (k=60, min=3) TargetSize:2000 (1h 20min 8s)
+ML10M Running fold 1 on kNN (k=2000) TargetSize:2000
+ML10M Running fold 1 on Normalized kNN (k=200, min=3) TargetSize:500 (1h 23min 51s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=1.0) TargetSize:500
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=1.0) TargetSize:10 (48min 9s)
+ML10M Running fold 1 on Normalized kNN (k=50, min=3) TargetSize:10
+ML10M Running fold 1 on Normalized kNN (k=3000, min=3) TargetSize:1000 (2h 58min 45s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=100.0) TargetSize:1000
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=10.0) TargetSize:100 (48min 57s)
+ML10M Running fold 1 on Normalized kNN (k=300, min=3) TargetSize:100
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=1.0) TargetSize:500 (7min 38s)
+ML10M Running fold 1 on Normalized kNN (k=10, min=3) TargetSize:500
+ML10M Running fold 1 on kNN (k=3000) TargetSize:2000 (49min 7s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=100.0) TargetSize:2000
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=1.0) TargetSize:2000 (48min 56s)
+ML10M Running fold 1 on Normalized kNN (k=50, min=3) TargetSize:2000
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=100.0) TargetSize:1000 (7min 39s)
+ML10M Running fold 1 on kNN (k=200) TargetSize:1000
+ML10M Running fold 1 on Normalized kNN (k=60, min=3) TargetSize:10 (1h 12min 36s)
+ML10M Running fold 1 on kNN (k=2000) TargetSize:10
+ML10M Running fold 1 on kNN (k=4000) TargetSize:10681 (57min 41s)
+ML10M Running fold 1 on kNN (k=90) TargetSize:10
+ML10M Running fold 1 on Normalized kNN (k=10, min=3) TargetSize:20 (1h 11min 18s)
+ML10M Running fold 1 on kNN (k=60) TargetSize:20
+ML10M Running fold 1 on Normalized kNN (k=3000, min=3) TargetSize:100 (2h 59min 52s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=100.0) TargetSize:100
+ML10M Running fold 1 on Normalized kNN (k=200, min=3) TargetSize:1 (1h 17min 8s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=1.0) TargetSize:1
+ML10M Running fold 1 on Normalized kNN (k=90, min=3) TargetSize:2000 (1h 13min 39s)
+ML10M Running fold 1 on kNN (k=70) TargetSize:2000
+ML10M Running fold 1 on kNN (k=90) TargetSize:2 (25min 3s)
+ML10M Running fold 1 on Normalized kNN (k=700, min=3) TargetSize:2
+ML10M Running fold 1 on Normalized kNN (k=200, min=3) TargetSize:5 (1h 16min 55s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=1.0) TargetSize:5
+ML10M Running fold 1 on Normalized kNN (k=200, min=3) TargetSize:10 (1h 16min 51s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=1.0) TargetSize:10
+ML10M Running fold 1 on Normalized kNN (k=200, min=3) TargetSize:2 (1h 17min 14s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=1.0) TargetSize:2
+ML10M Running fold 1 on Normalized kNN (k=200, min=3) TargetSize:0 (1h 17min 21s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=1.0) TargetSize:0
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=10.0) TargetSize:10 (49min 24s)
+ML10M Running fold 1 on kNN (k=900) TargetSize:10
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=100.0) TargetSize:100 (7min 4s)
+ML10M Running fold 1 on kNN (k=200) TargetSize:100
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=1.0) TargetSize:1 (7min 16s)
+ML10M Running fold 1 on Normalized kNN (k=10, min=3) TargetSize:1
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=1.0) TargetSize:5 (6min 54s)
+ML10M Running fold 1 on Normalized kNN (k=10, min=3) TargetSize:5
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=1.0) TargetSize:10 (6min 59s)
+ML10M Running fold 1 on Normalized kNN (k=10, min=3) TargetSize:10
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=10.0) TargetSize:5 (49min 27s)
+ML10M Running fold 1 on kNN (k=900) TargetSize:5
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=1.0) TargetSize:2 (7min 3s)
+ML10M Running fold 1 on Normalized kNN (k=10, min=3) TargetSize:2
+ML10M Running fold 1 on Normalized kNN (k=300, min=3) TargetSize:1000 (1h 19min 20s)
+ML10M Running fold 1 on kNN (k=5000) TargetSize:1000
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=1.0) TargetSize:0 (7min 6s)
+ML10M Running fold 1 on Normalized kNN (k=10, min=3) TargetSize:0
+ML10M Running fold 1 on Normalized kNN (k=500, min=3) TargetSize:5 (1h 24min 15s)
+ML10M Running fold 1 on Normalized kNN (k=900, min=3) TargetSize:5
+ML10M Running fold 1 on Normalized kNN (k=800, min=3) TargetSize:2000 (1h 33min 14s)
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=1.0) TargetSize:2000
+ML10M Running fold 1 on Normalized kNN (k=200, min=3) TargetSize:200 (1h 16min 28s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=1.0) TargetSize:200
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=10.0) TargetSize:2
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=100.0) TargetSize:5 (49min 1s)
+ML10M Running fold 1 on kNN (k=30) TargetSize:5
+ML10M Running fold 1 on Normalized kNN (k=200, min=3) TargetSize:50 (1h 16min 56s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=1.0) TargetSize:50
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=1.0) TargetSize:2000 (3min 42s)
+ML10M Running fold 1 on Normalized kNN (k=900, min=3) TargetSize:2000
+ML10M Running fold 1 on kNN (k=4000) TargetSize:10 (58min 8s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=1.0) TargetSize:2000
+ML10M Running fold 1 on kNN (k=2000) TargetSize:2000 (41min 9s)
+ML10M Running fold 1 on Normalized kNN (k=30, min=3) TargetSize:2000
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=100.0) TargetSize:5 (48min 47s)
+ML10M Running fold 1 on Normalized kNN (k=80, min=3) TargetSize:5
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=1.0) TargetSize:10681 (49min 21s)
+ML10M Running fold 1 on kNN (k=90) TargetSize:5
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=1.0) TargetSize:200 (6min 58s)
+ML10M Running fold 1 on Normalized kNN (k=10, min=3) TargetSize:200
+ML10M Running fold 1 on kNN (k=200) TargetSize:1000 (25min 0s)
+ML10M Running fold 1 on kNN (k=600) TargetSize:1000
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=1.0) TargetSize:2000 (3min 35s)
+ML10M Running fold 1 on Normalized kNN (k=20, min=3) TargetSize:2000
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=1.0) TargetSize:50 (7min 3s)
+ML10M Running fold 1 on Normalized kNN (k=10, min=3) TargetSize:50
+ML10M Running fold 1 on kNN (k=90) TargetSize:10 (24min 0s)
+ML10M Running fold 1 on Normalized kNN (k=700, min=3) TargetSize:10
+ML10M Running fold 1 on kNN (k=60) TargetSize:20 (23min 59s)
+ML10M Running fold 1 on Average Rating TargetSize:20
+ML10M Running fold 1 on Average Rating TargetSize:20 (12s)
+ML10M Running fold 1 on kNN (k=40) TargetSize:20
+ML10M Running fold 1 on kNN (k=70) TargetSize:2000 (23min 53s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=100.0) TargetSize:2000
+ML10M Running fold 1 on kNN (k=5000) TargetSize:2 (1h 6min 26s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=1.0) TargetSize:2
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=100.0) TargetSize:2000 (3min 36s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=10.0) TargetSize:2000
+ML10M Running fold 1 on Normalized kNN (k=300, min=3) TargetSize:2000 (1h 18min 59s)
+ML10M Running fold 1 on kNN (k=5000) TargetSize:2000
+ML10M Running fold 1 on Normalized kNN (k=80, min=3) TargetSize:10 (1h 13min 19s)
+ML10M Running fold 1 on Popularity TargetSize:10
+ML10M Running fold 1 on Popularity TargetSize:10 (9s)
+ML10M Running fold 1 on Normalized kNN (k=600, min=3) TargetSize:10
+ML10M Running fold 1 on Normalized kNN (k=800, min=3) TargetSize:10681 (1h 31min 12s)
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=1.0) TargetSize:10681
+ML10M Running fold 1 on kNN (k=200) TargetSize:100 (24min 50s)
+ML10M Running fold 1 on kNN (k=600) TargetSize:100
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=10.0) TargetSize:2000 (3min 43s)
+ML10M Running fold 1 on kNN (k=50) TargetSize:2000
+ML10M Running fold 1 on Normalized kNN (k=800, min=3) TargetSize:2 (1h 31min 14s)
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=1.0) TargetSize:2
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=1.0) TargetSize:2 (7min 10s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=1.0) TargetSize:2
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=1.0) TargetSize:10681 (3min 48s)
+ML10M Running fold 1 on Random TargetSize:1000
+ML10M Running fold 1 on Random TargetSize:1000 (5s)
+ML10M Running fold 1 on kNN (k=10) TargetSize:1000
+ML10M Running fold 1 on Normalized kNN (k=800, min=3) TargetSize:5 (1h 31min 33s)
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=1.0) TargetSize:5
+ML10M Running fold 1 on Normalized kNN (k=70, min=3) TargetSize:2 (1h 13min 15s)
+ML10M Running fold 1 on kNN (k=700) TargetSize:2
+ML10M Running fold 1 on Normalized kNN (k=800, min=3) TargetSize:10 (1h 31min 47s)
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=1.0) TargetSize:10
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=1.0) TargetSize:2 (3min 29s)
+ML10M Running fold 1 on Normalized kNN (k=100, min=3) TargetSize:2
+ML10M Running fold 1 on Normalized kNN (k=10, min=3) TargetSize:100 (1h 11min 20s)
+ML10M Running fold 1 on kNN (k=60) TargetSize:100
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=1.0) TargetSize:2 (3min 34s)
+ML10M Running fold 1 on Normalized kNN (k=20, min=3) TargetSize:2
+ML10M Running fold 1 on kNN (k=900) TargetSize:10 (30min 45s)
+ML10M Running fold 1 on kNN (k=100) TargetSize:10
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=1.0) TargetSize:5 (3min 24s)
+ML10M Running fold 1 on Normalized kNN (k=100, min=3) TargetSize:5
+ML10M Running fold 1 on kNN (k=2000) TargetSize:10 (40min 0s)
+ML10M Running fold 1 on Normalized kNN (k=30, min=3) TargetSize:10
+ML10M Running fold 1 on kNN (k=30) TargetSize:5 (23min 39s)
+ML10M Running fold 1 on Normalized kNN (k=60, min=3) TargetSize:5
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=1.0) TargetSize:10 (3min 26s)
+ML10M Running fold 1 on kNN (k=800) TargetSize:1000
+ML10M Running fold 1 on Normalized kNN (k=10, min=3) TargetSize:2000 (1h 10min 55s)
+ML10M Running fold 1 on kNN (k=60) TargetSize:2000
+ML10M Running fold 1 on kNN (k=900) TargetSize:5 (30min 59s)
+ML10M Running fold 1 on kNN (k=100) TargetSize:5
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=100.0) TargetSize:2000 (47min 52s)
+ML10M Running fold 1 on Normalized kNN (k=80, min=3) TargetSize:2000
+ML10M Running fold 1 on Normalized kNN (k=40, min=3) TargetSize:2000 (1h 11min 56s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=10.0) TargetSize:2000
+ML10M Running fold 1 on kNN (k=90) TargetSize:5 (23min 59s)
+ML10M Running fold 1 on Normalized kNN (k=700, min=3) TargetSize:5
+ML10M Running fold 1 on Normalized kNN (k=10, min=3) TargetSize:1000 (1h 10min 15s)
+ML10M Running fold 1 on kNN (k=60) TargetSize:1000
+ML10M Running fold 1 on kNN (k=40) TargetSize:20 (23min 35s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=10.0) TargetSize:20
+ML10M Running fold 1 on Normalized kNN (k=200, min=3) TargetSize:5000 (1h 16min 36s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=1.0) TargetSize:5000
+ML10M Running fold 1 on kNN (k=600) TargetSize:1000 (28min 14s)
+ML10M Running fold 1 on Normalized kNN (k=800, min=3) TargetSize:1000
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=10.0) TargetSize:20 (3min 19s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=1.0) TargetSize:20
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=10.0) TargetSize:2000 (7min 6s)
+ML10M Running fold 1 on Normalized kNN (k=70, min=3) TargetSize:2000
+ML10M Running fold 1 on Normalized kNN (k=3000, min=3) TargetSize:5000 (2h 33min 35s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=100.0) TargetSize:5000
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=1.0) TargetSize:5000 (7min 20s)
+ML10M Running fold 1 on Normalized kNN (k=10, min=3) TargetSize:5000
+ML10M Running fold 1 on Normalized kNN (k=50, min=3) TargetSize:10 (1h 11min 17s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=10.0) TargetSize:10
+ML10M Running fold 1 on Normalized kNN (k=400, min=3) TargetSize:20 (1h 21min 15s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=100.0) TargetSize:20
+ML10M Running fold 1 on kNN (k=50) TargetSize:2000 (23min 35s)
+ML10M Running fold 1 on Normalized kNN (k=2000, min=3) TargetSize:2000
+ML10M Running fold 1 on kNN (k=10) TargetSize:1000 (23min 8s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=100.0) TargetSize:1000
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=100.0) TargetSize:20 (3min 27s)
+ML10M Running fold 1 on kNN (k=90) TargetSize:20
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=100.0) TargetSize:5000 (7min 37s)
+ML10M Running fold 1 on kNN (k=200) TargetSize:5000
+ML10M Running fold 1 on kNN (k=600) TargetSize:100 (28min 25s)
+ML10M Running fold 1 on Normalized kNN (k=800, min=3) TargetSize:100
+ML10M Running fold 1 on Normalized kNN (k=10, min=3) TargetSize:500 (1h 10min 28s)
+ML10M Running fold 1 on kNN (k=60) TargetSize:500
+ML10M Running fold 1 on kNN (k=60) TargetSize:100 (23min 53s)
+ML10M Running fold 1 on Average Rating TargetSize:100
+ML10M Running fold 1 on Average Rating TargetSize:100 (7s)
+ML10M Running fold 1 on kNN (k=40) TargetSize:100
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=10.0) TargetSize:2 (46min 55s)
+ML10M Running fold 1 on kNN (k=900) TargetSize:2
+ML10M Running fold 1 on kNN (k=100) TargetSize:10 (24min 14s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=10.0) TargetSize:10
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=10.0) TargetSize:10 (7min 5s)
+ML10M Running fold 1 on Normalized kNN (k=4000, min=3) TargetSize:10
+ML10M Running fold 1 on kNN (k=60) TargetSize:2000 (23min 46s)
+ML10M Running fold 1 on Average Rating TargetSize:2000
+ML10M Running fold 1 on Average Rating TargetSize:2000 (5s)
+ML10M Running fold 1 on kNN (k=40) TargetSize:2000
+ML10M Running fold 1 on kNN (k=700) TargetSize:2 (29min 28s)
+ML10M Running fold 1 on Normalized kNN (k=500, min=3) TargetSize:2
+ML10M Running fold 1 on kNN (k=100) TargetSize:5 (24min 22s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=10.0) TargetSize:5
+ML10M Running fold 1 on Normalized kNN (k=50, min=3) TargetSize:2000 (1h 10min 51s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=10.0) TargetSize:2000
+ML10M Running fold 1 on Normalized kNN (k=300, min=3) TargetSize:100 (1h 18min 34s)
+ML10M Running fold 1 on kNN (k=5000) TargetSize:100
+ML10M Running fold 1 on kNN (k=800) TargetSize:1000 (30min 26s)
+ML10M Running fold 1 on kNN (k=3000) TargetSize:1000
+ML10M Running fold 1 on kNN (k=60) TargetSize:1000 (23min 53s)
+ML10M Running fold 1 on Average Rating TargetSize:1000
+ML10M Running fold 1 on Average Rating TargetSize:1000 (5s)
+ML10M Running fold 1 on kNN (k=40) TargetSize:1000
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=10.0) TargetSize:2000 (7min 11s)
+ML10M Running fold 1 on Normalized kNN (k=4000, min=3) TargetSize:2000
+ML10M Running fold 1 on kNN (k=5000) TargetSize:1000 (1h 5min 15s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=1.0) TargetSize:1000
+ML10M Running fold 1 on Normalized kNN (k=10, min=3) TargetSize:1 (1h 10min 14s)
+ML10M Running fold 1 on kNN (k=60) TargetSize:1
+ML10M Running fold 1 on Normalized kNN (k=10, min=3) TargetSize:5 (1h 9min 57s)
+ML10M Running fold 1 on kNN (k=60) TargetSize:5
+ML10M Running fold 1 on Normalized kNN (k=10, min=3) TargetSize:10 (1h 10min 1s)
+ML10M Running fold 1 on kNN (k=60) TargetSize:10
+ML10M Running fold 1 on Normalized kNN (k=10, min=3) TargetSize:2 (1h 10min 7s)
+ML10M Running fold 1 on kNN (k=60) TargetSize:2
+ML10M Running fold 1 on Normalized kNN (k=10, min=3) TargetSize:0 (1h 10min 16s)
+ML10M Running fold 1 on kNN (k=60) TargetSize:0
+ML10M Running fold 1 on kNN (k=90) TargetSize:20 (23min 57s)
+ML10M Running fold 1 on Normalized kNN (k=700, min=3) TargetSize:20
+ML10M Running fold 1 on kNN (k=40) TargetSize:100 (23min 37s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=10.0) TargetSize:100
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=1.0) TargetSize:1000 (7min 2s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=1.0) TargetSize:1000
+ML10M Running fold 1 on kNN (k=60) TargetSize:500 (23min 47s)
+ML10M Running fold 1 on Average Rating TargetSize:500
+ML10M Running fold 1 on Average Rating TargetSize:500 (5s)
+ML10M Running fold 1 on kNN (k=40) TargetSize:500
+ML10M Running fold 1 on kNN (k=200) TargetSize:5000 (25min 0s)
+ML10M Running fold 1 on kNN (k=600) TargetSize:5000
+ML10M Running fold 1 on kNN (k=40) TargetSize:2000 (23min 23s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=10.0) TargetSize:2000
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=10.0) TargetSize:100 (3min 11s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=1.0) TargetSize:100
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=1.0) TargetSize:1000 (3min 29s)
+ML10M Running fold 1 on Normalized kNN (k=20, min=3) TargetSize:1000
+ML10M Running fold 1 on Normalized kNN (k=30, min=3) TargetSize:2000 (1h 10min 29s)
+ML10M Running fold 1 on Normalized kNN (k=400, min=3) TargetSize:2000
+ML10M Running fold 1 on Normalized kNN (k=700, min=3) TargetSize:2 (1h 28min 9s)
+ML10M Running fold 1 on Normalized kNN (k=90, min=3) TargetSize:2
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=10.0) TargetSize:2000 (3min 32s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=1.0) TargetSize:2000
+ML10M Running fold 1 on Normalized kNN (k=10, min=3) TargetSize:200 (1h 9min 46s)
+ML10M Running fold 1 on kNN (k=60) TargetSize:200
+ML10M Running fold 1 on Normalized kNN (k=80, min=3) TargetSize:5 (1h 11min 49s)
+ML10M Running fold 1 on Popularity TargetSize:5
+ML10M Running fold 1 on Popularity TargetSize:5 (15s)
+ML10M Running fold 1 on Normalized kNN (k=600, min=3) TargetSize:5
+ML10M Running fold 1 on Normalized kNN (k=20, min=3) TargetSize:2000 (1h 9min 54s)
+ML10M Running fold 1 on kNN (k=4000) TargetSize:2000
+ML10M Running fold 1 on kNN (k=900) TargetSize:2 (30min 40s)
+ML10M Running fold 1 on kNN (k=100) TargetSize:2
+ML10M Running fold 1 on Normalized kNN (k=10, min=3) TargetSize:50 (1h 10min 34s)
+ML10M Running fold 1 on kNN (k=60) TargetSize:50
+ML10M Running fold 1 on kNN (k=40) TargetSize:1000 (23min 21s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=10.0) TargetSize:1000
+ML10M Running fold 1 on kNN (k=5000) TargetSize:2000 (1h 5min 13s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=1.0) TargetSize:2000
+ML10M Running fold 1 on Normalized kNN (k=2000, min=3) TargetSize:10681 (2h 1min 51s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=1.0) TargetSize:10681
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=10.0) TargetSize:1000 (3min 28s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=1.0) TargetSize:1000
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=1.0) TargetSize:20 (47min 27s)
+ML10M Running fold 1 on Normalized kNN (k=100, min=3) TargetSize:1000
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=1.0) TargetSize:10681 (3min 38s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=100.0) TargetSize:10681
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=1.0) TargetSize:2000 (7min 6s)
+ML10M Running fold 1 on kNN (k=1000) TargetSize:10
+ML10M Running fold 1 on kNN (k=60) TargetSize:1 (24min 2s)
+ML10M Running fold 1 on Average Rating TargetSize:1
+ML10M Running fold 1 on Average Rating TargetSize:1 (30s)
+ML10M Running fold 1 on kNN (k=40) TargetSize:1
+ML10M Running fold 1 on kNN (k=60) TargetSize:5 (23min 46s)
+ML10M Running fold 1 on Average Rating TargetSize:5
+ML10M Running fold 1 on Average Rating TargetSize:5 (20s)
+ML10M Running fold 1 on kNN (k=40) TargetSize:5
+ML10M Running fold 1 on kNN (k=60) TargetSize:10 (23min 46s)
+ML10M Running fold 1 on Average Rating TargetSize:10
+ML10M Running fold 1 on Average Rating TargetSize:10 (14s)
+ML10M Running fold 1 on kNN (k=40) TargetSize:10
+ML10M Running fold 1 on Normalized kNN (k=4000, min=3) TargetSize:10681 (2h 50min 55s)
+ML10M Running fold 1 on Normalized kNN (k=40, min=3) TargetSize:1000
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=100.0) TargetSize:1000 (47min 19s)
+ML10M Running fold 1 on kNN (k=30) TargetSize:1000
+ML10M Running fold 1 on kNN (k=60) TargetSize:2 (23min 56s)
+ML10M Running fold 1 on Average Rating TargetSize:2
+ML10M Running fold 1 on Average Rating TargetSize:2 (28s)
+ML10M Running fold 1 on kNN (k=40) TargetSize:2
+ML10M Running fold 1 on Normalized kNN (k=900, min=3) TargetSize:5 (1h 32min 53s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=10.0) TargetSize:5
+ML10M Running fold 1 on kNN (k=60) TargetSize:0 (24min 3s)
+ML10M Running fold 1 on Average Rating TargetSize:0
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=100.0) TargetSize:10681 (7min 19s)
+ML10M Running fold 1 on kNN (k=70) TargetSize:5
+ML10M Running fold 1 on Average Rating TargetSize:0 (33s)
+ML10M Running fold 1 on kNN (k=40) TargetSize:0
+ML10M Running fold 1 on Normalized kNN (k=20, min=3) TargetSize:2 (1h 10min 24s)
+ML10M Running fold 1 on kNN (k=4000) TargetSize:2
+ML10M Running fold 1 on kNN (k=40) TargetSize:500 (23min 46s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=10.0) TargetSize:500
+ML10M Running fold 1 on Normalized kNN (k=5000, min=3) TargetSize:2000 (3h 17min 45s)
+ML10M Running fold 1 on kNN (k=1000) TargetSize:2000
+ML10M Running fold 1 on Normalized kNN (k=100, min=3) TargetSize:2 (1h 12min 9s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=1.0) TargetSize:2
+ML10M Running fold 1 on Normalized kNN (k=30, min=3) TargetSize:10 (1h 10min 40s)
+ML10M Running fold 1 on Normalized kNN (k=400, min=3) TargetSize:10
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=10.0) TargetSize:10 (47min 15s)
+ML10M Running fold 1 on Normalized kNN (k=5000, min=3) TargetSize:10
+ML10M Running fold 1 on Normalized kNN (k=900, min=3) TargetSize:2000 (1h 32min 43s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=10.0) TargetSize:2000
+ML10M Running fold 1 on Normalized kNN (k=100, min=3) TargetSize:5 (1h 12min 33s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=1.0) TargetSize:5
+ML10M Running fold 1 on Normalized kNN (k=700, min=3) TargetSize:10 (1h 27min 33s)
+ML10M Running fold 1 on Normalized kNN (k=90, min=3) TargetSize:10
+ML10M Running fold 1 on Normalized kNN (k=60, min=3) TargetSize:5 (1h 11min 57s)
+ML10M Running fold 1 on kNN (k=2000) TargetSize:5
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=10.0) TargetSize:500 (3min 31s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=1.0) TargetSize:500
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=10.0) TargetSize:5 (47min 29s)
+ML10M Running fold 1 on Normalized kNN (k=5000, min=3) TargetSize:5
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=10.0) TargetSize:5 (7min 7s)
+ML10M Running fold 1 on kNN (k=300) TargetSize:5
+ML10M Running fold 1 on kNN (k=600) TargetSize:5000 (28min 33s)
+ML10M Running fold 1 on Normalized kNN (k=800, min=3) TargetSize:5000
+ML10M Running fold 1 on Normalized kNN (k=80, min=3) TargetSize:2000 (1h 11min 44s)
+ML10M Running fold 1 on Popularity TargetSize:2000
+ML10M Running fold 1 on Popularity TargetSize:2000 (4s)
+ML10M Running fold 1 on Normalized kNN (k=600, min=3) TargetSize:2000
+ML10M Running fold 1 on kNN (k=60) TargetSize:200 (23min 54s)
+ML10M Running fold 1 on Average Rating TargetSize:200
+ML10M Running fold 1 on Average Rating TargetSize:200 (6s)
+ML10M Running fold 1 on kNN (k=40) TargetSize:200
+ML10M Running fold 1 on Normalized kNN (k=600, min=3) TargetSize:10 (1h 25min 37s)
+ML10M Running fold 1 on kNN (k=400) TargetSize:10
+ML10M Running fold 1 on kNN (k=100) TargetSize:2 (24min 24s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=10.0) TargetSize:2
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=10.0) TargetSize:2000 (7min 10s)
+ML10M Running fold 1 on kNN (k=300) TargetSize:2000
+ML10M Running fold 1 on kNN (k=60) TargetSize:50 (24min 18s)
+ML10M Running fold 1 on Average Rating TargetSize:50
+ML10M Running fold 1 on Average Rating TargetSize:50 (8s)
+ML10M Running fold 1 on kNN (k=40) TargetSize:50
+ML10M Running fold 1 on kNN (k=3000) TargetSize:1000 (48min 24s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=100.0) TargetSize:1000
+ML10M Running fold 1 on Normalized kNN (k=70, min=3) TargetSize:2000 (1h 12min 17s)
+ML10M Running fold 1 on kNN (k=700) TargetSize:2000
+ML10M Running fold 1 on Normalized kNN (k=10, min=3) TargetSize:5000 (1h 10min 38s)
+ML10M Running fold 1 on kNN (k=60) TargetSize:5000
+ML10M Running fold 1 on kNN (k=40) TargetSize:1 (24min 32s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=10.0) TargetSize:1
+ML10M Running fold 1 on kNN (k=40) TargetSize:5 (24min 26s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=10.0) TargetSize:5
+ML10M Running fold 1 on kNN (k=40) TargetSize:10 (24min 30s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=10.0) TargetSize:10
+ML10M Running fold 1 on kNN (k=30) TargetSize:1000 (24min 11s)
+ML10M Running fold 1 on Normalized kNN (k=60, min=3) TargetSize:1000
+ML10M Running fold 1 on kNN (k=40) TargetSize:2 (24min 39s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=10.0) TargetSize:2
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=10.0) TargetSize:1 (3min 37s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=1.0) TargetSize:1
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=10.0) TargetSize:5 (3min 41s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=1.0) TargetSize:5
+ML10M Running fold 1 on kNN (k=40) TargetSize:0 (25min 20s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=10.0) TargetSize:0
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=10.0) TargetSize:10 (3min 51s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=1.0) TargetSize:10
+ML10M Running fold 1 on kNN (k=70) TargetSize:5 (25min 32s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=100.0) TargetSize:5
+ML10M Running fold 1 on Normalized kNN (k=700, min=3) TargetSize:5 (1h 29min 13s)
+ML10M Running fold 1 on Normalized kNN (k=90, min=3) TargetSize:5
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=10.0) TargetSize:2 (4min 21s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=1.0) TargetSize:2
+ML10M Running fold 1 on kNN (k=1000) TargetSize:10 (33min 23s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=1.0) TargetSize:10
+ML10M Running fold 1 on Normalized kNN (k=4000, min=3) TargetSize:5
+Exception in thread "ForkJoinPool.commonPool-worker-12" java.lang.OutOfMemoryError: GC overhead limit exceeded
+ML10M Running fold 1 on kNN (k=5000) TargetSize:100 (1h 10min 37s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=1.0) TargetSize:100
+ML10M Running fold 1 on Normalized kNN (k=40, min=3) TargetSize:500
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=100.0) TargetSize:5 (8min 58s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=10.0) TargetSize:5
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=10.0) TargetSize:0 (9min 11s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=1.0) TargetSize:0
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=1.0) TargetSize:100 (56min 48s)
+ML10M Running fold 1 on Normalized kNN (k=40, min=3) TargetSize:100
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=10.0) TargetSize:5 (4min 44s)
+ML10M Running fold 1 on kNN (k=50) TargetSize:5
+ML10M Running fold 1 on kNN (k=40) TargetSize:200 (32min 41s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=10.0) TargetSize:200
+ML10M Running fold 1 on kNN (k=300) TargetSize:5 (34min 58s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=1.0) TargetSize:5
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=1.0) TargetSize:2000 (57min 38s)
+ML10M Running fold 1 on Normalized kNN (k=900, min=3) TargetSize:2
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=1.0) TargetSize:100 (10min 6s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=1.0) TargetSize:100
+ML10M Running fold 1 on kNN (k=1000) TargetSize:5
+ML10M Running fold 1 on Normalized kNN (k=800, min=3) TargetSize:1000 (1h 39min 45s)
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=1.0) TargetSize:1000
+ML10M Running fold 1 on kNN (k=40) TargetSize:50 (33min 37s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=10.0) TargetSize:50
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=10.0) TargetSize:200 (3min 48s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=1.0) TargetSize:200
+ML10M Running fold 1 on kNN (k=400) TargetSize:10 (36min 31s)
+ML10M Running fold 1 on kNN (k=300) TargetSize:2000 (36min 50s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=1.0) TargetSize:2000
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=1.0) TargetSize:100 (5min 20s)
+ML10M Running fold 1 on Normalized kNN (k=20, min=3) TargetSize:100
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=1.0) TargetSize:1000 (5min 8s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=1.0) TargetSize:1000 (59min 56s)
+ML10M Running fold 1 on kNN (k=70) TargetSize:2
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=10.0) TargetSize:50 (5min 53s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=1.0) TargetSize:50
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=1.0) TargetSize:5 (9min 50s)
+ML10M Running fold 1 on Normalized kNN (k=500, min=3) TargetSize:2 (1h 36min 52s)
+ML10M Running fold 1 on Normalized kNN (k=50, min=3) TargetSize:5
+ML10M Running fold 1 on kNN (k=60) TargetSize:5000 (37min 33s)
+ML10M Running fold 1 on Average Rating TargetSize:5000
+ML10M Running fold 1 on Average Rating TargetSize:5000 (6s)
+ML10M Running fold 1 on kNN (k=40) TargetSize:5000
+ML10M Running fold 1 on kNN (k=4000) TargetSize:2000 (1h 11min 8s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=1.0) TargetSize:2000 (11min 35s)
+ML10M Running fold 1 on kNN (k=700) TargetSize:2000 (43min 7s)
+ML10M Running fold 1 on Normalized kNN (k=500, min=3) TargetSize:2000
+ML10M Running fold 1 on Normalized kNN (k=800, min=3) TargetSize:100 (1h 46min 24s)
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=1.0) TargetSize:100
+ML10M Running fold 1 on kNN (k=2000) TargetSize:5 (56min 14s)
+ML10M Running fold 1 on Normalized kNN (k=30, min=3) TargetSize:5
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=1.0) TargetSize:100 (6min 15s)
+ML10M Running fold 1 on Normalized kNN (k=100, min=3) TargetSize:100
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=1.0) TargetSize:2 (1h 7min 55s)
+ML10M Running fold 1 on Normalized kNN (k=50, min=3) TargetSize:2
+ML10M Running fold 1 on Normalized kNN (k=20, min=3) TargetSize:1000 (1h 30min 12s)
+ML10M Running fold 1 on kNN (k=4000) TargetSize:1000
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=1.0) TargetSize:5 (1h 7min 52s)
+ML10M Running fold 1 on Random TargetSize:100
+ML10M Running fold 1 on Random TargetSize:100 (7s)
+ML10M Running fold 1 on kNN (k=10) TargetSize:100
+ML10M Running fold 1 on Normalized kNN (k=900, min=3) TargetSize:1000
+ML10M Running fold 1 on kNN (k=800) TargetSize:2
+ML10M Running fold 1 on kNN (k=50) TargetSize:5 (34min 5s)
+ML10M Running fold 1 on Normalized kNN (k=2000, min=3) TargetSize:5
+ML10M Running fold 1 on Normalized kNN (k=2000, min=3) TargetSize:2000 (2h 4min 46s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=1.0) TargetSize:2000
+ML10M Running fold 1 on Normalized kNN (k=4000, min=3) TargetSize:100
+ML10M Running fold 1 on Normalized kNN (k=90, min=3) TargetSize:2 (1h 33min 50s)
+ML10M Running fold 1 on Normalized kNN (k=4000, min=3) TargetSize:2
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=1.0) TargetSize:2000 (4min 6s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=100.0) TargetSize:2000
+ML10M Running fold 1 on kNN (k=4000) TargetSize:2 (1h 18min 1s)
+ML10M Running fold 1 on kNN (k=400) TargetSize:5
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=100.0) TargetSize:1000 (1h 9min 40s)
+ML10M Running fold 1 on Normalized kNN (k=80, min=3) TargetSize:1000
+ML10M Running fold 1 on kNN (k=70) TargetSize:2 (33min 23s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=100.0) TargetSize:2
+ML10M Running fold 1 on kNN (k=400) TargetSize:2000
+ML10M Running fold 1 on Normalized kNN (k=400, min=3) TargetSize:2000 (1h 42min 21s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=100.0) TargetSize:2000
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=100.0) TargetSize:2000 (7min 30s)
+ML10M Running fold 1 on Normalized kNN (k=100, min=3) TargetSize:1000 (1h 34min 20s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=1.0) TargetSize:1000
+ML10M Running fold 1 on Normalized kNN (k=700, min=3) TargetSize:20 (1h 50min 7s)
+ML10M Running fold 1 on Normalized kNN (k=90, min=3) TargetSize:20
+ML10M Running fold 1 on Normalized kNN (k=90, min=3) TargetSize:5 (59min 11s)
+ML10M Running fold 1 on kNN (k=1000) TargetSize:5 (44min 30s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=1.0) TargetSize:5
+ML10M Running fold 1 on kNN (k=40) TargetSize:5000 (31min 17s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=10.0) TargetSize:5000
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=100.0) TargetSize:2 (3min 30s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=10.0) TargetSize:2
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=100.0) TargetSize:2000 (4min 20s)
+ML10M Running fold 1 on kNN (k=3000) TargetSize:2
+ML10M Running fold 1 on Normalized kNN (k=40, min=3) TargetSize:1000 (1h 34min 10s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=10.0) TargetSize:1000
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=10.0) TargetSize:2 (4min 54s)
+ML10M Running fold 1 on kNN (k=50) TargetSize:2
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=10.0) TargetSize:5000 (5min 12s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=1.0) TargetSize:5000
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=100.0) TargetSize:500
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=1.0) TargetSize:1 (1h 11min 22s)
+ML10M Running fold 1 on Normalized kNN (k=40, min=3) TargetSize:1
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=1.0) TargetSize:5 (1h 10min 58s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=10.0) TargetSize:100
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=1.0) TargetSize:10 (1h 10min 59s)
+ML10M Running fold 1 on Normalized kNN (k=40, min=3) TargetSize:10
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=1.0) TargetSize:10 (1h 9min 43s)
+ML10M Running fold 1 on kNN (k=500) TargetSize:10
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=100.0) TargetSize:500 (3min 26s)
+ML10M Running fold 1 on Normalized kNN (k=3000, min=3) TargetSize:500
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=1.0) TargetSize:2 (1h 10min 48s)
+ML10M Running fold 1 on kNN (k=10) TargetSize:100 (27min 9s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=100.0) TargetSize:100
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=100.0) TargetSize:50
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=10.0) TargetSize:1000 (7min 43s)
+ML10M Running fold 1 on Normalized kNN (k=70, min=3) TargetSize:1000
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=1.0) TargetSize:0 (1h 5min 5s)
+ML10M Running fold 1 on Normalized kNN (k=40, min=3) TargetSize:0
+ML10M Running fold 1 on kNN (k=70) TargetSize:10
+ML10M Running fold 1 on kNN (k=400) TargetSize:2000 (16min 42s)
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=100.0) TargetSize:50 (3min 29s)
+ML10M Running fold 1 on Normalized kNN (k=3000, min=3) TargetSize:50
+ML10M Running fold 1 on kNN (k=90) TargetSize:100
+ML10M Running fold 1 on kNN (k=800) TargetSize:2 (33min 35s)
+ML10M Running fold 1 on kNN (k=800) TargetSize:100
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=1.0) TargetSize:200 (1h 2min 29s)
+ML10M Running fold 1 on Normalized kNN (k=40, min=3) TargetSize:200
+ML10M Running fold 1 on kNN (k=400) TargetSize:5 (29min 34s)
+ML10M Running fold 1 on kNN (k=3000) TargetSize:100
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=1.0) TargetSize:50 (1h 15s)
+ML10M Running fold 1 on Normalized kNN (k=40, min=3) TargetSize:50
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=10.0) TargetSize:5000
+ML10M Running fold 1 on kNN (k=300) TargetSize:1000
+ML10M Running fold 1 on Normalized kNN (k=60, min=3) TargetSize:1000 (1h 34min 29s)
+ML10M Running fold 1 on kNN (k=2000) TargetSize:1000
+ML10M Running fold 1 on kNN (k=50) TargetSize:2 (24min 14s)
+ML10M Running fold 1 on Normalized kNN (k=2000, min=3) TargetSize:2
+ML10M Running fold 1 on Normalized kNN (k=600, min=3) TargetSize:2000 (1h 48min 52s)
+ML10M Running fold 1 on Normalized kNN (k=900, min=3) TargetSize:100
+ML10M Running fold 1 on kNN (k=4000) TargetSize:1000 (46min 45s)
+ML10M Running fold 1 on Normalized kNN (k=60, min=3) TargetSize:100
+ML10M Running fold 1 on Normalized kNN (k=800, min=3) TargetSize:5000 (1h 54min 6s)
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=1.0) TargetSize:5000
+ML10M Running fold 1 on Normalized kNN (k=40, min=3) TargetSize:500 (1h 28min 25s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=10.0) TargetSize:500
+ML10M Running fold 1 on kNN (k=70) TargetSize:10 (23min 48s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=100.0) TargetSize:10
+ML10M Running fold 1 on Normalized kNN (k=40, min=3) TargetSize:100 (1h 26min 44s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=10.0) TargetSize:100
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=1.0) TargetSize:5000 (3min 33s)
+ML10M Running fold 1 on Normalized kNN (k=100, min=3) TargetSize:5000
+ML10M Running fold 1 on kNN (k=500) TargetSize:10 (27min 22s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=10.0) TargetSize:500
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=100.0) TargetSize:10 (3min 10s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=10.0) TargetSize:10
+ML10M Running fold 1 on kNN (k=90) TargetSize:100 (23min 43s)
+ML10M Running fold 1 on Normalized kNN (k=700, min=3) TargetSize:100
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=10.0) TargetSize:500 (7min 1s)
+ML10M Running fold 1 on Normalized kNN (k=70, min=3) TargetSize:500
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=10.0) TargetSize:10 (3min 17s)
+ML10M Running fold 1 on kNN (k=50) TargetSize:10
+ML10M Running fold 1 on Normalized kNN (k=20, min=3) TargetSize:100 (1h 23min 12s)
+ML10M Running fold 1 on kNN (k=4000) TargetSize:100
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=10.0) TargetSize:100 (6min 45s)
+ML10M Running fold 1 on Normalized kNN (k=70, min=3) TargetSize:100
+ML10M Running fold 1 on Normalized kNN (k=500, min=3) TargetSize:2000 (1h 11min 42s)
+ML10M Running fold 1 on kNN (k=700) TargetSize:100
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=1.0) TargetSize:1000 (49min 37s)
+ML10M Running fold 1 on Normalized kNN (k=50, min=3) TargetSize:1000
+ML10M Running fold 1 on Normalized kNN (k=50, min=3) TargetSize:5 (1h 21min 17s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=10.0) TargetSize:5
+ML10M Running fold 1 on kNN (k=800) TargetSize:100 (29min 32s)
+ML10M Running fold 1 on kNN (k=700) TargetSize:1000
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=1.0) TargetSize:5 (49min 17s)
+ML10M Running fold 1 on kNN (k=500) TargetSize:5
+ML10M Running fold 1 on kNN (k=3000) TargetSize:2 (48min 53s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=100.0) TargetSize:2
+ML10M Running fold 1 on Normalized kNN (k=30, min=3) TargetSize:5 (1h 18min 49s)
+ML10M Running fold 1 on Normalized kNN (k=400, min=3) TargetSize:5
+ML10M Running fold 1 on Normalized kNN (k=5000, min=3) TargetSize:5 (2h 13min 28s)
+ML10M Running fold 1 on kNN (k=100) TargetSize:100
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=1.0) TargetSize:5000 (47min 29s)
+ML10M Running fold 1 on Normalized kNN (k=40, min=3) TargetSize:5000
+ML10M Running fold 1 on kNN (k=300) TargetSize:1000 (25min 32s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=1.0) TargetSize:1000
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=10.0) TargetSize:5 (6min 33s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=10.0) TargetSize:100 (46min 49s)
+ML10M Running fold 1 on kNN (k=900) TargetSize:100
+ML10M Running fold 1 on Normalized kNN (k=100, min=3) TargetSize:100 (1h 17min 7s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=1.0) TargetSize:100
+ML10M Running fold 1 on Normalized kNN (k=50, min=3) TargetSize:2 (1h 14min 44s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=10.0) TargetSize:2
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=100.0) TargetSize:100 (46min 57s)
+ML10M Running fold 1 on kNN (k=30) TargetSize:100
+ML10M Running fold 1 on Normalized kNN (k=4000, min=3) TargetSize:10 (3h 10min 57s)
+ML10M Running fold 1 on Random TargetSize:50
+ML10M Running fold 1 on Random TargetSize:50 (8s)
+ML10M Running fold 1 on kNN (k=10) TargetSize:50
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=1.0) TargetSize:1000 (6min 29s)
+ML10M Running fold 1 on Normalized kNN (k=900, min=3) TargetSize:2 (1h 46min 58s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=10.0) TargetSize:2
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=10.0) TargetSize:2 (6min 31s)
+ML10M Running fold 1 on Random TargetSize:500
+ML10M Running fold 1 on Random TargetSize:500 (4s)
+ML10M Running fold 1 on kNN (k=10) TargetSize:500
+ML10M Running fold 1 on Random TargetSize:5000
+ML10M Running fold 1 on Random TargetSize:5000 (4s)
+ML10M Running fold 1 on kNN (k=10) TargetSize:5000
+ML10M Running fold 1 on Normalized kNN (k=900, min=3) TargetSize:500
+ML10M Running fold 1 on kNN (k=50) TargetSize:10 (23min 7s)
+ML10M Running fold 1 on Normalized kNN (k=2000, min=3) TargetSize:10
+ML10M Running fold 1 on kNN (k=700) TargetSize:100 (21min 35s)
+ML10M Running fold 1 on Normalized kNN (k=500, min=3) TargetSize:100
+ML10M Running fold 1 on kNN (k=3000) TargetSize:100 (46min 52s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=100.0) TargetSize:100
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=10.0) TargetSize:2 (6min 24s)
+ML10M Running fold 1 on kNN (k=300) TargetSize:2
+ML10M Running fold 1 on Normalized kNN (k=80, min=3) TargetSize:1000 (1h 13min 48s)
+ML10M Running fold 1 on Popularity TargetSize:1000
+ML10M Running fold 1 on kNN (k=2000) TargetSize:1000 (38min 46s)
+ML10M Running fold 1 on Normalized kNN (k=30, min=3) TargetSize:1000
+ML10M Running fold 1 on Popularity TargetSize:1000 (6s)
+ML10M Running fold 1 on Normalized kNN (k=600, min=3) TargetSize:1000
+ML10M Running fold 1 on Normalized kNN (k=4000, min=3) TargetSize:2000 (3h 9min 42s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=10.0) TargetSize:5000 (46min 33s)
+ML10M Running fold 1 on Normalized kNN (k=300, min=3) TargetSize:5000
+ML10M Running fold 1 on Normalized kNN (k=90, min=3) TargetSize:20 (1h 13min 48s)
+ML10M Running fold 1 on kNN (k=70) TargetSize:20
+ML10M Running fold 1 on Normalized kNN (k=5000, min=3) TargetSize:10 (2h 38min 51s)
+ML10M Running fold 1 on kNN (k=500) TargetSize:5 (26min 32s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=10.0) TargetSize:500
+ML10M Running fold 1 on kNN (k=100) TargetSize:100 (23min 14s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=10.0) TargetSize:100
+ML10M Running fold 1 on kNN (k=700) TargetSize:1000 (27min 59s)
+ML10M Running fold 1 on Normalized kNN (k=500, min=3) TargetSize:1000
+ML10M Running fold 1 on Normalized kNN (k=40, min=3) TargetSize:1 (1h 10min 10s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=10.0) TargetSize:1
+ML10M Running fold 1 on Normalized kNN (k=40, min=3) TargetSize:10 (1h 10min 17s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=10.0) TargetSize:10
+ML10M Running fold 1 on Normalized kNN (k=900, min=3) TargetSize:1000 (1h 34min 38s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=10.0) TargetSize:1000
+ML10M Running fold 1 on kNN (k=30) TargetSize:100 (22min 38s)
+ML10M Running fold 1 on kNN (k=400) TargetSize:100
+ML10M Running fold 1 on kNN (k=10) TargetSize:50 (22min 28s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=100.0) TargetSize:50
+ML10M Running fold 1 on Normalized kNN (k=70, min=3) TargetSize:1000 (1h 10min 34s)
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=100.0) TargetSize:0
+ML10M Running fold 1 on Normalized kNN (k=40, min=3) TargetSize:0 (1h 10min 18s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=10.0) TargetSize:0
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=10.0) TargetSize:500 (45min 53s)
+ML10M Running fold 1 on Normalized kNN (k=300, min=3) TargetSize:500
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=10.0) TargetSize:1 (6min 36s)
+ML10M Running fold 1 on Normalized kNN (k=70, min=3) TargetSize:1
+ML10M Running fold 1 on kNN (k=900) TargetSize:100 (29min 34s)
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=100.0) TargetSize:0 (3min 27s)
+ML10M Running fold 1 on Normalized kNN (k=3000, min=3) TargetSize:0
+ML10M Running fold 1 on kNN (k=10) TargetSize:500 (22min 32s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=100.0) TargetSize:500
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=10.0) TargetSize:10 (6min 30s)
+ML10M Running fold 1 on Normalized kNN (k=70, min=3) TargetSize:10
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=10.0) TargetSize:5000
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=10.0) TargetSize:1000 (6min 37s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=10.0) TargetSize:50
+ML10M Running fold 1 on kNN (k=1000) TargetSize:100
+ML10M Running fold 1 on kNN (k=10) TargetSize:5000 (22min 42s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=100.0) TargetSize:5000
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=10.0) TargetSize:0 (7min 9s)
+ML10M Running fold 1 on Normalized kNN (k=70, min=3) TargetSize:0
+ML10M Running fold 1 on Normalized kNN (k=40, min=3) TargetSize:200 (1h 9min 50s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=10.0) TargetSize:200
+ML10M Running fold 1 on Normalized kNN (k=2000, min=3) TargetSize:2 (1h 3min 23s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=1.0) TargetSize:2
+ML10M Running fold 1 on kNN (k=300) TargetSize:2 (25min 58s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=1.0) TargetSize:2
+ML10M Running fold 1 on Normalized kNN (k=40, min=3) TargetSize:50 (1h 10min 35s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=10.0) TargetSize:50
+ML10M Running fold 1 on Normalized kNN (k=2000, min=3) TargetSize:5 (1h 48min 37s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=1.0) TargetSize:5
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=1.0) TargetSize:2 (3min 43s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=100.0) TargetSize:2
+ML10M Running fold 1 on kNN (k=70) TargetSize:20 (24min 16s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=100.0) TargetSize:20
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=100.0) TargetSize:2 (46min 39s)
+ML10M Running fold 1 on Normalized kNN (k=80, min=3) TargetSize:2
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=10.0) TargetSize:200 (7min 31s)
+ML10M Running fold 1 on Normalized kNN (k=70, min=3) TargetSize:200
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=1.0) TargetSize:5 (3min 32s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=100.0) TargetSize:5
+ML10M Running fold 1 on kNN (k=4000) TargetSize:100 (55min 22s)
+ML10M Running fold 1 on Normalized kNN (k=4000, min=3) TargetSize:5000
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=100.0) TargetSize:20 (3min 36s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=10.0) TargetSize:20
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=1.0) TargetSize:2 (7min 20s)
+ML10M Running fold 1 on kNN (k=800) TargetSize:500
+ML10M Running fold 1 on Normalized kNN (k=70, min=3) TargetSize:100 (57min 25s)
+ML10M Running fold 1 on Normalized kNN (k=60, min=3) TargetSize:100 (1h 10min 40s)
+ML10M Running fold 1 on kNN (k=2000) TargetSize:100
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=10.0) TargetSize:50 (7min 18s)
+ML10M Running fold 1 on Normalized kNN (k=70, min=3) TargetSize:50
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=1.0) TargetSize:100 (47min 7s)
+ML10M Running fold 1 on Normalized kNN (k=50, min=3) TargetSize:100
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=100.0) TargetSize:2 (7min 11s)
+ML10M Running fold 1 on Normalized kNN (k=900, min=3) TargetSize:50
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=10.0) TargetSize:20 (3min 22s)
+ML10M Running fold 1 on kNN (k=50) TargetSize:20
+ML10M Running fold 1 on Normalized kNN (k=900, min=3) TargetSize:5000
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=100.0) TargetSize:5 (7min 0s)
+ML10M Running fold 1 on kNN (k=400) TargetSize:2
+ML10M Running fold 1 on kNN (k=100) TargetSize:5000
+ML10M Running fold 1 on kNN (k=400) TargetSize:100 (24min 33s)
+ML10M Running fold 1 on Normalized kNN (k=4000, min=3) TargetSize:1000
+ML10M Running fold 1 on Normalized kNN (k=100, min=3) TargetSize:5000 (1h 12min 20s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=1.0) TargetSize:5000
+ML10M Running fold 1 on Normalized kNN (k=4000, min=3) TargetSize:100 (2h 6min 31s)
+ML10M Running fold 1 on kNN (k=1000) TargetSize:5000
+ML10M Running fold 1 on Normalized kNN (k=70, min=3) TargetSize:500 (1h 12min 29s)
+ML10M Running fold 1 on kNN (k=700) TargetSize:500
+ML10M Running fold 1 on kNN (k=400) TargetSize:1000
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=100.0) TargetSize:100 (48min 31s)
+ML10M Running fold 1 on Normalized kNN (k=80, min=3) TargetSize:100
+ML10M Running fold 1 on Normalized kNN (k=50, min=3) TargetSize:1000 (1h 11min 31s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=10.0) TargetSize:1000
+ML10M Running fold 1 on kNN (k=1000) TargetSize:100 (32min 47s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=1.0) TargetSize:100
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=100.0) TargetSize:200
+ML10M Running fold 1 on Normalized kNN (k=500, min=3) TargetSize:100 (55min 9s)
+ML10M Running fold 1 on Normalized kNN (k=50, min=3) TargetSize:5000
+ML10M Running fold 1 on Normalized kNN (k=900, min=3) TargetSize:100 (1h 32min 14s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=10.0) TargetSize:100
+ML10M Running fold 1 on Normalized kNN (k=500, min=3) TargetSize:1000 (46min 14s)
+ML10M Running fold 1 on Popularity TargetSize:2
+ML10M Running fold 1 on Popularity TargetSize:2 (24s)
+ML10M Running fold 1 on Normalized kNN (k=600, min=3) TargetSize:2
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=100.0) TargetSize:200 (3min 30s)
+ML10M Running fold 1 on Normalized kNN (k=3000, min=3) TargetSize:200
+ML10M Running fold 1 on Normalized kNN (k=40, min=3) TargetSize:5000 (1h 11min 6s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=10.0) TargetSize:5000
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=10.0) TargetSize:500 (49min 7s)
+ML10M Running fold 1 on kNN (k=900) TargetSize:500
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=10.0) TargetSize:100 (49min 12s)
+ML10M Running fold 1 on Normalized kNN (k=5000, min=3) TargetSize:100
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=10.0) TargetSize:1000 (7min 12s)
+ML10M Running fold 1 on kNN (k=300) TargetSize:50
+ML10M Running fold 1 on Normalized kNN (k=700, min=3) TargetSize:100 (1h 27min 36s)
+ML10M Running fold 1 on Normalized kNN (k=90, min=3) TargetSize:100
+ML10M Running fold 1 on kNN (k=50) TargetSize:20 (24min 22s)
+ML10M Running fold 1 on Normalized kNN (k=2000, min=3) TargetSize:20
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=10.0) TargetSize:100 (6min 47s)
+ML10M Running fold 1 on kNN (k=300) TargetSize:100
+ML10M Running fold 1 on Normalized kNN (k=4000, min=3) TargetSize:5 (3h 8min 31s)
+ML10M Running fold 1 on kNN (k=300) TargetSize:500
+ML10M Running fold 1 on kNN (k=100) TargetSize:5000 (24min 32s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=10.0) TargetSize:5000
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=100.0) TargetSize:50 (49min 15s)
+ML10M Running fold 1 on kNN (k=30) TargetSize:50
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=10.0) TargetSize:5000 (6min 55s)
+ML10M Running fold 1 on Normalized kNN (k=70, min=3) TargetSize:5000
+ML10M Running fold 1 on kNN (k=800) TargetSize:500 (30min 39s)
+ML10M Running fold 1 on kNN (k=3000) TargetSize:500
+ML10M Running fold 1 on kNN (k=400) TargetSize:2 (27min 15s)
+ML10M Running fold 1 on Normalized kNN (k=400, min=3) TargetSize:5 (1h 20min 59s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=100.0) TargetSize:5
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=100.0) TargetSize:500 (49min 34s)
+ML10M Running fold 1 on kNN (k=30) TargetSize:500
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=100.0) TargetSize:5 (3min 5s)
+ML10M Running fold 1 on kNN (k=800) TargetSize:5000
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=10.0) TargetSize:50 (49min 21s)
+ML10M Running fold 1 on Normalized kNN (k=300, min=3) TargetSize:50
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=10.0) TargetSize:5000 (49min 36s)
+ML10M Running fold 1 on kNN (k=900) TargetSize:5000
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=100.0) TargetSize:5000 (49min 38s)
+ML10M Running fold 1 on kNN (k=30) TargetSize:5000
+ML10M Running fold 1 on Normalized kNN (k=30, min=3) TargetSize:1000 (1h 11min 1s)
+ML10M Running fold 1 on Normalized kNN (k=400, min=3) TargetSize:1000
+ML10M Running fold 1 on kNN (k=2000) TargetSize:100 (39min 45s)
+ML10M Running fold 1 on Normalized kNN (k=30, min=3) TargetSize:100
+ML10M Running fold 1 on kNN (k=400) TargetSize:1000 (26min 27s)
+ML10M Running fold 1 on kNN (k=700) TargetSize:500 (28min 55s)
+ML10M Running fold 1 on Normalized kNN (k=500, min=3) TargetSize:500
+ML10M Running fold 1 on kNN (k=1000) TargetSize:5000 (31min 18s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=1.0) TargetSize:5000
+ML10M Running fold 1 on Normalized kNN (k=300, min=3) TargetSize:5000 (1h 18min 27s)
+ML10M Running fold 1 on kNN (k=5000) TargetSize:5000
+ML10M Running fold 1 on kNN (k=300) TargetSize:50 (24min 50s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=1.0) TargetSize:50
+ML10M Running fold 1 on Normalized kNN (k=3000, min=3) TargetSize:500 (2h 21min 51s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=100.0) TargetSize:500
+ML10M Running fold 1 on kNN (k=30) TargetSize:50 (22min 36s)
+ML10M Running fold 1 on Normalized kNN (k=60, min=3) TargetSize:50
+ML10M Running fold 1 on Normalized kNN (k=600, min=3) TargetSize:1000 (1h 25min 33s)
+ML10M Running fold 1 on kNN (k=300) TargetSize:100 (24min 48s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=1.0) TargetSize:100
+ML10M Running fold 1 on kNN (k=900) TargetSize:500 (29min 37s)
+ML10M Running fold 1 on kNN (k=100) TargetSize:500
+ML10M Running fold 1 on kNN (k=300) TargetSize:500 (24min 45s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=1.0) TargetSize:500
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=1.0) TargetSize:5000 (47min 22s)
+ML10M Running fold 1 on Normalized kNN (k=3000, min=3) TargetSize:50 (2h 21min 57s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=100.0) TargetSize:50
+ML10M Running fold 1 on Normalized kNN (k=70, min=3) TargetSize:1 (1h 12min 37s)
+ML10M Running fold 1 on kNN (k=700) TargetSize:1
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=1.0) TargetSize:50 (6min 4s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=10.0) TargetSize:0
+ML10M Running fold 1 on kNN (k=30) TargetSize:500 (22min 18s)
+ML10M Running fold 1 on Normalized kNN (k=60, min=3) TargetSize:500
+ML10M Running fold 1 on Normalized kNN (k=900, min=3) TargetSize:500 (1h 32min 12s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=10.0) TargetSize:500
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=100.0) TargetSize:500 (6min 20s)
+ML10M Running fold 1 on kNN (k=200) TargetSize:500
+ML10M Running fold 1 on Normalized kNN (k=70, min=3) TargetSize:10 (1h 12min 25s)
+ML10M Running fold 1 on kNN (k=700) TargetSize:10
+ML10M Running fold 1 on Normalized kNN (k=4000, min=3) TargetSize:2 (2h 49min 35s)
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=100.0) TargetSize:1
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=1.0) TargetSize:100 (6min 23s)
+ML10M Running fold 1 on kNN (k=800) TargetSize:0
+ML10M Running fold 1 on kNN (k=30) TargetSize:5000 (22min 28s)
+ML10M Running fold 1 on Normalized kNN (k=60, min=3) TargetSize:5000
+ML10M Running fold 1 on Normalized kNN (k=5000, min=3) TargetSize:5000
+ML10M Running fold 1 on Normalized kNN (k=300, min=3) TargetSize:500 (1h 17min 48s)
+ML10M Running fold 1 on kNN (k=5000) TargetSize:500
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=1.0) TargetSize:500 (6min 17s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=1.0) TargetSize:5000
+ML10M Running fold 1 on Normalized kNN (k=70, min=3) TargetSize:0 (1h 12min 20s)
+ML10M Running fold 1 on kNN (k=700) TargetSize:0
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=100.0) TargetSize:1 (3min 15s)
+ML10M Running fold 1 on Normalized kNN (k=3000, min=3) TargetSize:1
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=100.0) TargetSize:50 (6min 16s)
+ML10M Running fold 1 on kNN (k=200) TargetSize:50
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=10.0) TargetSize:500 (6min 16s)
+ML10M Running fold 1 on kNN (k=3000) TargetSize:5000
+ML10M Running fold 1 on kNN (k=800) TargetSize:5000 (28min 35s)
+ML10M Running fold 1 on kNN (k=90) TargetSize:500
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=1.0) TargetSize:5000 (3min 23s)
+ML10M Running fold 1 on Normalized kNN (k=20, min=3) TargetSize:5000
+ML10M Running fold 1 on kNN (k=900) TargetSize:5000 (29min 13s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=1.0) TargetSize:100 (45min 40s)
+ML10M Running fold 1 on kNN (k=500) TargetSize:100
+ML10M Running fold 1 on Normalized kNN (k=70, min=3) TargetSize:200 (1h 10min 57s)
+ML10M Running fold 1 on kNN (k=700) TargetSize:200
+ML10M Running fold 1 on Normalized kNN (k=80, min=3) TargetSize:2 (1h 11min 25s)
+ML10M Running fold 1 on Random TargetSize:200
+ML10M Running fold 1 on Random TargetSize:200 (5s)
+ML10M Running fold 1 on kNN (k=10) TargetSize:200
+ML10M Running fold 1 on kNN (k=70) TargetSize:100
+ML10M Running fold 1 on Normalized kNN (k=70, min=3) TargetSize:50 (1h 10min 45s)
+ML10M Running fold 1 on kNN (k=700) TargetSize:50
+ML10M Running fold 1 on Normalized kNN (k=600, min=3) TargetSize:2 (49min 7s)
+ML10M Running fold 1 on Normalized kNN (k=100, min=3) TargetSize:50
+ML10M Running fold 1 on Normalized kNN (k=50, min=3) TargetSize:100 (1h 10min 1s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=10.0) TargetSize:100
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=10.0) TargetSize:5000 (44min 54s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=10.0) TargetSize:50
+ML10M Running fold 1 on kNN (k=3000) TargetSize:500 (45min 25s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=100.0) TargetSize:500
+ML10M Running fold 1 on kNN (k=100) TargetSize:500 (23min 2s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=10.0) TargetSize:500
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=10.0) TargetSize:100 (6min 22s)
+ML10M Running fold 1 on kNN (k=200) TargetSize:500 (23min 48s)
+ML10M Running fold 1 on kNN (k=600) TargetSize:500
+ML10M Running fold 1 on Normalized kNN (k=2000, min=3) TargetSize:10 (1h 57min 42s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=1.0) TargetSize:10
+ML10M Running fold 1 on kNN (k=700) TargetSize:1 (27min 58s)
+ML10M Running fold 1 on Normalized kNN (k=500, min=3) TargetSize:1
+ML10M Running fold 1 on Normalized kNN (k=80, min=3) TargetSize:100 (1h 10min 3s)
+ML10M Running fold 1 on Popularity TargetSize:100
+ML10M Running fold 1 on Popularity TargetSize:100 (4s)
+ML10M Running fold 1 on Normalized kNN (k=600, min=3) TargetSize:100
+ML10M Running fold 1 on kNN (k=700) TargetSize:10 (27min 57s)
+ML10M Running fold 1 on Normalized kNN (k=500, min=3) TargetSize:10
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=1.0) TargetSize:10 (3min 9s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=100.0) TargetSize:10
+ML10M Running fold 1 on kNN (k=200) TargetSize:50 (23min 49s)
+ML10M Running fold 1 on kNN (k=600) TargetSize:50
+ML10M Running fold 1 on kNN (k=90) TargetSize:500 (22min 57s)
+ML10M Running fold 1 on Normalized kNN (k=700, min=3) TargetSize:500
+ML10M Running fold 1 on kNN (k=800) TargetSize:0 (28min 38s)
+ML10M Running fold 1 on kNN (k=3000) TargetSize:0
+ML10M Running fold 1 on Normalized kNN (k=50, min=3) TargetSize:5000 (1h 8min 33s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=10.0) TargetSize:5000
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=1.0) TargetSize:5000 (45min 19s)
+ML10M Running fold 1 on kNN (k=500) TargetSize:5000
+ML10M Running fold 1 on kNN (k=100) TargetSize:50
+ML10M Running fold 1 on kNN (k=700) TargetSize:0 (28min 4s)
+ML10M Running fold 1 on Normalized kNN (k=500, min=3) TargetSize:0
+ML10M Running fold 1 on Normalized kNN (k=90, min=3) TargetSize:100 (1h 3min 18s)
+ML10M Running fold 1 on kNN (k=400) TargetSize:5000
+ML10M Running fold 1 on kNN (k=10) TargetSize:200 (22min 15s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=100.0) TargetSize:200
+ML10M Running fold 1 on kNN (k=500) TargetSize:100 (26min 7s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=100.0) TargetSize:10 (6min 13s)
+ML10M Running fold 1 on Normalized kNN (k=4000, min=3) TargetSize:50
+ML10M Running fold 1 on Normalized kNN (k=900, min=3) TargetSize:50 (1h 29min 35s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=10.0) TargetSize:50
+ML10M Running fold 1 on kNN (k=70) TargetSize:100 (22min 53s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=100.0) TargetSize:100
+ML10M Running fold 1 on Normalized kNN (k=500, min=3) TargetSize:500 (50min 41s)
+ML10M Running fold 1 on Normalized kNN (k=900, min=3) TargetSize:5000 (1h 30min 20s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=10.0) TargetSize:5000
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=1.0) TargetSize:500
+ML10M Running fold 1 on kNN (k=700) TargetSize:200 (27min 40s)
+ML10M Running fold 1 on Normalized kNN (k=500, min=3) TargetSize:200
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=10.0) TargetSize:5000 (6min 39s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=100.0) TargetSize:100 (3min 6s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=10.0) TargetSize:100
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=1.0) TargetSize:500 (3min 11s)
+ML10M Running fold 1 on Normalized kNN (k=20, min=3) TargetSize:500
+ML10M Running fold 1 on Normalized kNN (k=70, min=3) TargetSize:5000 (1h 8min 29s)
+ML10M Running fold 1 on kNN (k=700) TargetSize:5000
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=10.0) TargetSize:50 (6min 20s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=10.0) TargetSize:1
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=10.0) TargetSize:100 (3min 12s)
+ML10M Running fold 1 on kNN (k=50) TargetSize:100
+ML10M Running fold 1 on kNN (k=700) TargetSize:50 (27min 52s)
+ML10M Running fold 1 on Normalized kNN (k=500, min=3) TargetSize:50
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=10.0) TargetSize:5000 (6min 45s)
+ML10M Running fold 1 on kNN (k=300) TargetSize:5000
+ML10M Running fold 1 on Normalized kNN (k=900, min=3) TargetSize:0
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=10.0) TargetSize:0 (44min 52s)
+ML10M Running fold 1 on Normalized kNN (k=300, min=3) TargetSize:0
+ML10M Running fold 1 on kNN (k=5000) TargetSize:5000 (53min 59s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=1.0) TargetSize:5000
+ML10M Running fold 1 on Normalized kNN (k=30, min=3) TargetSize:100 (1h 7min 22s)
+ML10M Running fold 1 on Normalized kNN (k=400, min=3) TargetSize:100
+ML10M Running fold 1 on kNN (k=600) TargetSize:500 (27min 11s)
+ML10M Running fold 1 on Normalized kNN (k=800, min=3) TargetSize:500
+ML10M Running fold 1 on kNN (k=3000) TargetSize:5000 (45min 27s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=100.0) TargetSize:5000
+ML10M Running fold 1 on Normalized kNN (k=300, min=3) TargetSize:50 (1h 14min 3s)
+ML10M Running fold 1 on kNN (k=5000) TargetSize:50
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=1.0) TargetSize:5000 (6min 40s)
+ML10M Running fold 1 on Normalized kNN (k=5000, min=3) TargetSize:100 (1h 27min 59s)
+ML10M Running fold 1 on kNN (k=4000) TargetSize:5000
+ML10M Running fold 1 on kNN (k=400) TargetSize:0
+ML10M Running fold 1 on kNN (k=100) TargetSize:50 (23min 18s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=10.0) TargetSize:50
+ML10M Running fold 1 on kNN (k=600) TargetSize:50 (27min 13s)
+ML10M Running fold 1 on Normalized kNN (k=800, min=3) TargetSize:50
+ML10M Running fold 1 on Normalized kNN (k=400, min=3) TargetSize:1000 (1h 16min 56s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=100.0) TargetSize:1000
+ML10M Running fold 1 on kNN (k=500) TargetSize:5000 (26min 25s)
+ML10M Running fold 1 on kNN (k=4000) TargetSize:500
+ML10M Running fold 1 on kNN (k=400) TargetSize:5000 (25min 46s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=10.0) TargetSize:200
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=100.0) TargetSize:1000 (3min 28s)
+ML10M Running fold 1 on kNN (k=90) TargetSize:1000
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=10.0) TargetSize:50 (45min 41s)
+ML10M Running fold 1 on kNN (k=900) TargetSize:50
+ML10M Running fold 1 on kNN (k=5000) TargetSize:500 (1h 48s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=1.0) TargetSize:500
+ML10M Running fold 1 on kNN (k=300) TargetSize:0
+ML10M Running fold 1 on Normalized kNN (k=60, min=3) TargetSize:50 (1h 8min 49s)
+ML10M Running fold 1 on kNN (k=2000) TargetSize:50
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=100.0) TargetSize:500 (45min 19s)
+ML10M Running fold 1 on Normalized kNN (k=80, min=3) TargetSize:500
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=10.0) TargetSize:500 (45min 38s)
+ML10M Running fold 1 on Normalized kNN (k=5000, min=3) TargetSize:500
+ML10M Running fold 1 on kNN (k=50) TargetSize:100 (23min 4s)
+ML10M Running fold 1 on Normalized kNN (k=2000, min=3) TargetSize:100
+ML10M Running fold 1 on Normalized kNN (k=900, min=3) TargetSize:10
+ML10M Running fold 1 on Normalized kNN (k=600, min=3) TargetSize:100 (40min 3s)
+ML10M Running fold 1 on kNN (k=800) TargetSize:50
+ML10M Running fold 1 on kNN (k=300) TargetSize:5000 (25min 16s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=1.0) TargetSize:5000
+ML10M Running fold 1 on Normalized kNN (k=60, min=3) TargetSize:500 (1h 8min 51s)
+ML10M Running fold 1 on kNN (k=2000) TargetSize:500
+ML10M Running fold 1 on Normalized kNN (k=3000, min=3) TargetSize:0 (2h 21min 13s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=100.0) TargetSize:0
+ML10M Running fold 1 on kNN (k=700) TargetSize:5000 (28min 28s)
+ML10M Running fold 1 on Normalized kNN (k=500, min=3) TargetSize:5000
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=1.0) TargetSize:500 (6min 48s)
+ML10M Running fold 1 on Normalized kNN (k=60, min=3) TargetSize:5000 (1h 9min 19s)
+ML10M Running fold 1 on kNN (k=2000) TargetSize:5000
+ML10M Running fold 1 on Normalized kNN (k=20, min=3) TargetSize:5000 (1h 7min 50s)
+ML10M Running fold 1 on kNN (k=800) TargetSize:1
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=1.0) TargetSize:5000 (6min 47s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=100.0) TargetSize:0 (6min 26s)
+ML10M Running fold 1 on kNN (k=200) TargetSize:0
+ML10M Running fold 1 on kNN (k=800) TargetSize:200
+ML10M Running fold 1 on kNN (k=400) TargetSize:0 (20min 55s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=1.0) TargetSize:50
+ML10M Running fold 1 on kNN (k=3000) TargetSize:0 (46min 7s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=100.0) TargetSize:0
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=100.0) TargetSize:200 (45min 18s)
+ML10M Running fold 1 on kNN (k=30) TargetSize:200
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=1.0) TargetSize:50 (3min 15s)
+ML10M Running fold 1 on Normalized kNN (k=20, min=3) TargetSize:50
+ML10M Running fold 1 on Normalized kNN (k=5000, min=3) TargetSize:5000 (1h 19min 4s)
+ML10M Running fold 1 on kNN (k=3000) TargetSize:200
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=1.0) TargetSize:1
+ML10M Running fold 1 on Normalized kNN (k=20, min=3) TargetSize:500 (43min 14s)
+ML10M Running fold 1 on Normalized kNN (k=100, min=3) TargetSize:200
+ML10M Running fold 1 on Normalized kNN (k=2000, min=3) TargetSize:20 (1h 54min 29s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=1.0) TargetSize:20
+ML10M Running fold 1 on kNN (k=90) TargetSize:1000 (23min 29s)
+ML10M Running fold 1 on Normalized kNN (k=700, min=3) TargetSize:1000
+ML10M Running fold 1 on Normalized kNN (k=100, min=3) TargetSize:50 (1h 10min 21s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=1.0) TargetSize:50
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=1.0) TargetSize:1 (3min 16s)
+ML10M Running fold 1 on Normalized kNN (k=20, min=3) TargetSize:1
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=10.0) TargetSize:1 (46min 0s)
+ML10M Running fold 1 on Normalized kNN (k=300, min=3) TargetSize:1
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=1.0) TargetSize:20 (3min 8s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=100.0) TargetSize:20
+ML10M Running fold 1 on kNN (k=300) TargetSize:0 (25min 20s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=1.0) TargetSize:0
+ML10M Running fold 1 on Normalized kNN (k=500, min=3) TargetSize:10 (1h 3min 50s)
+ML10M Running fold 1 on kNN (k=3000) TargetSize:50
+ML10M Running fold 1 on kNN (k=900) TargetSize:50 (29min 36s)
+ML10M Running fold 1 on Normalized kNN (k=50, min=3) TargetSize:50
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=100.0) TargetSize:20 (6min 25s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=1.0) TargetSize:0 (6min 28s)
+ML10M Running fold 1 on kNN (k=800) TargetSize:50 (28min 51s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=100.0) TargetSize:5000 (45min 59s)
+ML10M Running fold 1 on Normalized kNN (k=80, min=3) TargetSize:5000
+ML10M Running fold 1 on Random TargetSize:0
+ML10M Running fold 1 on kNN (k=4000) TargetSize:1
+ML10M Running fold 1 on Random TargetSize:0 (31s)
+ML10M Running fold 1 on kNN (k=10) TargetSize:0
+ML10M Running fold 1 on kNN (k=200) TargetSize:0 (24min 33s)
+ML10M Running fold 1 on kNN (k=600) TargetSize:0
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=10.0) TargetSize:50 (45min 38s)
+ML10M Running fold 1 on Normalized kNN (k=5000, min=3) TargetSize:50
+ML10M Running fold 1 on kNN (k=30) TargetSize:200 (22min 49s)
+ML10M Running fold 1 on Normalized kNN (k=60, min=3) TargetSize:200
+ML10M Running fold 1 on kNN (k=2000) TargetSize:50 (38min 6s)
+ML10M Running fold 1 on Normalized kNN (k=30, min=3) TargetSize:50
+ML10M Running fold 1 on Normalized kNN (k=4000, min=3) TargetSize:5000 (2h 42min 9s)
+ML10M Running fold 1 on kNN (k=4000) TargetSize:5000 (48min 8s)
+ML10M Running fold 1 on kNN (k=90) TargetSize:5000
+ML10M Running fold 1 on kNN (k=800) TargetSize:1 (29min 5s)
+ML10M Running fold 1 on kNN (k=3000) TargetSize:1
+ML10M Running fold 1 on Normalized kNN (k=3000, min=3) TargetSize:200 (2h 17min 44s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=100.0) TargetSize:200
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=10.0) TargetSize:200 (45min 35s)
+ML10M Running fold 1 on Normalized kNN (k=300, min=3) TargetSize:200
+ML10M Running fold 1 on kNN (k=800) TargetSize:200 (28min 52s)
+ML10M Running fold 1 on Normalized kNN (k=900, min=3) TargetSize:200
+ML10M Running fold 1 on kNN (k=2000) TargetSize:500 (38min 7s)
+ML10M Running fold 1 on Normalized kNN (k=30, min=3) TargetSize:500
+ML10M Running fold 1 on Normalized kNN (k=500, min=3) TargetSize:1 (1h 20min 17s)
+ML10M Running fold 1 on Normalized kNN (k=900, min=3) TargetSize:1
+ML10M Running fold 1 on Normalized kNN (k=4000, min=3) TargetSize:1000 (2h 40min 28s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=100.0) TargetSize:200 (6min 12s)
+ML10M Running fold 1 on kNN (k=200) TargetSize:200
+ML10M Running fold 1 on kNN (k=2000) TargetSize:5000 (38min 20s)
+ML10M Running fold 1 on Normalized kNN (k=30, min=3) TargetSize:5000
+ML10M Running fold 1 on kNN (k=1000) TargetSize:50
+ML10M Running fold 1 on kNN (k=4000) TargetSize:500 (53min 35s)
+ML10M Running fold 1 on kNN (k=300) TargetSize:10
+ML10M Running fold 1 on Normalized kNN (k=500, min=3) TargetSize:0 (1h 20min 30s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=1.0) TargetSize:200
+ML10M Running fold 1 on kNN (k=300) TargetSize:200
+ML10M Running fold 1 on Normalized kNN (k=800, min=3) TargetSize:50 (56min 58s)
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=1.0) TargetSize:50
+ML10M Running fold 1 on Normalized kNN (k=500, min=3) TargetSize:5000 (43min 56s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=10.0) TargetSize:1000
+ML10M Running fold 1 on kNN (k=5000) TargetSize:50 (1h 1min 36s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=1.0) TargetSize:50
+ML10M Running fold 1 on Normalized kNN (k=700, min=3) TargetSize:500 (1h 24min 39s)
+ML10M Running fold 1 on Normalized kNN (k=90, min=3) TargetSize:500
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=1.0) TargetSize:200 (3min 19s)
+ML10M Running fold 1 on Normalized kNN (k=20, min=3) TargetSize:200
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=1.0) TargetSize:50 (3min 5s)
+ML10M Running fold 1 on Normalized kNN (k=100, min=3) TargetSize:0
+ML10M Running fold 1 on Normalized kNN (k=500, min=3) TargetSize:200 (1h 19min 52s)
+ML10M Running fold 1 on Normalized kNN (k=4000, min=3) TargetSize:200
+ML10M Running fold 1 on Popularity TargetSize:0
+ML10M Running fold 1 on Popularity TargetSize:0 (25s)
+ML10M Running fold 1 on Normalized kNN (k=600, min=3) TargetSize:0
+ML10M Running fold 1 on Normalized kNN (k=300, min=3) TargetSize:0 (1h 15min 52s)
+ML10M Running fold 1 on kNN (k=5000) TargetSize:0
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=1.0) TargetSize:50 (6min 25s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=10.0) TargetSize:200
+ML10M Running fold 1 on kNN (k=10) TargetSize:0 (22min 40s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=100.0) TargetSize:0
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=100.0) TargetSize:0 (45min 6s)
+ML10M Running fold 1 on Normalized kNN (k=80, min=3) TargetSize:0
+ML10M Running fold 1 on Normalized kNN (k=500, min=3) TargetSize:50 (1h 20min 21s)
+ML10M Running fold 1 on kNN (k=90) TargetSize:50
+ML10M Running fold 1 on kNN (k=70) TargetSize:500
+ML10M Running fold 1 on kNN (k=90) TargetSize:5000 (23min 14s)
+ML10M Running fold 1 on Normalized kNN (k=700, min=3) TargetSize:5000
+ML10M Running fold 1 on kNN (k=600) TargetSize:0 (27min 17s)
+ML10M Running fold 1 on Normalized kNN (k=800, min=3) TargetSize:0
+ML10M Running fold 1 on Normalized kNN (k=20, min=3) TargetSize:1 (40min 38s)
+ML10M Running fold 1 on Normalized kNN (k=400, min=3) TargetSize:100 (1h 17min 41s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=100.0) TargetSize:100
+ML10M Running fold 1 on kNN (k=3000) TargetSize:200 (45min 19s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=100.0) TargetSize:200
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=1.0) TargetSize:50 (44min 36s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=100.0) TargetSize:100 (3min 9s)
+ML10M Running fold 1 on kNN (k=70) TargetSize:5000
+ML10M Running fold 1 on Normalized kNN (k=900, min=3) TargetSize:0 (1h 29min 46s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=10.0) TargetSize:0
+ML10M Running fold 1 on kNN (k=200) TargetSize:200 (23min 55s)
+ML10M Running fold 1 on kNN (k=600) TargetSize:200
+ML10M Running fold 1 on Normalized kNN (k=80, min=3) TargetSize:500 (1h 9min 53s)
+ML10M Running fold 1 on Popularity TargetSize:500
+ML10M Running fold 1 on Popularity TargetSize:500 (4s)
+ML10M Running fold 1 on Normalized kNN (k=600, min=3) TargetSize:500
+ML10M Running fold 1 on kNN (k=300) TargetSize:10 (24min 48s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=1.0) TargetSize:10
+ML10M Running fold 1 on Normalized kNN (k=50, min=3) TargetSize:50 (45min 6s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=10.0) TargetSize:50
+ML10M Running fold 1 on kNN (k=300) TargetSize:200 (24min 43s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=1.0) TargetSize:200
+ML10M Running fold 1 on kNN (k=3000) TargetSize:50 (46min 3s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=100.0) TargetSize:50
+ML10M Running fold 1 on Normalized kNN (k=800, min=3) TargetSize:500 (1h 27min 1s)
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=1.0) TargetSize:500
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=10.0) TargetSize:0 (6min 36s)
+ML10M Running fold 1 on kNN (k=1000) TargetSize:50 (30min 29s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=1.0) TargetSize:50
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=1.0) TargetSize:500 (3min 26s)
+ML10M Running fold 1 on Normalized kNN (k=100, min=3) TargetSize:500
+ML10M Running fold 1 on Normalized kNN (k=3000, min=3) TargetSize:1 (2h 18min 13s)
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=100.0) TargetSize:1
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=1.0) TargetSize:10 (6min 37s)
+ML10M Running fold 1 on Normalized kNN (k=800, min=3) TargetSize:200
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=10.0) TargetSize:50 (6min 47s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=1.0) TargetSize:200 (6min 43s)
+ML10M Running fold 1 on kNN (k=1000) TargetSize:500
+ML10M Running fold 1 on kNN (k=90) TargetSize:50 (23min 32s)
+ML10M Running fold 1 on Normalized kNN (k=700, min=3) TargetSize:50
+ML10M Running fold 1 on kNN (k=70) TargetSize:50
+ML10M Running fold 1 on Normalized kNN (k=20, min=3) TargetSize:50 (1h 7min 53s)
+ML10M Running fold 1 on kNN (k=4000) TargetSize:50
+ML10M Running fold 1 on kNN (k=70) TargetSize:500 (23min 15s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=100.0) TargetSize:500
+ML10M Running fold 1 on Normalized kNN (k=80, min=3) TargetSize:0 (26min 22s)
+ML10M Running fold 1 on kNN (k=90) TargetSize:200
+ML10M Running fold 1 on iMF (k=10, lambda=0.1, alpha=100.0) TargetSize:1 (6min 48s)
+ML10M Running fold 1 on kNN (k=200) TargetSize:1
+ML10M Running fold 1 on kNN (k=3000) TargetSize:1 (46min 30s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=100.0) TargetSize:1
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=100.0) TargetSize:500 (3min 14s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=10.0) TargetSize:500
+ML10M Running fold 1 on kNN (k=4000) TargetSize:1 (54min 20s)
+ML10M Running fold 1 on kNN (k=300) TargetSize:1
+ML10M Running fold 1 on Normalized kNN (k=100, min=3) TargetSize:200 (1h 10min 23s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=1.0) TargetSize:200
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=10.0) TargetSize:500 (3min 15s)
+ML10M Running fold 1 on kNN (k=50) TargetSize:500
+ML10M Running fold 1 on kNN (k=70) TargetSize:5000 (23min 40s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=100.0) TargetSize:5000
+ML10M Running fold 1 on kNN (k=100) TargetSize:200
+ML10M Running fold 1 on Normalized kNN (k=900, min=3) TargetSize:10 (1h 29min 48s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=10.0) TargetSize:10
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=1.0) TargetSize:0
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=100.0) TargetSize:5000 (3min 36s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=10.0) TargetSize:5000
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=10.0) TargetSize:1000 (46min 16s)
+ML10M Running fold 1 on kNN (k=900) TargetSize:1000
+ML10M Running fold 1 on Normalized kNN (k=30, min=3) TargetSize:500 (53min 7s)
+ML10M Running fold 1 on Normalized kNN (k=400, min=3) TargetSize:500
+ML10M Running fold 1 on kNN (k=600) TargetSize:200 (27min 15s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=1.0) TargetSize:0 (3min 22s)
+ML10M Running fold 1 on Normalized kNN (k=20, min=3) TargetSize:0
+ML10M Running fold 1 on Normalized kNN (k=900, min=3) TargetSize:200 (56min 41s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=10.0) TargetSize:200
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=10.0) TargetSize:5000 (3min 41s)
+ML10M Running fold 1 on kNN (k=50) TargetSize:5000
+ML10M Running fold 1 on Normalized kNN (k=300, min=3) TargetSize:1 (1h 15min 36s)
+ML10M Running fold 1 on kNN (k=5000) TargetSize:1
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=10.0) TargetSize:10 (6min 59s)
+ML10M Running fold 1 on kNN (k=4000) TargetSize:0
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=10.0) TargetSize:200 (46min 33s)
+ML10M Running fold 1 on kNN (k=900) TargetSize:200
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=100.0) TargetSize:0 (46min 38s)
+ML10M Running fold 1 on kNN (k=30) TargetSize:0
+ML10M Running fold 1 on Normalized kNN (k=80, min=3) TargetSize:5000 (1h 10min 20s)
+ML10M Running fold 1 on Popularity TargetSize:5000
+ML10M Running fold 1 on Popularity TargetSize:5000 (4s)
+ML10M Running fold 1 on Normalized kNN (k=600, min=3) TargetSize:5000
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=10.0) TargetSize:200 (6min 57s)
+ML10M Running fold 1 on kNN (k=4000) TargetSize:200
+ML10M Running fold 1 on Normalized kNN (k=700, min=3) TargetSize:1000 (1h 25min 27s)
+ML10M Running fold 1 on Normalized kNN (k=90, min=3) TargetSize:1000
+ML10M Running fold 1 on Normalized kNN (k=60, min=3) TargetSize:200 (1h 9min 40s)
+ML10M Running fold 1 on kNN (k=2000) TargetSize:200
+ML10M Running fold 1 on Normalized kNN (k=30, min=3) TargetSize:50 (1h 8min 52s)
+ML10M Running fold 1 on Normalized kNN (k=400, min=3) TargetSize:50
+ML10M Running fold 1 on kNN (k=70) TargetSize:50 (23min 45s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=100.0) TargetSize:50
+ML10M Running fold 1 on kNN (k=90) TargetSize:200 (23min 45s)
+ML10M Running fold 1 on Normalized kNN (k=700, min=3) TargetSize:200
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=100.0) TargetSize:50 (3min 14s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=10.0) TargetSize:50
+ML10M Running fold 1 on kNN (k=200) TargetSize:1 (25min 8s)
+ML10M Running fold 1 on kNN (k=600) TargetSize:1
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=100.0) TargetSize:200 (46min 37s)
+ML10M Running fold 1 on Normalized kNN (k=80, min=3) TargetSize:200
+ML10M Running fold 1 on kNN (k=1000) TargetSize:500 (31min 3s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=1.0) TargetSize:500
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=10.0) TargetSize:50 (3min 9s)
+ML10M Running fold 1 on kNN (k=50) TargetSize:50
+ML10M Running fold 1 on kNN (k=50) TargetSize:500 (23min 13s)
+ML10M Running fold 1 on Normalized kNN (k=2000, min=3) TargetSize:500
+ML10M Running fold 1 on kNN (k=300) TargetSize:1 (25min 22s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=1.0) TargetSize:1
+ML10M Running fold 1 on kNN (k=100) TargetSize:200 (23min 34s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=10.0) TargetSize:200
+ML10M Running fold 1 on Normalized kNN (k=30, min=3) TargetSize:5000 (1h 9min 23s)
+ML10M Running fold 1 on Normalized kNN (k=400, min=3) TargetSize:5000
+ML10M Running fold 1 on Normalized kNN (k=90, min=3) TargetSize:5000
+ML10M Running fold 1 on Normalized kNN (k=300, min=3) TargetSize:200 (1h 15min 44s)
+ML10M Running fold 1 on kNN (k=5000) TargetSize:200
+ML10M Running fold 1 on Normalized kNN (k=2000, min=3) TargetSize:100 (1h 55min 40s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=1.0) TargetSize:100
+ML10M Running fold 1 on kNN (k=5000) TargetSize:0 (1h 2min 7s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=1.0) TargetSize:0
+ML10M Running fold 1 on kNN (k=4000) TargetSize:50 (35min 49s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=1.0) TargetSize:100 (3min 18s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=100.0) TargetSize:100
+ML10M Running fold 1 on Normalized kNN (k=90, min=3) TargetSize:500 (1h 10min 15s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=100.0) TargetSize:50 (46min 20s)
+ML10M Running fold 1 on Normalized kNN (k=80, min=3) TargetSize:50
+ML10M Running fold 1 on Normalized kNN (k=20, min=3) TargetSize:200 (1h 8min 43s)
+ML10M Running fold 1 on Normalized kNN (k=4000, min=3) TargetSize:500
+ML10M Running fold 1 on kNN (k=50) TargetSize:5000 (23min 6s)
+ML10M Running fold 1 on Normalized kNN (k=2000, min=3) TargetSize:5000
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=1.0) TargetSize:1 (6min 26s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=1.0) TargetSize:50 (46min 9s)
+ML10M Running fold 1 on kNN (k=500) TargetSize:50
+ML10M Running fold 1 on Normalized kNN (k=100, min=3) TargetSize:0 (1h 11min 8s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=1.0) TargetSize:0
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=1.0) TargetSize:0 (6min 29s)
+ML10M Running fold 1 on kNN (k=900) TargetSize:1000 (30min 2s)
+ML10M Running fold 1 on kNN (k=100) TargetSize:1000
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=100.0) TargetSize:100 (6min 25s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=1.0) TargetSize:500
+ML10M Running fold 1 on kNN (k=30) TargetSize:0 (23min 2s)
+ML10M Running fold 1 on Normalized kNN (k=60, min=3) TargetSize:0
+ML10M Running fold 1 on Normalized kNN (k=800, min=3) TargetSize:0 (1h 8min 12s)
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=1.0) TargetSize:0
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=100.0) TargetSize:1 (45min 59s)
+ML10M Running fold 1 on Normalized kNN (k=80, min=3) TargetSize:1
+ML10M Running fold 1 on kNN (k=900) TargetSize:200 (29min 12s)
+ML10M Running fold 1 on Normalized kNN (k=4000, min=3) TargetSize:50 (2h 41min 6s)
+ML10M Running fold 1 on Normalized kNN (k=900, min=3) TargetSize:1 (1h 29min 51s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=10.0) TargetSize:1
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=1.0) TargetSize:0 (3min 15s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=1.0) TargetSize:200 (46min 12s)
+ML10M Running fold 1 on Normalized kNN (k=50, min=3) TargetSize:200
+ML10M Running fold 1 on kNN (k=50) TargetSize:50 (22min 59s)
+ML10M Running fold 1 on Normalized kNN (k=2000, min=3) TargetSize:50
+ML10M Running fold 1 on Normalized kNN (k=4000, min=3) TargetSize:0
+ML10M Running fold 1 on Normalized kNN (k=600, min=3) TargetSize:0 (1h 23min 21s)
+ML10M Running fold 1 on kNN (k=600) TargetSize:1 (27min 30s)
+ML10M Running fold 1 on Normalized kNN (k=800, min=3) TargetSize:1
+ML10M Running fold 1 on Normalized kNN (k=700, min=3) TargetSize:5000 (1h 16min 18s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=10.0) TargetSize:1 (6min 26s)
+ML10M Running fold 1 on kNN (k=4000) TargetSize:200 (35min 27s)
+ML10M Running fold 1 on kNN (k=4000) TargetSize:0 (41min 9s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=10.0) TargetSize:0
+ML10M Running fold 1 on kNN (k=500) TargetSize:50 (20min 24s)
+ML10M Running fold 1 on kNN (k=2000) TargetSize:200 (38min 1s)
+ML10M Running fold 1 on Normalized kNN (k=30, min=3) TargetSize:200
+ML10M Running fold 1 on Normalized kNN (k=800, min=3) TargetSize:200 (1h 8min 2s)
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=1.0) TargetSize:200
+ML10M Running fold 1 on Normalized kNN (k=5000, min=3) TargetSize:500 (2h 27min 13s)
+ML10M Running fold 1 on Normalized kNN (k=100, min=3) TargetSize:500 (1h 10min 43s)
+ML10M Running fold 1 on kNN (k=90) TargetSize:0
+ML10M Running fold 1 on kNN (k=100) TargetSize:1000 (23min 28s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=10.0) TargetSize:1000
+ML10M Running fold 1 on Normalized kNN (k=5000, min=3) TargetSize:50 (1h 52min 41s)
+ML10M Running fold 1 on kNN (k=400) TargetSize:1
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=1.0) TargetSize:200 (3min 18s)
+ML10M Running fold 1 on kNN (k=400) TargetSize:200
+ML10M Running fold 1 on Normalized kNN (k=600, min=3) TargetSize:500 (1h 23min 20s)
+ML10M Running fold 1 on kNN (k=400) TargetSize:500
+ML10M Running fold 1 on kNN (k=70) TargetSize:200
+ML10M Running fold 1 on kNN (k=70) TargetSize:1000
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=1.0) TargetSize:500 (45min 16s)
+ML10M Running fold 1 on kNN (k=500) TargetSize:500
+ML10M Running fold 1 on Popularity TargetSize:200
+ML10M Running fold 1 on Popularity TargetSize:200 (4s)
+ML10M Running fold 1 on Normalized kNN (k=600, min=3) TargetSize:200
+ML10M Running fold 1 on Normalized kNN (k=90, min=3) TargetSize:5000 (43min 5s)
+ML10M Running fold 1 on kNN (k=100) TargetSize:0
+ML10M Running fold 1 on Normalized kNN (k=600, min=3) TargetSize:5000 (55min 0s)
+ML10M Running fold 1 on kNN (k=5000) TargetSize:1 (1h 39s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=1.0) TargetSize:1
+ML10M Running fold 1 on kNN (k=5000) TargetSize:200 (43min 50s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=1.0) TargetSize:200
+ML10M Running fold 1 on Normalized kNN (k=50, min=3) TargetSize:0
+ML10M Running fold 1 on kNN (k=1000) TargetSize:0
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=10.0) TargetSize:200 (45min 27s)
+ML10M Running fold 1 on Normalized kNN (k=5000, min=3) TargetSize:200
+ML10M Running fold 1 on Normalized kNN (k=400, min=3) TargetSize:500 (1h 4min 53s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=100.0) TargetSize:500
+ML10M Running fold 1 on Normalized kNN (k=20, min=3) TargetSize:0 (1h 4min 15s)
+ML10M Running fold 1 on Popularity TargetSize:1
+ML10M Running fold 1 on Normalized kNN (k=2000, min=3) TargetSize:500 (48min 3s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=1.0) TargetSize:500
+ML10M Running fold 1 on Popularity TargetSize:1 (23s)
+ML10M Running fold 1 on Normalized kNN (k=600, min=3) TargetSize:1
+ML10M Running fold 1 on kNN (k=50) TargetSize:200
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=100.0) TargetSize:500 (3min 8s)
+ML10M Running fold 1 on Normalized kNN (k=90, min=3) TargetSize:200
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=1.0) TargetSize:500 (3min 16s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=100.0) TargetSize:500
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=1.0) TargetSize:1 (6min 19s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=1.0) TargetSize:200 (6min 24s)
+ML10M Running fold 1 on kNN (k=400) TargetSize:200 (13min 45s)
+ML10M Running fold 1 on kNN (k=50) TargetSize:1000
+ML10M Running fold 1 on Normalized kNN (k=400, min=3) TargetSize:50 (59min 45s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=100.0) TargetSize:50
+ML10M Running fold 1 on Normalized kNN (k=700, min=3) TargetSize:50 (1h 25min 45s)
+ML10M Running fold 1 on Normalized kNN (k=90, min=3) TargetSize:50
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=1.0) TargetSize:0 (45min 14s)
+ML10M Running fold 1 on Normalized kNN (k=50, min=3) TargetSize:500
+ML10M Running fold 1 on kNN (k=400) TargetSize:50
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=100.0) TargetSize:50 (3min 7s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=100.0) TargetSize:500 (6min 5s)
+ML10M Running fold 1 on kNN (k=70) TargetSize:0
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=1.0) TargetSize:500 (45min 14s)
+ML10M Running fold 1 on kNN (k=90) TargetSize:0 (23min 14s)
+ML10M Running fold 1 on Normalized kNN (k=700, min=3) TargetSize:0
+ML10M Running fold 1 on kNN (k=50) TargetSize:200 (8min 35s)
+ML10M Running fold 1 on Normalized kNN (k=2000, min=3) TargetSize:200
+ML10M Running fold 1 on Normalized kNN (k=80, min=3) TargetSize:200 (1h 1min 13s)
+ML10M Running fold 1 on kNN (k=500) TargetSize:500 (14min 55s)
+ML10M Running fold 1 on Normalized kNN (k=50, min=3) TargetSize:200 (37min 35s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=10.0) TargetSize:200
+ML10M Running fold 1 on kNN (k=1000) TargetSize:200
+ML10M Running fold 1 on Normalized kNN (k=400, min=3) TargetSize:5000 (59min 49s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=100.0) TargetSize:5000
+ML10M Running fold 1 on kNN (k=400) TargetSize:1 (25min 40s)
+ML10M Running fold 1 on Normalized kNN (k=90, min=3) TargetSize:1000 (1h 9min 46s)
+ML10M Running fold 1 on kNN (k=400) TargetSize:500 (22min 41s)
+ML10M Running fold 1 on Normalized kNN (k=90, min=3) TargetSize:0
+ML10M Running fold 1 on kNN (k=50) TargetSize:0
+ML10M Running fold 1 on kNN (k=70) TargetSize:200 (22min 36s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=100.0) TargetSize:200
+ML10M Running fold 1 on Normalized kNN (k=5000, min=3) TargetSize:0
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=100.0) TargetSize:5000 (3min 21s)
+ML10M Running fold 1 on kNN (k=1000) TargetSize:1000
+ML10M Running fold 1 on kNN (k=70) TargetSize:1000 (22min 47s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=100.0) TargetSize:1000
+ML10M Running fold 1 on Normalized kNN (k=2000, min=3) TargetSize:5000 (58min 21s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=1.0) TargetSize:5000
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=100.0) TargetSize:200 (3min 1s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=10.0) TargetSize:200
+ML10M Running fold 1 on kNN (k=50) TargetSize:1000 (13min 33s)
+ML10M Running fold 1 on Normalized kNN (k=2000, min=3) TargetSize:1000
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=10.0) TargetSize:200 (6min 11s)
+ML10M Running fold 1 on Normalized kNN (k=2000, min=3) TargetSize:50 (43min 47s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=1.0) TargetSize:50
+ML10M Running fold 1 on Normalized kNN (k=700, min=3) TargetSize:200 (1h 13min 27s)
+ML10M Running fold 1 on kNN (k=100) TargetSize:0 (23min 6s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=10.0) TargetSize:0
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=100.0) TargetSize:1000 (3min 6s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=10.0) TargetSize:1000
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=10.0) TargetSize:200 (3min 2s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=1.0) TargetSize:5000 (3min 17s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=100.0) TargetSize:5000
+ML10M Running fold 1 on kNN (k=400) TargetSize:50 (13min 34s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=1.0) TargetSize:50 (3min 1s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=100.0) TargetSize:50
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=10.0) TargetSize:1000 (3min 14s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=10.0) TargetSize:0 (44min 37s)
+ML10M Running fold 1 on kNN (k=900) TargetSize:0
+ML10M Running fold 1 on Popularity TargetSize:50
+ML10M Running fold 1 on Popularity TargetSize:50 (5s)
+ML10M Running fold 1 on Normalized kNN (k=600, min=3) TargetSize:50
+ML10M Running fold 1 on Normalized kNN (k=80, min=3) TargetSize:1 (55min 31s)
+ML10M Running fold 1 on Normalized kNN (k=60, min=3) TargetSize:0 (1h 56s)
+ML10M Running fold 1 on kNN (k=2000) TargetSize:0
+ML10M Running fold 1 on Normalized kNN (k=600, min=3) TargetSize:200 (30min 56s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=100.0) TargetSize:5000 (6min 39s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=100.0) TargetSize:50 (6min 7s)
+ML10M Running fold 1 on Normalized kNN (k=80, min=3) TargetSize:50 (1h 9min 15s)
+ML10M Running fold 1 on kNN (k=1000) TargetSize:0 (29min 47s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=1.0) TargetSize:0
+ML10M Running fold 1 on Normalized kNN (k=5000, min=3) TargetSize:1000
+ML10M Running fold 1 on Normalized kNN (k=50, min=3) TargetSize:0 (31min 2s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=10.0) TargetSize:0
+ML10M Running fold 1 on Normalized kNN (k=30, min=3) TargetSize:200 (47min 3s)
+ML10M Running fold 1 on Normalized kNN (k=400, min=3) TargetSize:200
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=10.0) TargetSize:1000 (44min 30s)
+ML10M Running fold 1 on kNN (k=70) TargetSize:0 (22min 46s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=100.0) TargetSize:0
+ML10M Running fold 1 on Normalized kNN (k=4000, min=3) TargetSize:200 (2h 21min 34s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=100.0) TargetSize:0 (3min 11s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=10.0) TargetSize:0
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=10.0) TargetSize:0 (6min 15s)
+ML10M Running fold 1 on kNN (k=50) TargetSize:0 (22min 31s)
+ML10M Running fold 1 on Normalized kNN (k=2000, min=3) TargetSize:0
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=10.0) TargetSize:0 (3min 8s)
+ML10M Running fold 1 on Normalized kNN (k=50, min=3) TargetSize:500 (32min 42s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=10.0) TargetSize:500
+ML10M Running fold 1 on kNN (k=1000) TargetSize:1000 (23min 40s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=1.0) TargetSize:1000
+ML10M Running fold 1 on kNN (k=1000) TargetSize:200 (29min 24s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=1.0) TargetSize:200
+ML10M Running fold 1 on Random TargetSize:1
+ML10M Running fold 1 on Normalized kNN (k=2000, min=3) TargetSize:200 (33min 7s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=1.0) TargetSize:200
+ML10M Running fold 1 on Random TargetSize:1 (29s)
+ML10M Running fold 1 on kNN (k=10) TargetSize:1
+ML10M Running fold 1 on kNN (k=2000) TargetSize:0 (20min 8s)
+ML10M Running fold 1 on Normalized kNN (k=30, min=3) TargetSize:0
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=10.0) TargetSize:500 (6min 15s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=1.0) TargetSize:200 (3min 14s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=100.0) TargetSize:200
+ML10M Running fold 1 on kNN (k=900) TargetSize:0 (21min 49s)
+ML10M Running fold 1 on Normalized kNN (k=100, min=3) TargetSize:1
+ML10M Running fold 1 on Normalized kNN (k=90, min=3) TargetSize:0 (35min 15s)
+ML10M Running fold 1 on Normalized kNN (k=600, min=3) TargetSize:50 (25min 7s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=100.0) TargetSize:200 (5min 55s)
+ML10M Running fold 1 on Normalized kNN (k=4000, min=3) TargetSize:1
+ML10M Running fold 1 on Normalized kNN (k=2000, min=3) TargetSize:1000 (36min 50s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=1.0) TargetSize:1000
+ML10M Running fold 1 on Normalized kNN (k=5000, min=3) TargetSize:200 (57min 50s)
+ML10M Running fold 1 on Normalized kNN (k=90, min=3) TargetSize:200 (55min 23s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=1.0) TargetSize:1000 (2min 52s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=100.0) TargetSize:1000
+ML10M Running fold 1 on Normalized kNN (k=700, min=3) TargetSize:0 (49min 31s)
+ML10M Running fold 1 on Normalized kNN (k=4000, min=3) TargetSize:0 (1h 25min 1s)
+ML10M Running fold 1 on Normalized kNN (k=800, min=3) TargetSize:1 (1h 24min 1s)
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=1.0) TargetSize:1
+ML10M Running fold 1 on Normalized kNN (k=600, min=3) TargetSize:1 (1h 2min 30s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=10.0) TargetSize:0 (42min 58s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=1.0) TargetSize:1
+ML10M Running fold 1 on Normalized kNN (k=90, min=3) TargetSize:50 (57min 28s)
+ML10M Running fold 1 on iMF (k=5, lambda=0.1, alpha=1.0) TargetSize:1 (3min 11s)
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=10.0) TargetSize:1
+ML10M Running fold 1 on Normalized kNN (k=50, min=3) TargetSize:1
+ML10M Running fold 1 on Normalized kNN (k=2000, min=3) TargetSize:0 (26min 29s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=1.0) TargetSize:0
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=100.0) TargetSize:1000 (6min 15s)
+ML10M Running fold 1 on kNN (k=100) TargetSize:1
+ML10M Running fold 1 on kNN (k=1000) TargetSize:1
+ML10M Running fold 1 on kNN (k=10) TargetSize:1 (22min 46s)
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=100.0) TargetSize:1
+ML10M Running fold 1 on Normalized kNN (k=5000, min=3) TargetSize:1000 (38min 10s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=1.0) TargetSize:0 (3min 19s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=100.0) TargetSize:0
+ML10M Running fold 1 on Normalized kNN (k=5000, min=3) TargetSize:1
+ML10M Running fold 1 on Normalized kNN (k=30, min=3) TargetSize:0 (23min 37s)
+ML10M Running fold 1 on Normalized kNN (k=400, min=3) TargetSize:0
+ML10M Running fold 1 on Normalized kNN (k=5000, min=3) TargetSize:0 (55min 48s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=1.0) TargetSize:0 (43min 40s)
+ML10M Running fold 1 on kNN (k=500) TargetSize:0
+ML10M Running fold 1 on Normalized kNN (k=4000, min=3) TargetSize:500 (1h 53min 7s)
+ML10M Running fold 1 on Normalized kNN (k=400, min=3) TargetSize:200 (42min 11s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=100.0) TargetSize:200
+ML10M Running fold 1 on kNN (k=90) TargetSize:1
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=100.0) TargetSize:0 (6min 12s)
+ML10M Running fold 1 on Normalized kNN (k=50, min=3) TargetSize:1 (9min 44s)
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=10.0) TargetSize:1
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=100.0) TargetSize:200 (3min 15s)
+ML10M Running fold 1 on kNN (k=1000) TargetSize:1 (10min 58s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=1.0) TargetSize:1
+ML10M Running fold 1 on kNN (k=100) TargetSize:1 (11min 39s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=10.0) TargetSize:1
+ML10M Running fold 1 on Normalized kNN (k=100, min=3) TargetSize:1 (28min 43s)
+ML10M Running fold 1 on kNN (k=500) TargetSize:0 (6min 56s)
+ML10M Running fold 1 on kNN (k=70) TargetSize:1
+ML10M Running fold 1 on kNN (k=50) TargetSize:1
+ML10M Running fold 1 on Normalized kNN (k=60, min=3) TargetSize:1
+ML10M Running fold 1 on iMF (k=10, lambda=1.0, alpha=10.0) TargetSize:1 (6min 31s)
+ML10M Running fold 1 on Normalized kNN (k=90, min=3) TargetSize:1
+ML10M Running fold 1 on kNN (k=30) TargetSize:1
+ML10M Running fold 1 on Normalized kNN (k=4000, min=3) TargetSize:1 (28min 11s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=1.0) TargetSize:1000 (42min 22s)
+ML10M Running fold 1 on kNN (k=500) TargetSize:1000
+ML10M Running fold 1 on kNN (k=70) TargetSize:1 (5min 51s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=100.0) TargetSize:1
+ML10M Running fold 1 on kNN (k=90) TargetSize:1 (12min 40s)
+ML10M Running fold 1 on Normalized kNN (k=700, min=3) TargetSize:1
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=1.0) TargetSize:200 (43min 35s)
+ML10M Running fold 1 on kNN (k=500) TargetSize:200
+ML10M Running fold 1 on kNN (k=50) TargetSize:1 (7min 4s)
+ML10M Running fold 1 on Normalized kNN (k=2000, min=3) TargetSize:1
+ML10M Running fold 1 on Normalized kNN (k=400, min=3) TargetSize:0 (16min 44s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=100.0) TargetSize:0
+ML10M Running fold 1 on kNN (k=30) TargetSize:1 (6min 26s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=100.0) TargetSize:1 (3min 25s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=10.0) TargetSize:1
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=100.0) TargetSize:0 (2min 54s)
+ML10M Running fold 1 on kNN (k=500) TargetSize:1000 (7min 37s)
+ML10M Running fold 1 on Normalized kNN (k=5000, min=3) TargetSize:1 (21min 49s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=10.0) TargetSize:1 (3min 10s)
+ML10M Running fold 1 on Normalized kNN (k=60, min=3) TargetSize:1 (12min 13s)
+ML10M Running fold 1 on kNN (k=2000) TargetSize:1
+ML10M Running fold 1 on kNN (k=500) TargetSize:200 (7min 57s)
+ML10M Running fold 1 on Normalized kNN (k=90, min=3) TargetSize:1 (14min 22s)
+ML10M Running fold 1 on Normalized kNN (k=700, min=3) TargetSize:1 (9min 38s)
+ML10M Running fold 1 on kNN (k=2000) TargetSize:1 (4min 17s)
+ML10M Running fold 1 on Normalized kNN (k=30, min=3) TargetSize:1
+ML10M Running fold 1 on Normalized kNN (k=2000, min=3) TargetSize:1 (10min 45s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=1.0) TargetSize:1
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=1.0) TargetSize:1 (35min 2s)
+ML10M Running fold 1 on iMF (k=5, lambda=1.0, alpha=1.0) TargetSize:1 (1min 34s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=100.0) TargetSize:1
+ML10M Running fold 1 on Normalized kNN (k=30, min=3) TargetSize:1 (2min 53s)
+ML10M Running fold 1 on Normalized kNN (k=400, min=3) TargetSize:1
+ML10M Running fold 1 on iMF (k=50, lambda=0.1, alpha=10.0) TargetSize:1 (37min 20s)
+ML10M Running fold 1 on kNN (k=900) TargetSize:1
+ML10M Running fold 1 on Normalized kNN (k=400, min=3) TargetSize:1 (2min 29s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=100.0) TargetSize:1
+ML10M Running fold 1 on iMF (k=50, lambda=1.0, alpha=100.0) TargetSize:1 (35min 38s)
+ML10M Running fold 1 on iMF (k=10, lambda=10.0, alpha=100.0) TargetSize:1 (3min 19s)
+ML10M Running fold 1 on kNN (k=900) TargetSize:1 (1min 10s)
+ML10M Running fold 1 on iMF (k=5, lambda=10.0, alpha=100.0) TargetSize:1 (38s)
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=1.0) TargetSize:1 (26min 48s)
+ML10M Running fold 1 on kNN (k=500) TargetSize:1
+ML10M Running fold 1 on iMF (k=50, lambda=10.0, alpha=10.0) TargetSize:1 (26min 33s)
+ML10M Running fold 1 on kNN (k=500) TargetSize:1 (42s)
+ML10M Running fold 1 target:50 new users:69878 expectation:0.14545833106715803 (16h 48min 33s)
+ML10M Running fold 1 target:200 new users:69878 expectation:0.045021893413704175 (17h 5min 35s)
+Exception in thread "main" java.lang.OutOfMemoryError
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at java.util.concurrent.ForkJoinTask.getThrowableException(ForkJoinTask.java:598)
+	at java.util.concurrent.ForkJoinTask.reportException(ForkJoinTask.java:677)
+	at java.util.concurrent.ForkJoinTask.invoke(ForkJoinTask.java:735)
+	at java.util.stream.ForEachOps$ForEachOp.evaluateParallel(ForEachOps.java:160)
+	at java.util.stream.ForEachOps$ForEachOp$OfInt.evaluateParallel(ForEachOps.java:189)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:233)
+	at java.util.stream.IntPipeline.forEach(IntPipeline.java:405)
+	at java.util.stream.IntPipeline$Head.forEach(IntPipeline.java:562)
+	at es.uam.ir.targetsampling.TargetSampling.lambda$runCrossValidation$2(TargetSampling.java:139)
+	at java.util.stream.Streams$RangeIntSpliterator.forEachRemaining(Streams.java:110)
+	at java.util.stream.IntPipeline$Head.forEach(IntPipeline.java:559)
+	at es.uam.ir.targetsampling.TargetSampling.runCrossValidation(TargetSampling.java:126)
+	at es.uam.ir.targetsampling.Initialize.runMovieLens10M_ALL_nothreading(Initialize.java:224)
+	at es.uam.ir.targetsampling.Initialize.main(Initialize.java:37)
+Caused by: java.lang.OutOfMemoryError: GC overhead limit exceeded
+
+Process finished with exit code 1

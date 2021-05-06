@@ -1,11 +1,10 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Initialize" type="Application" factoryName="Application" singleton="false" nameIsGenerated="true">
-    <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
+    <option name="ALTERNATIVE_JRE_PATH" value="$PROJECT_DIR$/../../Program Files/Java/jdk1.8.0_291" />
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
     <option name="MAIN_CLASS_NAME" value="es.uam.ir.targetsampling.Initialize" />
     <module name="TargetSampling" />
-    <option name="PROGRAM_PARAMETERS" value="-Xmx80m" />
-    <option name="VM_PARAMETERS" value="-XX:+UnlockCommercialFeatures" />
+    <option name="PROGRAM_PARAMETERS" value="-XX:-UseGCOverheadLimit -Xms2G -Xmx2G -XX:+UseParallelGC -Xnoclassgc -XX:MaxPermSize=1024m -XX:+UnlockCommercialFeatures" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="es.uam.ir.targetsampling.*" />
