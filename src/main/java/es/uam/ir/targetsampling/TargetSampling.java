@@ -122,57 +122,31 @@ public class TargetSampling {
             }
             out.println(mBuilder);
 
-            int bound = conf.getNFolds();
-            for (int i = 1; i <= bound; i++) {
-                int currentFold = i;
-                final String foldName = logSource + " Running fold " + currentFold;
-
-                final String fileReadLog = foldName + ". Reading files";
-                Timer.start(fileReadLog, fileReadLog);
-                FastPreferenceData<Long, Long> trainData = getData(userIndex, itemIndex, currentFold, "-data-train.txt");
-                FastPreferenceData<Long, Long> testData = getData(userIndex, itemIndex, currentFold, "-data-test.txt");
-                FastPreferenceData<Long, Long> positiveTrainData = TruncateRatings.run(trainData, conf.getThreshold());
-                Timer.done(fileReadLog, fileReadLog);
-
-                Timer.start(foldName, foldName);
-                Arrays.stream(conf.getTargetSizes())
-                        .parallel()
-                        .forEach(targetSize -> {
-                            final String foldTargetLog = foldName + " target:" + targetSize;
-                            Timer.start(foldTargetLog, foldTargetLog);
-                            //Sampler:
-                            Function<Long, IntPredicate> sampler = FastSamplers.uniform(trainData, FastSamplers.inTestForUser(testData), targetSize);
-                            Function<Long, IntPredicate> notTrainFilter = FastFilters.notInTrain(trainData);
-                            Function<Long, IntPredicate> userFilter = FastFilters.and(sampler, notTrainFilter);
-
-                            Map<String, Map<String, double[]>> evalsPerUserResults = runSplit(
-                                    userIndex,
-                                    itemIndex,
-                                    targetSize,
-                                    currentFold,
-                                    trainData,
-                                    positiveTrainData,
-                                    testData,
-                                    userFilter,
-                                    out,
-                                    logSource);
-
-                            double expectation = getExpectation(itemIndex, trainData, userFilter);
-                            outExpectation.println(currentFold + "\t" + targetSize + "\t" + expectation);
-                            long newUsers = trainData.getUsersWithPreferences().count();
-                            evalsPerUserResults.forEach((s, stringMap) -> evalsPerUser.put(s, evalsPerUserResults.get(s)));
-                            Timer.done(foldTargetLog, String.format("%s new users:%d expectation:%s", foldTargetLog, newUsers, expectation));
-                        });
-                Timer.done(foldName, foldName);
-            }
+            /*if (conf.isAllRecs()) {
+                int bound = conf.getNFolds();
+                for (int i = 1; i <= bound; i++) {
+                    int currentFold = i;
+                    runFold(logSource, userIndex, itemIndex, evalsPerUser, out, outExpectation, currentFold);
+                }
+            } else {}*/
+            IntStream.rangeClosed(1, conf.getNFolds())
+                    .parallel()
+                    .forEach(currentFold -> runFold(
+                            logSource,
+                            userIndex,
+                            itemIndex,
+                            evalsPerUser,
+                            out,
+                            outExpectation,
+                            currentFold));
 
             //Run
 
             final int size = evalsPerUser
                     .values()
                     .stream()
-                    .findFirst().
-                            get()
+                    .findFirst()
+                    .get()
                     .values()
                     .stream()
                     .findFirst()
@@ -182,6 +156,63 @@ public class TargetSampling {
         }
 
         Timer.done(logSource, logSource + " Done");
+    }
+
+    private void runFold(String logSource,
+                         FastUserIndex<Long> userIndex,
+                         FastItemIndex<Long> itemIndex,
+                         Map<String, Map<String, double[]>> evalsPerUser,
+                         PrintStream out,
+                         PrintStream outExpectation,
+                         int currentFold) {
+        final String foldName = logSource + " Running fold " + currentFold;
+
+        final String fileReadLog = foldName + ". Reading files";
+        Timer.start(fileReadLog, fileReadLog);
+        FastPreferenceData<Long, Long> trainData = getData(userIndex, itemIndex, currentFold, "-data-train.txt");
+        FastPreferenceData<Long, Long> testData = getData(userIndex, itemIndex, currentFold, "-data-test.txt");
+        FastPreferenceData<Long, Long> positiveTrainData = TruncateRatings.run(trainData, conf.getThreshold());
+        Timer.done(fileReadLog, fileReadLog);
+
+        Timer.start(foldName, foldName);
+        int[] targetSizes = conf.getTargetSizes();
+        if (conf.isAllRecs() && targetSizes.length > 2) {
+            targetSizes = new int[]
+                    {
+                            targetSizes[0],
+                            targetSizes[targetSizes.length - 1]
+                    };
+        }
+
+        Arrays.stream(targetSizes)
+                .parallel()
+                .forEach(targetSize -> {
+                    final String foldTargetLog = foldName + " target:" + targetSize;
+                    Timer.start(foldTargetLog, foldTargetLog);
+                    //Sampler:
+                    Function<Long, IntPredicate> sampler = FastSamplers.uniform(trainData, FastSamplers.inTestForUser(testData), targetSize);
+                    Function<Long, IntPredicate> notTrainFilter = FastFilters.notInTrain(trainData);
+                    Function<Long, IntPredicate> userFilter = FastFilters.and(sampler, notTrainFilter);
+
+                    Map<String, Map<String, double[]>> evalsPerUserResults = runSplit(
+                            userIndex,
+                            itemIndex,
+                            targetSize,
+                            currentFold,
+                            trainData,
+                            positiveTrainData,
+                            testData,
+                            userFilter,
+                            out,
+                            logSource);
+
+                    double expectation = getExpectation(itemIndex, trainData, userFilter);
+                    outExpectation.println(currentFold + "\t" + targetSize + "\t" + expectation);
+                    long newUsers = trainData.getUsersWithPreferences().count();
+                    evalsPerUserResults.forEach((s, stringMap) -> evalsPerUser.put(s, evalsPerUserResults.get(s)));
+                    Timer.done(foldTargetLog, String.format("%s new users:%d expectation:%s", foldTargetLog, newUsers, expectation));
+                });
+        Timer.done(foldName, foldName);
     }
 
     private FastPreferenceData<Long, Long> getData(
@@ -257,7 +288,6 @@ public class TargetSampling {
         if (conf.isAllRecs()) {
             recMap.putAll(getAllRecs(userIndex, itemIndex, trainData, positiveTrainData));
         } else {
-
             recMap.putAll(getFullAndTestRecs(userIndex, itemIndex, trainData, positiveTrainData));
         }
 
@@ -345,9 +375,9 @@ public class TargetSampling {
 
         //Values
         StringBuilder mBuilder = new StringBuilder()
-                .append(currentFold)
-                .append("\t")
-                .append(targetSize + "\t" + recommender);
+                .append(currentFold).append("\t")
+                .append(targetSize).append("\t")
+                .append(recommender);
         for (String metricName : METRIC_NAMES) {
             mBuilder
                     .append("\t")

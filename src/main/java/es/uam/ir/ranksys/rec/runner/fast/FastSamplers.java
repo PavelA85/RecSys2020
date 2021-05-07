@@ -8,6 +8,7 @@
  */
 package es.uam.ir.ranksys.rec.runner.fast;
 
+import es.uam.eps.ir.ranksys.core.preference.IdPref;
 import es.uam.eps.ir.ranksys.fast.index.FastItemIndex;
 import es.uam.eps.ir.ranksys.fast.index.FastUserIndex;
 import es.uam.eps.ir.ranksys.fast.preference.FastPreferenceData;
@@ -20,15 +21,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.IntFunction;
 import java.util.function.IntPredicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.ranksys.formats.parsing.Parser;
 
@@ -125,7 +125,11 @@ public class FastSamplers {
      * @param weight
      * @return
      */
-    public static <U, I> Function<U, IntPredicate> sample(FastPreferenceData<U, I> trainData, Map<U, IntSet> inTestForUser, int targetSize, IntFunction<Double> weight) {
+    public static <U, I> Function<U, IntPredicate> sample(
+            FastPreferenceData<U, I> trainData,
+            Map<U, IntSet> inTestForUser,
+            int targetSize,
+            IntFunction<Double> weight) {
         Map<U, IntSet> mapKSets;
         if (targetSize >= trainData.numItems()) {
             IntSet kSet = new IntOpenHashSet();
@@ -147,7 +151,7 @@ public class FastSamplers {
                     .collect(Collectors
                             .toMap(
                                     user -> user,
-                                    user -> getKSet(trainData, inTestForUser, targetSize, weight, user)));
+                                    user -> getKSet(trainData, targetSize)));
         }
 
         return user -> {
@@ -158,36 +162,49 @@ public class FastSamplers {
         };
     }
 
-    private static <U, I> IntSet getKSet(FastPreferenceData<U, I> trainData, Map<U, IntSet> inTestForUser, int targetSize, IntFunction<Double> weight, U user) {
-        IntSet testSet = inTestForUser.get(user);
+    public static List<?> flatten(List<?> list) {
+        return list.stream()
+                .flatMap(e -> e instanceof List ? flatten((List) e).stream() : Stream.of(e))
+                .collect(Collectors.toList());
+    }
 
-        int nItems = trainData.numItems();
-        double items[] = new double[nItems];
-        double sum = trainData
-                .getAllIidx()
-                .filter(iidx -> !testSet.contains(iidx))
-                .mapToDouble(iidx -> {
-                    items[iidx] = weight.apply(iidx);
-                    return items[iidx];
-                }).sum();
+    private static <U, I> IntSet getKSet(
+            FastPreferenceData<U, I> trainData,
+            int targetSize) {
+
+        class TTuple {
+
+            I item;
+            /*Double average;*/
+            long count;
+
+            public I getItem() {
+                return item;
+            }
+
+            /*public Double getAverage() {
+                return average;
+            }*/
+
+            public long getCount() {
+                return count;
+            }
+        }
 
         IntSet kSet = new IntOpenHashSet();
-        for (int i = 0; i < targetSize && sum > 0; i++) {
-            double p = rnd.nextDouble() * sum;
-            double acc = 0;
+        trainData.getAllItems().map(
+                item -> {
+                    final TTuple tuple = new TTuple();
+                    tuple.item = item;
+                    /*tuple.average = trainData.getItemPreferences(item).mapToDouble(IdPref::v2).average().orElse(0);*/
+                    tuple.count = trainData.getItemPreferences(item).mapToDouble(IdPref::v2).count();
+                    return tuple;
+                })
+                .sorted(Comparator.comparingLong(TTuple::getCount).reversed())
+                .limit(targetSize)
+                .map(TTuple::getItem)
+                .forEachOrdered(i -> kSet.add(Math.toIntExact((Long) i)));
 
-            int j = 0;
-            while (acc < p) {
-                acc += items[j];
-                j++;
-            }
-            j--;
-            kSet.add(j);
-
-            sum -= items[j];
-            items[j] = 0;
-
-        }
         return kSet;
     }
 
