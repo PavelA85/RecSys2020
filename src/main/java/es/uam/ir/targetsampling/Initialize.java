@@ -34,6 +34,8 @@ public class Initialize {
         LogManager.getLogManager().reset();
 
         mkdir();
+//        threads.add(StartThread("MovieLens10M", Initialize::preprocessMl10mDataset));
+//        preprocessMl10mDataset_nothread();
         runMovieLens10M_ALL_nothreading();
 /*        // runMovieLens1mCrossValidation();
 
@@ -337,9 +339,32 @@ public class Initialize {
         }
     }
 
+    static void preprocessMl10mDataset_nothread() {
+        try {
+            String title = "MovieLens10M";
+            Timer.start(title, "Processing: " + title);
+            RandomAccessFile ml10mIn = new RandomAccessFile(ORIGINAL_ML10M_DATASET_PATH, "r");
+            byte[] bytes = new byte[(int) ml10mIn.length()];
+            ml10mIn.read(bytes);
+            String ratings = new String(bytes, StandardCharsets.UTF_8);
+
+            PrintStream ml10mOut = new PrintStream(PREPROCESSED_ML10M_DATASET_PATH);
+            ml10mOut.print(ratings
+                    .replace("::", "\t")
+                    .replace(".5", "")
+            );
+            ml10mOut.close();
+
+            CrossValidation.randomNFoldCrossValidation(PREPROCESSED_ML10M_DATASET_PATH, ML10M_PATH, GenerateFigure.N_FOLDS);
+            Timer.done(title, "Processing done: " + title);
+        } catch (IOException e) {
+            System.out.println("preprocessMl10mDataset " + e);
+            e.printStackTrace(System.out);
+        }
+    }
+
     static void preprocessMl10mDataset() {
         try {
-
             RandomAccessFile ml10mIn = new RandomAccessFile(ORIGINAL_ML10M_DATASET_PATH, "r");
             byte[] bytes = new byte[(int) ml10mIn.length()];
             ml10mIn.read(bytes);

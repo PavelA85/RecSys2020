@@ -4,7 +4,7 @@
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
     <option name="MAIN_CLASS_NAME" value="es.uam.ir.targetsampling.Initialize" />
     <module name="TargetSampling" />
-    <option name="PROGRAM_PARAMETERS" value="-XX:-UseGCOverheadLimit -Xms2G -Xmx2G -XX:+UseParallelGC -Xnoclassgc -XX:MaxPermSize=1024m -XX:+UnlockCommercialFeatures" />
+    <option name="PROGRAM_PARAMETERS" value="-XX:-UseGCOverheadLimit -Xms4G -Xmx4G -XX:+UseParallelGC -Xnoclassgc -XX:MaxPermSize=2048m -XX:+UnlockCommercialFeatures" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="es.uam.ir.targetsampling.*" />
