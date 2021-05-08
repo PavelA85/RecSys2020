@@ -176,13 +176,13 @@ public class TargetSampling {
 
         Timer.start(foldName, foldName);
         int[] targetSizes = conf.getTargetSizes();
-        if (conf.isAllRecs() && targetSizes.length > 2) {
+/*        if (conf.isAllRecs() && targetSizes.length > 2) {
             targetSizes = new int[]
                     {
                             targetSizes[0],
                             targetSizes[targetSizes.length - 1]
                     };
-        }
+        }*/
 
         Arrays.stream(targetSizes)
                 .parallel()
