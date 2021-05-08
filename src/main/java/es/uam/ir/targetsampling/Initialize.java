@@ -36,8 +36,8 @@ public class Initialize {
         mkdir();
 //        threads.add(StartThread("MovieLens10M", Initialize::preprocessMl10mDataset));
 //        preprocessMl10mDataset_nothread();
-        runMovieLens10M_ALL_nothreading();
-/*        // runMovieLens1mCrossValidation();
+//        runMovieLens10M_ALL_nothreading();
+        // runMovieLens1mCrossValidation();
 
         List<Thread> threads = new ArrayList<>();
 
@@ -58,22 +58,24 @@ public class Initialize {
 
 //        threads.addAll(run_NOFILL());
 //        threads.addAll(runMovieLens1M_AGE());
-        threads.addAll(runMovieLens100K_AGE());
-//        threads.add(runMovieLens100k_ALL());
-//        threads.add(runMovieLens1M_ALL());
+//        threads.addAll(runMovieLens100K_AGE());
+        threads.addAll(runMovieLens100K_AGE_ALL());
+        threads.add(runMovieLens100k_ALL());
+        threads.add(runMovieLens1M_ALL());
+        threads.add(runYahooBiased_ALL());
 //        threads.add(runMovieLens100k());
 //        threads.addAll(runMovieLens100K_Gender());
 //        threads.addAll(runMovieLens1M_Gender());
 //        threads.addAll(runMovieLens1M_Gender_ALL());
 //        threads.addAll(runMovieLens100K_Gender_ALL());
 //        threads.add(runMovieLens1M());
-        threads.add(runYahooBiased());
-        threads.add(runYahooUnbiased());
+//        threads.add(runYahooBiased());
+//        threads.add(runYahooUnbiased());
 //        threads.add(runMovieLens25M());
 //        threads.add(runMovieLens10M_ALL());
 //        threads.add(runMovieLens10M());
 
-        ThreadJoin(threads);*/
+        ThreadJoin(threads);
     }
 
     private static void ThreadJoin(List<Thread> threads) {
@@ -101,6 +103,10 @@ public class Initialize {
         if (!directory.exists()) {
             directory.mkdir();
         }
+    }
+
+    private static Thread runYahooBiased_ALL() throws InterruptedException, IOException {
+        return StartCrossValidateTargetSampling("YAHOO_ALL", new Configuration(YAHOO_BIASED_PROPERTIES_FILE).forAll());
     }
 
     private static Thread runYahooBiased() throws InterruptedException, IOException {
