@@ -36,9 +36,9 @@ public class Initialize {
         mkdir();
 //        threads.add(StartThread("MovieLens10M", Initialize::preprocessMl10mDataset));
 //        preprocessMl10mDataset_nothread();
-//        runMovieLens10M_ALL_nothreading();
+        runMovieLens10M_ALL_nothreading();
         // runMovieLens1mCrossValidation();
-        runMovieLens10M_nothreading();
+//        runMovieLens10M_nothreading();
 
         List<Thread> threads = new ArrayList<>();
 
