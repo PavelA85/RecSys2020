@@ -38,6 +38,7 @@ public class Initialize {
 //        preprocessMl10mDataset_nothread();
 //        runMovieLens10M_ALL_nothreading();
         // runMovieLens1mCrossValidation();
+        runMovieLens10M_nothreading();
 
         List<Thread> threads = new ArrayList<>();
 
@@ -56,24 +57,29 @@ public class Initialize {
 
         threads.clear();
 
-//        threads.addAll(run_NOFILL());
-//        threads.addAll(runMovieLens1M_AGE());
-//        threads.addAll(runMovieLens100K_AGE());
-//        threads.addAll(runMovieLens100K_AGE_ALL());
-//        threads.add(runMovieLens100k_ALL());
-//        threads.add(runMovieLens1M_ALL());
-//        threads.add(runYahooBiased_ALL());
+/*
+        threads.addAll(run_NOFILL());
+        threads.addAll(runMovieLens1M_AGE());
+        threads.addAll(runMovieLens100K_AGE());
+        threads.addAll(runMovieLens100K_AGE_ALL());
+        threads.add(runMovieLens100k_ALL());
+        threads.add(runMovieLens1M_ALL());
+        threads.add(runYahooBiased_ALL());
+        threads.addAll(runMovieLens100K_Gender());
+        threads.addAll(runMovieLens1M_Gender());
+        threads.addAll(runMovieLens1M_Gender_ALL());
+        threads.addAll(runMovieLens100K_Gender_ALL());
+        threads.add(runMovieLens25M());
+        threads.add(runMovieLens10M_ALL());
+*/
+
+/*
         threads.add(runMovieLens100k());
-//        threads.addAll(runMovieLens100K_Gender());
-//        threads.addAll(runMovieLens1M_Gender());
-//        threads.addAll(runMovieLens1M_Gender_ALL());
-//        threads.addAll(runMovieLens100K_Gender_ALL());
         threads.add(runMovieLens1M());
+        threads.add(runMovieLens10M());
         threads.add(runYahooBiased());
         threads.add(runYahooUnbiased());
-//        threads.add(runMovieLens25M());
-//        threads.add(runMovieLens10M_ALL());
-        threads.add(runMovieLens10M());
+*/
 
         ThreadJoin(threads);
     }
@@ -225,10 +231,19 @@ public class Initialize {
     }
 
     private static void runMovieLens10M_ALL_nothreading() throws IOException, InterruptedException {
-        Timer.start((Object) "ML10M", "ML10M");
+        String log = "ML10M_ALL";
+        Timer.start(log, log);
         TargetSampling targetSelection = new TargetSampling(new Configuration(ML10M_BIASED_PROPERTIES_FILE).forAll());
-        targetSelection.runCrossValidation("ML10M");
-        Timer.done("ML10M", "ML10M");
+        targetSelection.runCrossValidation(log);
+        Timer.done(log, log);
+    }
+
+    private static void runMovieLens10M_nothreading() throws IOException, InterruptedException {
+        String log = "ML10M";
+        Timer.start(log, log);
+        TargetSampling targetSelection = new TargetSampling(new Configuration(ML10M_BIASED_PROPERTIES_FILE));
+        targetSelection.runCrossValidation(log);
+        Timer.done(log, log);
     }
 
     private static Thread runMovieLens10M_ALL() throws InterruptedException, IOException {
