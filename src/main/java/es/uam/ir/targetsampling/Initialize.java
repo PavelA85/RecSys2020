@@ -60,20 +60,20 @@ public class Initialize {
 //        threads.addAll(runMovieLens1M_AGE());
 //        threads.addAll(runMovieLens100K_AGE());
 //        threads.addAll(runMovieLens100K_AGE_ALL());
-        threads.add(runMovieLens100k_ALL());
-        threads.add(runMovieLens1M_ALL());
-        threads.add(runYahooBiased_ALL());
-//        threads.add(runMovieLens100k());
+//        threads.add(runMovieLens100k_ALL());
+//        threads.add(runMovieLens1M_ALL());
+//        threads.add(runYahooBiased_ALL());
+        threads.add(runMovieLens100k());
 //        threads.addAll(runMovieLens100K_Gender());
 //        threads.addAll(runMovieLens1M_Gender());
 //        threads.addAll(runMovieLens1M_Gender_ALL());
 //        threads.addAll(runMovieLens100K_Gender_ALL());
-//        threads.add(runMovieLens1M());
-//        threads.add(runYahooBiased());
-//        threads.add(runYahooUnbiased());
+        threads.add(runMovieLens1M());
+        threads.add(runYahooBiased());
+        threads.add(runYahooUnbiased());
 //        threads.add(runMovieLens25M());
 //        threads.add(runMovieLens10M_ALL());
-//        threads.add(runMovieLens10M());
+        threads.add(runMovieLens10M());
 
         ThreadJoin(threads);
     }
@@ -128,7 +128,7 @@ public class Initialize {
             }
         });
 
-        tYahooUNBIASED.sleep(100);
+        tYahooUNBIASED.sleep(1000);
         tYahooUNBIASED.start();
         return tYahooUNBIASED;
     }
