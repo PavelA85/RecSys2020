@@ -36,7 +36,7 @@ public class Initialize extends PreprocessDatasets {
         mkdir();
 //        threads.add(StartThread("MovieLens10M", Initialize::preprocessMl10mDataset));
 //        preprocessMl10mDataset_nothread();
-        runMovieLens10M_ALL_nothreading();
+//        runMovieLens10M_ALL_nothreading();
         // runMovieLens1mCrossValidation();
 //        runMovieLens10M_nothreading();
 
@@ -57,21 +57,20 @@ public class Initialize extends PreprocessDatasets {
 
         threads.clear();
 
-/*
         threads.addAll(run_NOFILL());
-        threads.addAll(runMovieLens1M_AGE());
-        threads.addAll(runMovieLens100K_AGE());
+//        threads.addAll(runMovieLens1M_AGE());
+//        threads.addAll(runMovieLens100K_AGE());
         threads.addAll(runMovieLens100K_AGE_ALL());
+        threads.addAll(runMovieLens1M_AGE_ALL());
         threads.add(runMovieLens100k_ALL());
         threads.add(runMovieLens1M_ALL());
         threads.add(runYahooBiased_ALL());
-        threads.addAll(runMovieLens100K_Gender());
-        threads.addAll(runMovieLens1M_Gender());
-        threads.addAll(runMovieLens1M_Gender_ALL());
+//        threads.addAll(runMovieLens100K_Gender());
+//        threads.addAll(runMovieLens1M_Gender());
         threads.addAll(runMovieLens100K_Gender_ALL());
-        threads.add(runMovieLens25M());
-        threads.add(runMovieLens10M_ALL());
-*/
+        threads.addAll(runMovieLens1M_Gender_ALL());
+//        threads.add(runMovieLens25M());
+//        threads.add(runMovieLens10M_ALL());
 
 /*
         threads.add(runMovieLens100k());
@@ -175,16 +174,18 @@ public class Initialize extends PreprocessDatasets {
 
         return Arrays.asList(
                 StartCrossValidateTargetSampling("ML100K_NOFILL", new Configuration(ML100K_BIASED_PROPERTIES_FILE).forNofill()),
-                StartCrossValidateTargetSampling("ML100K_NOFILL_MALE", new Configuration(ML100K_MALE_BIASED_PROPERTIES_FILE).forNofill()),
-                StartCrossValidateTargetSampling("ML100K_NOFILL_FEMALE", new Configuration(ML100K_FEMALE_BIASED_PROPERTIES_FILE).forNofill()),
-                StartCrossValidateTargetSampling("ML100K_NOFILL_YOUNG", new Configuration(ML100K_YOUNG_BIASED_PROPERTIES_FILE).forNofill()),
-                StartCrossValidateTargetSampling("ML100K_NOFILL_OLD", new Configuration(ML100K_OLD_BIASED_PROPERTIES_FILE).forNofill()),
+//                StartCrossValidateTargetSampling("ML100K_NOFILL_MALE", new Configuration(ML100K_MALE_BIASED_PROPERTIES_FILE).forNofill()),
+//                StartCrossValidateTargetSampling("ML100K_NOFILL_FEMALE", new Configuration(ML100K_FEMALE_BIASED_PROPERTIES_FILE).forNofill()),
+//                StartCrossValidateTargetSampling("ML100K_NOFILL_YOUNG", new Configuration(ML100K_YOUNG_BIASED_PROPERTIES_FILE).forNofill()),
+//                StartCrossValidateTargetSampling("ML100K_NOFILL_OLD", new Configuration(ML100K_OLD_BIASED_PROPERTIES_FILE).forNofill()),
 
                 StartCrossValidateTargetSampling("ML1M_NOFILL", new Configuration(ML1M_BIASED_PROPERTIES_FILE).forNofill()),
-                StartCrossValidateTargetSampling("ML1M_NOFILL_MALE", new Configuration(ML1M_MALE_BIASED_PROPERTIES_FILE).forNofill()),
-                StartCrossValidateTargetSampling("ML1M_NOFILL_FEMALE", new Configuration(ML1M_FEMALE_BIASED_PROPERTIES_FILE).forNofill()),
-                StartCrossValidateTargetSampling("ML1M_NOFILL_YOUNG", new Configuration(ML1M_YOUNG_BIASED_PROPERTIES_FILE).forNofill()),
-                StartCrossValidateTargetSampling("ML1M_NOFILL_OLD", new Configuration(ML1M_OLD_BIASED_PROPERTIES_FILE).forNofill()),
+//                StartCrossValidateTargetSampling("ML1M_NOFILL_MALE", new Configuration(ML1M_MALE_BIASED_PROPERTIES_FILE).forNofill()),
+//                StartCrossValidateTargetSampling("ML1M_NOFILL_FEMALE", new Configuration(ML1M_FEMALE_BIASED_PROPERTIES_FILE).forNofill()),
+//                StartCrossValidateTargetSampling("ML1M_NOFILL_YOUNG", new Configuration(ML1M_YOUNG_BIASED_PROPERTIES_FILE).forNofill()),
+//                StartCrossValidateTargetSampling("ML1M_NOFILL_OLD", new Configuration(ML1M_OLD_BIASED_PROPERTIES_FILE).forNofill()),
+
+                StartCrossValidateTargetSampling("ML10M_NOFILL", new Configuration(ML10M_BIASED_PROPERTIES_FILE).forNofill()),
 
                 StartCrossValidateTargetSampling("YAHOO_NOFILL", new Configuration(YAHOO_BIASED_PROPERTIES_FILE).forNofill())
         );
