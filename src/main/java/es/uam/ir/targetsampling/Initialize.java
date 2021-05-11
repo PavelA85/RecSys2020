@@ -37,6 +37,7 @@ public class Initialize extends PreprocessDatasets {
 //        threads.add(StartThread("MovieLens10M", Initialize::preprocessMl10mDataset));
 //        preprocessMl10mDataset_nothread();
 //        runMovieLens10M_ALL_nothreading();
+//        runMovieLens25M_ALL_nothreading();
         // runMovieLens1mCrossValidation();
 //        runMovieLens10M_nothreading();
 
@@ -57,18 +58,18 @@ public class Initialize extends PreprocessDatasets {
 
         threads.clear();
 
-        threads.addAll(run_NOFILL());
+//        threads.addAll(run_NOFILL());
 //        threads.addAll(runMovieLens1M_AGE());
 //        threads.addAll(runMovieLens100K_AGE());
-        threads.addAll(runMovieLens100K_AGE_ALL());
-        threads.addAll(runMovieLens1M_AGE_ALL());
-        threads.add(runMovieLens100k_ALL());
-        threads.add(runMovieLens1M_ALL());
-        threads.add(runYahooBiased_ALL());
+//        threads.addAll(runMovieLens100K_AGE_ALL());
+//        threads.addAll(runMovieLens1M_AGE_ALL());
+//        threads.add(runMovieLens100k_ALL());
+//        threads.add(runMovieLens1M_ALL());
+//        threads.add(runYahooBiased_ALL());
 //        threads.addAll(runMovieLens100K_Gender());
 //        threads.addAll(runMovieLens1M_Gender());
-        threads.addAll(runMovieLens100K_Gender_ALL());
-        threads.addAll(runMovieLens1M_Gender_ALL());
+//        threads.addAll(runMovieLens100K_Gender_ALL());
+//        threads.addAll(runMovieLens1M_Gender_ALL());
 //        threads.add(runMovieLens25M());
 //        threads.add(runMovieLens10M_ALL());
 
@@ -77,8 +78,9 @@ public class Initialize extends PreprocessDatasets {
         threads.add(runMovieLens1M());
         threads.add(runMovieLens10M());
         threads.add(runYahooBiased());
-        threads.add(runYahooUnbiased());
 */
+//        threads.add(runYahooUnbiased());
+        threads.add(runYahooUnbiased_ALL());
 
         ThreadJoin(threads);
     }
@@ -122,7 +124,7 @@ public class Initialize extends PreprocessDatasets {
         Thread tYahooUNBIASED = new Thread(() -> {
             try {
                 String title = "YAHOO_UNBIASED";
-                Timer.start((Object) title, title);
+                Timer.start(title, title);
                 Configuration conf = new Configuration(YAHOO_UNBIASED_PROPERTIES_FILE);
                 UnbiasedTargetSampling targetSelection = new UnbiasedTargetSampling(conf);
                 targetSelection.runWithUnbiasedTest(conf.getTestPath(), title);
@@ -133,7 +135,27 @@ public class Initialize extends PreprocessDatasets {
             }
         });
 
-        tYahooUNBIASED.sleep(1000);
+        Thread.sleep(10);
+        tYahooUNBIASED.start();
+        return tYahooUNBIASED;
+    }
+
+    private static Thread runYahooUnbiased_ALL() throws InterruptedException {
+        Thread tYahooUNBIASED = new Thread(() -> {
+            try {
+                String title = "YAHOO_UNBIASED_ALL";
+                Timer.start(title, title);
+                Configuration conf = new Configuration(YAHOO_UNBIASED_PROPERTIES_FILE).forAll();
+                UnbiasedTargetSampling targetSelection = new UnbiasedTargetSampling(conf);
+                targetSelection.runWithUnbiasedTest(conf.getTestPath(), title);
+                Timer.done(title, title);
+            } catch (IOException e) {
+                System.out.println("runYahooUnbiased_ALL" + e);
+                e.printStackTrace(System.out);
+            }
+        });
+
+        Thread.sleep(10);
         tYahooUNBIASED.start();
         return tYahooUNBIASED;
     }
@@ -231,6 +253,13 @@ public class Initialize extends PreprocessDatasets {
         return StartCrossValidateTargetSampling("ML10M", new Configuration(ML10M_BIASED_PROPERTIES_FILE));
     }
 
+    private static void runMovieLens25M_ALL_nothreading() throws IOException, InterruptedException {
+        String log = "ML25M_ALL";
+        Timer.start(log, log);
+        TargetSampling targetSelection = new TargetSampling(new Configuration(ML25M_BIASED_PROPERTIES_FILE).forAll());
+        targetSelection.runCrossValidation(log);
+        Timer.done(log, log);
+    }
     private static void runMovieLens10M_ALL_nothreading() throws IOException, InterruptedException {
         String log = "ML10M_ALL";
         Timer.start(log, log);
@@ -255,28 +284,28 @@ public class Initialize extends PreprocessDatasets {
         Thread thread = new Thread(() -> {
             //MovieLens
             try {
-                Timer.start((Object) title, title);
+                Timer.start(title, title);
                 TargetSampling targetSelection = new TargetSampling(conf);
                 targetSelection.runCrossValidation(title);
                 Timer.done(title, title);
             } catch (IOException e) {
-                System.out.println(title + conf + e.toString());
+                System.out.println(title + conf + e);
                 System.out.println("StartCrossValidateTargetSampling " + e);
                 e.printStackTrace(System.out);
             }
         });
-        thread.sleep(100);
+        Thread.sleep(100);
         thread.start();
         return thread;
     }
 
     private static Thread StartThread(String title, Runnable function) throws InterruptedException {
         Thread thread = new Thread(() -> {
-            Timer.start((Object) title, "Processing: " + title);
+            Timer.start(title, "Processing: " + title);
             function.run();
             Timer.done(title, "Processing done: " + title);
         });
-        thread.sleep(100);
+        Thread.sleep(100);
         thread.start();
         return thread;
     }
