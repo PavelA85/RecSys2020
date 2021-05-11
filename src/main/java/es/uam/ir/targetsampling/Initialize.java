@@ -79,7 +79,8 @@ public class Initialize extends PreprocessDatasets {
         threads.add(runMovieLens10M());
         threads.add(runYahooBiased());
 */
-//        threads.add(runYahooUnbiased());
+        threads.add(runYahooBiased());
+        threads.add(runYahooUnbiased());
 //        threads.add(runYahooUnbiased_ALL());
 
         ThreadJoin(threads);
