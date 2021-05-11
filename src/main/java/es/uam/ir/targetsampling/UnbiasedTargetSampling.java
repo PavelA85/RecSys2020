@@ -109,7 +109,6 @@ public class UnbiasedTargetSampling {
      * @throws IOException
      */
     public void runWithUnbiasedTest(String testPath, String logSource) throws IOException {
-
         for (int i = 0; i < METRIC_NAMES.length; i++) {
             METRIC_NAMES[i] += "@" + conf.getCutoff();
         }
@@ -117,7 +116,7 @@ public class UnbiasedTargetSampling {
         LogManager.getLogManager().reset();
 
         // Read files
-        final String fileLog = logSource + " file read";
+        final String fileLog = logSource + " read file";
         Timer.start(fileLog, "Reading files..." + logSource);
         ByteArrayInputStream[] usersAndItemsInputStreams = GetUsersAndItems.run(conf.getDataPath() + "data.txt");
         FastUserIndex<Long> userIndex = SimpleFastUserIndex.load(UsersReader.read(usersAndItemsInputStreams[0], lp));
@@ -131,7 +130,7 @@ public class UnbiasedTargetSampling {
              PrintStream outExpectation = new PrintStream(conf.getResultsPath() + EXPECTED_INTERSECTION_RATIO_FILE)) {
             //Header
             outExpectation.println("fold\ttarget size\texpected intersection ratio in top n");
-            StringBuilder mBuilder = new StringBuilder("fold\ttarget size\trec");
+            StringBuilder mBuilder = new StringBuilder("fold\ttarget size\trecommender system");
             for (String metric : METRIC_NAMES) {
                 mBuilder
                         .append("\t")
@@ -179,7 +178,8 @@ public class UnbiasedTargetSampling {
                                 PrintStream outExpectation,
                                 int targetSize,
                                 int currentFold) throws IOException {
-        Timer.start(currentFold, "folding..." + currentFold + " " + logSource);
+        final String foldLog = logSource + " fold:" + currentFold;
+        Timer.start(foldLog, foldLog);
         System.out.printf("%s Running fold %d Target size:%d %n", logSource, currentFold, targetSize);
         FastPreferenceData<Long, Long> trainData = SimpleFastPreferenceData.load(SimpleRatingPreferencesReader.get().read(conf.getDataPath() + currentFold + "-data-train.txt", lp, lp), userIndex, itemIndex);
         Function<Long, IntPredicate> userFilter = runSampledSplit(logSource, userIndex, itemIndex, testData, evalsPerUser, nUsersInCrossValidation, out, targetSize, currentFold, trainData);
@@ -187,7 +187,7 @@ public class UnbiasedTargetSampling {
         nUsersInCrossValidation += trainData.getUsersWithPreferences().count();
         double expectation = getExpectation(itemIndex, trainData, userFilter);
         outExpectation.println(targetSize + "\t" + expectation);
-        Timer.done(currentFold, "folding finished " + currentFold + " " + logSource);
+        Timer.done(foldLog, foldLog);
         return nUsersInCrossValidation;
     }
 
@@ -280,6 +280,9 @@ public class UnbiasedTargetSampling {
                                  int userIndexNumberOfUsers,
                                  int targetUsersSize,
                                  String recommender) {
+        final String evalLog = logSource + " Running " + recommender + " TargetSize:" + targetSize;
+        Timer.start(evalLog, evalLog);
+
         String recName = targetSize + "\t" + recommender;
         if (!evalsPerUser.containsKey(recName)) {
             Map<String, double[]> values = new HashMap<>();
@@ -339,7 +342,7 @@ public class UnbiasedTargetSampling {
         }
         out.println(mBuilder);
 
-        Timer.done(logSource, logSource + " Running " + recommender + " TargetSize:" + targetSize + "  done");
+        Timer.done(evalLog, evalLog);
     }
 
     private void FillPastValues(
