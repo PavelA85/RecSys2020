@@ -58,7 +58,7 @@ public class Initialize extends PreprocessDatasets {
 
         threads.clear();
 
-//        threads.addAll(run_NOFILL());
+        threads.addAll(run_NOFILL());
 //        threads.addAll(runMovieLens1M_AGE());
 //        threads.addAll(runMovieLens100K_AGE());
 //        threads.addAll(runMovieLens100K_AGE_ALL());
@@ -79,7 +79,7 @@ public class Initialize extends PreprocessDatasets {
         threads.add(runMovieLens10M());
         threads.add(runYahooBiased());
 */
-        threads.add(runYahooUnbiased());
+//        threads.add(runYahooUnbiased());
 //        threads.add(runYahooUnbiased_ALL());
 
         ThreadJoin(threads);
@@ -195,21 +195,22 @@ public class Initialize extends PreprocessDatasets {
     private static Collection<? extends Thread> run_NOFILL() throws InterruptedException, IOException {
 
         return Arrays.asList(
-                StartCrossValidateTargetSampling("ML100K_NOFILL", new Configuration(ML100K_BIASED_PROPERTIES_FILE).forNofill()),
+//                StartCrossValidateTargetSampling("ML100K_NOFILL", new Configuration(ML100K_BIASED_PROPERTIES_FILE).forNofill()),
 //                StartCrossValidateTargetSampling("ML100K_NOFILL_MALE", new Configuration(ML100K_MALE_BIASED_PROPERTIES_FILE).forNofill()),
 //                StartCrossValidateTargetSampling("ML100K_NOFILL_FEMALE", new Configuration(ML100K_FEMALE_BIASED_PROPERTIES_FILE).forNofill()),
 //                StartCrossValidateTargetSampling("ML100K_NOFILL_YOUNG", new Configuration(ML100K_YOUNG_BIASED_PROPERTIES_FILE).forNofill()),
 //                StartCrossValidateTargetSampling("ML100K_NOFILL_OLD", new Configuration(ML100K_OLD_BIASED_PROPERTIES_FILE).forNofill()),
 
-                StartCrossValidateTargetSampling("ML1M_NOFILL", new Configuration(ML1M_BIASED_PROPERTIES_FILE).forNofill()),
+//                StartCrossValidateTargetSampling("ML1M_NOFILL", new Configuration(ML1M_BIASED_PROPERTIES_FILE).forNofill()),
 //                StartCrossValidateTargetSampling("ML1M_NOFILL_MALE", new Configuration(ML1M_MALE_BIASED_PROPERTIES_FILE).forNofill()),
 //                StartCrossValidateTargetSampling("ML1M_NOFILL_FEMALE", new Configuration(ML1M_FEMALE_BIASED_PROPERTIES_FILE).forNofill()),
 //                StartCrossValidateTargetSampling("ML1M_NOFILL_YOUNG", new Configuration(ML1M_YOUNG_BIASED_PROPERTIES_FILE).forNofill()),
 //                StartCrossValidateTargetSampling("ML1M_NOFILL_OLD", new Configuration(ML1M_OLD_BIASED_PROPERTIES_FILE).forNofill()),
 
-                StartCrossValidateTargetSampling("ML10M_NOFILL", new Configuration(ML10M_BIASED_PROPERTIES_FILE).forNofill()),
+//                StartCrossValidateTargetSampling("ML10M_NOFILL", new Configuration(ML10M_BIASED_PROPERTIES_FILE).forNofill()),
 
-                StartCrossValidateTargetSampling("YAHOO_NOFILL", new Configuration(YAHOO_BIASED_PROPERTIES_FILE).forNofill())
+                StartCrossValidateTargetSampling("YAHOO_BIASED_NOFILL", new Configuration(YAHOO_BIASED_PROPERTIES_FILE).forNofill()),
+                StartCrossValidateTargetSampling("YAHOO_UNBIASED_NOFILL", new Configuration(YAHOO_UNBIASED_PROPERTIES_FILE).forNofill())
         );
     }
 
