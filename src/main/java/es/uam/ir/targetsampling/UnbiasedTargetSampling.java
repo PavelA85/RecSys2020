@@ -109,7 +109,6 @@ public class UnbiasedTargetSampling {
      * @throws IOException
      */
     public void runWithUnbiasedTest(String testPath, String logSource) throws IOException {
-        Timer.start((Object) logSource, " Starting..." + logSource);
 
         for (int i = 0; i < METRIC_NAMES.length; i++) {
             METRIC_NAMES[i] += "@" + conf.getCutoff();
@@ -118,12 +117,13 @@ public class UnbiasedTargetSampling {
         LogManager.getLogManager().reset();
 
         // Read files
-        Timer.start((Object) logSource, "Reading files..." + logSource);
+        final String fileLog = logSource + " file read";
+        Timer.start(fileLog, "Reading files..." + logSource);
         ByteArrayInputStream[] usersAndItemsInputStreams = GetUsersAndItems.run(conf.getDataPath() + "data.txt");
         FastUserIndex<Long> userIndex = SimpleFastUserIndex.load(UsersReader.read(usersAndItemsInputStreams[0], lp));
         FastItemIndex<Long> itemIndex = SimpleFastItemIndex.load(ItemsReader.read(usersAndItemsInputStreams[1], lp));
         FastPreferenceData<Long, Long> testData = SimpleFastPreferenceData.load(SimpleRatingPreferencesReader.get().read(testPath, lp, lp), userIndex, itemIndex);
-        Timer.done(logSource, " Reading files " + logSource);
+        Timer.done(fileLog, " Reading files " + logSource);
 
         Map<String, Map<String, double[]>> evalsPerUser = new HashMap<>();
         int nUsersInCrossValidation = 0;
