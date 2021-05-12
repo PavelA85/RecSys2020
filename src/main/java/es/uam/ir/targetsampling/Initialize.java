@@ -58,7 +58,7 @@ public class Initialize extends PreprocessDatasets {
 
         threads.clear();
 
-        threads.addAll(run_NOFILL());
+//        threads.addAll(run_NOFILL());
 //        threads.addAll(runMovieLens1M_AGE());
 //        threads.addAll(runMovieLens100K_AGE());
 //        threads.addAll(runMovieLens100K_AGE_ALL());
@@ -79,10 +79,16 @@ public class Initialize extends PreprocessDatasets {
         threads.add(runMovieLens10M());
         threads.add(runYahooBiased());
 */
+/*
+        threads.add(runMovieLens100k());
+        threads.add(runMovieLens1M());
+        threads.add(runMovieLens10M());
         threads.add(runYahooBiased());
         threads.add(runYahooUnbiased());
+*/
 //        threads.add(runYahooUnbiased_ALL());
 
+        threads.addAll(run_optimal_finder());
         ThreadJoin(threads);
     }
 
@@ -193,6 +199,17 @@ public class Initialize extends PreprocessDatasets {
                 StartCrossValidateTargetSampling("ML100K_OLD", new Configuration(ML100K_OLD_BIASED_PROPERTIES_FILE)));
     }
 
+    private static Collection<? extends Thread> run_optimal_finder() throws InterruptedException, IOException {
+
+        return Arrays.asList(
+                StartCrossValidateTargetSampling("ML100K_FINDER", new Configuration(ML100K_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
+                StartCrossValidateTargetSampling("ML1M_FINDER", new Configuration(ML1M_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
+                StartCrossValidateTargetSampling("ML10M_FINDER", new Configuration(ML10M_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
+                StartCrossValidateTargetSampling("YAHOO_BIASED_FINDER", new Configuration(YAHOO_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
+                StartCrossValidateTargetSampling("YAHOO_UNBIASED_FINDER", new Configuration(YAHOO_UNBIASED_PROPERTIES_FILE).forAll().forTestAndFull())
+        );
+    }
+
     private static Collection<? extends Thread> run_NOFILL() throws InterruptedException, IOException {
 
         return Arrays.asList(
@@ -262,6 +279,7 @@ public class Initialize extends PreprocessDatasets {
         targetSelection.runCrossValidation(log);
         Timer.done(log, log);
     }
+
     private static void runMovieLens10M_ALL_nothreading() throws IOException, InterruptedException {
         String log = "ML10M_ALL";
         Timer.start(log, log);

@@ -27,6 +27,7 @@ public class GenerateFigure {
     public static final String[] DATASETS = {
             ML100K, ML100K_MALE, ML100K_FEMALE, ML100K_YOUNG, ML100K_OLD,
             ML1M, ML1M_MALE, ML1M_FEMALE, ML1M_YOUNG, ML1M_OLD,
+            ML10M,
             YAHOO};
     public static final String[] METRICS = {"P@10", "Recall@10", "nDCG@10", "FScore@10"};
 
@@ -44,11 +45,14 @@ public class GenerateFigure {
         TARGET_SIZES.put(ML100K_OLD, 1042);
 
         TARGET_SIZES.put(YAHOO, FULL_TARGET_SIZE_YAHOO);
+
+        TARGET_SIZES.put(ML10M, FULL_TARGET_SIZE_ML10M);
     }
 
     public final static Map<String, Integer> TARGET_SIZES = new HashMap<>();
 
     public final static int FULL_TARGET_SIZE_ML1M = 2000;
+    public final static int FULL_TARGET_SIZE_ML10M = 10681;
     public final static int FULL_TARGET_SIZE_ML100K = 1682;
     public final static int FULL_TARGET_SIZE_YAHOO = 1000;
     public final static int N_FOLDS = 5;
@@ -308,7 +312,8 @@ public class GenerateFigure {
                 if (!metricList.contains(metric)) {
                     continue;
                 }
-                double[] value = values.get(metric).get(colValues[2]);
+                final String recName = colValues[2];
+                double[] value = values.get(metric).get(recName);
                 value[1] += Double.parseDouble(colValues[i]);
             }
         }

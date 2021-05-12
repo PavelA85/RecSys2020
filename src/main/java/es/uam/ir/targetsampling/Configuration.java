@@ -30,7 +30,7 @@ public class Configuration {
     private String resultsPath;
 
     private final int nFolds;
-    private final int[] targetSizes;
+    private int[] targetSizes;
     private final int cutoff;
     private Mode fillMode;
 
@@ -255,7 +255,17 @@ public class Configuration {
 
     public Configuration forAll() {
         this.setAllRecs(true);
-        this.resultsPath = this.resultsPath  + "allrecs-";
+        this.resultsPath = this.resultsPath + "allrecs-";
+        return this;
+    }
+
+    public Configuration forTestAndFull() {
+        if (this.targetSizes.length > 2) {
+            final int first = this.targetSizes[0];
+            final int last = this.targetSizes[this.targetSizes.length - 1];
+            this.targetSizes = new int[]{first, last};
+        }
+
         return this;
     }
 

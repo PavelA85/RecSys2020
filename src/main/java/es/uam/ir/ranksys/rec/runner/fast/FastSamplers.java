@@ -9,99 +9,22 @@
 package es.uam.ir.ranksys.rec.runner.fast;
 
 import es.uam.eps.ir.ranksys.core.preference.IdPref;
-import es.uam.eps.ir.ranksys.fast.index.FastItemIndex;
-import es.uam.eps.ir.ranksys.fast.index.FastUserIndex;
 import es.uam.eps.ir.ranksys.fast.preference.FastPreferenceData;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import it.unimi.dsi.fastutil.ints.IntSet;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.IntFunction;
 import java.util.function.IntPredicate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import org.ranksys.formats.parsing.Parser;
 
 /**
  * @author Rocío Cañamares
  * @author Pablo Castells
  */
 public class FastSamplers {
-
-    static Random rnd = new Random();
-
-    /**
-     * @param <U>
-     * @param <I>
-     * @param sampler
-     * @param trainData
-     * @param itemIndex
-     * @param outputPath
-     * @throws FileNotFoundException
-     */
-    public static <U, I> void write(Function<U, IntPredicate> sampler, FastPreferenceData<U, I> trainData, FastItemIndex<Long> itemIndex, String outputPath) throws FileNotFoundException {
-        try (PrintStream out = new PrintStream(outputPath)) {
-            trainData.getUsersWithPreferences().map(user -> {
-                IntPredicate userSampler = sampler.apply(user);
-                List<String> itemSet = itemIndex.getAllIidx()
-                        .filter(iidx -> userSampler.test(iidx))
-                        .mapToObj(iidx -> itemIndex.iidx2item(iidx) + "")
-                        .collect(Collectors.toList());
-                return user + ":\n" + String.join("\n", itemSet);
-            }).forEachOrdered(output -> out.println(output));
-        }
-    }
-
-    /**
-     * @param <U>
-     * @param <I>
-     * @param userIndex
-     * @param itemIndex
-     * @param dataPath
-     * @param uParser
-     * @param iParser
-     * @return
-     */
-    public static <U, I> Function<U, IntPredicate> read(
-            FastUserIndex<U> userIndex,
-            FastItemIndex<I> itemIndex,
-            String dataPath,
-            Parser<U> uParser,
-            Parser<I> iParser) {
-        BufferedReader reader = null;
-        try {
-            Map<U, IntSet> mapSets = userIndex.getAllUsers().collect(Collectors.toMap(user -> user, user -> new IntOpenHashSet()));
-            reader = new BufferedReader(new InputStreamReader(new FileInputStream(dataPath)));
-            String line;
-            U u = null;
-            while ((line = reader.readLine()) != null) {
-                if (line.length() < 1) continue;
-                if (line.endsWith(":")) {
-                    u = uParser.parse(line.replaceAll(":", ""));
-                } else {
-                    mapSets.get(u).add(itemIndex.item2iidx(iParser.parse(line)));
-                }
-            }
-            reader.close();
-            return user -> {
-                IntSet set = mapSets.get(user);
-                return iidx -> set.contains(iidx);
-            };
-        } catch (IOException ex) {
-            Logger.getLogger(FastSamplers.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
 
     /**
      * @param <U>
@@ -175,59 +98,29 @@ public class FastSamplers {
         class TTuple {
 
             I item;
-            /*Double average;*/
-            long count;
+            long positiveCount;
 
-            public I getItem() {
-                return item;
-            }
-
-            /*public Double getAverage() {
-                return average;
-            }*/
-
-            public long getCount() {
-                return count;
+            public long getPositiveCount() {
+                return positiveCount;
             }
         }
+        Comparator<TTuple> comparator = Comparator.comparing(TTuple::getPositiveCount);
+        comparator = comparator.thenComparing(s -> (Long) s.item);
+
 
         IntSet kSet = new IntOpenHashSet();
         trainData.getAllItems().map(
                 item -> {
                     final TTuple tuple = new TTuple();
                     tuple.item = item;
-                    /*tuple.average = trainData.getItemPreferences(item).mapToDouble(IdPref::v2).average().orElse(0);*/
-                    tuple.count = trainData.getItemPreferences(item).mapToDouble(IdPref::v2).count();
+                    tuple.positiveCount = trainData.getItemPreferences(item).mapToDouble(IdPref::v2).filter(value -> value >= 4.0).count();
                     return tuple;
                 })
-                .sorted(Comparator.comparingLong(TTuple::getCount).reversed())
+                .sorted(comparator.reversed())
                 .limit(targetSize)
-                .map(TTuple::getItem)
-                .forEachOrdered(i -> kSet.add(Math.toIntExact((Long) i)));
+                .forEachOrdered(i -> kSet.add(Math.toIntExact((Long) i.item)));
 
         return kSet;
-    }
-
-    /**
-     * @param <U>
-     * @param <I>
-     */
-    public static class FastSamplersArgument<U, I> {
-
-        public FastPreferenceData<U, I> trainData;
-        public Map<U, IntSet> mapSets;
-        public int n;
-
-        /**
-         * @param trainData
-         * @param mapSets
-         * @param n
-         */
-        public FastSamplersArgument(FastPreferenceData<U, I> trainData, Map<U, IntSet> mapSets, int n) {
-            this.trainData = trainData;
-            this.mapSets = mapSets;
-            this.n = n;
-        }
     }
 
     /**
