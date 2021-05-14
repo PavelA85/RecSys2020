@@ -88,7 +88,8 @@ public class Initialize extends PreprocessDatasets {
 */
 //        threads.add(runYahooUnbiased_ALL());
 
-        threads.addAll(run_optimal_finder());
+//        threads.addAll(run_optimal_finder());
+        threads.addAll(run_experiments());
         ThreadJoin(threads);
     }
 
@@ -207,6 +208,16 @@ public class Initialize extends PreprocessDatasets {
                 StartCrossValidateTargetSampling("ML10M_FINDER", new Configuration(ML10M_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
                 StartCrossValidateTargetSampling("YAHOO_BIASED_FINDER", new Configuration(YAHOO_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
                 StartCrossValidateTargetSampling("YAHOO_UNBIASED_FINDER", new Configuration(YAHOO_UNBIASED_PROPERTIES_FILE).forAll().forTestAndFull())
+        );
+    }
+    private static Collection<? extends Thread> run_experiments() throws InterruptedException, IOException {
+
+        return Arrays.asList(
+                StartCrossValidateTargetSampling("ML100K", new Configuration(ML100K_BIASED_PROPERTIES_FILE)),
+                StartCrossValidateTargetSampling("ML1M", new Configuration(ML1M_BIASED_PROPERTIES_FILE)),
+                StartCrossValidateTargetSampling("ML10M", new Configuration(ML10M_BIASED_PROPERTIES_FILE)),
+                StartCrossValidateTargetSampling("YAHOO_BIASED", new Configuration(YAHOO_BIASED_PROPERTIES_FILE)),
+                StartCrossValidateTargetSampling("YAHOO_UNBIASED", new Configuration(YAHOO_UNBIASED_PROPERTIES_FILE))
         );
     }
 
