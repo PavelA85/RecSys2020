@@ -89,9 +89,9 @@ public class Initialize extends PreprocessDatasets {
 */
 //        threads.add(runYahooUnbiased_ALL());
 
-        threads.addAll(run_optimal_finder());
-//        threads.addAll(run_experiments());
-//        threads.addAll(run_NOFILL());
+//        threads.addAll(run_optimal_finder());
+        threads.addAll(run_experiments());
+        threads.addAll(run_NOFILL());
         ThreadJoin(threads);
         Timer.done(args, "Initialize end");
 
