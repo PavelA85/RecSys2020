@@ -264,6 +264,12 @@ public class Configuration {
             final int first = this.targetSizes[0];
             final int last = this.targetSizes[this.targetSizes.length - 1];
             this.targetSizes = new int[]{first, last};
+        } else if (this.targetSizes.length == 1) {
+            final int first = Math.min(0, this.targetSizes[0]);
+            final int last = this.targetSizes[this.targetSizes.length - 1];
+            this.targetSizes = new int[]{first, last};
+        } else {
+            throw new RuntimeException("this.targetSizes.length=" + this.targetSizes.length);
         }
 
         return this;
