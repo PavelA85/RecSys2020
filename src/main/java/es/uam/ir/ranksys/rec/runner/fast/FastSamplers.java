@@ -116,7 +116,9 @@ public class FastSamplers {
                     tuple.positiveCount = trainData.getItemPreferences(item).mapToDouble(IdPref::v2).filter(value -> value >= 4.0).count();
                     return tuple;
                 })
-                .sorted(comparator)
+                .sorted(comparator
+//                        .reversed()
+                )
                 .limit(targetSize)
                 .forEachOrdered(i -> kSet.add(Math.toIntExact((Long) i.item)));
 
