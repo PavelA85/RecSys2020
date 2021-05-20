@@ -18,6 +18,7 @@ import java.util.function.Function;
 import java.util.function.IntFunction;
 import java.util.function.IntPredicate;
 import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
 import java.util.stream.Stream;
 
 /**
@@ -25,6 +26,12 @@ import java.util.stream.Stream;
  * @author Pablo Castells
  */
 public class FastSamplers {
+
+    static Random rnd = new Random();
+
+    public enum SamplerMode {
+        RND, Popular, Unpopular, NONE
+    }
 
     /**
      * @param <U>
@@ -34,9 +41,13 @@ public class FastSamplers {
      * @param targetSize
      * @return
      */
-    public static <U, I> Function<U, IntPredicate> uniform(FastPreferenceData<U, I> trainData, Map<U, IntSet> inTestForUser, int targetSize) {
+    public static <U, I> Function<U, IntPredicate> uniform(FastPreferenceData<U, I> trainData,
+                                                           Map<U, IntSet> inTestForUser,
+                                                           int targetSize,
+                                                           SamplerMode mode
+    ) {
         IntFunction<Double> weight = iidx -> 1.0;
-        return sample(trainData, inTestForUser, targetSize, weight);
+        return sample(trainData, inTestForUser, targetSize, weight, mode);
     }
 
     /**
@@ -52,7 +63,8 @@ public class FastSamplers {
             FastPreferenceData<U, I> trainData,
             Map<U, IntSet> inTestForUser,
             int targetSize,
-            IntFunction<Double> weight) {
+            IntFunction<Double> weight,
+            SamplerMode mode) {
         Map<U, IntSet> mapKSets;
         if (targetSize >= trainData.numItems()) {
             IntSet kSet = new IntOpenHashSet();
@@ -74,7 +86,7 @@ public class FastSamplers {
                     .collect(Collectors
                             .toMap(
                                     user -> user,
-                                    user -> getKSet(trainData, targetSize)));
+                                    user -> getKSet(trainData, inTestForUser, targetSize, weight, user, mode)));
         }
 
         return user -> {
@@ -91,37 +103,111 @@ public class FastSamplers {
                 .collect(Collectors.toList());
     }
 
-    private static <U, I> IntSet getKSet(
-            FastPreferenceData<U, I> trainData,
-            int targetSize) {
+    private static <U, I> IntSet getKSet(FastPreferenceData<U, I> trainData,
+                                         Map<U, IntSet> inTestForUser,
+                                         int targetSize,
+                                         IntFunction<Double> weight,
+                                         U user,
+                                         SamplerMode mode) {
 
         class TTuple {
 
-            I item;
-            long positiveCount;
+            private final I item;
+            private final long positiveCount;
+            private final long negativeCount;
+            private final long ratingCount;
+            private final double average;
+
+            public TTuple(I item, DoubleStream ratings) {
+                this.item = item;
+                this.positiveCount = ratings.filter(value -> value >= 4.0).count();
+                this.negativeCount = ratings.filter(value -> value < 4.0).count();
+                this.ratingCount = ratings.count();
+                this.average = ratings.average().orElse(0);
+
+            }
 
             public long getPositiveCount() {
                 return positiveCount;
             }
-        }
-        Comparator<TTuple> comparator = Comparator.comparing(TTuple::getPositiveCount);
-        comparator = comparator.thenComparing(s -> (Long) s.item);
 
+            public long getNegativeCount() {
+                return negativeCount;
+            }
+
+            public long getRatingCount() {
+                return ratingCount;
+            }
+
+            public double getAverage() {
+                return average;
+            }
+
+            public I getItem() {
+                return item;
+            }
+        }
+        Comparator<TTuple> comparator = Comparator
+                .comparing(TTuple::getPositiveCount)
+                .thenComparing(TTuple::getNegativeCount).reversed()
+                .thenComparing(s -> (Long) s.getItem());
+
+
+        switch (mode) {
+            case Popular:
+                comparator = comparator.reversed();
+                break;
+            case Unpopular:
+//                comparator = comparator;
+                break;
+            case RND:
+                return getRandomKSet(trainData, inTestForUser, targetSize, weight, user);
+            case NONE:
+            default:
+                throw new IllegalStateException("Unexpected value: " + mode);
+        }
 
         IntSet kSet = new IntOpenHashSet();
         trainData.getAllItems().map(
-                item -> {
-                    final TTuple tuple = new TTuple();
-                    tuple.item = item;
-                    tuple.positiveCount = trainData.getItemPreferences(item).mapToDouble(IdPref::v2).filter(value -> value >= 4.0).count();
-                    return tuple;
-                })
-                .sorted(comparator
-//                        .reversed()
-                )
+                item -> new TTuple(item, trainData.getItemPreferences(item).mapToDouble(IdPref::v2)))
+                .sorted(comparator)
                 .limit(targetSize)
-                .forEachOrdered(i -> kSet.add(Math.toIntExact((Long) i.item)));
+                .forEachOrdered(i -> kSet.add(Math.toIntExact((Long) i.getItem())));
 
+        return kSet;
+    }
+
+
+    private static <U, I> IntSet getRandomKSet(FastPreferenceData<U, I> trainData, Map<U, IntSet> inTestForUser, int targetSize, IntFunction<Double> weight, U user) {
+        IntSet testSet = inTestForUser.get(user);
+
+        int nItems = trainData.numItems();
+        double items[] = new double[nItems];
+        double sum = trainData
+                .getAllIidx()
+                .filter(iidx -> !testSet.contains(iidx))
+                .mapToDouble(iidx -> {
+                    items[iidx] = weight.apply(iidx);
+                    return items[iidx];
+                }).sum();
+
+        IntSet kSet = new IntOpenHashSet();
+        for (int i = 0; i < targetSize && sum > 0; i++) {
+            double p = rnd.nextDouble() * sum;
+            double acc = 0;
+
+            int j = 0;
+            while (acc < p) {
+                acc += items[j];
+                j++;
+            }
+            j--;
+            kSet.add(j);
+
+            sum -= items[j];
+            items[j] = 0;
+
+        }
         return kSet;
     }
 

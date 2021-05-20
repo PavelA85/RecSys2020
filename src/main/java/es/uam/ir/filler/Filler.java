@@ -36,7 +36,6 @@ public class Filler<U, I> {
         RND, Gender, NONE
     }
 
-    ;
     private final Mode mode;
     private final FastPreferenceData<U, I> data;
     private final RandomRecommender<U, I> randomRecommender;

@@ -138,7 +138,8 @@ public class TargetSampling {
                             evalsPerUser,
                             out,
                             outExpectation,
-                            currentFold));
+                            currentFold
+                    ));
 
             //Run
 
@@ -190,7 +191,7 @@ public class TargetSampling {
                     final String foldTargetLog = foldName + " target:" + targetSize;
                     Timer.start(foldTargetLog, foldTargetLog);
                     //Sampler:
-                    Function<Long, IntPredicate> sampler = FastSamplers.uniform(trainData, FastSamplers.inTestForUser(testData), targetSize);
+                    Function<Long, IntPredicate> sampler = FastSamplers.uniform(trainData, FastSamplers.inTestForUser(testData), targetSize, conf.getSamplerMode());
                     Function<Long, IntPredicate> notTrainFilter = FastFilters.notInTrain(trainData);
                     Function<Long, IntPredicate> userFilter = FastFilters.and(sampler, notTrainFilter);
 

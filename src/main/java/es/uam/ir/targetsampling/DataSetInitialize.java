@@ -46,7 +46,6 @@ public class DataSetInitialize {
      *
      * */
     public final static String ML100K = "ml100k";
-
     public final static String ML100K_PATH = DATASETS_PATH + ML100K + "/";
     public final static String ORIGINAL_ML100K_DATASET_PATH = ML100K_PATH + "u.data";
     public final static String PREPROCESSED_ML100K_DATASET_PATH = ML100K_PATH + "data.txt";
@@ -65,6 +64,33 @@ public class DataSetInitialize {
 
     public final static String YAHOO_BIASED_PROPERTIES_FILE = "conf/yahoo-biased.properties";
     public final static String YAHOO_UNBIASED_PROPERTIES_FILE = "conf/yahoo-unbiased.properties";
+
+    /*
+     *
+     * POPULAR
+     *
+     * */
+    public final static String ML100K_POPULAR = "ml100k/popular";
+    public final static String ML100K_POPULAR_BIASED_PROPERTIES_FILE = "conf/sampler/popular/ml100k-biased.properties";
+    public final static String ML1M_POPULAR = "ml1m/popular";
+    public final static String ML1M_POPULAR_BIASED_PROPERTIES_FILE = "conf/sampler/popular/ml1m-biased.properties";
+    public final static String ML10M_POPULAR = "ml10m/popular";
+    public final static String ML10M_POPULAR_BIASED_PROPERTIES_FILE = "conf/sampler/popular/ml10m-biased.properties";
+    public final static String YAHOO_POPULAR_BIASED_PROPERTIES_FILE = "conf/sampler/popular/yahoo-biased.properties";
+    public final static String YAHOO_POPULAR_UNBIASED_PROPERTIES_FILE = "conf/sampler/popular/yahoo-unbiased.properties";
+    /*
+     *
+     * UNPOPULAR
+     *
+     * */
+    public final static String ML100K_UNPOPULAR = "ml100k/unpopular";
+    public final static String ML100K_UNPOPULAR_BIASED_PROPERTIES_FILE = "conf/sampler/unpopular/ml100k-biased.properties";
+    public final static String ML1M_UNPOPULAR = "ml1m/unpopular";
+    public final static String ML1M_UNPOPULAR_BIASED_PROPERTIES_FILE = "conf/sampler/unpopular/ml1m-biased.properties";
+    public final static String ML10M_UNPOPULAR = "ml10m/unpopular";
+    public final static String ML10M_UNPOPULAR_BIASED_PROPERTIES_FILE = "conf/sampler/unpopular/ml10m-biased.properties";
+    public final static String YAHOO_UNPOPULAR_BIASED_PROPERTIES_FILE = "conf/sampler/unpopular/yahoo-biased.properties";
+    public final static String YAHOO_UNPOPULAR_UNBIASED_PROPERTIES_FILE = "conf/sampler/unpopular/yahoo-unbiased.properties";
 
     /*
      *

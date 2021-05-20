@@ -198,7 +198,7 @@ public class UnbiasedTargetSampling {
                                                          FastPreferenceData<Long, Long> trainData) throws IOException {
         FastPreferenceData<Long, Long> positiveTrainData = TruncateRatings.run(trainData, conf.getThreshold());
         //Sampler:
-        Function<Long, IntPredicate> sampler = FastSamplers.uniform(trainData, FastSamplers.inTestForUser(testData), targetSize);
+        Function<Long, IntPredicate> sampler = FastSamplers.uniform(trainData, FastSamplers.inTestForUser(testData), targetSize, conf.getSamplerMode());
         Function<Long, IntPredicate> notTrainFilter = FastFilters.notInTrain(trainData);
         Function<Long, IntPredicate> userFilter = FastFilters.and(sampler, notTrainFilter);
 

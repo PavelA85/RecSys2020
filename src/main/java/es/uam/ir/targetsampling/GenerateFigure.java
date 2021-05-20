@@ -25,9 +25,9 @@ public class GenerateFigure {
 
 
     public static final String[] DATASETS = {
-            ML100K, ML100K_MALE, ML100K_FEMALE, ML100K_YOUNG, ML100K_OLD,
-            ML1M, ML1M_MALE, ML1M_FEMALE, ML1M_YOUNG, ML1M_OLD,
-            ML10M,
+            ML100K, // ML100K_MALE, ML100K_FEMALE, ML100K_YOUNG, ML100K_OLD,
+            ML1M, //ML1M_MALE, ML1M_FEMALE, ML1M_YOUNG, ML1M_OLD,
+//            ML10M,
             YAHOO};
     public static final String[] METRICS = {"P@10", "Recall@10", "nDCG@10", "FScore@10"};
 

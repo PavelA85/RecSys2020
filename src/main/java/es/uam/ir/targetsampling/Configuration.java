@@ -10,6 +10,8 @@ package es.uam.ir.targetsampling;
 
 import es.uam.ir.filler.Filler;
 import es.uam.ir.filler.Filler.Mode;
+import es.uam.ir.ranksys.rec.runner.fast.FastSamplers;
+import es.uam.ir.ranksys.rec.runner.fast.FastSamplers.SamplerMode;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -33,6 +35,7 @@ public class Configuration {
     private int[] targetSizes;
     private final int cutoff;
     private Mode fillMode;
+    private SamplerMode sampleMode;
 
     //Params when all recs
     private boolean allRecs;
@@ -87,6 +90,20 @@ public class Configuration {
                 default:
                     this.fillMode = Mode.NONE;
                     break;
+            }
+
+            switch (prop.getProperty("sampler.mode")) {
+                case "rnd":
+                    this.sampleMode = SamplerMode.RND;
+                    break;
+                case "popular":
+                    this.sampleMode = SamplerMode.Popular;
+                    break;
+                case "unpopular":
+                    this.sampleMode = SamplerMode.Unpopular;
+                    break;
+                default:
+                    throw new IllegalStateException(prop.getProperty("sampler.mode"));
             }
 
             String[] targetSizeTokens = prop.getProperty("targetselection.targetsizes").split(",");
@@ -162,6 +179,10 @@ public class Configuration {
 
     public Mode getFillMode() {
         return fillMode;
+    }
+
+    public SamplerMode getSamplerMode() {
+        return sampleMode;
     }
 
     public boolean isAllRecs() {
@@ -272,6 +293,7 @@ public class Configuration {
             throw new RuntimeException("this.targetSizes.length=" + this.targetSizes.length);
         }
 
+        this.resultsPath = this.resultsPath + "finder-";
         return this;
     }
 
