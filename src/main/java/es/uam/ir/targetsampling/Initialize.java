@@ -34,11 +34,11 @@ public class Initialize extends PreprocessDatasets {
 
         List<Thread> threads = new ArrayList<>();
 
-        threads.addAll(run_optimal_finder());
+//        threads.addAll(run_optimal_finder());
 
-//        threads.addAll(run_for_all());
-//        threads.addAll(run_NOFILL());
-//        threads.addAll(run_experiments());
+        threads.addAll(run_for_all());
+        threads.addAll(run_NOFILL());
+        threads.addAll(run_experiments());
 
         boolean run_NOFILL = Arrays.asList(args).contains("run_NOFILL");
         boolean run_experiments = Arrays.asList(args).contains("run_experiments");
@@ -86,23 +86,18 @@ public class Initialize extends PreprocessDatasets {
         return Arrays.asList(
                 run("ML100K_FINDER_RANDOM", new Configuration(ML100K_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
                 run("ML1M_FINDER_RANDOM", new Configuration(ML1M_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
-//                StartCrossValidateTargetSampling("ML10M_FINDER", new Configuration(ML10M_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
                 run("YAHOO_BIASED_FINDER_RANDOM", new Configuration(YAHOO_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
                 run("YAHOO_UNBIASED_FINDER_RANDOM", new Configuration(YAHOO_UNBIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
 
 //                POPULAR
-
                 run("ML100K_FINDER_POPULAR", new Configuration(ML100K_POPULAR_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
                 run("ML1M_FINDER_POPULAR", new Configuration(ML1M_POPULAR_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
-//                StartCrossValidateTargetSampling("ML10M_FINDER", new Configuration(ML10M_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
                 run("YAHOO_BIASED_FINDER_POPULAR", new Configuration(YAHOO_POPULAR_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
                 run("YAHOO_UNBIASED_FINDER_POPULAR", new Configuration(YAHOO_POPULAR_UNBIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
 
 //                UNPOPULAR
-
                 run("ML100K_FINDER_UNPOPULAR", new Configuration(ML100K_UNPOPULAR_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
                 run("ML1M_FINDER_UNPOPULAR", new Configuration(ML1M_UNPOPULAR_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
-//                StartCrossValidateTargetSampling("ML10M_FINDER", new Configuration(ML10M_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
                 run("YAHOO_BIASED_FINDER_UNPOPULAR", new Configuration(YAHOO_UNPOPULAR_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
                 run("YAHOO_UNBIASED_FINDER_UNPOPULAR", new Configuration(YAHOO_UNPOPULAR_UNBIASED_PROPERTIES_FILE).forAll().forTestAndFull())
 
@@ -112,32 +107,67 @@ public class Initialize extends PreprocessDatasets {
     private static Collection<? extends Thread> run_for_all() throws InterruptedException, IOException {
 
         return Arrays.asList(
-                run("ML100K_ALL", new Configuration(ML100K_BIASED_PROPERTIES_FILE).forAll()),
-                run("ML1M_ALL", new Configuration(ML1M_BIASED_PROPERTIES_FILE).forAll()),
-//                StartCrossValidateTargetSampling("ML10M_ALL", new Configuration(ML10M_BIASED_PROPERTIES_FILE).forAll()),
-                run("YAHOO_BIASED_ALL", new Configuration(YAHOO_BIASED_PROPERTIES_FILE).forAll())
+                run("ML100K_ALL_RANDOM", new Configuration(ML100K_BIASED_PROPERTIES_FILE).forAll()),
+                run("ML1M_ALL_RANDOM", new Configuration(ML1M_BIASED_PROPERTIES_FILE).forAll()),
+                run("YAHOO_BIASED_ALL_RANDOM", new Configuration(YAHOO_BIASED_PROPERTIES_FILE).forAll()),
+                run("YAHOO_UNBIASED_ALL_RANDOM", new Configuration(YAHOO_UNBIASED_PROPERTIES_FILE).forAll()),
+
+//                POPULAR
+                run("ML100K_ALL_POPULAR", new Configuration(ML100K_POPULAR_BIASED_PROPERTIES_FILE).forAll()),
+                run("ML1M_ALL_POPULAR", new Configuration(ML1M_POPULAR_BIASED_PROPERTIES_FILE).forAll()),
+                run("YAHOO_BIASED_ALL_POPULAR", new Configuration(YAHOO_POPULAR_BIASED_PROPERTIES_FILE).forAll()),
+                run("YAHOO_UNBIASED_ALL_POPULAR", new Configuration(YAHOO_POPULAR_UNBIASED_PROPERTIES_FILE).forAll()),
+
+//                UNPOPULAR
+                run("ML100K_ALL_UNPOPULAR", new Configuration(ML100K_UNPOPULAR_BIASED_PROPERTIES_FILE).forAll()),
+                run("ML1M_ALL_UNPOPULAR", new Configuration(ML1M_UNPOPULAR_BIASED_PROPERTIES_FILE).forAll()),
+                run("YAHOO_BIASED_ALL_UNPOPULAR", new Configuration(YAHOO_UNPOPULAR_BIASED_PROPERTIES_FILE).forAll()),
+                run("YAHOO_UNBIASED_ALL_UNPOPULAR", new Configuration(YAHOO_UNPOPULAR_UNBIASED_PROPERTIES_FILE).forAll())
         );
     }
 
     private static Collection<? extends Thread> run_experiments() throws InterruptedException, IOException {
 
         return Arrays.asList(
-                run("ML100K", new Configuration(ML100K_BIASED_PROPERTIES_FILE)),
-                run("ML1M", new Configuration(ML1M_BIASED_PROPERTIES_FILE)),
-//                StartCrossValidateTargetSampling("ML10M", new Configuration(ML10M_BIASED_PROPERTIES_FILE))
-                run("YAHOO_BIASED", new Configuration(YAHOO_BIASED_PROPERTIES_FILE)),
-                run("YAHOO_UNBIASED", new Configuration(YAHOO_UNBIASED_PROPERTIES_FILE))
+                run("ML100K_RANDOM", new Configuration(ML100K_BIASED_PROPERTIES_FILE)),
+                run("ML1M_RANDOM", new Configuration(ML1M_BIASED_PROPERTIES_FILE)),
+                run("YAHOO_BIASED_RANDOM", new Configuration(YAHOO_BIASED_PROPERTIES_FILE)),
+                run("YAHOO_UNBIASED_RANDOM", new Configuration(YAHOO_UNBIASED_PROPERTIES_FILE)),
+
+//                POPULAR
+
+                run("ML100K_POPULAR", new Configuration(ML100K_POPULAR_BIASED_PROPERTIES_FILE)),
+                run("ML1M_POPULAR", new Configuration(ML1M_POPULAR_BIASED_PROPERTIES_FILE)),
+                run("YAHOO_BIASED_POPULAR", new Configuration(YAHOO_POPULAR_BIASED_PROPERTIES_FILE)),
+                run("YAHOO_UNBIASED_POPULAR", new Configuration(YAHOO_POPULAR_UNBIASED_PROPERTIES_FILE)),
+
+//                UNPOPULAR
+                run("ML100K_UNPOPULAR", new Configuration(ML100K_UNPOPULAR_BIASED_PROPERTIES_FILE)),
+                run("ML1M_UNPOPULAR", new Configuration(ML1M_UNPOPULAR_BIASED_PROPERTIES_FILE)),
+                run("YAHOO_BIASED_UNPOPULAR", new Configuration(YAHOO_UNPOPULAR_BIASED_PROPERTIES_FILE)),
+                run("YAHOO_UNBIASED_UNPOPULAR", new Configuration(YAHOO_UNPOPULAR_UNBIASED_PROPERTIES_FILE))
         );
     }
 
     private static Collection<? extends Thread> run_NOFILL() throws InterruptedException, IOException {
 
         return Arrays.asList(
-                run("ML100K_NOFILL", new Configuration(ML100K_BIASED_PROPERTIES_FILE).forNofill()),
-                run("ML1M_NOFILL", new Configuration(ML1M_BIASED_PROPERTIES_FILE).forNofill()),
-//                StartCrossValidateTargetSampling("ML10M_NOFILL", new Configuration(ML10M_BIASED_PROPERTIES_FILE).forNofill())
-                run("YAHOO_BIASED_NOFILL", new Configuration(YAHOO_BIASED_PROPERTIES_FILE).forNofill()),
-                run("YAHOO_UNBIASED_NOFILL", new Configuration(YAHOO_UNBIASED_PROPERTIES_FILE).forNofill())
+                run("ML100K_NOFILL_RANDOM", new Configuration(ML100K_BIASED_PROPERTIES_FILE).forNofill()),
+                run("ML1M_NOFILL_RANDOM", new Configuration(ML1M_BIASED_PROPERTIES_FILE).forNofill()),
+                run("YAHOO_BIASED_NOFILL_RANDOM", new Configuration(YAHOO_BIASED_PROPERTIES_FILE).forNofill()),
+                run("YAHOO_UNBIASED_NOFILL_RANDOM", new Configuration(YAHOO_UNBIASED_PROPERTIES_FILE).forNofill()),
+
+//                POPULAR
+                run("ML100K_NOFILL_POPULAR", new Configuration(ML100K_POPULAR_BIASED_PROPERTIES_FILE).forNofill()),
+                run("ML1M_NOFILL_POPULAR", new Configuration(ML1M_POPULAR_BIASED_PROPERTIES_FILE).forNofill()),
+                run("YAHOO_BIASED_NOFILL_POPULAR", new Configuration(YAHOO_POPULAR_BIASED_PROPERTIES_FILE).forNofill()),
+                run("YAHOO_UNBIASED_NOFILL_POPULAR", new Configuration(YAHOO_POPULAR_UNBIASED_PROPERTIES_FILE).forNofill()),
+
+//                UNPOPULAR
+                run("ML100K_NOFILL_UNPOPULAR", new Configuration(ML100K_UNPOPULAR_BIASED_PROPERTIES_FILE).forNofill()),
+                run("ML1M_NOFILL_UNPOPULAR", new Configuration(ML1M_UNPOPULAR_BIASED_PROPERTIES_FILE).forNofill()),
+                run("YAHOO_BIASED_NOFILL_UNPOPULAR", new Configuration(YAHOO_UNPOPULAR_BIASED_PROPERTIES_FILE).forNofill()),
+                run("YAHOO_UNBIASED_NOFILL_UNPOPULAR", new Configuration(YAHOO_UNPOPULAR_UNBIASED_PROPERTIES_FILE).forNofill())
         );
     }
 

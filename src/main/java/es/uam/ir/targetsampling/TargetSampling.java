@@ -99,7 +99,6 @@ public class TargetSampling {
 
         LogManager.getLogManager().reset();
 
-/*
         // Read files
         String fileLog = logSource + "file";
         Timer.start(fileLog);
@@ -108,7 +107,6 @@ public class TargetSampling {
         FastItemIndex<Long> itemIndex = SimpleFastItemIndex.load(ItemsReader.read(usersAndItemsInputStreams[1], lp));
 
         Timer.done(fileLog, logSource + " Reading files " + conf.getResultsPath());
-*/
 
         Map<String, Map<String, double[]>> evalsPerUser = new HashMap<>();
         try (PrintStream out = new PrintStream(conf.getResultsPath() + TARGET_SAMPLING_FILE);
@@ -135,8 +133,8 @@ public class TargetSampling {
                     .parallel()
                     .forEach(currentFold -> runFold(
                             logSource,
-//                            userIndex,
-//                            itemIndex,
+                            userIndex,
+                            itemIndex,
                             evalsPerUser,
                             out,
                             outExpectation,
@@ -162,8 +160,8 @@ public class TargetSampling {
     }
 
     private void runFold(String logSource,
-//                         FastUserIndex<Long> userIndex,
-//                         FastItemIndex<Long> itemIndex,
+                         FastUserIndex<Long> userIndex,
+                         FastItemIndex<Long> itemIndex,
                          Map<String, Map<String, double[]>> evalsPerUser,
                          PrintStream out,
                          PrintStream outExpectation,
@@ -177,7 +175,6 @@ public class TargetSampling {
         FastPreferenceData<Long, Long> positiveTrainData = TruncateRatings.run(trainData, conf.getThreshold());
         Timer.done(fileReadLog, fileReadLog);
 
-        Timer.start(foldName, foldName);
         int[] targetSizes = conf.getTargetSizes();
 /*        if (conf.isAllRecs() && targetSizes.length > 2) {
             targetSizes = new int[]
