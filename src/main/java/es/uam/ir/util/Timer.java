@@ -20,6 +20,17 @@ public class Timer {
     private static final Map<Object, Long> now = new HashMap<>();
     private static final Map<Object, Long> prev = new HashMap<>();
 
+    public static final String ANSI_RESET = "\u001B[0m";
+
+    public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
+    public static final String ANSI_RED_BACKGROUND = "\u001B[30;41m";
+    public static final String ANSI_GREEN_BACKGROUND = "\u001B[30;42m";
+    public static final String ANSI_YELLOW_BACKGROUND = "\u001B[30;43m";
+    public static final String ANSI_BLUE_BACKGROUND = "\u001B[44m";
+    public static final String ANSI_PURPLE_BACKGROUND = "\u001B[30;45m";
+    public static final String ANSI_CYAN_BACKGROUND = "\u001B[30;46m";
+    public static final String ANSI_WHITE_BACKGROUND = "\u001B[30;47m";
+
     /**
      * @param obj
      * @param msg
@@ -34,10 +45,18 @@ public class Timer {
     }
 
     /**
+     *
+     */
+
+    public static void done(Object obj, String msg) {
+        done(obj, msg, "green");
+    }
+
+    /**
      * @param obj
      * @param msg
      */
-    public static void done(Object obj, String msg) {
+    public static void done(Object obj, String msg, String color) {
         now.put(obj, System.currentTimeMillis());
         long ms = now.get(obj) - prev.get(obj);
         int s = (int) (ms / 1000);
@@ -58,9 +77,18 @@ public class Timer {
             done.append(min + "min ");
         }
         done.append(s + "s)");
-//        System.out.println(done.toString());
-        System.out.println((char) 27 + "[30;42m" + done + (char) 27 + "[0m");
-//        System.out.print((char) 27 + "[0m");
+
+        if (color == "green") {
+            System.out.println(ANSI_GREEN_BACKGROUND + done + (char) 27 + ANSI_RESET);
+        } else if (color == "red") {
+            System.out.println(ANSI_RED_BACKGROUND + done + (char) 27 + ANSI_RESET);
+        } else if (color == "yellow") {
+            System.out.println(ANSI_YELLOW_BACKGROUND + done + (char) 27 + ANSI_RESET);
+        } else if (color == "purple") {
+            System.out.println(ANSI_PURPLE_BACKGROUND + done + (char) 27 + ANSI_RESET);
+        } else {
+            System.out.println(ANSI_BLUE_BACKGROUND + done + (char) 27 + ANSI_RESET);
+        }
         prev.put(obj, now.get(obj));
     }
 
@@ -77,4 +105,5 @@ public class Timer {
     public static void done(String msg) {
         done(0, msg);
     }*/
+
 }

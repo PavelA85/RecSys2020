@@ -11,13 +11,41 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 import static es.uam.ir.targetsampling.DataSetInitialize.*;
+import static es.uam.ir.targetsampling.Initialize.ThreadJoin;
 
 public class PreprocessDatasets {
+    static void preprocess() throws InterruptedException {
+        List<Thread> threads = new ArrayList<>();
+        threads.add(StartThread("MovieLens10M", Initialize::preprocessMl10mDataset));
+        threads.add(StartThread("MovieLens25M", Initialize::preprocessMl25mDataset));
+        threads.add(StartThread("Yahoo R3", Initialize::preprocessYahooDataset));
+        threads.add(StartThread("MovieLens1M", Initialize::preprocessMl1mDataset));
+        threads.add(StartThread("MovieLens100K", Initialize::preprocessMl100kDataset));
+        threads.add(StartThread("MovieLens1M_GENDER", Initialize::preprocessMl1m_GENDER_Dataset));
+        threads.add(StartThread("MovieLens100K_GENDER", Initialize::preprocessMl100k_GENDER_Dataset));
+        threads.add(StartThread("MovieLens1M_AGE", Initialize::preprocessMl1m_AGE_Dataset));
+        threads.add(StartThread("MovieLens100K_AGE", Initialize::preprocessMl100k_AGE_Dataset));
+        ThreadJoin(threads);
+        if (false) {
+            preprocessMl10mDataset_nothread();
+        }
+    }
+
+
+    private static Thread StartThread(String title, Runnable function) throws InterruptedException {
+        Thread thread = new Thread(() -> {
+            Timer.start(title, "Processing: " + title);
+            function.run();
+            Timer.done(title, "Processing done: " + title);
+        });
+        Thread.sleep(100);
+        thread.start();
+        return thread;
+    }
+
     static void preprocessMl1mDataset() {
         try {
 

@@ -99,6 +99,7 @@ public class TargetSampling {
 
         LogManager.getLogManager().reset();
 
+/*
         // Read files
         String fileLog = logSource + "file";
         Timer.start(fileLog);
@@ -107,6 +108,7 @@ public class TargetSampling {
         FastItemIndex<Long> itemIndex = SimpleFastItemIndex.load(ItemsReader.read(usersAndItemsInputStreams[1], lp));
 
         Timer.done(fileLog, logSource + " Reading files " + conf.getResultsPath());
+*/
 
         Map<String, Map<String, double[]>> evalsPerUser = new HashMap<>();
         try (PrintStream out = new PrintStream(conf.getResultsPath() + TARGET_SAMPLING_FILE);
@@ -133,8 +135,8 @@ public class TargetSampling {
                     .parallel()
                     .forEach(currentFold -> runFold(
                             logSource,
-                            userIndex,
-                            itemIndex,
+//                            userIndex,
+//                            itemIndex,
                             evalsPerUser,
                             out,
                             outExpectation,
@@ -156,12 +158,12 @@ public class TargetSampling {
             processEvals(evalsPerUser, conf.getResultsPath(), size);
         }
 
-        Timer.done(logSource, logSource + " Done");
+        Timer.done(logSource, logSource + " Done", "red");
     }
 
     private void runFold(String logSource,
-                         FastUserIndex<Long> userIndex,
-                         FastItemIndex<Long> itemIndex,
+//                         FastUserIndex<Long> userIndex,
+//                         FastItemIndex<Long> itemIndex,
                          Map<String, Map<String, double[]>> evalsPerUser,
                          PrintStream out,
                          PrintStream outExpectation,
@@ -185,6 +187,7 @@ public class TargetSampling {
                     };
         }*/
 
+        Timer.start(foldName, foldName);
         Arrays.stream(targetSizes)
                 .parallel()
                 .forEach(targetSize -> {
@@ -211,9 +214,9 @@ public class TargetSampling {
                     outExpectation.println(currentFold + "\t" + targetSize + "\t" + expectation);
                     long newUsers = trainData.getUsersWithPreferences().count();
                     evalsPerUserResults.forEach((s, stringMap) -> evalsPerUser.put(s, evalsPerUserResults.get(s)));
-                    Timer.done(foldTargetLog, String.format("%s new users:%d expectation:%s", foldTargetLog, newUsers, expectation));
+                    Timer.done(foldTargetLog, String.format("%s new users:%d expectation:%s", foldTargetLog, newUsers, expectation), "purple");
                 });
-        Timer.done(foldName, foldName);
+        Timer.done(foldName, foldName, "yellow");
     }
 
     private FastPreferenceData<Long, Long> getData(
@@ -294,7 +297,8 @@ public class TargetSampling {
 
         int userIndexNumberOfUsers = userIndex.numUsers();
         int targetUsersSize = targetUsers.size();
-        Map<String, Map<String, double[]>> result = recMap
+
+        return recMap
                 .keySet()
                 .parallelStream()
                 .collect(Collectors.toMap(
@@ -315,8 +319,6 @@ public class TargetSampling {
                                 targetUsersSize,
                                 recommender)
                 ));
-
-        return result;
     }
 
     private Map<String, double[]> evalRecommender(FastUserIndex<Long> userIndex,

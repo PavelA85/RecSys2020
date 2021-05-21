@@ -8,13 +8,7 @@
  */
 package es.uam.ir.util;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,7 +23,7 @@ public class GetUsersAndItems {
      * @return
      * @throws IOException
      */
-    public static ByteArrayInputStream[] run(String dataPath) throws IOException {
+    public static ByteArrayInputStream[] run(String dataPath) {
         Set<String> users = new HashSet<>();
         Set<String> items = new HashSet<>();
 
@@ -43,6 +37,12 @@ public class GetUsersAndItems {
                 users.add(tokens[0]);
                 items.add(tokens[1]);
             });
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
         }
 
         ByteArrayOutputStream userOutputStream = new ByteArrayOutputStream();
