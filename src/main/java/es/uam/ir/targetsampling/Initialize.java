@@ -34,20 +34,12 @@ public class Initialize extends PreprocessDatasets {
 
         List<Thread> threads = new ArrayList<>();
 
-//        threads.addAll(run_optimal_finder());
+        threads.addAll(run_optimal_finder());
 
-        threads.addAll(run_for_all());
-        threads.addAll(run_NOFILL());
-        threads.addAll(run_experiments());
+//        threads.addAll(run_for_all());
+//        threads.addAll(run_NOFILL());
+//        threads.addAll(run_experiments());
 
-        boolean run_NOFILL = Arrays.asList(args).contains("run_NOFILL");
-        boolean run_experiments = Arrays.asList(args).contains("run_experiments");
-        if (run_experiments) {
-            threads.addAll(run_experiments());
-        }
-        if (run_NOFILL) {
-            threads.addAll(run_NOFILL());
-        }
         ThreadJoin(threads);
         Timer.done(args, "Initialize end");
 
@@ -87,7 +79,7 @@ public class Initialize extends PreprocessDatasets {
                 run("ML100K_FINDER_RANDOM", new Configuration(ML100K_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
                 run("ML1M_FINDER_RANDOM", new Configuration(ML1M_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
                 run("YAHOO_BIASED_FINDER_RANDOM", new Configuration(YAHOO_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
-                run("YAHOO_UNBIASED_FINDER_RANDOM", new Configuration(YAHOO_UNBIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
+                run("YAHOO_UNBIASED_FINDER_RANDOM", new Configuration(YAHOO_UNBIASED_PROPERTIES_FILE).forAll().forTestAndFull())/*,
 
 //                POPULAR
                 run("ML100K_FINDER_POPULAR", new Configuration(ML100K_POPULAR_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
@@ -100,7 +92,7 @@ public class Initialize extends PreprocessDatasets {
                 run("ML1M_FINDER_UNPOPULAR", new Configuration(ML1M_UNPOPULAR_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
                 run("YAHOO_BIASED_FINDER_UNPOPULAR", new Configuration(YAHOO_UNPOPULAR_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
                 run("YAHOO_UNBIASED_FINDER_UNPOPULAR", new Configuration(YAHOO_UNPOPULAR_UNBIASED_PROPERTIES_FILE).forAll().forTestAndFull())
-
+*/
         );
     }
 
@@ -132,7 +124,7 @@ public class Initialize extends PreprocessDatasets {
                 run("ML100K_RANDOM", new Configuration(ML100K_BIASED_PROPERTIES_FILE)),
                 run("ML1M_RANDOM", new Configuration(ML1M_BIASED_PROPERTIES_FILE)),
                 run("YAHOO_BIASED_RANDOM", new Configuration(YAHOO_BIASED_PROPERTIES_FILE)),
-                run("YAHOO_UNBIASED_RANDOM", new Configuration(YAHOO_UNBIASED_PROPERTIES_FILE)),
+                run("YAHOO_UNBIASED_RANDOM", new Configuration(YAHOO_UNBIASED_PROPERTIES_FILE))/*,
 
 //                POPULAR
 
@@ -145,7 +137,7 @@ public class Initialize extends PreprocessDatasets {
                 run("ML100K_UNPOPULAR", new Configuration(ML100K_UNPOPULAR_BIASED_PROPERTIES_FILE)),
                 run("ML1M_UNPOPULAR", new Configuration(ML1M_UNPOPULAR_BIASED_PROPERTIES_FILE)),
                 run("YAHOO_BIASED_UNPOPULAR", new Configuration(YAHOO_UNPOPULAR_BIASED_PROPERTIES_FILE)),
-                run("YAHOO_UNBIASED_UNPOPULAR", new Configuration(YAHOO_UNPOPULAR_UNBIASED_PROPERTIES_FILE))
+                run("YAHOO_UNBIASED_UNPOPULAR", new Configuration(YAHOO_UNPOPULAR_UNBIASED_PROPERTIES_FILE))*/
         );
     }
 
