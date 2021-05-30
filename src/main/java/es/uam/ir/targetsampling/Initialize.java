@@ -79,7 +79,7 @@ public class Initialize extends PreprocessDatasets {
                 run("ML100K_FINDER_RANDOM", new Configuration(ML100K_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
                 run("ML1M_FINDER_RANDOM", new Configuration(ML1M_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
                 run("YAHOO_BIASED_FINDER_RANDOM", new Configuration(YAHOO_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
-                run("YAHOO_UNBIASED_FINDER_RANDOM", new Configuration(YAHOO_UNBIASED_PROPERTIES_FILE).forAll().forTestAndFull())/*,
+                run("YAHOO_UNBIASED_FINDER_RANDOM", new Configuration(YAHOO_UNBIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
 
 //                POPULAR
                 run("ML100K_FINDER_POPULAR", new Configuration(ML100K_POPULAR_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
@@ -92,7 +92,6 @@ public class Initialize extends PreprocessDatasets {
                 run("ML1M_FINDER_UNPOPULAR", new Configuration(ML1M_UNPOPULAR_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
                 run("YAHOO_BIASED_FINDER_UNPOPULAR", new Configuration(YAHOO_UNPOPULAR_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
                 run("YAHOO_UNBIASED_FINDER_UNPOPULAR", new Configuration(YAHOO_UNPOPULAR_UNBIASED_PROPERTIES_FILE).forAll().forTestAndFull())
-*/
         );
     }
 
