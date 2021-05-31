@@ -119,7 +119,7 @@ public class GenerateFigure {
             case 2:
                 generateFigure2(
                         N_FOLDS,
-                        new String[]{"nDCG@10", "P@10", "Recall@10", "FScore@10"},
+                        METRICS,
                         FULL_TARGET_SIZE_YAHOO);
                 break;
             case 3:

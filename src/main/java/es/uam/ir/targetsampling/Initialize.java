@@ -50,6 +50,7 @@ public class Initialize extends PreprocessDatasets {
             try {
                 thread.join();
             } catch (InterruptedException e) {
+                System.out.println("ThreadJoin " + e);
                 e.printStackTrace(System.out);
             }
         });

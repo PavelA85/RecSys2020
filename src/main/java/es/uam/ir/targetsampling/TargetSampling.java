@@ -75,12 +75,12 @@ public class TargetSampling {
     public final static String TIES_AT_ZERO_FILE = "tiesAtZero.txt";
     public final static String EXPECTED_INTERSECTION_RATIO_FILE = "expected-intersection-ratio.txt";
     private final Configuration conf;
-    private final String[] METRIC_NAMES = new String[]{
-            "Coverage",
-            "nDCG",
-            "P",
-            "Recall",
-            "FScore",
+    private static final String[] METRIC_NAMES = new String[]{
+            "Coverage@10",
+            "nDCG@10",
+            "P@10",
+            "Recall@10",
+            "FScore@10",
     };
 
     public TargetSampling(Configuration conf) {
@@ -92,10 +92,6 @@ public class TargetSampling {
      */
     public void runCrossValidation(String logSource) throws IOException {
         Timer.start(logSource);
-
-        for (int i = 0; i < METRIC_NAMES.length; i++) {
-            METRIC_NAMES[i] += "@" + conf.getCutoff();
-        }
 
         LogManager.getLogManager().reset();
 
@@ -122,13 +118,6 @@ public class TargetSampling {
             }
             out.println(mBuilder);
 
-            /*if (conf.isAllRecs()) {
-                int bound = conf.getNFolds();
-                for (int i = 1; i <= bound; i++) {
-                    int currentFold = i;
-                    runFold(logSource, userIndex, itemIndex, evalsPerUser, out, outExpectation, currentFold);
-                }
-            } else {}*/
             IntStream.rangeClosed(1, conf.getNFolds())
                     .parallel()
                     .forEach(currentFold -> runFold(
@@ -144,14 +133,8 @@ public class TargetSampling {
             //Run
 
             final int size = evalsPerUser
-                    .values()
-                    .stream()
-                    .findFirst()
-                    .get()
-                    .values()
-                    .stream()
-                    .findFirst()
-                    .get()
+                    .values().stream().findFirst().get()
+                    .values().stream().findFirst().get()
                     .length;
             processEvals(evalsPerUser, conf.getResultsPath(), size);
         }
@@ -170,28 +153,30 @@ public class TargetSampling {
 
         final String fileReadLog = foldName + ". Reading files";
         Timer.start(fileReadLog, fileReadLog);
-        FastPreferenceData<Long, Long> trainData = getData(userIndex, itemIndex, currentFold, "-data-train.txt");
-        FastPreferenceData<Long, Long> testData = getData(userIndex, itemIndex, currentFold, "-data-test.txt");
+        FastPreferenceData<Long, Long> trainData = getData(userIndex, itemIndex, conf.getDataPath() + currentFold + "-data-train.txt");
+
+        FastPreferenceData<Long, Long> testData;
+        final String testPath = conf.getTestPath();
+        if (testPath != null && !testPath.trim().isEmpty()) {
+            testData = getData(userIndex, itemIndex, testPath);
+        } else {
+            testData = getData(userIndex, itemIndex, conf.getDataPath() + currentFold + "-data-test.txt");
+        }
+        assert trainData != null;
         FastPreferenceData<Long, Long> positiveTrainData = TruncateRatings.run(trainData, conf.getThreshold());
         Timer.done(fileReadLog, fileReadLog);
 
         int[] targetSizes = conf.getTargetSizes();
-/*        if (conf.isAllRecs() && targetSizes.length > 2) {
-            targetSizes = new int[]
-                    {
-                            targetSizes[0],
-                            targetSizes[targetSizes.length - 1]
-                    };
-        }*/
-
         Timer.start(foldName, foldName);
+        FastPreferenceData<Long, Long> finalTestData = testData;
         Arrays.stream(targetSizes)
                 .parallel()
                 .forEach(targetSize -> {
                     final String foldTargetLog = foldName + " target:" + targetSize;
                     Timer.start(foldTargetLog, foldTargetLog);
                     //Sampler:
-                    Function<Long, IntPredicate> sampler = FastSamplers.uniform(trainData, FastSamplers.inTestForUser(testData), targetSize, conf.getSamplerMode());
+                    assert finalTestData != null;
+                    Function<Long, IntPredicate> sampler = FastSamplers.uniform(trainData, FastSamplers.inTestForUser(finalTestData), targetSize, conf.getSamplerMode());
                     Function<Long, IntPredicate> notTrainFilter = FastFilters.notInTrain(trainData);
                     Function<Long, IntPredicate> userFilter = FastFilters.and(sampler, notTrainFilter);
 
@@ -202,7 +187,7 @@ public class TargetSampling {
                             currentFold,
                             trainData,
                             positiveTrainData,
-                            testData,
+                            finalTestData,
                             userFilter,
                             out,
                             logSource);
@@ -218,17 +203,16 @@ public class TargetSampling {
 
     private FastPreferenceData<Long, Long> getData(
             FastUserIndex<Long> userIndex,
-            FastItemIndex<Long> itemIndex,
-            int currentFold,
-            String suffix) {
+            FastItemIndex<Long> itemIndex, String in) {
         try {
             return SimpleFastPreferenceData
                     .load(SimpleRatingPreferencesReader
                                     .get()
-                                    .read(conf.getDataPath() + currentFold + suffix, lp, lp),
+                                    .read(in, lp, lp),
                             userIndex,
                             itemIndex);
         } catch (IOException e) {
+            System.out.println("getData " + e);
             e.printStackTrace();
         }
         return null;
@@ -287,9 +271,9 @@ public class TargetSampling {
         recMap.put("Average Rating", () -> new AverageRatingRecommender<>(trainData, threshold));
 
         if (conf.isAllRecs()) {
-            recMap.putAll(getAllRecs(userIndex, itemIndex, trainData, positiveTrainData));
+            recMap.putAll(getAllRecs(conf, userIndex, itemIndex, trainData, positiveTrainData));
         } else {
-            recMap.putAll(getFullAndTestRecs(userIndex, itemIndex, trainData, positiveTrainData));
+            recMap.putAll(getFullAndTestRecs(conf, userIndex, itemIndex, trainData, positiveTrainData));
         }
 
         int userIndexNumberOfUsers = userIndex.numUsers();
@@ -406,7 +390,7 @@ public class TargetSampling {
                 ));
     }
 
-    private void processEvals(Map<String, Map<String, double[]>> evalsPerUser, String resultsPath, int nUsersInCrossValidation) throws FileNotFoundException {
+    private static void processEvals(Map<String, Map<String, double[]>> evalsPerUser, String resultsPath, int nUsersInCrossValidation) throws FileNotFoundException {
         try (
                 PrintStream outPvalues = new PrintStream(resultsPath + P_VALUES_FILE);
                 PrintStream outTiesAtZero = new PrintStream(resultsPath + TIES_AT_ZERO_FILE);
@@ -477,7 +461,8 @@ public class TargetSampling {
         }
     }
 
-    private Map<String, Supplier<Recommender<Long, Long>>> getAllRecs(
+    private static Map<String, Supplier<Recommender<Long, Long>>> getAllRecs(
+            Configuration conf,
             FastUserIndex<Long> userIndex,
             FastItemIndex<Long> itemIndex,
             FastPreferenceData<Long, Long> trainData,
@@ -510,7 +495,8 @@ public class TargetSampling {
         return recMap;
     }
 
-    private Map<String, Supplier<Recommender<Long, Long>>> getFullAndTestRecs(
+    private static Map<String, Supplier<Recommender<Long, Long>>> getFullAndTestRecs(
+            Configuration conf,
             FastUserIndex<Long> userIndex,
             FastItemIndex<Long> itemIndex,
             FastPreferenceData<Long, Long> trainData,
@@ -560,6 +546,7 @@ public class TargetSampling {
         return recMap;
     }
 
+
     private static int nTies(double[] v1, double[] v2) {
         int nTies = 0;
         for (int i = 0; i < v1.length; i++) {
@@ -579,5 +566,4 @@ public class TargetSampling {
         }
         return nTiesAtZero;
     }
-
 }
