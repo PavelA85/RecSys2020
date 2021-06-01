@@ -124,7 +124,7 @@ public class Initialize extends PreprocessDatasets {
                 run("ML100K_RANDOM", new Configuration(ML100K_BIASED_PROPERTIES_FILE)),
                 run("ML1M_RANDOM", new Configuration(ML1M_BIASED_PROPERTIES_FILE)),
                 run("YAHOO_BIASED_RANDOM", new Configuration(YAHOO_BIASED_PROPERTIES_FILE)),
-                run("YAHOO_UNBIASED_RANDOM", new Configuration(YAHOO_UNBIASED_PROPERTIES_FILE))/*,
+                run("YAHOO_UNBIASED_RANDOM", new Configuration(YAHOO_UNBIASED_PROPERTIES_FILE)),
 
 //                POPULAR
 
@@ -137,7 +137,7 @@ public class Initialize extends PreprocessDatasets {
                 run("ML100K_UNPOPULAR", new Configuration(ML100K_UNPOPULAR_BIASED_PROPERTIES_FILE)),
                 run("ML1M_UNPOPULAR", new Configuration(ML1M_UNPOPULAR_BIASED_PROPERTIES_FILE)),
                 run("YAHOO_BIASED_UNPOPULAR", new Configuration(YAHOO_UNPOPULAR_BIASED_PROPERTIES_FILE)),
-                run("YAHOO_UNBIASED_UNPOPULAR", new Configuration(YAHOO_UNPOPULAR_UNBIASED_PROPERTIES_FILE))*/
+                run("YAHOO_UNBIASED_UNPOPULAR", new Configuration(YAHOO_UNPOPULAR_UNBIASED_PROPERTIES_FILE))
         );
     }
 
