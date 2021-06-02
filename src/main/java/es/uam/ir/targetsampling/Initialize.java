@@ -34,11 +34,11 @@ public class Initialize extends PreprocessDatasets {
 
         List<Thread> threads = new ArrayList<>();
 
-        threads.addAll(run_optimal_finder());
+//        threads.addAll(run_optimal_finder());
 
-//        threads.addAll(run_for_all());
-//        threads.addAll(run_NOFILL());
-//        threads.addAll(run_experiments());
+        threads.addAll(run_for_all());
+        threads.addAll(run_NOFILL());
+        threads.addAll(run_experiments());
 
         ThreadJoin(threads);
         Timer.done(args, "Initialize end");
