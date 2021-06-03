@@ -53,8 +53,8 @@ public class GenerateFigure {
      * @throws IOException
      */
     public static void main(String a[]) throws FileNotFoundException, IOException {
-        int figure = Integer.valueOf(a[0]);
-        //int figure = 2;
+//        int figure = Integer.valueOf(a[0]);
+        int figure = 4;
         switch (figure) {
             case 1:
                 generateFigure1(
@@ -474,48 +474,48 @@ public class GenerateFigure {
                 //Do nothing: there is not unbiased data, as is the case for MovieLens 1M
             }
             
-            {
-                //Sum of p-values
-                //Yahoo
-                {
-                    Configuration conf = new Configuration(YAHOO_BIASED_PROPERTIES_FILE);
-                    conf.setAllRecs(true);
-                    conf.setResultsPath(conf.getResultsPath() + "allrecs-");
-                    TargetSampling targetSelection = new TargetSampling(conf);
-                    targetSelection.runCrossValidation();
-                }
-
-                //MovieLens
-                {
-                    Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
-                    conf.setAllRecs(true);
-                    conf.setResultsPath(conf.getResultsPath() + "allrecs-");
-                    TargetSampling targetSelection = new TargetSampling(conf);
-                    targetSelection.runCrossValidation();
-                }
-
-                String curve = "Sum of p-values";
-                curves.add(curve);
-                String inFile = biasedFolder + dataset + "-allrecs-pvalues.txt";
-                Scanner in = new Scanner(new File(inFile));
-                String colHeads[] = in.nextLine().split("\t");
-                while (in.hasNext()) {
-                    String colValues[] = in.nextLine().split("\t");
-                    int targetSize = new Integer(colValues[0]);
-                    for (int i = 3; i < colValues.length; i++) {
-                        String metric = colHeads[i];
-                        if (!metricList.contains(metric)) {
-                            continue;
-                        }
-                        double value = new Double(colValues[i]);
-                        if (!values.get(metric).get(targetSize).containsKey(curve)) {
-                            values.get(metric).get(targetSize).put(curve, 0.0);
-                            counts.get(metric).get(targetSize).put(curve, 0);
-                        }
-                        values.get(metric).get(targetSize).put(curve, values.get(metric).get(targetSize).get(curve) + value);
-                    }
-                }
-            }
+//            {
+//                //Sum of p-values
+//                //Yahoo
+//                {
+//                    Configuration conf = new Configuration(YAHOO_BIASED_PROPERTIES_FILE);
+//                    conf.setAllRecs(true);
+//                    conf.setResultsPath(conf.getResultsPath() + "allrecs-");
+//                    TargetSampling targetSelection = new TargetSampling(conf);
+//                    targetSelection.runCrossValidation();
+//                }
+//
+//                //MovieLens
+//                {
+//                    Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
+//                    conf.setAllRecs(true);
+//                    conf.setResultsPath(conf.getResultsPath() + "allrecs-");
+//                    TargetSampling targetSelection = new TargetSampling(conf);
+//                    targetSelection.runCrossValidation();
+//                }
+//
+//                String curve = "Sum of p-values";
+//                curves.add(curve);
+//                String inFile = biasedFolder + dataset + "-allrecs-pvalues.txt";
+//                Scanner in = new Scanner(new File(inFile));
+//                String colHeads[] = in.nextLine().split("\t");
+//                while (in.hasNext()) {
+//                    String colValues[] = in.nextLine().split("\t");
+//                    int targetSize = new Integer(colValues[0]);
+//                    for (int i = 3; i < colValues.length; i++) {
+//                        String metric = colHeads[i];
+//                        if (!metricList.contains(metric)) {
+//                            continue;
+//                        }
+//                        double value = new Double(colValues[i]);
+//                        if (!values.get(metric).get(targetSize).containsKey(curve)) {
+//                            values.get(metric).get(targetSize).put(curve, 0.0);
+//                            counts.get(metric).get(targetSize).put(curve, 0);
+//                        }
+//                        values.get(metric).get(targetSize).put(curve, values.get(metric).get(targetSize).get(curve) + value);
+//                    }
+//                }
+//            }
             
             for (String metric: metricList) {
                 out.println(metric);

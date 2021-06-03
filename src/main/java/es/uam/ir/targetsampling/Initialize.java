@@ -81,17 +81,17 @@ public class Initialize {
         Timer.start("Processing Movielens 1M...");
         processMl1m();
         Timer.done("");
-        
-        Timer.start("Processing Yahoo R3...");
-        processYahoo();
-        Timer.done("");
 
-        //Yahoo
-        {
-            Configuration conf = new Configuration(YAHOO_BIASED_PROPERTIES_FILE);
-            TargetSampling targetSelection = new TargetSampling(conf);
-            targetSelection.runCrossValidation();
-        }
+//        Timer.start("Processing Yahoo R3...");
+//        processYahoo();
+//        Timer.done("");
+
+//        //Yahoo
+//        {
+//            Configuration conf = new Configuration(YAHOO_BIASED_PROPERTIES_FILE);
+//            TargetSampling targetSelection = new TargetSampling(conf);
+//            targetSelection.runCrossValidation();
+//        }
         {
             Configuration conf = new Configuration(YAHOO_UNBIASED_PROPERTIES_FILE);
             TargetSampling targetSelection = new TargetSampling(conf);
@@ -99,16 +99,16 @@ public class Initialize {
         }
 
         //MovieLens
-        {
-            Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
-            TargetSampling targetSelection = new TargetSampling(conf);
-            targetSelection.runCrossValidation();
-        }
+//        {
+//            Configuration conf = new Configuration(ML1M_BIASED_PROPERTIES_FILE);
+//            TargetSampling targetSelection = new TargetSampling(conf);
+//            targetSelection.runCrossValidation();
+//        }
 
     }
 
     static void processMl1m() throws IOException {
-        
+
         RandomAccessFile ml1mIn = new RandomAccessFile(ORIGINAL_ML1M_DATASET_PATH, "r");
         byte bytes[] = new byte[(int) ml1mIn.length()];
         ml1mIn.read(bytes);
@@ -117,7 +117,7 @@ public class Initialize {
         PrintStream ml1mOut = new PrintStream(PREPROCESSED_ML1M_DATASET_PATH);
         ml1mOut.print(ratings.replace("::", "\t"));
         ml1mOut.close();
-        
+
         CrossValidation.crowssValidation(PREPROCESSED_ML1M_DATASET_PATH, ML1M_PATH, GenerateFigure.N_FOLDS);
     }
 
