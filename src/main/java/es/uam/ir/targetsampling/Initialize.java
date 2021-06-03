@@ -77,31 +77,31 @@ public class Initialize extends PreprocessDatasets {
     private static Collection<? extends Thread> run_optimal_finder() throws InterruptedException, IOException {
 
         return Arrays.asList(
-/*//                run("ML100K_FINDER_RANDOM", new Configuration(ML100K_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
-//                run("ML1M_FINDER_RANDOM", new Configuration(ML1M_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
-//                run("YAHOO_BIASED_FINDER_RANDOM", new Configuration(YAHOO_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
+                run("ML100K_FINDER_RANDOM", new Configuration(ML100K_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
+                run("ML1M_FINDER_RANDOM", new Configuration(ML1M_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
+                run("YAHOO_BIASED_FINDER_RANDOM", new Configuration(YAHOO_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
                 run("YAHOO_UNBIASED_FINDER_RANDOM", new Configuration(YAHOO_UNBIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
 
 //                POPULAR
-//                run("ML100K_FINDER_POPULAR", new Configuration(ML100K_POPULAR_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
-//                run("ML1M_FINDER_POPULAR", new Configuration(ML1M_POPULAR_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
-//                run("YAHOO_BIASED_FINDER_POPULAR", new Configuration(YAHOO_POPULAR_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
+                run("ML100K_FINDER_POPULAR", new Configuration(ML100K_POPULAR_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
+                run("ML1M_FINDER_POPULAR", new Configuration(ML1M_POPULAR_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
+                run("YAHOO_BIASED_FINDER_POPULAR", new Configuration(YAHOO_POPULAR_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
                 run("YAHOO_UNBIASED_FINDER_POPULAR", new Configuration(YAHOO_POPULAR_UNBIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
 
 //                UNPOPULAR
-//                run("ML100K_FINDER_UNPOPULAR", new Configuration(ML100K_UNPOPULAR_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
-//                run("ML1M_FINDER_UNPOPULAR", new Configuration(ML1M_UNPOPULAR_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
-//                run("YAHOO_BIASED_FINDER_UNPOPULAR", new Configuration(YAHOO_UNPOPULAR_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
-                run("YAHOO_UNBIASED_FINDER_UNPOPULAR", new Configuration(YAHOO_UNPOPULAR_UNBIASED_PROPERTIES_FILE).forAll().forTestAndFull())*/
+                run("ML100K_FINDER_UNPOPULAR", new Configuration(ML100K_UNPOPULAR_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
+                run("ML1M_FINDER_UNPOPULAR", new Configuration(ML1M_UNPOPULAR_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
+                run("YAHOO_BIASED_FINDER_UNPOPULAR", new Configuration(YAHOO_UNPOPULAR_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
+                run("YAHOO_UNBIASED_FINDER_UNPOPULAR", new Configuration(YAHOO_UNPOPULAR_UNBIASED_PROPERTIES_FILE).forAll().forTestAndFull())
 
-                run("ML1M_MALE_FINDER_RANDOM", new Configuration(ML1M_MALE_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
+                /*run("ML1M_MALE_FINDER_RANDOM", new Configuration(ML1M_MALE_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
                 run("ML1M_FEMALE_FINDER_RANDOM", new Configuration(ML1M_FEMALE_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
                 run("ML1M_YOUNG_FINDER_RANDOM", new Configuration(ML1M_YOUNG_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
                 run("ML1M_OLD_FINDER_RANDOM", new Configuration(ML1M_OLD_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
                 run("ML100K_MALE_FINDER_RANDOM", new Configuration(ML100K_MALE_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
                 run("ML100K_FEMALE_FINDER_RANDOM", new Configuration(ML100K_FEMALE_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
                 run("ML100K_YOUNG_FINDER_RANDOM", new Configuration(ML100K_YOUNG_BIASED_PROPERTIES_FILE).forAll().forTestAndFull()),
-                run("ML100K_OLD_FINDER_RANDOM", new Configuration(ML100K_OLD_BIASED_PROPERTIES_FILE).forAll().forTestAndFull())
+                run("ML100K_OLD_FINDER_RANDOM", new Configuration(ML100K_OLD_BIASED_PROPERTIES_FILE).forAll().forTestAndFull())*/
 
         );
     }
