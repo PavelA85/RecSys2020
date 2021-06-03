@@ -60,6 +60,7 @@ import java.util.logging.LogManager;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static org.ranksys.formats.parsing.Parsers.lp;
 
@@ -106,9 +107,9 @@ public class TargetSampling {
 
         Map<String, Map<String, double[]>> evalsPerUser = new HashMap<>();
         try (PrintStream out = new PrintStream(conf.getResultsPath() + TARGET_SAMPLING_FILE);
-             PrintStream outExpectation = new PrintStream(conf.getResultsPath() + EXPECTED_INTERSECTION_RATIO_FILE)) {
+             PrintStream outIntersection = new PrintStream(conf.getResultsPath() + EXPECTED_INTERSECTION_RATIO_FILE)) {
             //Header
-            outExpectation.println("fold\ttarget size\texpected intersection ratio in top n");
+            outIntersection.println("fold\ttarget size\texpected intersection ratio in top n");
 
             StringBuilder mBuilder = new StringBuilder("fold\ttarget size\trecommender system");
             for (String metric : METRIC_NAMES) {
@@ -117,20 +118,47 @@ public class TargetSampling {
                         .append(metric);
             }
             out.println(mBuilder);
-
-            IntStream.rangeClosed(1, conf.getNFolds())
-                    .parallel()
-                    .forEach(currentFold -> runFold(
-                            logSource,
-                            userIndex,
-                            itemIndex,
-                            evalsPerUser,
-                            out,
-                            outExpectation,
-                            currentFold
-                    ));
+            //        fold         targetSize   Rec         Metric  Values
+            final Map<Integer, Map<Integer, Map<String, Map<String, double[]>>>> collect =
+                    IntStream
+                            .rangeClosed(1, conf.getNFolds())
+                            .boxed()
+                            .parallel()
+                            .collect(Collectors.toMap(
+                                    fold -> fold,
+                                    currentFold -> runFold(
+                                            logSource,
+                                            userIndex,
+                                            itemIndex,
+                                            out,
+                                            outIntersection,
+                                            currentFold
+                                    )
+                            ));
 
             //Run
+
+
+            final Integer[] folds = collect.keySet().toArray(new Integer[0]);
+            final Integer[] targets = collect.get(folds[0]).keySet().toArray(new Integer[0]);
+            final String[] recommenders = collect.get(folds[0]).get(targets[0]).keySet().toArray(new String[0]);
+//            final String[] metrics = collect.get(folds[0]).get(targets[0]).get(recommenders[0]).keySet().toArray(new String[0]);
+
+            int m = userIndex.numUsers();
+            for (String recommender : recommenders) {
+                Map<String, double[]> values = new HashMap<>();
+                for (String metric : METRIC_NAMES) {
+                    final double[] value = new double[m * conf.getNFolds()];
+
+                    for (int fold = 1; fold <= conf.getNFolds(); fold++) {
+                        final double[] source = collect.get(fold).get(Integer.parseInt(recommender.split("\t")[0])).get(recommender).get(metric);
+                        System.arraycopy(source, 0, value, source.length * (fold - 1), source.length);
+                    }
+                    values.put(metric, value);
+
+                }
+                evalsPerUser.put(recommender, values);
+            }
 
             final int size = evalsPerUser
                     .values().stream().findFirst().get()
@@ -142,63 +170,77 @@ public class TargetSampling {
         Timer.done(logSource, logSource + " Done", "red");
     }
 
-    private void runFold(String logSource,
-                         FastUserIndex<Long> userIndex,
-                         FastItemIndex<Long> itemIndex,
-                         Map<String, Map<String, double[]>> evalsPerUser,
-                         PrintStream out,
-                         PrintStream outExpectation,
-                         int currentFold) {
+    private Map<Integer, Map<String, Map<String, double[]>>> runFold(
+            String logSource,
+            FastUserIndex<Long> userIndex,
+            FastItemIndex<Long> itemIndex,
+            PrintStream out,
+            PrintStream outIntersection,
+            int currentFold) {
         final String foldName = logSource + " Running fold " + currentFold;
 
         final String fileReadLog = foldName + ". Reading files";
         Timer.start(fileReadLog, fileReadLog);
-        FastPreferenceData<Long, Long> trainData = getData(userIndex, itemIndex, conf.getDataPath() + currentFold + "-data-train.txt");
+        final FastPreferenceData<Long, Long> trainData = getData(userIndex, itemIndex, conf.getDataPath() + currentFold + "-data-train.txt");
+        final FastPreferenceData<Long, Long> testData = getData(userIndex, itemIndex, getTestPath(currentFold, conf));
 
-        FastPreferenceData<Long, Long> testData;
-        final String testPath = conf.getTestPath();
-        if (testPath != null && !testPath.trim().isEmpty()) {
-            testData = getData(userIndex, itemIndex, testPath);
-        } else {
-            testData = getData(userIndex, itemIndex, conf.getDataPath() + currentFold + "-data-test.txt");
-        }
         assert trainData != null;
+        assert testData != null;
         FastPreferenceData<Long, Long> positiveTrainData = TruncateRatings.run(trainData, conf.getThreshold());
         Timer.done(fileReadLog, fileReadLog);
 
         int[] targetSizes = conf.getTargetSizes();
         Timer.start(foldName, foldName);
-        FastPreferenceData<Long, Long> finalTestData = testData;
         Arrays.stream(targetSizes)
+                .boxed()
                 .parallel()
-                .forEach(targetSize -> {
-                    final String foldTargetLog = foldName + " target:" + targetSize;
-                    Timer.start(foldTargetLog, foldTargetLog);
-                    //Sampler:
-                    assert finalTestData != null;
-                    Function<Long, IntPredicate> sampler = FastSamplers.uniform(trainData, FastSamplers.inTestForUser(finalTestData), targetSize, conf.getSamplerMode());
-                    Function<Long, IntPredicate> notTrainFilter = FastFilters.notInTrain(trainData);
-                    Function<Long, IntPredicate> userFilter = FastFilters.and(sampler, notTrainFilter);
+                .collect(Collectors.toMap(
+                        tSize -> tSize,
+                        targetSize -> targetSize));
 
-                    Map<String, Map<String, double[]>> evalsPerUserResults = runSplit(
-                            userIndex,
-                            itemIndex,
-                            targetSize,
-                            currentFold,
-                            trainData,
-                            positiveTrainData,
-                            finalTestData,
-                            userFilter,
-                            out,
-                            logSource);
+        final Map<Integer, Map<String, Map<String, double[]>>> purple = Arrays
+                .stream(targetSizes)
+                .parallel()
+                .boxed()
+                .collect(Collectors.toMap(
+                        tSize -> tSize,
+//                .forEach(targetSize -> {
+                        targetSize -> {
+                            final String foldTargetLog = foldName + " target:" + targetSize;
+                            Timer.start(foldTargetLog, foldTargetLog);
+                            //Sampler:
+                            Function<Long, IntPredicate> sampler = FastSamplers.uniform(trainData, FastSamplers.inTestForUser(testData), targetSize, conf.getSamplerMode());
+                            Function<Long, IntPredicate> notTrainFilter = FastFilters.notInTrain(trainData);
+                            Function<Long, IntPredicate> userFilter = FastFilters.and(sampler, notTrainFilter);
 
-                    double expectation = getExpectation(itemIndex, trainData, userFilter);
-                    outExpectation.println(currentFold + "\t" + targetSize + "\t" + expectation);
-                    long newUsers = trainData.getUsersWithPreferences().count();
-                    evalsPerUserResults.forEach((s, stringMap) -> evalsPerUser.put(s, evalsPerUserResults.get(s)));
-                    Timer.done(foldTargetLog, String.format("%s new users:%d expectation:%s", foldTargetLog, newUsers, expectation), "purple");
-                });
+                            Map<String, Map<String, double[]>> evalsPerUserResults = runSplit(
+                                    userIndex,
+                                    itemIndex,
+                                    targetSize,
+                                    currentFold,
+                                    trainData,
+                                    positiveTrainData,
+                                    testData,
+                                    userFilter,
+                                    out,
+                                    logSource);
+
+                            double expected_intersection_ratio = get_EXPECTED_INTERSECTION_RATIO(itemIndex, trainData, userFilter);
+                            outIntersection.println(currentFold + "\t" + targetSize + "\t" + expected_intersection_ratio);
+                            long newUsers = trainData.getUsersWithPreferences().count();
+                            Timer.done(foldTargetLog, String.format("%s new users:%d expectation:%s", foldTargetLog, newUsers, expected_intersection_ratio), "purple");
+                            return evalsPerUserResults;
+                        }));
         Timer.done(foldName, foldName, "yellow");
+        return purple;
+    }
+
+    private static String getTestPath(int currentFold, Configuration conf) {
+        if (conf.getTestPath() != null && !conf.getTestPath().trim().isEmpty()) {
+            return conf.getTestPath();
+        } else {
+            return conf.getDataPath() + currentFold + "-data-test.txt";
+        }
     }
 
     private FastPreferenceData<Long, Long> getData(
@@ -218,7 +260,7 @@ public class TargetSampling {
         return null;
     }
 
-    private double getExpectation(FastItemIndex<Long> itemIndex, FastPreferenceData<Long, Long> trainData, Function<Long,
+    private double get_EXPECTED_INTERSECTION_RATIO(FastItemIndex<Long> itemIndex, FastPreferenceData<Long, Long> trainData, Function<Long,
             IntPredicate> userFilter) {
         return trainData.getUsersWithPreferences()
                 .mapToDouble(user -> {
