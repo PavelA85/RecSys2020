@@ -135,29 +135,29 @@ public class TargetSampling {
                                             currentFold
                                     )
                             ));
-
             //Run
-
 
             final Integer[] folds = collect.keySet().toArray(new Integer[0]);
             final Integer[] targets = collect.get(folds[0]).keySet().toArray(new Integer[0]);
-            final String[] recommenders = collect.get(folds[0]).get(targets[0]).keySet().toArray(new String[0]);
-//            final String[] metrics = collect.get(folds[0]).get(targets[0]).get(recommenders[0]).keySet().toArray(new String[0]);
 
             int m = userIndex.numUsers();
-            for (String recommender : recommenders) {
-                Map<String, double[]> values = new HashMap<>();
-                for (String metric : METRIC_NAMES) {
-                    final double[] value = new double[m * conf.getNFolds()];
+            for (Integer target : targets) {
+                final String[] recommenders = collect.get(folds[0]).get(target).keySet().toArray(new String[0]);
+                for (String recommender : recommenders) {
+                    Map<String, double[]> values = new HashMap<>();
+                    for (String metric : METRIC_NAMES) {
+                        final double[] value = new double[m * conf.getNFolds()];
 
-                    for (int fold = 1; fold <= conf.getNFolds(); fold++) {
-                        final double[] source = collect.get(fold).get(Integer.parseInt(recommender.split("\t")[0])).get(recommender).get(metric);
-                        System.arraycopy(source, 0, value, source.length * (fold - 1), source.length);
+                        for (int fold = 1; fold <= conf.getNFolds(); fold++) {
+                            int targetSize = Integer.parseInt(recommender.split("\t")[0]);
+                            final double[] source = collect.get(fold).get(targetSize).get(recommender).get(metric);
+                            System.arraycopy(source, 0, value, source.length * (fold - 1), source.length);
+                        }
+                        values.put(metric, value);
+
                     }
-                    values.put(metric, value);
-
+                    evalsPerUser.put(recommender, values);
                 }
-                evalsPerUser.put(recommender, values);
             }
 
             final int size = evalsPerUser
@@ -191,20 +191,13 @@ public class TargetSampling {
 
         int[] targetSizes = conf.getTargetSizes();
         Timer.start(foldName, foldName);
-        Arrays.stream(targetSizes)
-                .boxed()
-                .parallel()
-                .collect(Collectors.toMap(
-                        tSize -> tSize,
-                        targetSize -> targetSize));
 
         final Map<Integer, Map<String, Map<String, double[]>>> purple = Arrays
                 .stream(targetSizes)
                 .parallel()
                 .boxed()
                 .collect(Collectors.toMap(
-                        tSize -> tSize,
-//                .forEach(targetSize -> {
+                        targetSize -> targetSize,
                         targetSize -> {
                             final String foldTargetLog = foldName + " target:" + targetSize;
                             Timer.start(foldTargetLog, foldTargetLog);

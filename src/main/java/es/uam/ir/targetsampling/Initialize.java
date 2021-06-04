@@ -34,9 +34,9 @@ public class Initialize extends PreprocessDatasets {
 
         List<Thread> threads = new ArrayList<>();
 
-        threads.addAll(run_optimal_finder());
+//        threads.addAll(run_optimal_finder());
 
-//        threads.addAll(run_for_all());
+        threads.addAll(run_for_all());
 //        threads.addAll(run_NOFILL());
 //        threads.addAll(run_experiments());
 
@@ -176,12 +176,9 @@ public class Initialize extends PreprocessDatasets {
 
     private static Thread run(String title, Configuration conf) throws InterruptedException {
         Thread thread = new Thread(() -> {
-            //MovieLens
             try {
-                Timer.start(title, title);
                 TargetSampling targetSelection = new TargetSampling(conf);
                 targetSelection.runCrossValidation(title);
-                Timer.done(title, title);
             } catch (IOException e) {
                 System.out.println(title + conf + e);
                 System.out.println("StartCrossValidateTargetSampling " + e);
