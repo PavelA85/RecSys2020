@@ -34,11 +34,11 @@ public class Initialize extends PreprocessDatasets {
 
         List<Thread> threads = new ArrayList<>();
 
-        threads.addAll(run_optimal_finder());
+//        threads.addAll(run_optimal_finder());
 
 //        threads.addAll(run_for_all());
 //        threads.addAll(run_NOFILL());
-//        threads.addAll(run_experiments());
+        threads.addAll(run_experiments());
 
         ThreadJoin(threads);
         Timer.done(args, "Initialize end");
@@ -131,23 +131,23 @@ public class Initialize extends PreprocessDatasets {
     private static Collection<? extends Thread> run_experiments() throws InterruptedException, IOException {
 
         return Arrays.asList(
-                run("ML100K_RANDOM", new Configuration(ML100K_BIASED_PROPERTIES_FILE)),
-                run("ML1M_RANDOM", new Configuration(ML1M_BIASED_PROPERTIES_FILE)),
-                run("YAHOO_BIASED_RANDOM", new Configuration(YAHOO_BIASED_PROPERTIES_FILE)),
-                run("YAHOO_UNBIASED_RANDOM", new Configuration(YAHOO_UNBIASED_PROPERTIES_FILE)),
+//                run("ML100K_RANDOM", new Configuration(ML100K_BIASED_PROPERTIES_FILE)),
+//                run("ML1M_RANDOM", new Configuration(ML1M_BIASED_PROPERTIES_FILE)),
+//                run("YAHOO_BIASED_RANDOM", new Configuration(YAHOO_BIASED_PROPERTIES_FILE)),
+                run("YAHOO_UNBIASED_RANDOM", new Configuration(YAHOO_UNBIASED_PROPERTIES_FILE))
 
-//                POPULAR
-
-                run("ML100K_POPULAR", new Configuration(ML100K_POPULAR_BIASED_PROPERTIES_FILE)),
-                run("ML1M_POPULAR", new Configuration(ML1M_POPULAR_BIASED_PROPERTIES_FILE)),
-                run("YAHOO_BIASED_POPULAR", new Configuration(YAHOO_POPULAR_BIASED_PROPERTIES_FILE)),
-                run("YAHOO_UNBIASED_POPULAR", new Configuration(YAHOO_POPULAR_UNBIASED_PROPERTIES_FILE)),
-
-//                UNPOPULAR
-                run("ML100K_UNPOPULAR", new Configuration(ML100K_UNPOPULAR_BIASED_PROPERTIES_FILE)),
-                run("ML1M_UNPOPULAR", new Configuration(ML1M_UNPOPULAR_BIASED_PROPERTIES_FILE)),
-                run("YAHOO_BIASED_UNPOPULAR", new Configuration(YAHOO_UNPOPULAR_BIASED_PROPERTIES_FILE)),
-                run("YAHOO_UNBIASED_UNPOPULAR", new Configuration(YAHOO_UNPOPULAR_UNBIASED_PROPERTIES_FILE))
+////                POPULAR
+//
+//                run("ML100K_POPULAR", new Configuration(ML100K_POPULAR_BIASED_PROPERTIES_FILE)),
+//                run("ML1M_POPULAR", new Configuration(ML1M_POPULAR_BIASED_PROPERTIES_FILE)),
+//                run("YAHOO_BIASED_POPULAR", new Configuration(YAHOO_POPULAR_BIASED_PROPERTIES_FILE)),
+//                run("YAHOO_UNBIASED_POPULAR", new Configuration(YAHOO_POPULAR_UNBIASED_PROPERTIES_FILE)),
+//
+////                UNPOPULAR
+//                run("ML100K_UNPOPULAR", new Configuration(ML100K_UNPOPULAR_BIASED_PROPERTIES_FILE)),
+//                run("ML1M_UNPOPULAR", new Configuration(ML1M_UNPOPULAR_BIASED_PROPERTIES_FILE)),
+//                run("YAHOO_BIASED_UNPOPULAR", new Configuration(YAHOO_UNPOPULAR_BIASED_PROPERTIES_FILE)),
+//                run("YAHOO_UNBIASED_UNPOPULAR", new Configuration(YAHOO_UNPOPULAR_UNBIASED_PROPERTIES_FILE))
         );
     }
 
