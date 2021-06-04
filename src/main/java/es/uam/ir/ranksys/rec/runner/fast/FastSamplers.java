@@ -114,35 +114,15 @@ public class FastSamplers {
 
             private final I item;
             private final long positiveCount;
-//            private final long negativeCount;
-//            private final long ratingCount;
-//            private final double average;
 
             public TTuple(I item, DoubleStream ratings) {
                 this.item = item;
-//                ratings.forEach();
                 this.positiveCount = ratings.filter(value -> value >= 4.0).count();
-//                this.negativeCount = ratings.filter(value -> value < 4.0).count();
-//                this.ratingCount = ratings.count();
-//                this.average = ratings.average().orElse(0);
-
             }
 
             public long getPositiveCount() {
                 return positiveCount;
             }
-
-//            public long getNegativeCount() {
-//                return negativeCount;
-//            }
-
-//            public long getRatingCount() {
-//                return ratingCount;
-//            }
-
-//            public double getAverage() {
-//                return average;
-//            }
 
             public I getItem() {
                 return item;
